@@ -271,7 +271,7 @@ export default function AboutUs() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="flex justify-center">
                 <div className="w-56 h-56 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-lg shadow-cyan-500/10">
-                  <img src="/Untitled_design_(15).png" alt="Anshul Shrivastava" className="w-full h-full object-cover" />
+                  <img loading="lazy" decoding="async" src="/Untitled_design_(15).png" alt="Anshul Shrivastava" className="w-full h-full object-cover" />
                 </div>
               </div>
               <div>

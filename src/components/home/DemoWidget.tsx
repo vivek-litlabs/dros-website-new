@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Phone, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Section, Container, Heading, Eyebrow } from '../ui';
-import Reveal from '../Reveal';
+import { fadeUp } from '../../lib/motion';
 import { trackCta } from '../../lib/analytics';
 
 export default function DemoWidget() {
@@ -20,7 +21,12 @@ export default function DemoWidget() {
   return (
     <Section id="demo" tone="light">
       <Container className="relative">
-        <Reveal className="mx-auto max-w-2xl text-center">
+        <motion.div
+          className="mx-auto max-w-2xl text-center"
+          initial="hidden"
+          animate="show"
+          variants={fadeUp}
+        >
           <Eyebrow className="text-ink-grey justify-center">Hear it for yourself</Eyebrow>
           <Heading as="h2" size="display" className="mt-4 text-ink-dark">
             Want to hear what your AI collections agent sounds like?
@@ -51,7 +57,7 @@ export default function DemoWidget() {
               </div>
               <button
                 type="submit"
-                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-btn bg-[#080808] px-6 font-semibold text-white transition-opacity hover:opacity-90"
+                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-btn bg-[#0C1E45] px-6 font-semibold text-white transition-opacity hover:opacity-90"
               >
                 Call me now <ArrowRight className="h-4 w-4" />
               </button>
@@ -59,7 +65,7 @@ export default function DemoWidget() {
           )}
 
           <p className="mt-4 text-xs text-ink-grey/60">We won't spam you. This is a one-time demo call.</p>
-        </Reveal>
+        </motion.div>
       </Container>
     </Section>
   );

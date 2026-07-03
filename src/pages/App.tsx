@@ -8,11 +8,13 @@ import Footer from './Footer';
 import Hero from '../components/home/Hero';
 import Problem from '../components/home/Problem';
 import HowItWorks from '../components/home/HowItWorks';
+import Features from '../components/home/Features';
 import UseCases from '../components/home/UseCases';
 import Compliance from '../components/home/Compliance';
 import SocialProof from '../components/home/SocialProof';
 import Pricing from '../components/home/Pricing';
 import DemoWidget from '../components/home/DemoWidget';
+import PostCTA from '../components/home/PostCTA';
 
 export default function App() {
   const location = useLocation();
@@ -85,11 +87,13 @@ export default function App() {
         <Hero />
         <Problem />
         <HowItWorks />
+        <Features />
         <UseCases />
         <Compliance />
         <SocialProof />
         <Pricing />
         <DemoWidget />
+        <PostCTA />
       </main>
 
       <Footer />

@@ -53,6 +53,7 @@ export default function BlogPostAIVoiceAgents() {
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
       <BlogLayout
+        image="/blog/blocked-icon.avif"
         title="How AI Voice Agents Handle Debt Disputes Without Creating Compliance Risk"
         readTime="12 min"
         tags={['Compliance & Operations']}
@@ -96,10 +97,10 @@ export default function BlogPostAIVoiceAgents() {
           <div className="overflow-x-auto -mx-1">
             <table className="w-full text-sm min-w-[540px]">
               <thead>
-                <tr className="border-b border-slate-700">
-                  <th className="text-left text-cyan-400 font-semibold py-3 pr-6">Dispute type</th>
-                  <th className="text-left text-cyan-400 font-semibold py-3 pr-6">Example consumer language</th>
-                  <th className="text-left text-cyan-400 font-semibold py-3">Minimum system behavior</th>
+                <tr className="border-b border-[#E6E3E3]">
+                  <th className="text-left text-cyan-700 font-semibold py-3 pr-6">Dispute type</th>
+                  <th className="text-left text-cyan-700 font-semibold py-3 pr-6">Example consumer language</th>
+                  <th className="text-left text-cyan-700 font-semibold py-3">Minimum system behavior</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800">
@@ -121,9 +122,9 @@ export default function BlogPostAIVoiceAgents() {
                   },
                 ].map((row, i) => (
                   <tr key={i}>
-                    <td className="text-slate-300 py-4 pr-6 align-top font-medium">{row.type}</td>
-                    <td className="text-slate-400 py-4 pr-6 align-top italic">{row.example}</td>
-                    <td className="text-slate-300 py-4 align-top">{row.behavior}</td>
+                    <td className="text-black/70 py-4 pr-6 align-top font-medium">{row.type}</td>
+                    <td className="text-black/50 py-4 pr-6 align-top italic">{row.example}</td>
+                    <td className="text-black/70 py-4 align-top">{row.behavior}</td>
                   </tr>
                 ))}
               </tbody>
@@ -168,10 +169,10 @@ export default function BlogPostAIVoiceAgents() {
               body: 'One or two simple questions to give your dispute team enough information to investigate, without turning the conversation into an interrogation. Example: "Is your concern that this isn\'t your account, or that the amount is wrong?"',
             },
           ].map((card) => (
-            <div key={card.num} className="bg-slate-900 border border-slate-700 rounded-2xl p-5 shadow-sm">
-              <div className="w-8 h-8 rounded-full bg-cyan-500/15 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold text-sm mb-3">{card.num}</div>
-              <p className="font-semibold text-cyan-300 mb-2 text-sm">{card.title}</p>
-              <p className="text-slate-300 text-sm leading-relaxed">{card.body}</p>
+            <div key={card.num} className="bg-[#FAFAFA] border border-[#E6E3E3] rounded-2xl p-5 shadow-sm">
+              <div className="w-8 h-8 rounded-full bg-cyan-500/15 border border-cyan-500/40 flex items-center justify-center text-cyan-700 font-bold text-sm mb-3">{card.num}</div>
+              <p className="font-semibold text-cyan-700 mb-2 text-sm">{card.title}</p>
+              <p className="text-black/70 text-sm leading-relaxed">{card.body}</p>
             </div>
           ))}
         </div>
@@ -226,7 +227,7 @@ export default function BlogPostAIVoiceAgents() {
               'Never report a debt to credit bureaus as undisputed if a dispute is pending, where credit reporting laws or client policies prohibit that.',
               'Never treat disputes as just another objection in AI training. They must be a separate intent with their own scripts and workflows.',
             ].map((item, i) => (
-              <li key={i} className="flex items-start gap-3 text-slate-300 text-sm leading-relaxed">
+              <li key={i} className="flex items-start gap-3 text-black/70 text-sm leading-relaxed">
                 <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-red-500/15 border border-red-500/40 flex items-center justify-center text-red-400 font-bold text-xs">!</span>
                 {item}
               </li>
@@ -270,9 +271,9 @@ export default function BlogPostAIVoiceAgents() {
               body: 'Transcripts and structured tags show exactly what was said, when, and how the system responded.',
             },
           ].map((item, i) => (
-            <div key={i} className="flex flex-col sm:flex-row gap-3 sm:gap-4 bg-slate-800 border border-slate-700 rounded-xl p-5 mb-3 last:mb-0">
-              <span className="text-cyan-400 font-bold text-sm sm:min-w-[220px] sm:pt-0.5">{item.title}</span>
-              <span className="text-slate-300 leading-relaxed text-sm">{item.body}</span>
+            <div key={i} className="flex flex-col sm:flex-row gap-3 sm:gap-4 bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-5 mb-3 last:mb-0">
+              <span className="text-cyan-700 font-bold text-sm sm:min-w-[220px] sm:pt-0.5">{item.title}</span>
+              <span className="text-black/70 leading-relaxed text-sm">{item.body}</span>
             </div>
           ))}
         </DarkCard>

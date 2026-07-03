@@ -130,7 +130,7 @@ function EventsPage() {
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-gradient-to-br from-cyan-900/20 to-slate-900/20 border border-cyan-500/30 rounded-2xl p-12">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-cyan-500/10 rounded-full mb-6">
-                <img src="/dros_logo_square.png" alt="DROS" className="w-10 h-10" />
+                <img loading="lazy" decoding="async" src="/dros_logo_square.png" alt="DROS" className="w-10 h-10" />
               </div>
               <h3 className="text-3xl font-bold mb-4">DROS</h3>
               <p className="text-lg text-slate-300 mb-6 leading-relaxed">
@@ -154,7 +154,7 @@ function EventsPage() {
 
             <div className="bg-gradient-to-br from-blue-900/20 to-slate-900/20 border border-blue-500/30 rounded-2xl p-12">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500/10 rounded-full mb-6">
-                <img src="/base_icon_transparent_background.png" alt="Vodex" className="w-10 h-10 object-contain" />
+                <img loading="lazy" decoding="async" src="/base_icon_transparent_background.png" alt="Vodex" className="w-10 h-10 object-contain" />
               </div>
               <h3 className="text-3xl font-bold mb-4">Vodex</h3>
               <p className="text-lg text-slate-300 mb-6 leading-relaxed">
@@ -432,7 +432,7 @@ function EventsPage() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <img src="/untitled_logo_1_basic-file.png" alt="DROS Logo" className="w-8 h-8" />
+                <img loading="lazy" decoding="async" src="/untitled_logo_1_basic-file.png" alt="DROS Logo" className="w-8 h-8" />
                 <span className="text-xl font-bold">DROS</span>
               </div>
               <p className="text-slate-400 text-sm">

@@ -94,4 +94,19 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  build: {
+    target: 'es2020',
+    cssCodeSplit: true,
+    reportCompressedSize: false,
+    rollupOptions: {
+      output: {
+        // Keep large, stable vendors in their own long-cacheable chunks so a
+        // content change in app code doesn't bust the whole vendor cache.
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'framer-motion': ['framer-motion'],
+        },
+      },
+    },
+  },
 });

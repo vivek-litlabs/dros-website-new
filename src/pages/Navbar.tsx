@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ChevronDown, ArrowRight } from 'lucide-react';
+import { ChevronDown, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import type Lenis from 'lenis';
@@ -23,21 +23,32 @@ function scrollToId(id: string) {
   }
 }
 
-const RESOURCE_LINKS: [string, string, boolean][] = [
-  ['Blogs', '/blogs', false],
-  ['Newsroom', '/newsroom', false],
-  ['Customer Stories', '/customer-stories', false],
-  ['Events', '/events', false],
-  ['Webinars', '/webinars', false],
-  ['Videos', '/resources/videos', false],
-  ['API Docs', 'https://app.dros.ai/api-docs', true],
-  ['Release Notes', '/release-notes', false],
-  ['Contact Us', '/contact', false],
+interface ResourceItem {
+  label: string;
+  href: string;
+  description: string;
+  external?: boolean;
+}
+
+const RESOURCE_COLUMNS: ResourceItem[][] = [
+  [
+    { label: 'Blogs', href: '/blogs', description: 'Insights on debt recovery and AI voice' },
+    { label: 'Newsroom', href: '/newsroom', description: 'Company news and press coverage' },
+    { label: 'Customer Stories', href: '/customer-stories', description: 'How agencies win more with DROS' },
+    { label: 'Events', href: '/events', description: 'Meet us at upcoming industry events' },
+    { label: 'Webinars', href: '/webinars', description: 'Live sessions on collections automation' },
+  ],
+  [
+    { label: 'Videos', href: '/resources/videos', description: 'Product walkthroughs and demos' },
+    { label: 'API Docs', href: 'https://app.dros.ai/api-docs', description: 'Integrate DROS into your stack', external: true },
+    { label: 'Release Notes', href: '/release-notes', description: 'What is new in every DROS release' },
+    { label: 'Contact Us', href: '/contact', description: 'Talk to our team directly' },
+  ],
 ];
 
 /* Staggered reveal for the dropdown panel's links. */
 const dropdownPanel: Variants = {
-  hidden: { opacity: 0, y: 8, scale: 0.97 },
+  hidden: { opacity: 0, y: 6, scale: 0.98 },
   show: {
     opacity: 1,
     y: 0,
@@ -62,6 +73,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const reduce = useReducedMotion();
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (!transparent) {
@@ -84,6 +96,24 @@ export default function Navbar({ transparent = false }: NavbarProps) {
       };
     }
   }, [isMenuOpen]);
+
+  // Clear any pending dropdown-close timer on unmount.
+  useEffect(() => () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+  }, []);
+
+  function handleDropdownEnter(key: string) {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    setHovered(key);
+    setActiveDropdown(key);
+  }
+
+  function handleDropdownLeave() {
+    closeTimerRef.current = setTimeout(() => setActiveDropdown(null), 150);
+  }
 
   function handleAnchorClick(id: string) {
     setIsMenuOpen(false);
@@ -187,11 +217,8 @@ export default function Navbar({ transparent = false }: NavbarProps) {
               {/* Resources dropdown */}
               <div
                 className="relative"
-                onMouseEnter={() => {
-                  setHovered('resources');
-                  setActiveDropdown('resources');
-                }}
-                onMouseLeave={() => setActiveDropdown(null)}
+                onMouseEnter={() => handleDropdownEnter('resources')}
+                onMouseLeave={handleDropdownLeave}
               >
                 <button className={`${itemClass} text-ink/65 hover:text-ink`}>
                   <HoverPill id="resources" />
@@ -206,38 +233,60 @@ export default function Navbar({ transparent = false }: NavbarProps) {
 
                 <AnimatePresence>
                   {activeDropdown === 'resources' && (
-                    <div className="absolute left-0 top-full pt-3">
+                    <div
+                      className="absolute right-0 top-full pt-3"
+                      onMouseEnter={() => handleDropdownEnter('resources')}
+                      onMouseLeave={handleDropdownLeave}
+                    >
                       <motion.div
                         variants={dropdownPanel}
                         initial="hidden"
                         animate="show"
                         exit="exit"
-                        style={{ transformOrigin: 'top left' }}
-                        className="w-56 rounded-2xl border border-hair bg-surface/95 p-2 shadow-lift backdrop-blur-xl"
+                        style={{ transformOrigin: 'top right', backgroundColor: 'rgba(4,7,15,0.72)', backdropFilter: 'blur(20px)' }}
+                        className="w-[480px] rounded-2xl border border-hair p-4 shadow-lift"
                       >
-                        {RESOURCE_LINKS.map(([label, href, external]) => (
-                          <motion.div key={label} variants={dropdownItem}>
-                            {external ? (
-                              <a
-                                href={href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group flex items-center justify-between rounded-lg px-3 py-2 text-sm text-ink/70 transition-colors hover:bg-white/[0.05] hover:text-ink"
-                              >
-                                {label}
-                                <ArrowRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-60" />
-                              </a>
-                            ) : (
-                              <Link
-                                to={href}
-                                className="group flex items-center justify-between rounded-lg px-3 py-2 text-sm text-ink/70 transition-colors hover:bg-white/[0.05] hover:text-ink"
-                              >
-                                {label}
-                                <ArrowRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-60" />
-                              </Link>
-                            )}
-                          </motion.div>
-                        ))}
+                        <div className="flex gap-4">
+                          {RESOURCE_COLUMNS.map((column, columnIndex) => (
+                            <div key={columnIndex} className="contents">
+                              {columnIndex === 1 && <div className="w-px shrink-0 self-stretch bg-hair" />}
+                              <div className="flex w-[200px] flex-col gap-3">
+                                {column.map(({ label, href, description, external }) => (
+                                  <motion.div key={label} variants={dropdownItem}>
+                                    {external ? (
+                                      <a
+                                        href={href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group flex flex-col gap-1 rounded-lg px-3 py-2 transition-colors hover:bg-white/[0.05]"
+                                      >
+                                        <span className="flex items-center text-[15px] font-medium leading-[1.2] text-ink/90 transition-colors group-hover:text-ink">
+                                          {label}
+                                          <ArrowUpRight className="ml-0.5 h-3 w-3 text-ink/50 transition-colors group-hover:text-ink/80" />
+                                        </span>
+                                        <span className="text-[11px] leading-[1.3] text-ink/55 transition-colors group-hover:text-ink/70">
+                                          {description}
+                                        </span>
+                                      </a>
+                                    ) : (
+                                      <Link
+                                        to={href}
+                                        className="group flex flex-col gap-1 rounded-lg px-3 py-2 transition-colors hover:bg-white/[0.05]"
+                                      >
+                                        <span className="flex items-center text-[15px] font-medium leading-[1.2] text-ink/90 transition-colors group-hover:text-ink">
+                                          {label}
+                                        </span>
+                                        <span className="text-[11px] leading-[1.3] text-ink/55 transition-colors group-hover:text-ink/70">
+                                          {description}
+                                        </span>
+                                      </Link>
+                                    )}
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </motion.div>
                     </div>
                   )}
@@ -260,7 +309,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                 whileHover={reduce ? undefined : { scale: 1.03 }}
                 whileTap={reduce ? undefined : { scale: 0.97 }}
                 transition={springSnappy}
-                className="group relative inline-flex items-center gap-1.5 overflow-hidden rounded-full bg-white px-5 py-2.5 text-sm font-medium text-[#080808]"
+                className="group relative inline-flex items-center gap-1.5 overflow-hidden rounded-full bg-white px-5 py-2.5 text-sm font-medium text-[#0C1E45]"
               >
                 {/* Sheen sweep on hover */}
                 <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/5 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
@@ -356,26 +405,31 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                       transition={{ duration: 0.24, ease: [0.44, 0, 0.11, 1] }}
                       className="ml-3 overflow-hidden border-l border-hair pl-3"
                     >
-                      {RESOURCE_LINKS.map(([label, href, external]) =>
+                      {RESOURCE_COLUMNS.flat().map(({ label, href, description, external }) =>
                         external ? (
                           <a
                             key={label}
                             href={href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block py-2 text-sm text-ink/55 transition-colors hover:text-ink"
+                            className="block py-2 transition-colors hover:text-ink"
                             onClick={() => setIsMenuOpen(false)}
                           >
-                            {label}
+                            <span className="flex items-center text-sm text-ink/70">
+                              {label}
+                              <ArrowUpRight className="ml-0.5 h-3 w-3 text-ink/40" />
+                            </span>
+                            <span className="block text-xs text-ink/40">{description}</span>
                           </a>
                         ) : (
                           <Link
                             key={label}
                             to={href}
-                            className="block py-2 text-sm text-ink/55 transition-colors hover:text-ink"
+                            className="block py-2 transition-colors hover:text-ink"
                             onClick={() => setIsMenuOpen(false)}
                           >
-                            {label}
+                            <span className="flex items-center text-sm text-ink/70">{label}</span>
+                            <span className="block text-xs text-ink/40">{description}</span>
                           </Link>
                         ),
                       )}
@@ -395,7 +449,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                 </a>
                 <button
                   onClick={() => handleAnchorClick('demo')}
-                  className="flex w-full items-center justify-center gap-1.5 rounded-full bg-white px-6 py-3 text-center font-medium text-[#080808]"
+                  className="flex w-full items-center justify-center gap-1.5 rounded-full bg-white px-6 py-3 text-center font-medium text-[#0C1E45]"
                 >
                   Talk to Our AI Agent
                   <ArrowRight className="h-4 w-4" />

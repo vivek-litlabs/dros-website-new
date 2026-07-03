@@ -44,28 +44,28 @@ export default function RMAILasVegasEvent() {
 
             <div className="grid md:grid-cols-2 gap-6 mb-12">
               <div className="rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all">
-                <img
+                <img loading="lazy" decoding="async"
                   src="/WhatsApp_Image_2026-02-14_at_15.12.23.jpeg"
                   alt="DROS team at RMAI Las Vegas 2026"
                   className="w-full h-auto object-cover"
                 />
               </div>
               <div className="rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all">
-                <img
+                <img loading="lazy" decoding="async"
                   src="/WhatsApp_Image_2026-02-14_at_15.12.36.jpeg"
                   alt="Networking at RMAI conference"
                   className="w-full h-auto object-cover"
                 />
               </div>
               <div className="rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all">
-                <img
+                <img loading="lazy" decoding="async"
                   src="/WhatsApp_Image_2026-02-14_at_15.12.39.jpeg"
                   alt="DROS booth at RMAI Las Vegas"
                   className="w-full h-auto object-cover"
                 />
               </div>
               <div className="rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all">
-                <img
+                <img loading="lazy" decoding="async"
                   src="/WhatsApp_Image_2026-02-14_at_15.12.40_(1).jpeg"
                   alt="Team collaboration at RMAI"
                   className="w-full h-auto object-cover"
@@ -74,7 +74,7 @@ export default function RMAILasVegasEvent() {
             </div>
 
             <div className="rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all mb-12">
-              <img
+              <img loading="lazy" decoding="async"
                 src="/WhatsApp_Image_2026-02-14_at_15.12.40.jpeg"
                 alt="DROS platform showcase at RMAI"
                 className="w-full h-auto object-cover"
@@ -288,7 +288,7 @@ export default function RMAILasVegasEvent() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <img src="/untitled_logo_1_basic-file.png" alt="DROS Logo" className="w-8 h-8" />
+                <img loading="lazy" decoding="async" src="/untitled_logo_1_basic-file.png" alt="DROS Logo" className="w-8 h-8" />
                 <span className="text-xl font-bold">DROS</span>
               </div>
               <p className="text-slate-400 text-sm">The operating system for modern debt collection agencies.</p>

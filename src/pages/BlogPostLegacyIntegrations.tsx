@@ -30,6 +30,7 @@ export default function BlogPostLegacyIntegrations() {
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
       <BlogLayout
+      image="/features/workflows.jpg"
       title="Why Collections Integrations Break Down With Legacy Systems  - and What to Fix First"
       readTime="14 min"
       tags={['Technology & Integrations']}
@@ -96,9 +97,9 @@ export default function BlogPostLegacyIntegrations() {
       </DarkCard>
 
       <DarkCard>
-        <p className="text-slate-300 mb-4 font-medium">A realistic test is simple:</p>
-        <p className="text-slate-300 mb-3 leading-relaxed text-sm">Can a new collector sit down and work their queue from one main interface, or are they living inside four systems?</p>
-        <p className="text-slate-300 leading-relaxed text-sm">When compliance asks, "Show me every time we contacted John Doe in the last 60 days," can you answer that from one place?</p>
+        <p className="text-black/70 mb-4 font-medium">A realistic test is simple:</p>
+        <p className="text-black/70 mb-3 leading-relaxed text-sm">Can a new collector sit down and work their queue from one main interface, or are they living inside four systems?</p>
+        <p className="text-black/70 leading-relaxed text-sm">When compliance asks, "Show me every time we contacted John Doe in the last 60 days," can you answer that from one place?</p>
       </DarkCard>
 
       <H2 id="why-so-hard">Why Are Collections Integrations So Hard With Legacy Systems?</H2>
@@ -152,11 +153,11 @@ export default function BlogPostLegacyIntegrations() {
             items: ['settlements', 'partials', 'chargebacks', 'updated balances and statuses'],
           },
         ].map((group, i) => (
-          <div key={i} className="bg-slate-800 border border-slate-700 rounded-xl p-4 sm:p-5 mb-3 last:mb-0">
-            <p className="text-white font-medium text-sm mb-3">{group.label}</p>
+          <div key={i} className="bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-4 sm:p-5 mb-3 last:mb-0">
+            <p className="text-black font-medium text-sm mb-3">{group.label}</p>
             <div className="flex flex-wrap gap-2">
               {group.items.map((item, j) => (
-                <span key={j} className="bg-slate-700 text-slate-300 text-xs px-3 py-1 rounded-full">{item}</span>
+                <span key={j} className="bg-black/5 text-black/70 text-xs px-3 py-1 rounded-full">{item}</span>
               ))}
             </div>
           </div>
@@ -170,12 +171,12 @@ export default function BlogPostLegacyIntegrations() {
 
       <DarkCard>
         <div className="grid sm:grid-cols-2 gap-4">
-          <div className="bg-slate-800 border border-slate-700 rounded-xl p-5 sm:p-6">
-            <h3 className="font-semibold text-white mb-4 text-sm">Option 1: Keep adding point-to-point integrations</h3>
+          <div className="bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-5 sm:p-6">
+            <h3 className="font-semibold text-black mb-4 text-sm">Option 1: Keep adding point-to-point integrations</h3>
             <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Pros</p>
             <ul className="space-y-2 my-3">
               {['incremental', 'cheaper at first', 'no big replatforming'].map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-slate-200 text-sm leading-relaxed">
+                <li key={i} className="flex items-start gap-2 text-black/80 text-sm leading-relaxed">
                   <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full flex-shrink-0 mt-1.5" />{item}
                 </li>
               ))}
@@ -183,18 +184,18 @@ export default function BlogPostLegacyIntegrations() {
             <p className="text-xs font-semibold text-red-400 uppercase tracking-wider mb-2 mt-4">Cons</p>
             <ul className="space-y-2 my-3">
               {['every new tool adds complexity', 'more failure points', 'harder to maintain'].map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-slate-200 text-sm leading-relaxed">
+                <li key={i} className="flex items-start gap-2 text-black/80 text-sm leading-relaxed">
                   <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full flex-shrink-0 mt-1.5" />{item}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="bg-slate-800 border border-cyan-500/30 rounded-xl p-5 sm:p-6">
-            <h3 className="font-semibold text-white mb-4 text-sm">Option 2: Choose an operating layer and plug tools into that</h3>
+          <div className="bg-[#FAFAFA] border border-cyan-500/30 rounded-xl p-5 sm:p-6">
+            <h3 className="font-semibold text-black mb-4 text-sm">Option 2: Choose an operating layer and plug tools into that</h3>
             <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">Pros</p>
             <ul className="space-y-2 my-3">
               {['one place to define data model, rules, and workflows', 'easier to swap tools under the hood', 'more control and visibility'].map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-slate-200 text-sm leading-relaxed">
+                <li key={i} className="flex items-start gap-2 text-black/80 text-sm leading-relaxed">
                   <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full flex-shrink-0 mt-1.5" />{item}
                 </li>
               ))}
@@ -202,7 +203,7 @@ export default function BlogPostLegacyIntegrations() {
             <p className="text-xs font-semibold text-red-400 uppercase tracking-wider mb-2 mt-4">Cons</p>
             <ul className="space-y-2 my-3">
               {['some upfront work to map data and processes'].map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-slate-200 text-sm leading-relaxed">
+                <li key={i} className="flex items-start gap-2 text-black/80 text-sm leading-relaxed">
                   <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full flex-shrink-0 mt-1.5" />{item}
                 </li>
               ))}
@@ -212,7 +213,7 @@ export default function BlogPostLegacyIntegrations() {
       </DarkCard>
 
       <P>Once you're past a handful of debtor-touching tools, it usually becomes cheaper and safer to centralize on an operating layer and standardize integrations there.</P>
-      <P className="text-slate-500 italic">That's the design philosophy behind DROS: it acts as the operating system for collections, so dialers, AI agents, and payment tools speak through it, not around it.</P>
+      <P className="text-black/40 italic">That's the design philosophy behind DROS: it acts as the operating system for collections, so dialers, AI agents, and payment tools speak through it, not around it.</P>
 
       <H2 id="reduce-sprawl">How Do You Reduce Tool Sprawl Without Ripping Out Legacy Systems?</H2>
       <P>Ripping everything out is rarely realistic or smart. A better approach is to consolidate and reroute.</P>
@@ -245,7 +246,7 @@ export default function BlogPostLegacyIntegrations() {
                 'they may use outdated balances or statuses',
                 "compliance and ops won't have a single view of what was said and done",
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-slate-200 text-sm leading-relaxed">
+                <li key={i} className="flex items-start gap-2 text-black/80 text-sm leading-relaxed">
                   <span className="w-1.5 h-1.5 bg-red-400 rounded-full flex-shrink-0 mt-1.5" />{item}
                 </li>
               ))}
@@ -259,7 +260,7 @@ export default function BlogPostLegacyIntegrations() {
                 'all outcomes and transcripts land back in one place',
                 'you can start with small segments because routing and data are predictable',
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-slate-200 text-sm leading-relaxed">
+                <li key={i} className="flex items-start gap-2 text-black/80 text-sm leading-relaxed">
                   <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full flex-shrink-0 mt-1.5" />{item}
                 </li>
               ))}

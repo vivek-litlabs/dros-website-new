@@ -71,7 +71,7 @@ export default function UseCases() {
   const current = CASES[active];
 
   return (
-    <Section id="use-cases" tone="light">
+    <Section id="use-cases" tone="light" spacing="sm">
       <Container>
         <Reveal className="max-w-2xl">
           <Eyebrow className="text-ink-grey">Who it is for</Eyebrow>

@@ -30,9 +30,11 @@ export default function BlogPostRPC() {
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
       <BlogLayout
+      image="/features/call-analytics.jpg"
       title="What Thousands of Debt Collection Calls Taught Us About Right Party Contact"
       subtitle="Real learnings from the field on why RPC is stuck at 26% and how to fix it"
       readTime="15 min"
+      tags={tags}
       tocSections={TOC}
       canonicalPath={route}
       datePublished="2025-10-01"
@@ -118,11 +120,11 @@ export default function BlogPostRPC() {
 
       <DarkCard>
         <H3>Step 1  - Data clean-up first</H3>
-        <p className="text-slate-300 mb-6 leading-relaxed">We helped them push 8,000 accounts through a modern skip-tracing provider and update numbers in DROS. Disconnected numbers were moved out of active dialing queues.</p>
+        <p className="text-black/70 mb-6 leading-relaxed">We helped them push 8,000 accounts through a modern skip-tracing provider and update numbers in DROS. Disconnected numbers were moved out of active dialing queues.</p>
         <H3>Step 2  - Introduce SMS and email as the first touch</H3>
-        <p className="text-slate-300 mb-2 leading-relaxed">For eligible accounts, they started with a simple, compliant SMS. Email carried the same message and portal link. Voice calls followed only for non-responders.</p>
-        <div className="bg-slate-800 border border-slate-700 rounded-xl p-5 my-4">
-          <p className="text-slate-300 italic text-sm">"Hi [First Name], this is [Agency Name] regarding an important account. You can view details and payment options securely here: [Link]. Reply STOP to opt out."</p>
+        <p className="text-black/70 mb-2 leading-relaxed">For eligible accounts, they started with a simple, compliant SMS. Email carried the same message and portal link. Voice calls followed only for non-responders.</p>
+        <div className="bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-5 my-4">
+          <p className="text-black/70 italic text-sm">"Hi [First Name], this is [Agency Name] regarding an important account. You can view details and payment options securely here: [Link]. Reply STOP to opt out."</p>
         </div>
         <H3>Step 3  - Test better call windows by segment</H3>
         <Ul items={[

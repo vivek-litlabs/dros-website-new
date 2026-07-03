@@ -470,48 +470,48 @@ export default function FirstPartyCollectionsPage() {
             <div className="rounded-[18px] p-7" style={{ background: '#f1f6fb', border: '1px solid rgba(10,26,47,.12)', boxShadow: '0 4px 20px rgba(10,26,47,.06)' }}>
               <svg viewBox="0 0 480 440" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', display: 'block' }} aria-label="DROS sits as a layer above your existing tools">
                 <rect x="16" y="16" width="448" height="72" rx="14" fill="#fff" stroke="#e2e8f0" strokeWidth="1"/>
-                <text x="240" y="38" textAnchor="middle" fill="#94a3b8" fontSize="10" fontWeight="700" fontFamily="-apple-system,sans-serif" letterSpacing=".1em">AGENTS &amp; CHANNELS</text>
+                <text x="240" y="38" textAnchor="middle" fill="#94a3b8" fontSize="10" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif" letterSpacing=".1em">AGENTS &amp; CHANNELS</text>
                 <rect x="36" y="46" width="120" height="30" rx="7" fill="rgba(16,185,129,.1)" stroke="rgba(16,185,129,.25)" strokeWidth="1"/>
-                <text x="96" y="66" textAnchor="middle" fill="#059669" fontSize="12.5" fontWeight="600" fontFamily="-apple-system,sans-serif">AI Voice Agents</text>
+                <text x="96" y="66" textAnchor="middle" fill="#059669" fontSize="12.5" fontWeight="600" fontFamily="Saans,-apple-system,sans-serif">AI Voice Agents</text>
                 <rect x="170" y="46" width="120" height="30" rx="7" fill="rgba(139,92,246,.08)" stroke="rgba(139,92,246,.22)" strokeWidth="1"/>
-                <text x="230" y="66" textAnchor="middle" fill="#7c3aed" fontSize="12.5" fontWeight="600" fontFamily="-apple-system,sans-serif">Human Agents</text>
+                <text x="230" y="66" textAnchor="middle" fill="#7c3aed" fontSize="12.5" fontWeight="600" fontFamily="Saans,-apple-system,sans-serif">Human Agents</text>
                 <rect x="304" y="46" width="144" height="30" rx="7" fill="rgba(6,182,212,.08)" stroke="rgba(6,182,212,.25)" strokeWidth="1"/>
-                <text x="376" y="66" textAnchor="middle" fill="#0e7490" fontSize="12.5" fontWeight="600" fontFamily="-apple-system,sans-serif">SMS / Email / Portal</text>
+                <text x="376" y="66" textAnchor="middle" fill="#0e7490" fontSize="12.5" fontWeight="600" fontFamily="Saans,-apple-system,sans-serif">SMS / Email / Portal</text>
                 <line x1="120" y1="88" x2="120" y2="134" stroke="rgba(6,182,212,.4)" strokeWidth="1.5" strokeDasharray="5,4"/>
                 <line x1="240" y1="88" x2="240" y2="134" stroke="rgba(6,182,212,.4)" strokeWidth="1.5" strokeDasharray="5,4"/>
                 <line x1="376" y1="88" x2="376" y2="134" stroke="rgba(6,182,212,.4)" strokeWidth="1.5" strokeDasharray="5,4"/>
                 <rect x="16" y="134" width="448" height="116" rx="14" fill="#0c4a6e" stroke="#06b6d4" strokeWidth="1.5"/>
                 <rect x="17" y="135" width="446" height="1.5" rx="1" fill="rgba(255,255,255,.2)"/>
-                <text x="240" y="158" textAnchor="middle" fill="#67e8f9" fontSize="11" fontWeight="700" fontFamily="-apple-system,sans-serif" letterSpacing=".12em">DROS - ENGAGEMENT OS</text>
+                <text x="240" y="158" textAnchor="middle" fill="#67e8f9" fontSize="11" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif" letterSpacing=".12em">DROS - ENGAGEMENT OS</text>
                 <rect x="32" y="168" width="128" height="66" rx="9" fill="rgba(6,182,212,.15)" stroke="rgba(6,182,212,.35)" strokeWidth="1"/>
-                <text x="96" y="205" textAnchor="middle" fill="#e0f2fe" fontSize="13" fontWeight="700" fontFamily="-apple-system,sans-serif">Brand &amp; Compliance</text>
+                <text x="96" y="205" textAnchor="middle" fill="#e0f2fe" fontSize="13" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">Brand &amp; Compliance</text>
                 <rect x="176" y="168" width="128" height="66" rx="9" fill="rgba(6,182,212,.15)" stroke="rgba(6,182,212,.35)" strokeWidth="1"/>
-                <text x="240" y="205" textAnchor="middle" fill="#e0f2fe" fontSize="13" fontWeight="700" fontFamily="-apple-system,sans-serif">AI + Human Routing</text>
+                <text x="240" y="205" textAnchor="middle" fill="#e0f2fe" fontSize="13" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">AI + Human Routing</text>
                 <rect x="320" y="168" width="128" height="66" rx="9" fill="rgba(6,182,212,.15)" stroke="rgba(6,182,212,.35)" strokeWidth="1"/>
-                <text x="384" y="205" textAnchor="middle" fill="#e0f2fe" fontSize="13" fontWeight="700" fontFamily="-apple-system,sans-serif">Account Timeline</text>
+                <text x="384" y="205" textAnchor="middle" fill="#e0f2fe" fontSize="13" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">Account Timeline</text>
                 <line x1="75" y1="250" x2="75" y2="296" stroke="rgba(6,182,212,.35)" strokeWidth="1.5" strokeDasharray="5,4"/>
                 <line x1="170" y1="250" x2="170" y2="296" stroke="rgba(6,182,212,.35)" strokeWidth="1.5" strokeDasharray="5,4"/>
                 <line x1="258" y1="250" x2="258" y2="296" stroke="rgba(6,182,212,.35)" strokeWidth="1.5" strokeDasharray="5,4"/>
                 <line x1="348" y1="250" x2="348" y2="296" stroke="rgba(6,182,212,.35)" strokeWidth="1.5" strokeDasharray="5,4"/>
                 <line x1="424" y1="250" x2="424" y2="296" stroke="rgba(6,182,212,.35)" strokeWidth="1.5" strokeDasharray="5,4"/>
                 <rect x="16" y="296" width="448" height="96" rx="14" fill="#fff" stroke="#e2e8f0" strokeWidth="1"/>
-                <text x="240" y="318" textAnchor="middle" fill="#94a3b8" fontSize="10" fontWeight="700" fontFamily="-apple-system,sans-serif" letterSpacing=".1em">YOUR EXISTING TOOLS</text>
+                <text x="240" y="318" textAnchor="middle" fill="#94a3b8" fontSize="10" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif" letterSpacing=".1em">YOUR EXISTING TOOLS</text>
                 <rect x="28" y="326" width="84" height="50" rx="8" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1"/>
-                <text x="70" y="347" textAnchor="middle" fill="#334155" fontSize="11.5" fontWeight="600" fontFamily="-apple-system,sans-serif">Core System</text>
-                <text x="70" y="363" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="-apple-system,sans-serif">Billing / Loans</text>
+                <text x="70" y="347" textAnchor="middle" fill="#334155" fontSize="11.5" fontWeight="600" fontFamily="Saans,-apple-system,sans-serif">Core System</text>
+                <text x="70" y="363" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="Saans,-apple-system,sans-serif">Billing / Loans</text>
                 <rect x="122" y="326" width="84" height="50" rx="8" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1"/>
-                <text x="164" y="347" textAnchor="middle" fill="#334155" fontSize="11.5" fontWeight="600" fontFamily="-apple-system,sans-serif">CRM</text>
-                <text x="164" y="363" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="-apple-system,sans-serif">Customer data</text>
+                <text x="164" y="347" textAnchor="middle" fill="#334155" fontSize="11.5" fontWeight="600" fontFamily="Saans,-apple-system,sans-serif">CRM</text>
+                <text x="164" y="363" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="Saans,-apple-system,sans-serif">Customer data</text>
                 <rect x="216" y="326" width="84" height="50" rx="8" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1"/>
-                <text x="258" y="347" textAnchor="middle" fill="#334155" fontSize="11.5" fontWeight="600" fontFamily="-apple-system,sans-serif">Dialer</text>
-                <text x="258" y="363" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="-apple-system,sans-serif">Outbound calls</text>
+                <text x="258" y="347" textAnchor="middle" fill="#334155" fontSize="11.5" fontWeight="600" fontFamily="Saans,-apple-system,sans-serif">Dialer</text>
+                <text x="258" y="363" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="Saans,-apple-system,sans-serif">Outbound calls</text>
                 <rect x="310" y="326" width="84" height="50" rx="8" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1"/>
-                <text x="352" y="347" textAnchor="middle" fill="#334155" fontSize="11.5" fontWeight="600" fontFamily="-apple-system,sans-serif">Ticketing</text>
-                <text x="352" y="363" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="-apple-system,sans-serif">Disputes</text>
+                <text x="352" y="347" textAnchor="middle" fill="#334155" fontSize="11.5" fontWeight="600" fontFamily="Saans,-apple-system,sans-serif">Ticketing</text>
+                <text x="352" y="363" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="Saans,-apple-system,sans-serif">Disputes</text>
                 <rect x="404" y="326" width="44" height="50" rx="8" fill="#f8fafc" stroke="#e2e8f0" strokeWidth="1"/>
-                <text x="426" y="347" textAnchor="middle" fill="#334155" fontSize="11.5" fontWeight="600" fontFamily="-apple-system,sans-serif">SMS</text>
-                <text x="426" y="363" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="-apple-system,sans-serif">Email</text>
-                <text x="240" y="418" textAnchor="middle" fill="#94a3b8" fontSize="11" fontWeight="500" fontFamily="-apple-system,sans-serif">Swap any tool below without rebuilding your strategy above</text>
+                <text x="426" y="347" textAnchor="middle" fill="#334155" fontSize="11.5" fontWeight="600" fontFamily="Saans,-apple-system,sans-serif">SMS</text>
+                <text x="426" y="363" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="Saans,-apple-system,sans-serif">Email</text>
+                <text x="240" y="418" textAnchor="middle" fill="#94a3b8" fontSize="11" fontWeight="500" fontFamily="Saans,-apple-system,sans-serif">Swap any tool below without rebuilding your strategy above</text>
               </svg>
             </div>
           </div>
@@ -823,41 +823,41 @@ export default function FirstPartyCollectionsPage() {
               <line x1="624" y1="300" x2="516" y2="218" stroke="#06b6d4" strokeWidth="1.5" strokeDasharray="5,4" opacity=".7"/>
               <rect x="384" y="156" width="132" height="88" rx="16" fill="#0c4a6e" stroke="#06b6d4" strokeWidth="2"/>
               <rect x="385" y="157" width="130" height="1" rx="1" fill="rgba(255,255,255,.2)"/>
-              <text x="450" y="194" textAnchor="middle" fill="#fff" fontSize="22" fontWeight="800" fontFamily="-apple-system,sans-serif" letterSpacing="-0.04em">DROS</text>
-              <text x="450" y="211" textAnchor="middle" fill="#67e8f9" fontSize="9" fontWeight="700" fontFamily="-apple-system,sans-serif" letterSpacing=".1em">ENGAGEMENT OS</text>
-              <text x="450" y="229" textAnchor="middle" fill="rgba(103,232,249,.55)" fontSize="8.5" fontFamily="-apple-system,sans-serif">Strategy · Brand · Compliance</text>
+              <text x="450" y="194" textAnchor="middle" fill="#fff" fontSize="22" fontWeight="800" fontFamily="Saans,-apple-system,sans-serif" letterSpacing="-0.04em">DROS</text>
+              <text x="450" y="211" textAnchor="middle" fill="#67e8f9" fontSize="9" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif" letterSpacing=".1em">ENGAGEMENT OS</text>
+              <text x="450" y="229" textAnchor="middle" fill="rgba(103,232,249,.55)" fontSize="8.5" fontFamily="Saans,-apple-system,sans-serif">Strategy · Brand · Compliance</text>
               <rect x="56" y="66" width="210" height="68" rx="12" fill="#fff" stroke="#e2e8f0" strokeWidth="1"/>
               <circle cx="93" cy="100" r="19" fill="#f0f9ff" stroke="#bae6fd" strokeWidth="1"/>
               <text x="93" y="105" textAnchor="middle" fontSize="15" fill="#0369a1">🏦</text>
-              <text x="120" y="93" fill="#0f172a" fontSize="13" fontWeight="700" fontFamily="-apple-system,sans-serif">Core / Loan System</text>
-              <text x="120" y="110" fill="#64748b" fontSize="11" fontFamily="-apple-system,sans-serif">Balance, status &amp; account data</text>
+              <text x="120" y="93" fill="#0f172a" fontSize="13" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">Core / Loan System</text>
+              <text x="120" y="110" fill="#64748b" fontSize="11" fontFamily="Saans,-apple-system,sans-serif">Balance, status &amp; account data</text>
               <rect x="56" y="166" width="210" height="68" rx="12" fill="#fff" stroke="#e2e8f0" strokeWidth="1"/>
               <circle cx="93" cy="200" r="19" fill="#f0f9ff" stroke="#bae6fd" strokeWidth="1"/>
               <text x="93" y="205" textAnchor="middle" fontSize="15" fill="#0369a1">📊</text>
-              <text x="120" y="193" fill="#0f172a" fontSize="13" fontWeight="700" fontFamily="-apple-system,sans-serif">CRM</text>
-              <text x="120" y="210" fill="#64748b" fontSize="11" fontFamily="-apple-system,sans-serif">Customer profile &amp; history</text>
+              <text x="120" y="193" fill="#0f172a" fontSize="13" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">CRM</text>
+              <text x="120" y="210" fill="#64748b" fontSize="11" fontFamily="Saans,-apple-system,sans-serif">Customer profile &amp; history</text>
               <rect x="56" y="266" width="210" height="68" rx="12" fill="#fff" stroke="#e2e8f0" strokeWidth="1"/>
               <circle cx="93" cy="300" r="19" fill="#f0f9ff" stroke="#bae6fd" strokeWidth="1"/>
               <text x="93" y="305" textAnchor="middle" fontSize="15" fill="#0369a1">📞</text>
-              <text x="120" y="293" fill="#0f172a" fontSize="13" fontWeight="700" fontFamily="-apple-system,sans-serif">Dialer / Contact Centre</text>
-              <text x="120" y="310" fill="#64748b" fontSize="11" fontFamily="-apple-system,sans-serif">Outbound &amp; inbound calls</text>
+              <text x="120" y="293" fill="#0f172a" fontSize="13" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">Dialer / Contact Centre</text>
+              <text x="120" y="310" fill="#64748b" fontSize="11" fontFamily="Saans,-apple-system,sans-serif">Outbound &amp; inbound calls</text>
               <rect x="634" y="66" width="210" height="68" rx="12" fill="#f0fdfa" stroke="#a7f3d0" strokeWidth="1"/>
               <circle cx="671" cy="100" r="19" fill="#ecfdf5" stroke="#6ee7b7" strokeWidth="1"/>
               <text x="671" y="105" textAnchor="middle" fontSize="15">💬</text>
-              <text x="698" y="93" fill="#0f172a" fontSize="13" fontWeight="700" fontFamily="-apple-system,sans-serif">SMS / Email</text>
-              <text x="698" y="110" fill="#64748b" fontSize="11" fontFamily="-apple-system,sans-serif">Omnichannel outreach</text>
+              <text x="698" y="93" fill="#0f172a" fontSize="13" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">SMS / Email</text>
+              <text x="698" y="110" fill="#64748b" fontSize="11" fontFamily="Saans,-apple-system,sans-serif">Omnichannel outreach</text>
               <rect x="634" y="166" width="210" height="68" rx="12" fill="#ecfeff" stroke="#a5f3fc" strokeWidth="1"/>
               <circle cx="671" cy="200" r="19" fill="#e0f2fe" stroke="#7dd3fc" strokeWidth="1"/>
               <text x="671" y="205" textAnchor="middle" fontSize="15">🤖</text>
-              <text x="698" y="193" fill="#0f172a" fontSize="13" fontWeight="700" fontFamily="-apple-system,sans-serif">AI Voice Agents</text>
-              <text x="698" y="210" fill="#64748b" fontSize="11" fontFamily="-apple-system,sans-serif">Brand-tuned automation</text>
+              <text x="698" y="193" fill="#0f172a" fontSize="13" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">AI Voice Agents</text>
+              <text x="698" y="210" fill="#64748b" fontSize="11" fontFamily="Saans,-apple-system,sans-serif">Brand-tuned automation</text>
               <rect x="634" y="266" width="210" height="68" rx="12" fill="#f0fdfa" stroke="#a7f3d0" strokeWidth="1"/>
               <circle cx="671" cy="300" r="19" fill="#ecfdf5" stroke="#6ee7b7" strokeWidth="1"/>
               <text x="671" y="305" textAnchor="middle" fontSize="15">🎫</text>
-              <text x="698" y="293" fill="#0f172a" fontSize="13" fontWeight="700" fontFamily="-apple-system,sans-serif">Ticketing / Disputes</text>
-              <text x="698" y="310" fill="#64748b" fontSize="11" fontFamily="-apple-system,sans-serif">Case &amp; complaint management</text>
-              <text x="161" y="378" textAnchor="middle" fill="#94a3b8" fontSize="10.5" fontFamily="-apple-system,sans-serif" fontWeight="600" letterSpacing=".07em">YOUR EXISTING TOOLS</text>
-              <text x="739" y="378" textAnchor="middle" fill="#06b6d4" fontSize="10.5" fontFamily="-apple-system,sans-serif" fontWeight="600" letterSpacing=".07em">EXECUTION CHANNELS</text>
+              <text x="698" y="293" fill="#0f172a" fontSize="13" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">Ticketing / Disputes</text>
+              <text x="698" y="310" fill="#64748b" fontSize="11" fontFamily="Saans,-apple-system,sans-serif">Case &amp; complaint management</text>
+              <text x="161" y="378" textAnchor="middle" fill="#94a3b8" fontSize="10.5" fontFamily="Saans,-apple-system,sans-serif" fontWeight="600" letterSpacing=".07em">YOUR EXISTING TOOLS</text>
+              <text x="739" y="378" textAnchor="middle" fill="#06b6d4" fontSize="10.5" fontFamily="Saans,-apple-system,sans-serif" fontWeight="600" letterSpacing=".07em">EXECUTION CHANNELS</text>
             </svg>
           </div>
 

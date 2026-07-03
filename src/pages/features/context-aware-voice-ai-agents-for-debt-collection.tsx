@@ -185,7 +185,7 @@ export default function VoiceAgentsPage() {
             <p className="text-sm text-center" style={{ color: 'rgba(255,255,255,0.4)' }}>
               Built by the team behind{' '}
               <a href="https://vodex.ai" target="_blank" rel="noopener noreferrer">
-                <img src="/base_logo_transparent_background.png" alt="Vodex" className="inline h-10 sm:h-12 opacity-90 hover:opacity-100 transition-opacity ml-1 align-middle" />
+                <img loading="lazy" decoding="async" src="/base_logo_transparent_background.png" alt="Vodex" className="inline h-10 sm:h-12 opacity-90 hover:opacity-100 transition-opacity ml-1 align-middle" />
               </a>
             </p>
           </Reveal>

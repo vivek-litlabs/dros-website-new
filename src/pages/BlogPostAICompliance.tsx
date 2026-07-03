@@ -29,12 +29,10 @@ export default function BlogPostAICompliance() {
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
       <BlogLayout
+      image="/features/ask-ai.jpg"
       title={
         <>
-          How to Integrate AI Agents Into Collections Without{' '}
-          <span style={{ background: 'linear-gradient(135deg, #DD39F9, #03D2FC)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            Blowing Up Compliance
-          </span>
+          How to Integrate AI Agents Into Collections Without Blowing Up Compliance
         </>
       }
       readTime="18 min"
@@ -79,7 +77,7 @@ export default function BlogPostAICompliance() {
       ]} />
 
       <DarkCard>
-        <p className="text-slate-300 leading-relaxed">
+        <p className="text-black/70 leading-relaxed">
           A 20-collector agency we worked with ran a pilot where AI voice agents handled the first outbound attempt on a subset of medical accounts. The AI verified identity, delivered compliant disclosures, and asked a simple intent question. Only when a positive signal appeared did the call transfer to a human collector. This preserved agent time for real conversations and increased right-party contacts  - without asking compliance to sign off on fully automated negotiations.
         </p>
       </DarkCard>
@@ -100,9 +98,9 @@ export default function BlogPostAICompliance() {
           { label: 'Collectors', text: 'Spend a higher share of their time on arrangements, disputes, and nuanced hardship conversations.' },
           { label: 'Supervisors', text: 'Watch AI metrics (connection rate, handoff rate, complaint signals) alongside traditional KPIs.' },
         ].map((item, i) => (
-          <div key={i} className="flex gap-4 bg-slate-800 border border-slate-700 rounded-xl p-5 mb-3 last:mb-0">
-            <span className="text-cyan-400 font-bold text-sm min-w-[80px] sm:min-w-[100px]">{item.label}</span>
-            <span className="text-slate-300 text-sm leading-relaxed">{item.text}</span>
+          <div key={i} className="flex gap-4 bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-5 mb-3 last:mb-0">
+            <span className="text-cyan-700 font-bold text-sm min-w-[80px] sm:min-w-[100px]">{item.label}</span>
+            <span className="text-black/70 text-sm leading-relaxed">{item.text}</span>
           </div>
         ))}
       </DarkCard>
@@ -133,7 +131,7 @@ export default function BlogPostAICompliance() {
         ].map((item, i) => (
           <div key={i} className="bg-red-950/30 border border-red-900/40 rounded-xl p-5 mb-3 last:mb-0">
             <p className="font-semibold text-red-400 mb-2 text-sm">{item.title}</p>
-            <p className="text-slate-300 text-sm leading-relaxed">{item.text}</p>
+            <p className="text-black/70 text-sm leading-relaxed">{item.text}</p>
           </div>
         ))}
       </DarkCard>
@@ -164,9 +162,9 @@ export default function BlogPostAICompliance() {
             { label: 'Consumer Experience', text: 'Complaints, dispute rates, and tone issues tied to AI interactions.' },
             { label: 'Compliance Incidents', text: 'Any uptick in potential violations, disputes about disclosure, or CFPB/AG complaints.' },
           ].map((item, i) => (
-            <div key={i} className="bg-slate-800 border border-cyan-500/20 rounded-xl p-5">
-              <p className="font-semibold text-cyan-400 mb-2 text-sm">{item.label}</p>
-              <p className="text-slate-300 text-sm leading-relaxed">{item.text}</p>
+            <div key={i} className="bg-[#FAFAFA] border border-cyan-500/20 rounded-xl p-5">
+              <p className="font-semibold text-cyan-700 mb-2 text-sm">{item.label}</p>
+              <p className="text-black/70 text-sm leading-relaxed">{item.text}</p>
             </div>
           ))}
         </div>
@@ -191,7 +189,7 @@ export default function BlogPostAICompliance() {
       <P>The result: missed callbacks, fragmented consent data, and no reliable way to prove who contacted a debtor when  - exactly the kind of environment regulators warn about.</P>
 
       <CalloutPill>
-        <p className="text-xl sm:text-2xl font-bold text-white">The lesson is simple: consolidate before you accelerate.</p>
+        <p className="text-xl sm:text-2xl font-bold text-black">The lesson is simple: consolidate before you accelerate.</p>
       </CalloutPill>
 
       <H3>Actionable ideas</H3>

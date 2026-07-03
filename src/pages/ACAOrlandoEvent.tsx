@@ -261,7 +261,7 @@ export default function ACAOrlandoEvent() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <img src="/untitled_logo_1_basic-file.png" alt="DROS Logo" className="w-8 h-8" />
+                <img loading="lazy" decoding="async" src="/untitled_logo_1_basic-file.png" alt="DROS Logo" className="w-8 h-8" />
                 <span className="text-xl font-bold">DROS</span>
               </div>
               <p className="text-slate-400 text-sm">The operating system for modern debt collection agencies.</p>

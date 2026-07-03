@@ -35,13 +35,13 @@ const COLUMNS: { title: string; links: [string, string, boolean?][] }[] = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-hair bg-base pt-20 pb-10">
+    <footer className="border-t border-hair bg-base pt-16 pb-10">
       <div className="mx-auto max-w-wide px-6 lg:px-10">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-[1.8fr_1fr_1fr_1fr] md:gap-14">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-[1.8fr_1fr_1fr_1fr] md:gap-12">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="inline-flex">
-              <img src="/DROS_horizontal_dark_bg_1.svg" alt="DROS" className="h-8 w-auto" />
+              <img loading="lazy" decoding="async" src="/DROS_horizontal_dark_bg_1.svg" alt="DROS" className="h-8 w-auto" />
             </Link>
             <p className="mt-5 max-w-[280px] text-sm leading-relaxed text-ink/55">
               DROS AI - the AI-native engagement OS for debt collections.
@@ -82,7 +82,7 @@ export default function Footer() {
         </div>
 
         {/* Compliance badge strip */}
-        <div className="mt-14 flex flex-wrap items-center gap-3 border-t border-hair pt-10">
+        <div className="mt-12 flex flex-wrap items-center gap-3 border-t border-hair pt-8">
           <span className="eyebrow mr-2 text-ink/40">Compliance</span>
           {COMPLIANCE.map((c) => (
             <span
@@ -95,13 +95,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-6 border-t border-hair pt-8 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-6 border-t border-hair pt-6 sm:flex-row">
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
             <p className="text-sm text-ink/45">&copy; 2026 DROS. Registered in the United States.</p>
             <div className="flex items-center gap-2 text-sm text-ink/45">
               <span>Built by</span>
               <a href="https://vodex.ai" target="_blank" rel="noopener noreferrer" aria-label="Vodex">
-                <img src="/base_logo_transparent_background.png" alt="Vodex" className="h-10 opacity-80 transition-opacity hover:opacity-100" />
+                <img loading="lazy" decoding="async" src="/base_logo_transparent_background.png" alt="Vodex" className="h-10 opacity-80 transition-opacity hover:opacity-100" />
               </a>
               <span className="hidden text-ink/35 sm:inline">- powering AI voice at scale since 2019.</span>
             </div>
@@ -111,10 +111,10 @@ export default function Footer() {
               <Link to="/contact" className="transition-colors hover:text-ink">Privacy</Link>
               <Link to="/contact" className="transition-colors hover:text-ink">Terms</Link>
             </div>
-            <a href="https://www.youtube.com/@drosdotai" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-lg border border-hair bg-white/[0.03] text-ink/55 transition-all hover:text-ink" aria-label="YouTube">
+            <a href="https://www.youtube.com/@drosdotai" target="_blank" rel="noopener noreferrer" className="text-ink/50 transition-colors hover:text-ink" aria-label="YouTube">
               <Youtube className="h-4 w-4" />
             </a>
-            <a href="https://www.linkedin.com/company/dros" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-lg border border-hair bg-white/[0.03] text-ink/55 transition-all hover:text-ink" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/dros" target="_blank" rel="noopener noreferrer" className="text-ink/50 transition-colors hover:text-ink" aria-label="LinkedIn">
               <Linkedin className="h-4 w-4" />
             </a>
           </div>

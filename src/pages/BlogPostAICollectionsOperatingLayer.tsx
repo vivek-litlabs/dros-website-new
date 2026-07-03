@@ -55,6 +55,7 @@ export default function BlogPostAICollectionsOperatingLayer() {
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
       <BlogLayout
+        image="/blog/code-pattern.avif"
         title="Choosing an AI Collections Operating Layer: What to Look For (and Why It Matters More Than Any Bot)"
         readTime="14 min"
         tags={['Technology & Integrations']}
@@ -106,12 +107,12 @@ export default function BlogPostAICollectionsOperatingLayer() {
 
         <DarkCard>
           <div className="space-y-4">
-            <p className="text-xs font-semibold tracking-widest uppercase text-cyan-400 mb-4">Operating Layer Architecture</p>
+            <p className="text-xs font-semibold tracking-widest uppercase text-cyan-700 mb-4">Operating Layer Architecture</p>
             <div className="rounded-xl p-4 text-center" style={{ background: 'rgba(3,210,252,0.1)', border: '1px solid rgba(3,210,252,0.3)' }}>
-              <p className="font-bold text-cyan-300 text-sm mb-2">AI Collections Operating Layer</p>
+              <p className="font-bold text-cyan-700 text-sm mb-2">AI Collections Operating Layer</p>
               <div className="flex flex-wrap justify-center gap-2 mt-2">
                 {['Engagement Strategy', 'Contact Rules', 'Compliance', 'Unified Timeline'].map((tag) => (
-                  <span key={tag} className="text-xs px-2 py-1 rounded-full bg-slate-700 text-slate-300">{tag}</span>
+                  <span key={tag} className="text-xs px-2 py-1 rounded-full bg-black/5 text-black/70">{tag}</span>
                 ))}
               </div>
             </div>
@@ -122,7 +123,7 @@ export default function BlogPostAICollectionsOperatingLayer() {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
               {['AI Voice Bot', 'SMS Agent', 'Human Collectors', 'Dialer', 'Self-Service Portal'].map((tool) => (
-                <div key={tool} className="rounded-lg p-3 text-center text-xs font-medium text-slate-300" style={{ background: 'rgba(26,35,126,0.6)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                <div key={tool} className="rounded-lg p-3 text-center text-xs font-medium text-black/70" style={{ background: 'rgba(26,35,126,0.6)', border: '1px solid rgba(255,255,255,0.08)' }}>
                   {tool}
                 </div>
               ))}
@@ -157,11 +158,11 @@ export default function BlogPostAICollectionsOperatingLayer() {
                 desc: 'Performance data lives in separate dashboards. Nobody can show a regulator or creditor client a clean picture of what happened on a given account across all touchpoints.',
               },
             ].map((item, i) => (
-              <div key={i} className="flex items-start gap-3 bg-slate-800 border border-slate-700 rounded-xl p-4">
+              <div key={i} className="flex items-start gap-3 bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-4">
                 <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-red-500/15 border border-red-500/40 flex items-center justify-center text-red-400 font-bold text-xs">!</span>
                 <div>
-                  <p className="font-semibold text-slate-200 text-sm mb-1">{item.problem}</p>
-                  <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                  <p className="font-semibold text-black/80 text-sm mb-1">{item.problem}</p>
+                  <p className="text-black/50 text-sm leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -226,11 +227,11 @@ export default function BlogPostAICollectionsOperatingLayer() {
               { title: 'Compliance & Governance', desc: 'Contact rules, consent, audit trails - centralized' },
               { title: 'Analytics & Experimentation', desc: 'AI vs human performance in one view, A/B testing built in' },
             ].map((item, i) => (
-              <div key={i} className="flex items-start gap-3 bg-slate-800 border border-slate-700 rounded-xl p-4">
-                <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-cyan-500/15 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold text-xs">{i + 1}</span>
+              <div key={i} className="flex items-start gap-3 bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-4">
+                <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-cyan-500/15 border border-cyan-500/40 flex items-center justify-center text-cyan-700 font-bold text-xs">{i + 1}</span>
                 <div>
-                  <p className="font-semibold text-cyan-300 text-sm mb-0.5">{item.title}</p>
-                  <p className="text-slate-400 text-sm">{item.desc}</p>
+                  <p className="font-semibold text-cyan-700 text-sm mb-0.5">{item.title}</p>
+                  <p className="text-black/50 text-sm">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -311,11 +312,11 @@ export default function BlogPostAICollectionsOperatingLayer() {
                 ],
               },
             ].map((section) => (
-              <div key={section.category} className="bg-slate-800 border border-slate-700 rounded-xl p-5">
-                <p className="font-semibold text-cyan-300 text-sm mb-3">{section.category}</p>
+              <div key={section.category} className="bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-5">
+                <p className="font-semibold text-cyan-700 text-sm mb-3">{section.category}</p>
                 <ul className="space-y-2">
                   {section.questions.map((q, i) => (
-                    <li key={i} className="flex items-start gap-2 text-slate-300 text-sm leading-relaxed">
+                    <li key={i} className="flex items-start gap-2 text-black/70 text-sm leading-relaxed">
                       <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-cyan-500 flex-shrink-0" />
                       {q}
                     </li>

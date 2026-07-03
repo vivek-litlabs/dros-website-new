@@ -1,59 +1,73 @@
-import { Clock, AlertTriangle, TrendingDown } from 'lucide-react';
-import { Section, Container, Button } from '../ui';
+import { Clock, ShieldAlert, TrendingDown } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { Section, Container } from '../ui';
 import Reveal, { RevealItem } from '../Reveal';
-import { trackCta } from '../../lib/analytics';
 
-const PAIN_POINTS = [
+/*
+ * Problem section, restyled after Customer.io's "We unify..." block:
+ * a large centered heading + lighter subheading, then a 3-column feature
+ * grid separated by hairline dividers. Each column has a compact line icon,
+ * a bold dark lead-in, and a muted continuation. DROS copy is preserved.
+ */
+
+// Customer.io renders these icons in a dark olive-gold (mustard-700 ≈ #8a6b1f).
+const ICON_COLOR = 'text-[#8a6b1f]';
+
+const PAIN_POINTS: { Icon: LucideIcon; lead: string; body: string }[] = [
   {
-    icon: Clock,
-    body: 'Your collectors are spending 80% of their time on calls that go nowhere.',
+    Icon: Clock,
+    lead: 'Time, wasted.',
+    body: 'Collectors spend 80% of their day dialing numbers that never pick up.',
   },
   {
-    icon: AlertTriangle,
-    body: 'Your compliance risk grows every time a human makes the wrong call.',
+    Icon: ShieldAlert,
+    lead: 'Risk, compounding.',
+    body: 'Every human judgment call is one more compliance exposure waiting to happen.',
   },
   {
-    icon: TrendingDown,
-    body: "You're leaving recovery rates on the table because you can't scale outreach.",
+    Icon: TrendingDown,
+    lead: 'Revenue, left behind.',
+    body: 'Recovery stalls the moment outreach outgrows your headcount.',
   },
 ];
 
 export default function Problem() {
   return (
-    <Section id="problem" tone="light">
-      <Container>
-        <Reveal className="max-w-3xl text-center mx-auto">
+    <Section id="problem" tone="light" className="relative overflow-x-clip">
+      <Container className="relative">
+        {/* Heading + subheading */}
+        <Reveal className="mx-auto max-w-3xl text-center">
           <RevealItem>
-            <h2 className="font-display text-display text-ink-dark">Sound familiar?</h2>
+            <h2 className="font-saans mx-auto max-w-[24ch] text-[1.875rem] font-[475] leading-[1.125] tracking-[0.0125em] text-ink-dark sm:text-[2.25rem] lg:text-[2.5rem]">
+              Sound familiar?
+            </h2>
           </RevealItem>
-        </Reveal>
-
-        <Reveal stagger={0.1} className="mt-14 grid gap-6 md:grid-cols-3">
-          {PAIN_POINTS.map(({ icon: Icon, body }, i) => (
-            <RevealItem key={i}>
-              <div className="flex flex-col gap-5 rounded-card border border-line-dark bg-white p-8 h-full">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-line-dark bg-[#F5F4F1]">
-                  <Icon className="h-5 w-5 text-ink-dark" />
-                </div>
-                <p className="text-ink-grey leading-relaxed">{body}</p>
-              </div>
-            </RevealItem>
-          ))}
-        </Reveal>
-
-        <Reveal className="mt-12 text-center">
           <RevealItem>
-            <p className="font-display text-xl text-ink-dark md:text-2xl">
-              DROS solves all three - with AI built specifically for collections.
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink-grey">
+              Three ways manual collections quietly bleed time, risk and revenue - every single day.
             </p>
           </RevealItem>
-          <RevealItem>
-            <div className="mt-8">
-              <Button variant="onLight" to="/book-meeting" onClick={() => trackCta('reality_book_demo')}>
-                Talk to Our AI Agent
-              </Button>
-            </div>
-          </RevealItem>
+        </Reveal>
+
+        {/* 3-column feature grid with hairline dividers */}
+        <Reveal
+          stagger={0.12}
+          as="ul"
+          className="mt-14 grid grid-cols-1 gap-4 border-t border-line-dark sm:mt-16 sm:grid-cols-2 md:grid-cols-3 lg:gap-8"
+        >
+          {PAIN_POINTS.map((point) => (
+            <RevealItem
+              as="li"
+              key={point.lead}
+              className="flex flex-col items-start gap-8 border-l border-line-dark px-5 py-6 md:px-6 lg:px-8"
+            >
+              <point.Icon className={`h-5 w-5 ${ICON_COLOR}`} strokeWidth={1.5} aria-hidden />
+              <p className="text-lg leading-relaxed text-ink-grey">
+                <strong className="font-semibold text-ink-dark">{point.lead}</strong>{' '}
+                {point.body}
+              </p>
+            </RevealItem>
+          ))}
         </Reveal>
       </Container>
     </Section>

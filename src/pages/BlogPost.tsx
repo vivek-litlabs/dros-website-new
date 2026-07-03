@@ -27,15 +27,15 @@ export default function BlogPost() {
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
       <BlogLayout
+      image="/blog/pastel-orb.avif"
       title={
         <>
-          Why Debt Collection Needs{' '}
-          <span style={{ background: 'linear-gradient(135deg, #DD39F9, #03D2FC)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Fewer Systems</span>
-          , Not More
+          Why Debt Collection Needs Fewer Systems, Not More
         </>
       }
       subtitle="The Case for Context Orchestration"
       readTime="8 min"
+      tags={tags}
       tocSections={TOC}
       canonicalPath={route}
       datePublished="2025-11-01"
@@ -114,8 +114,8 @@ export default function BlogPost() {
       <P>In this future, <strong>context is the system</strong>. And less truly is more.</P>
 
       <CalloutPill>
-        <p className="text-xl sm:text-2xl font-bold text-white">Context is the system.</p>
-        <p className="text-slate-300 mt-2">Less tools. More signal. Better outcomes.</p>
+        <p className="text-xl sm:text-2xl font-bold text-black">Context is the system.</p>
+        <p className="text-black/70 mt-2">Less tools. More signal. Better outcomes.</p>
       </CalloutPill>
     </BlogLayout>
     </>

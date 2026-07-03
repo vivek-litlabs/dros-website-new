@@ -59,6 +59,7 @@ export default function BlogPostOmnichannel() {
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
       <BlogLayout
+        image="/features/omnichannel.jpg"
         title="Omnichannel AI in Debt Collection: Orchestrating Voice, SMS, Email, and Self-Service"
         readTime="14 min"
         tags={['Context & Omnichannel', 'Collections Strategy & Performance']}
@@ -119,8 +120,8 @@ export default function BlogPostOmnichannel() {
               { label: 'Built-In Audit Trails', body: 'Every digital interaction is auto-logged and structured' },
             ].map(({ label, body }) => (
               <div key={label} className="rounded-xl p-4" style={{ background: 'rgba(3,210,252,0.06)', border: '1px solid rgba(3,210,252,0.15)' }}>
-                <p className="text-cyan-400 font-semibold text-sm mb-2">{label}</p>
-                <p className="text-slate-300 text-sm leading-relaxed">{body}</p>
+                <p className="text-cyan-700 font-semibold text-sm mb-2">{label}</p>
+                <p className="text-black/70 text-sm leading-relaxed">{body}</p>
               </div>
             ))}
           </div>
@@ -158,8 +159,8 @@ export default function BlogPostOmnichannel() {
               { channel: 'Self-Service Portal', role: 'Balance views, plan setup, payments - no agent needed' },
             ].map(({ channel, role }, i) => (
               <div key={i} className="flex items-start gap-4 py-4 first:pt-0 last:pb-0">
-                <span className="text-cyan-400 font-semibold text-sm w-40 flex-shrink-0">{channel}</span>
-                <span className="text-slate-300 text-sm">{role}</span>
+                <span className="text-cyan-700 font-semibold text-sm w-40 flex-shrink-0">{channel}</span>
+                <span className="text-black/70 text-sm">{role}</span>
               </div>
             ))}
           </div>
@@ -189,7 +190,7 @@ export default function BlogPostOmnichannel() {
               ]} />
             </div>
             <div>
-              <p className="text-cyan-400 font-semibold mb-3">Omnichannel</p>
+              <p className="text-cyan-700 font-semibold mb-3">Omnichannel</p>
               <Ul items={[
                 'Unified timeline across every touchpoint',
                 'Full history available at every contact step',
@@ -221,15 +222,15 @@ export default function BlogPostOmnichannel() {
         <DarkCard>
           <div className="grid sm:grid-cols-2 gap-4">
             {[
-              { seg: 'Digital-First / Low-Risk', tag: 'SMS + Portal First', tagColor: 'text-cyan-400', note: 'Self-cure likely - minimal voice needed' },
+              { seg: 'Digital-First / Low-Risk', tag: 'SMS + Portal First', tagColor: 'text-cyan-700', note: 'Self-cure likely - minimal voice needed' },
               { seg: 'Stressed but Cooperative', tag: 'Mixed AI + Human', tagColor: 'text-purple-400', note: 'Needs options - flexibility matters' },
-              { seg: 'Unresponsive', tag: 'Re-engagement Focus', tagColor: 'text-cyan-400', note: 'Find the right channel - avoid volume spam' },
+              { seg: 'Unresponsive', tag: 'Re-engagement Focus', tagColor: 'text-cyan-700', note: 'Find the right channel - avoid volume spam' },
               { seg: 'High-Risk / Late-Stage', tag: 'Voice-Led + AI Support', tagColor: 'text-purple-400', note: 'Human judgment primary - AI assists' },
             ].map(({ seg, tag, tagColor, note }) => (
               <div key={seg} className="rounded-xl p-4" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)' }}>
-                <p className="text-white font-semibold text-sm mb-1">{seg}</p>
+                <p className="text-black font-semibold text-sm mb-1">{seg}</p>
                 <p className={`text-xs font-medium mb-2 ${tagColor}`}>{tag}</p>
-                <p className="text-slate-400 text-xs">{note}</p>
+                <p className="text-black/50 text-xs">{note}</p>
               </div>
             ))}
           </div>
@@ -282,22 +283,22 @@ export default function BlogPostOmnichannel() {
           <div className="overflow-x-auto -mx-1">
             <table className="w-full text-sm min-w-[480px]">
               <thead>
-                <tr className="border-b border-slate-700">
-                  <th className="text-left text-cyan-400 font-semibold py-3 pr-6">Channel / Scenario</th>
-                  <th className="text-left text-cyan-400 font-semibold py-3">Who Leads</th>
+                <tr className="border-b border-[#E6E3E3]">
+                  <th className="text-left text-cyan-700 font-semibold py-3 pr-6">Channel / Scenario</th>
+                  <th className="text-left text-cyan-700 font-semibold py-3">Who Leads</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800">
                 {[
-                  { scenario: 'SMS & Email Reminders', who: 'AI-Led', color: 'text-cyan-400' },
-                  { scenario: 'Self-Service Portal', who: 'AI-Led', color: 'text-cyan-400' },
-                  { scenario: 'Routine Voice Outbound', who: 'AI-Led', color: 'text-cyan-400' },
+                  { scenario: 'SMS & Email Reminders', who: 'AI-Led', color: 'text-cyan-700' },
+                  { scenario: 'Self-Service Portal', who: 'AI-Led', color: 'text-cyan-700' },
+                  { scenario: 'Routine Voice Outbound', who: 'AI-Led', color: 'text-cyan-700' },
                   { scenario: 'Voice - Complex / Hardship', who: 'Human-Led', color: 'text-purple-400' },
                   { scenario: 'Disputes & Legal Language', who: 'Human-Led', color: 'text-purple-400' },
                   { scenario: 'Live Negotiation', who: 'Human-Led + AI Assist', color: 'text-amber-400' },
                 ].map((row, i) => (
                   <tr key={i}>
-                    <td className="text-slate-300 py-3 pr-6">{row.scenario}</td>
+                    <td className="text-black/70 py-3 pr-6">{row.scenario}</td>
                     <td className={`py-3 font-medium ${row.color}`}>{row.who}</td>
                   </tr>
                 ))}
@@ -354,7 +355,7 @@ export default function BlogPostOmnichannel() {
           Voice bots, SMS agents, chatbots, and portals become execution surfaces that DROS controls - rather than isolated tools each trying to run their own version of your collections strategy. That is the difference between running multiple AI tools and actually running omnichannel AI in debt collection as a coherent, defensible program. That is what separates a true <a href="/blogs/ai-collections-operating-layer" className="text-cyan-600 hover:text-cyan-500 underline underline-offset-2 transition-colors">AI collections operating layer</a> from a set of disconnected tools.
         </P>
         <DarkCard>
-          <p className="text-xs text-slate-500 uppercase tracking-widest mb-5 font-medium">DROS Operating Layer</p>
+          <p className="text-xs text-black/40 uppercase tracking-widest mb-5 font-medium">DROS Operating Layer</p>
           <div className="flex gap-3 flex-wrap mb-6">
             {['Unified Timeline', 'Contact Rules', 'Next Best Action'].map(tag => (
               <span key={tag} className="px-3 py-1 rounded-full text-xs font-medium" style={{ background: 'rgba(3,210,252,0.12)', color: '#03D2FC', border: '1px solid rgba(3,210,252,0.25)' }}>{tag}</span>
@@ -363,7 +364,7 @@ export default function BlogPostOmnichannel() {
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
             {['Voice Bot', 'SMS Agent', 'Email Agent', 'Chatbot', 'Self-Service Portal'].map(ch => (
               <div key={ch} className="rounded-lg p-3 text-center" style={{ background: 'rgba(26,35,126,0.6)', border: '1px solid rgba(255,255,255,0.09)' }}>
-                <p className="text-white text-xs font-medium">{ch}</p>
+                <p className="text-black text-xs font-medium">{ch}</p>
               </div>
             ))}
           </div>
@@ -387,7 +388,7 @@ export default function BlogPostOmnichannel() {
 
         <BlogFAQ items={faqItems} />
 
-        <p className="text-xs text-slate-500 mt-10 pt-6 border-t border-slate-800">
+        <p className="text-xs text-black/40 mt-10 pt-6 border-t border-[#E6E3E3]">
           This article is for informational purposes only and does not constitute legal advice. Always consult qualified counsel when designing or modifying collections workflows.
         </p>
       </BlogLayout>

@@ -32,7 +32,7 @@ function BtnPrimary({ href, children }: { href: string; children: React.ReactNod
   return (
     <a href={href} target="_blank" rel="noopener noreferrer"
       className="inline-flex items-center gap-2 font-medium text-sm rounded-lg px-7 py-3.5 transition-opacity hover:opacity-90"
-      style={{ background: '#03D2FC', color: '#010C20', fontFamily: "'Lexend',sans-serif" }}
+      style={{ background: '#03D2FC', color: '#010C20', fontFamily: "'Saans','Inter',sans-serif" }}
     >
       {children}
     </a>
@@ -43,7 +43,7 @@ function BtnGhost({ href, children }: { href: string; children: React.ReactNode 
   return (
     <a href={href} target="_blank" rel="noopener noreferrer"
       className="inline-flex items-center gap-2 font-medium text-sm rounded-lg px-7 py-3.5 text-white transition-colors hover:border-white/50"
-      style={{ border: '1px solid rgba(255,255,255,0.2)', fontFamily: "'Lexend',sans-serif" }}
+      style={{ border: '1px solid rgba(255,255,255,0.2)', fontFamily: "'Saans','Inter',sans-serif" }}
     >
       {children}
     </a>
@@ -273,7 +273,7 @@ export default function PaymentReminders() {
   const industry = industries[activeIndustry];
 
   return (
-    <div className="min-h-screen" style={{ fontFamily: "'Lexend',sans-serif", background: '#010C20', color: '#fff' }}>
+    <div className="min-h-screen" style={{ fontFamily: "'Saans','Inter',sans-serif", background: '#010C20', color: '#fff' }}>
       <Helmet>
         <title>AI Voice Agent for Payment Reminders | DROS</title>
         <meta name="description" content="DROS AI voice agents automate payment reminder calls at scale - pre-due nudges, past-due outreach, PTP follow-ups. Compliant with FDCPA, TCPA & Reg F. Used by first-party collections, BNPL, healthcare, auto finance & utilities teams." />
@@ -491,7 +491,7 @@ export default function PaymentReminders() {
             {/* right */}
             <div className="p-10 lg:p-11 flex flex-col justify-center" style={{ background: '#F8F9FF' }}>
               <div className="rounded-2xl p-7 flex flex-col gap-5" style={{ background: '#fff', border: '1px solid rgba(26,35,126,0.08)' }}>
-                <div className="text-[44px] leading-none font-serif opacity-20" style={{ color: '#1A237E', fontFamily: 'Georgia,serif' }}>"</div>
+                <div className="text-[44px] leading-none font-saans opacity-20" style={{ color: '#1A237E' }}>"</div>
                 <p className="text-[15px] leading-[1.75] italic" style={{ color: '#010C20' }}>
                   Before this, every campaign needed someone to run it. Now the system runs - we just manage the outcomes.
                 </p>
@@ -791,7 +791,7 @@ export default function PaymentReminders() {
             <BtnPrimary href={BOOK_DEMO}>Book a Demo →</BtnPrimary>
             <a href="/customer-stories"
               className="inline-flex items-center gap-2 font-medium text-sm rounded-lg px-7 py-3.5 transition-colors"
-              style={{ border: '1px solid rgba(26,35,126,0.2)', color: '#1A237E', fontFamily: "'Lexend',sans-serif" }}
+              style={{ border: '1px solid rgba(26,35,126,0.2)', color: '#1A237E', fontFamily: "'Saans','Inter',sans-serif" }}
             >
               See a customer story →
             </a>
@@ -812,7 +812,7 @@ export default function PaymentReminders() {
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full flex items-center justify-between gap-4 py-[22px] text-left transition-colors"
-                  style={{ background: 'none', border: 'none', fontFamily: "'Lexend',sans-serif", fontSize: 16, fontWeight: 500, color: openFaq === i ? '#1A237E' : '#010C20', cursor: 'pointer' }}
+                  style={{ background: 'none', border: 'none', fontFamily: "'Saans','Inter',sans-serif", fontSize: 16, fontWeight: 500, color: openFaq === i ? '#1A237E' : '#010C20', cursor: 'pointer' }}
                 >
                   <span>{faq.q}</span>
                   <svg className="flex-shrink-0 transition-transform" style={{ color: openFaq === i ? '#1A237E' : '#9AA0B4', transform: openFaq === i ? 'rotate(180deg)' : undefined }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>

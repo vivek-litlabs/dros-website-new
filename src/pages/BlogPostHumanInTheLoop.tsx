@@ -57,6 +57,7 @@ export default function BlogPostHumanInTheLoop() {
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
       <BlogLayout
+        image="/blog/venn-overlap.avif"
         title="Human-in-the-Loop Debt Collection: When AI Should Hand Off to Agents (and How to Do It Well)"
         readTime="14 min"
         tags={['Collections Strategy & Performance', 'Compliance & Operations']}
@@ -163,11 +164,11 @@ export default function BlogPostHumanInTheLoop() {
                 items: ['Distress or anger', 'High-value account', 'Relationship at risk'],
               },
             ].map((card) => (
-              <div key={card.title} className="bg-slate-800 border border-slate-700 rounded-xl p-5">
-                <p className="font-semibold text-cyan-300 mb-3 text-sm">{card.title}</p>
+              <div key={card.title} className="bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-5">
+                <p className="font-semibold text-cyan-700 mb-3 text-sm">{card.title}</p>
                 <ul className="space-y-1">
                   {card.items.map((item) => (
-                    <li key={item} className="text-slate-300 text-sm flex items-start gap-2">
+                    <li key={item} className="text-black/70 text-sm flex items-start gap-2">
                       <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-cyan-500 flex-shrink-0" />
                       {item}
                     </li>
@@ -233,10 +234,10 @@ export default function BlogPostHumanInTheLoop() {
           <div className="overflow-x-auto -mx-1">
             <table className="w-full text-sm min-w-[480px]">
               <thead>
-                <tr className="border-b border-slate-700">
-                  <th className="text-left text-cyan-400 font-semibold py-3 pr-6">Channel</th>
-                  <th className="text-left text-cyan-400 font-semibold py-3 pr-6">AI Role</th>
-                  <th className="text-left text-cyan-400 font-semibold py-3">Human Role</th>
+                <tr className="border-b border-[#E6E3E3]">
+                  <th className="text-left text-cyan-700 font-semibold py-3 pr-6">Channel</th>
+                  <th className="text-left text-cyan-700 font-semibold py-3 pr-6">AI Role</th>
+                  <th className="text-left text-cyan-700 font-semibold py-3">Human Role</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800">
@@ -258,9 +259,9 @@ export default function BlogPostHumanInTheLoop() {
                   },
                 ].map((row) => (
                   <tr key={row.channel}>
-                    <td className="text-slate-300 py-4 pr-6 align-top font-medium">{row.channel}</td>
-                    <td className="text-slate-400 py-4 pr-6 align-top">{row.ai}</td>
-                    <td className="text-slate-300 py-4 align-top">{row.human}</td>
+                    <td className="text-black/70 py-4 pr-6 align-top font-medium">{row.channel}</td>
+                    <td className="text-black/50 py-4 pr-6 align-top">{row.ai}</td>
+                    <td className="text-black/70 py-4 align-top">{row.human}</td>
                   </tr>
                 ))}
               </tbody>
@@ -297,9 +298,9 @@ export default function BlogPostHumanInTheLoop() {
               body: 'Clear ownership for reviewing and updating triggers and playbooks as regulations, products, and portfolios change. Escalation rules are not set-and-forget - they need a defined review cadence.',
             },
           ].map((item, i) => (
-            <div key={i} className="flex flex-col sm:flex-row gap-3 sm:gap-4 bg-slate-800 border border-slate-700 rounded-xl p-5 mb-3 last:mb-0">
-              <span className="text-cyan-400 font-bold text-sm sm:min-w-[200px] sm:pt-0.5">{item.title}</span>
-              <span className="text-slate-300 leading-relaxed text-sm">{item.body}</span>
+            <div key={i} className="flex flex-col sm:flex-row gap-3 sm:gap-4 bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-5 mb-3 last:mb-0">
+              <span className="text-cyan-700 font-bold text-sm sm:min-w-[200px] sm:pt-0.5">{item.title}</span>
+              <span className="text-black/70 leading-relaxed text-sm">{item.body}</span>
             </div>
           ))}
         </DarkCard>
@@ -337,9 +338,9 @@ export default function BlogPostHumanInTheLoop() {
                 desc: 'Dispute resolution rates, complaint rates, regulatory issues, and revenue recovery on escalated cases - the metrics that connect escalation design to business outcomes.',
               },
             ].map((card) => (
-              <div key={card.metric} className="bg-slate-800 border border-slate-700 rounded-xl p-5">
-                <p className="font-semibold text-cyan-300 mb-2 text-sm">{card.metric}</p>
-                <p className="text-slate-300 text-sm leading-relaxed">{card.desc}</p>
+              <div key={card.metric} className="bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-5">
+                <p className="font-semibold text-cyan-700 mb-2 text-sm">{card.metric}</p>
+                <p className="text-black/70 text-sm leading-relaxed">{card.desc}</p>
               </div>
             ))}
           </div>
@@ -374,9 +375,9 @@ export default function BlogPostHumanInTheLoop() {
               body: 'QA findings, compliance results, and resolution data feed back into escalation rules and playbooks in one place, so the system improves over time rather than staying static.',
             },
           ].map((item, i) => (
-            <div key={i} className="flex flex-col sm:flex-row gap-3 sm:gap-4 bg-slate-800 border border-slate-700 rounded-xl p-5 mb-3 last:mb-0">
-              <span className="text-cyan-400 font-bold text-sm sm:min-w-[260px] sm:pt-0.5">{item.title}</span>
-              <span className="text-slate-300 leading-relaxed text-sm">{item.body}</span>
+            <div key={i} className="flex flex-col sm:flex-row gap-3 sm:gap-4 bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-5 mb-3 last:mb-0">
+              <span className="text-cyan-700 font-bold text-sm sm:min-w-[260px] sm:pt-0.5">{item.title}</span>
+              <span className="text-black/70 leading-relaxed text-sm">{item.body}</span>
             </div>
           ))}
         </DarkCard>

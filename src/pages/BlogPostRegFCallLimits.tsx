@@ -46,7 +46,7 @@ function ComparisonTable() {
     <div className="my-8 overflow-x-auto rounded-2xl border border-slate-200 shadow-sm">
       <table className="w-full text-sm">
         <thead>
-          <tr className="bg-slate-900 text-white">
+          <tr className="bg-[#FAFAFA] text-black">
             <th className="px-5 py-3.5 text-left font-semibold w-1/3">Rule</th>
             <th className="px-5 py-3.5 text-left font-semibold">What it says</th>
           </tr>
@@ -75,11 +75,11 @@ function TimelineRow() {
   return (
     <div className="my-8 flex flex-col sm:flex-row gap-3">
       {steps.map((s, i) => (
-        <div key={i} className="flex-1 flex items-start gap-3 bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4">
+        <div key={i} className="flex-1 flex items-start gap-3 bg-[#FAFAFA] border border-[#E6E3E3] rounded-2xl px-5 py-4">
           <div className={`w-2.5 h-2.5 rounded-full flex-shrink-0 mt-1.5 ${s.color}`} />
           <div>
-            <p className="text-white font-semibold text-sm">{s.label}</p>
-            <p className="text-slate-400 text-xs mt-0.5">{s.sub}</p>
+            <p className="text-black font-semibold text-sm">{s.label}</p>
+            <p className="text-black/50 text-xs mt-0.5">{s.sub}</p>
           </div>
         </div>
       ))}
@@ -127,8 +127,10 @@ export default function BlogPostRegFCallLimits() {
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
       <BlogLayout
+        image="/blog/podium-steps.avif"
         title="How Reg F Call Limits and Call Hours Work in AI Debt Collection"
         readTime="10 min"
+        tags={tags}
         tocSections={TOC}
         canonicalPath={route}
         datePublished="2026-05-14"
@@ -198,11 +200,11 @@ export default function BlogPostRegFCallLimits() {
         <P>A simple and defensible approach works in three parts.</P>
         <DarkCard>
           <H3>Track calls per debt over a rolling 7-day window</H3>
-          <p className="text-slate-300 text-sm leading-relaxed">Each outbound attempt about a particular debt increments a counter for that debt. When the count reaches seven, the system prevents additional calls until older attempts age out of the window.</p>
+          <p className="text-black/70 text-sm leading-relaxed">Each outbound attempt about a particular debt increments a counter for that debt. When the count reaches seven, the system prevents additional calls until older attempts age out of the window.</p>
           <H3>Track live conversations separately</H3>
-          <p className="text-slate-300 text-sm leading-relaxed">When a live conversation about a debt occurs, start a seven-day cooldown during which new calls to that person about that debt are blocked. Other compliant channels - letters, approved digital messages - may still be available depending on your policy.</p>
+          <p className="text-black/70 text-sm leading-relaxed">When a live conversation about a debt occurs, start a seven-day cooldown during which new calls to that person about that debt are blocked. Other compliant channels - letters, approved digital messages - may still be available depending on your policy.</p>
           <H3>Model exceptions in policy, not inside AI</H3>
-          <p className="text-slate-300 text-sm leading-relaxed">If your legal team defines scenarios where additional calls are appropriate, those should be explicit policy rules with logging, not instructions buried in AI prompts.</p>
+          <p className="text-black/70 text-sm leading-relaxed">If your legal team defines scenarios where additional calls are appropriate, those should be explicit policy rules with logging, not instructions buried in AI prompts.</p>
         </DarkCard>
         <P>
           In <a href="/" className="text-cyan-600 hover:text-cyan-500 underline underline-offset-2 transition-colors">DROS</a>, these ideas are implemented as part of the campaign and workflow logic. For each debt, the platform tracks attempt counts and days since last live contact, and uses that data when scheduling calls so an AI campaign cannot contact the same debt more often than your rules allow.

@@ -92,7 +92,7 @@ function H2({ id, children }: { id: string; children: React.ReactNode }) {
 function Quote({ children }: { children: React.ReactNode }) {
   return (
     <blockquote className="relative my-10 bg-gradient-to-br from-cyan-50 to-slate-50 border border-cyan-200 rounded-2xl px-8 py-7">
-      <div className="absolute top-4 left-5 text-cyan-300 text-5xl font-serif leading-none select-none">"</div>
+      <div className="absolute top-4 left-5 text-cyan-300 text-5xl font-saans leading-none select-none">"</div>
       <p className="text-slate-800 text-lg sm:text-xl font-medium leading-relaxed italic pl-6 pt-2">{children}</p>
     </blockquote>
   );
@@ -305,7 +305,7 @@ export default function GreystoneStory() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <img src="/untitled_logo_1_basic-file.png" alt="DROS Logo" className="w-8 h-8" />
+                <img loading="lazy" decoding="async" src="/untitled_logo_1_basic-file.png" alt="DROS Logo" className="w-8 h-8" />
                 <span className="text-xl font-bold">DROS</span>
               </div>
               <p className="text-slate-400 text-sm">The operating system for modern debt collection agencies.</p>

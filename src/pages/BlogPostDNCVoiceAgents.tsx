@@ -39,12 +39,10 @@ export default function BlogPostDNCVoiceAgents() {
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
       <BlogLayout
+      image="/blog/grid-perspective.avif"
       title={
         <>
-          How AI Voice Agents Handle &ldquo;Don&rsquo;t Call Me Again&rdquo;:{' '}
-          <span style={{ background: 'linear-gradient(135deg, #DD39F9, #03D2FC)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            DNC, Disputes, and Compliance in 2026
-          </span>
+          How AI Voice Agents Handle &ldquo;Don&rsquo;t Call Me Again&rdquo;: DNC, Disputes, and Compliance in 2026
         </>
       }
       readTime="12 min"
@@ -86,14 +84,14 @@ export default function BlogPostDNCVoiceAgents() {
           { label: 'Regulation F & call frequency', text: "The CFPB's Reg F adds a \"7-in-7\" presumption: more than 7 calls in 7 days about a particular debt, or any call within 7 days after a live conversation about that debt, is presumed a violation." },
           { label: 'TCPA & consent / DNC', text: 'Consumers can revoke consent to automated calls or texts at any time and in any reasonable way ("stop calling me", "take me off your list"). You must maintain an internal DNC list and honor revocations promptly across all outbound systems.' },
         ].map((item, i) => (
-          <div key={i} className="flex flex-col sm:flex-row gap-3 sm:gap-4 bg-slate-800 border border-slate-700 rounded-xl p-5 mb-3 last:mb-0">
-            <span className="text-cyan-400 font-bold text-sm sm:min-w-[140px] sm:pt-0.5">{item.label}</span>
-            <span className="text-slate-300 leading-relaxed text-sm">{item.text}</span>
+          <div key={i} className="flex flex-col sm:flex-row gap-3 sm:gap-4 bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-5 mb-3 last:mb-0">
+            <span className="text-cyan-700 font-bold text-sm sm:min-w-[140px] sm:pt-0.5">{item.label}</span>
+            <span className="text-black/70 leading-relaxed text-sm">{item.text}</span>
           </div>
         ))}
       </DarkCard>
       <DarkCard>
-        <p className="text-slate-300 leading-relaxed text-sm">AI doesn't change these rules. It just adds new failure modes if your stack can't capture what was said and turn it into enforceable flags and workflows in real time.</p>
+        <p className="text-black/70 leading-relaxed text-sm">AI doesn't change these rules. It just adds new failure modes if your stack can't capture what was said and turn it into enforceable flags and workflows in real time.</p>
       </DarkCard>
 
       <H2 id="how-ai-follows-instructions">2. How AI Agents Actually Follow Instructions (The Context Window)</H2>
@@ -106,16 +104,16 @@ export default function BlogPostDNCVoiceAgents() {
         'What structured events to emit back to the platform (ADD_TO_DNC, MARK_DISPUTED, TRANSFER_TO_AGENT).',
       ]} />
       <DarkCard>
-        <p className="text-slate-300 mb-4 font-medium text-sm">In DROS you can think of it as a chain:</p>
+        <p className="text-black/70 mb-4 font-medium text-sm">In DROS you can think of it as a chain:</p>
         <div className="flex flex-col items-center gap-2">
           {['Compliance policy', 'DROS rules & workflows', 'AI context instructions'].map((step, i) => (
             <div key={i} className="flex flex-col items-center gap-2 w-full max-w-xs">
-              <div className="bg-slate-800 border border-cyan-500/40 rounded-xl px-6 py-3 text-cyan-300 font-semibold text-center w-full text-sm">{step}</div>
-              {i < 2 && <ArrowRight className="w-4 h-4 text-slate-500 rotate-90" />}
+              <div className="bg-[#FAFAFA] border border-cyan-500/40 rounded-xl px-6 py-3 text-cyan-700 font-semibold text-center w-full text-sm">{step}</div>
+              {i < 2 && <ArrowRight className="w-4 h-4 text-black/40 rotate-90" />}
             </div>
           ))}
         </div>
-        <p className="text-slate-300 text-sm leading-relaxed mt-6">Your DROS campaign specifies: "If a DNC intent is detected, immediately flag the phone number as DNC on this account, write a note with exact wording and timestamp, end the call politely, and prevent this number from being scheduled in any future campaign." Those instructions are mirrored in the agent's context  - and DROS enforces the rule consistently, not just "inside the model's head."</p>
+        <p className="text-black/70 text-sm leading-relaxed mt-6">Your DROS campaign specifies: "If a DNC intent is detected, immediately flag the phone number as DNC on this account, write a note with exact wording and timestamp, end the call politely, and prevent this number from being scheduled in any future campaign." Those instructions are mirrored in the agent's context  - and DROS enforces the rule consistently, not just "inside the model's head."</p>
       </DarkCard>
 
       <H2 id="dnc-to-real-flag">3. Do Not Call: From "Don't Call Me" to a Real DNC Flag</H2>
@@ -140,7 +138,7 @@ export default function BlogPostDNCVoiceAgents() {
         <StepCard step="5" title="Escalate when appropriate">If there is shouting, legal threats, or anything outside the defined guardrails, the agent offers a live transfer with the transcript and tags already attached. We cover exactly when and how to design those transfers in our guide to <a href="/blogs/human-in-the-loop-collections" className="text-cyan-600 hover:text-cyan-500 underline underline-offset-2 transition-colors">human-in-the-loop collections</a>.</StepCard>
       </DarkCard>
       <DarkCard>
-        <p className="text-slate-300 leading-relaxed text-sm">In DROS that transfer can target a specific queue (e.g. "Disputes" or "Consumer Complaints"), and the transcript and tags land directly in the agent's workspace so they are not starting from zero.</p>
+        <p className="text-black/70 leading-relaxed text-sm">In DROS that transfer can target a specific queue (e.g. "Disputes" or "Consumer Complaints"), and the transcript and tags land directly in the agent's workspace so they are not starting from zero.</p>
       </DarkCard>
 
       <H2 id="call-hours-reg-f">5. Call Hours, Timezones, and Reg F Call Frequency</H2>
@@ -168,11 +166,11 @@ export default function BlogPostDNCVoiceAgents() {
           { trigger: '"I don\'t owe this" becomes:', items: ['a Dispute intent', 'a paused workflow and dispute queue in DROS', 'a human follow-up aligned with FDCPA/Reg F expectations'] },
           { trigger: '"What if the AI calls at the wrong time?" becomes:', items: ['call-hour and timezone rules defined once in DROS', 'enforced automatically for every AI and human call', 'with a single audit trail to show regulators or clients'] },
         ].map((block, i) => (
-          <div key={i} className="bg-slate-800 border border-slate-700 rounded-xl p-5 mb-3 last:mb-0">
-            <p className="text-cyan-400 font-semibold mb-3 text-sm">{block.trigger}</p>
+          <div key={i} className="bg-[#FAFAFA] border border-[#E6E3E3] rounded-xl p-5 mb-3 last:mb-0">
+            <p className="text-cyan-700 font-semibold mb-3 text-sm">{block.trigger}</p>
             <ul className="space-y-2">
               {block.items.map((item, j) => (
-                <li key={j} className="flex items-start gap-3 text-slate-300 text-sm">
+                <li key={j} className="flex items-start gap-3 text-black/70 text-sm">
                   <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full flex-shrink-0 mt-2" />{item}
                 </li>
               ))}

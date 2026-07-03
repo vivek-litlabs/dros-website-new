@@ -32,16 +32,15 @@ export default function BlogPostDigitalFirst() {
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
       <BlogLayout
+      image="/features/payments.jpg"
       title={
         <>
-          Digital-First Collections for Small Agencies: What's Actually Changing in 2026{' '}
-          <span style={{ background: 'linear-gradient(135deg, #DD39F9, #03D2FC)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            (and How to Catch Up)
-          </span>
+          Digital-First Collections for Small Agencies: What's Actually Changing in 2026 (and How to Catch Up)
         </>
       }
       subtitle="A Practical Guide to Adopting AI and Automation"
       readTime="12 min"
+      tags={tags}
       tocSections={TOC}
       canonicalPath={route}
       datePublished="2026-02-01"
@@ -104,7 +103,7 @@ export default function BlogPostDigitalFirst() {
       <P>You do not need a full digital overhaul to get wins. Here is a pragmatic roadmap that's low risk and fast to measure.</P>
 
       <DarkCard>
-        <h3 className="text-lg sm:text-xl font-bold text-cyan-300 mb-4">Days 1–30: Map and Pick</h3>
+        <h3 className="text-lg sm:text-xl font-bold text-cyan-700 mb-4">Days 1–30: Map and Pick</h3>
         <Ul items={[
           'Map current flows: who gets emailed, who gets a call, which portal links exist.',
           'Pick one immediate use case: due-date reminders or missed PTP follow-ups. Keep it narrow.',
@@ -113,7 +112,7 @@ export default function BlogPostDigitalFirst() {
       </DarkCard>
 
       <DarkCard>
-        <h3 className="text-lg sm:text-xl font-bold text-cyan-300 mb-4">Days 31–60: Pilot and Measure</h3>
+        <h3 className="text-lg sm:text-xl font-bold text-cyan-700 mb-4">Days 31–60: Pilot and Measure</h3>
         <Ul items={[
           'Run a controlled pilot: send SMS + portal nudges for a subset, and run a voice-AI pilot for the most promising accounts.',
           'Measure right-party contact, PTP rate, and same-call payment rate. Keep groups comparable so results are meaningful.',
@@ -121,7 +120,7 @@ export default function BlogPostDigitalFirst() {
       </DarkCard>
 
       <DarkCard>
-        <h3 className="text-lg sm:text-xl font-bold text-cyan-300 mb-4">Days 61–90: Scale and Refine</h3>
+        <h3 className="text-lg sm:text-xl font-bold text-cyan-700 mb-4">Days 61–90: Scale and Refine</h3>
         <Ul items={[
           'Expand the campaign on channels that work. Start routing complex calls to human agents with a warm handoff.',
           'Use the pilot data to tune call timing, retry rules, and message phrasing.',
@@ -182,8 +181,8 @@ export default function BlogPostDigitalFirst() {
           'Run a small pilot, measure, learn, and iterate.',
         ].map((item, i) => (
           <div key={i} className="flex items-start gap-4 mb-3 last:mb-0">
-            <span className="w-7 h-7 rounded-full bg-cyan-500/15 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold flex-shrink-0 text-xs">{i + 1}</span>
-            <p className="text-slate-300 leading-relaxed pt-0.5 text-sm">{item}</p>
+            <span className="w-7 h-7 rounded-full bg-cyan-500/15 border border-cyan-500/40 flex items-center justify-center text-cyan-700 font-bold flex-shrink-0 text-xs">{i + 1}</span>
+            <p className="text-black/70 leading-relaxed pt-0.5 text-sm">{item}</p>
           </div>
         ))}
       </DarkCard>

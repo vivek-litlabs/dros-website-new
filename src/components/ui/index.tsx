@@ -94,7 +94,7 @@ export function Eyebrow({
   );
 }
 
-/* ── Heading (Sentient display) ── */
+/* ── Heading (Saans display) ── */
 export function Heading({
   children,
   as: Tag = 'h2',
@@ -165,9 +165,9 @@ interface ButtonProps {
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   // White pill on dark - Lateral's primary CTA
-  primary: 'bg-white text-[#080808] font-medium',
+  primary: 'bg-white text-[#0C1E45] font-medium',
   // Black pill on light sections
-  onLight: 'bg-[#080808] text-white font-medium',
+  onLight: 'bg-[#0C1E45] text-white font-medium',
   secondary: 'border border-line bg-white/[0.04] text-ink hover:bg-white/[0.08]',
   ghost: 'text-ink/70 hover:text-ink',
 };

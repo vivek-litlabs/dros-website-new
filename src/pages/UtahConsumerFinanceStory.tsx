@@ -92,7 +92,7 @@ function H2({ id, children }: { id: string; children: React.ReactNode }) {
 function Quote({ children }: { children: React.ReactNode }) {
   return (
     <blockquote className="relative my-8 bg-gradient-to-br from-cyan-50 to-slate-50 border border-cyan-200 rounded-2xl px-6 py-6">
-      <div className="absolute top-3 left-4 text-cyan-300 text-4xl font-serif leading-none select-none">"</div>
+      <div className="absolute top-3 left-4 text-cyan-300 text-4xl font-saans leading-none select-none">"</div>
       <p className="text-slate-800 text-base sm:text-lg font-medium leading-relaxed italic pl-5 pt-2">{children}</p>
     </blockquote>
   );

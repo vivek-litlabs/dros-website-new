@@ -23,3 +23,21 @@ dist-ssr
 .env
 
 lateral.framer.media/
+
+# Scraped reference sites / competitor site dumps
+customer.io/
+customer.io-pricing/
+vapi.ai/
+www.wonderful.ai/
+www.wonderful.ai-blog-page/
+
+# Archives
+*.zip
+
+# Reference screenshots / PDFs
+*.pdf
+screencapture-*
+
+# Loose reference images at repo root
+/post cta.jpg
+/pricing bg.jpg

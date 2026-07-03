@@ -44,28 +44,28 @@ export default function ArmTechDallasEvent() {
 
             <div className="grid md:grid-cols-2 gap-6 mb-12">
               <div className="rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all">
-                <img
+                <img loading="lazy" decoding="async"
                   src="/iScreen_Shoter_-_Preview_-_260225164810.jpg"
                   alt="ARMTech Dallas conference panel discussion"
                   className="w-full h-auto object-cover"
                 />
               </div>
               <div className="rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all">
-                <img
+                <img loading="lazy" decoding="async"
                   src="/iScreen_Shoter_-_Preview_-_260225164836.jpg"
                   alt="Networking at ARMTech Dallas"
                   className="w-full h-auto object-cover"
                 />
               </div>
               <div className="rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all">
-                <img
+                <img loading="lazy" decoding="async"
                   src="/iScreen_Shoter_-_Preview_-_260225164848.jpg"
                   alt="ARMTech registration and welcome area"
                   className="w-full h-auto object-cover"
                 />
               </div>
               <div className="rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all">
-                <img
+                <img loading="lazy" decoding="async"
                   src="/iScreen_Shoter_-_Preview_-_260225164900.jpg"
                   alt="Conference insights and visual notes"
                   className="w-full h-auto object-cover"
@@ -74,7 +74,7 @@ export default function ArmTechDallasEvent() {
             </div>
 
             <div className="rounded-xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition-all mb-12">
-              <img
+              <img loading="lazy" decoding="async"
                 src="/iScreen_Shoter_-_Preview_-_260225164910.jpg"
                 alt="ARMTech event visual summaries"
                 className="w-full h-auto object-cover"
@@ -279,7 +279,7 @@ export default function ArmTechDallasEvent() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <img src="/untitled_logo_1_basic-file.png" alt="DROS Logo" className="w-8 h-8" />
+                <img loading="lazy" decoding="async" src="/untitled_logo_1_basic-file.png" alt="DROS Logo" className="w-8 h-8" />
                 <span className="text-xl font-bold">DROS</span>
               </div>
               <p className="text-slate-400 text-sm">The operating system for modern debt collection agencies.</p>

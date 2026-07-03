@@ -1,4 +1,4 @@
-import { StrictMode, useEffect } from 'react';
+import { StrictMode, Suspense, lazy, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
@@ -40,43 +40,46 @@ function ScrollToTop() {
   return null;
 }
 import App from './pages/App.tsx';
-import BookMeeting from './pages/BookMeeting.tsx';
-import EventsPage from './pages/EventsPage.tsx';
-import EventsListingPage from './pages/EventsListingPage.tsx';
-import ArmTechDallasEvent from './pages/ArmTechDallasEvent.tsx';
-import RMAILasVegasEvent from './pages/RMAILasVegasEvent.tsx';
-import ACAOrlandoEvent from './pages/ACAOrlandoEvent.tsx';
-import VideosPage from './pages/VideosPage.tsx';
-import WebinarsPage from './pages/WebinarsPage.tsx';
-import BlogsPage from './pages/BlogsPage.tsx';
-import BlogPost from './pages/BlogPost.tsx';
-import BlogPostDigitalFirst from './pages/BlogPostDigitalFirst.tsx';
-import BlogPostRPC from './pages/BlogPostRPC.tsx';
-import ContactUs from './pages/ContactUs.tsx';
-import RedirectToApiDocs from './pages/RedirectToApiDocs.tsx';
-import RedirectToReleaseNotes from './pages/RedirectToReleaseNotes.tsx';
-import PricingPage from './pages/PricingPage.tsx';
-import BlogPostAICompliance from './pages/BlogPostAICompliance.tsx';
-import BlogPostLegacyIntegrations from './pages/BlogPostLegacyIntegrations.tsx';
-import BlogPostDNCVoiceAgents from './pages/BlogPostDNCVoiceAgents.tsx';
-import BlogPostRegFCallLimits from './pages/BlogPostRegFCallLimits.tsx';
-import AboutUs from './pages/AboutUs.tsx';
-import NewsroomPage from './pages/NewsroomPage.tsx';
-import CustomerStoriesPage from './pages/CustomerStoriesPage.tsx';
-import FirstPartyCollectionsPage from './pages/FirstPartyCollectionsPage.tsx';
-import BlogPostAIVoiceAgents from './pages/BlogPostAIVoiceAgents.tsx';
-import BlogPostAIAgentsDeployment from './pages/BlogPostAIAgentsDeployment.tsx';
-import BlogPostHumanInTheLoop from './pages/BlogPostHumanInTheLoop.tsx';
-import BlogPostAICollectionsOperatingLayer from './pages/BlogPostAICollectionsOperatingLayer.tsx';
-import ThirdPartyCollectionsPage from './pages/ThirdPartyCollectionsPage.tsx';
-import CollectionsAIWorkshop from './pages/CollectionsAIWorkshop.tsx';
-import GreystoneStory from './pages/GreystoneStory.tsx';
-import VoiceAgentsPage from './pages/features/context-aware-voice-ai-agents-for-debt-collection.tsx';
-import UtahConsumerFinanceStory from './pages/UtahConsumerFinanceStory.tsx';
-import DebtBuyerCollectionsPage from './pages/DebtBuyerCollectionsPage.tsx';
-import PaymentReminders from './pages/PaymentReminders.tsx';
-import BlogPostOmnichannel from './pages/BlogPostOmnichannel.tsx';
 import './index.css';
+
+// Every route below the landing page is code-split into its own chunk and
+// fetched on demand, so the initial download only carries the home page.
+const BookMeeting = lazy(() => import('./pages/BookMeeting.tsx'));
+const EventsPage = lazy(() => import('./pages/EventsPage.tsx'));
+const EventsListingPage = lazy(() => import('./pages/EventsListingPage.tsx'));
+const ArmTechDallasEvent = lazy(() => import('./pages/ArmTechDallasEvent.tsx'));
+const RMAILasVegasEvent = lazy(() => import('./pages/RMAILasVegasEvent.tsx'));
+const ACAOrlandoEvent = lazy(() => import('./pages/ACAOrlandoEvent.tsx'));
+const VideosPage = lazy(() => import('./pages/VideosPage.tsx'));
+const WebinarsPage = lazy(() => import('./pages/WebinarsPage.tsx'));
+const BlogsPage = lazy(() => import('./pages/BlogsPage.tsx'));
+const BlogPost = lazy(() => import('./pages/BlogPost.tsx'));
+const BlogPostDigitalFirst = lazy(() => import('./pages/BlogPostDigitalFirst.tsx'));
+const BlogPostRPC = lazy(() => import('./pages/BlogPostRPC.tsx'));
+const ContactUs = lazy(() => import('./pages/ContactUs.tsx'));
+const RedirectToApiDocs = lazy(() => import('./pages/RedirectToApiDocs.tsx'));
+const RedirectToReleaseNotes = lazy(() => import('./pages/RedirectToReleaseNotes.tsx'));
+const PricingPage = lazy(() => import('./pages/PricingPage.tsx'));
+const BlogPostAICompliance = lazy(() => import('./pages/BlogPostAICompliance.tsx'));
+const BlogPostLegacyIntegrations = lazy(() => import('./pages/BlogPostLegacyIntegrations.tsx'));
+const BlogPostDNCVoiceAgents = lazy(() => import('./pages/BlogPostDNCVoiceAgents.tsx'));
+const BlogPostRegFCallLimits = lazy(() => import('./pages/BlogPostRegFCallLimits.tsx'));
+const AboutUs = lazy(() => import('./pages/AboutUs.tsx'));
+const NewsroomPage = lazy(() => import('./pages/NewsroomPage.tsx'));
+const CustomerStoriesPage = lazy(() => import('./pages/CustomerStoriesPage.tsx'));
+const FirstPartyCollectionsPage = lazy(() => import('./pages/FirstPartyCollectionsPage.tsx'));
+const BlogPostAIVoiceAgents = lazy(() => import('./pages/BlogPostAIVoiceAgents.tsx'));
+const BlogPostAIAgentsDeployment = lazy(() => import('./pages/BlogPostAIAgentsDeployment.tsx'));
+const BlogPostHumanInTheLoop = lazy(() => import('./pages/BlogPostHumanInTheLoop.tsx'));
+const BlogPostAICollectionsOperatingLayer = lazy(() => import('./pages/BlogPostAICollectionsOperatingLayer.tsx'));
+const ThirdPartyCollectionsPage = lazy(() => import('./pages/ThirdPartyCollectionsPage.tsx'));
+const CollectionsAIWorkshop = lazy(() => import('./pages/CollectionsAIWorkshop.tsx'));
+const GreystoneStory = lazy(() => import('./pages/GreystoneStory.tsx'));
+const VoiceAgentsPage = lazy(() => import('./pages/features/context-aware-voice-ai-agents-for-debt-collection.tsx'));
+const UtahConsumerFinanceStory = lazy(() => import('./pages/UtahConsumerFinanceStory.tsx'));
+const DebtBuyerCollectionsPage = lazy(() => import('./pages/DebtBuyerCollectionsPage.tsx'));
+const PaymentReminders = lazy(() => import('./pages/PaymentReminders.tsx'));
+const BlogPostOmnichannel = lazy(() => import('./pages/BlogPostOmnichannel.tsx'));
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -85,6 +88,7 @@ createRoot(document.getElementById('root')!).render(
       <ScrollToTop />
       <Analytics />
       <CanonicalTag />
+      <Suspense fallback={<div className="min-h-screen bg-base" />}>
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/book-meeting" element={<BookMeeting />} />
@@ -124,6 +128,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/api-docs" element={<RedirectToApiDocs />} />
         <Route path="/release-notes" element={<RedirectToReleaseNotes />} />
       </Routes>
+      </Suspense>
     </BrowserRouter>
     </HelmetProvider>
   </StrictMode>

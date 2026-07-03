@@ -180,7 +180,7 @@ function NewsCard({ item }: { item: NewsItem }) {
           }}
         >
           {logoSrc ? (
-            <img src={logoSrc} alt={item.source} className="max-h-14 max-w-full object-contain mix-blend-multiply" />
+            <img loading="lazy" decoding="async" src={logoSrc} alt={item.source} className="max-h-14 max-w-full object-contain mix-blend-multiply" />
           ) : (
             <span className="text-[#4F647A] text-base font-semibold text-center leading-snug">
               {item.source}

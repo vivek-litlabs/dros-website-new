@@ -5,9 +5,18 @@
     <link rel="icon" type="image/svg+xml" href="/DROS_symbol_1_(1).svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Body: Inter · Mono/labels: Geist Mono (Display: Sentient is self-hosted in index.css) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="preload" href="/fonts/sentient/sentient-400.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Primary typeface (Saans) is self-hosted in index.css; preload the LCP weight. -->
+    <link rel="preload" href="/fonts/saans/saans-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Mono/labels: Geist Mono. Loaded non-render-blocking (swap to screen once fetched). -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Agents for Collections | DROS AI</title>
 
@@ -28,15 +37,53 @@
     <meta name="twitter:title" content="AI Agents for Collections | DROS AI" />
     <meta name="twitter:description" content="AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents." />
     <meta name="twitter:image" content="https://dros.ai/untitled_logo_1_basic-file.png" />
+    <!--
+      Third-party analytics + chat (Clarity, reb2b, Crisp) are non-critical.
+      They're deferred until the browser is idle after the load event so they
+      never compete with rendering the page or its critical resources.
+    -->
     <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "uqmzb4i25n");
+    (function () {
+      // Queue stubs so any early calls before the real scripts load are preserved.
+      window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+      window.$crisp = window.$crisp || [];
+      window.CRISP_WEBSITE_ID = "09fd1c51-2e69-4224-876c-5913f498b5da";
+
+      function loadThirdParty() {
+        // Microsoft Clarity
+        (function (c, l, a, r, i, t, y) {
+          t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+          y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "uqmzb4i25n");
+
+        // reb2b
+        (function (key) {
+          if (window.reb2b && window.reb2b.loaded) return;
+          window.reb2b = { loaded: true };
+          var s = document.createElement("script");
+          s.async = true;
+          s.src = "https://b2bjsstore.s3.us-west-2.amazonaws.com/b/" + key + "/" + key + ".js.gz";
+          document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]);
+        })("G4N210H0DK6Z");
+
+        // Crisp chat
+        var d = document, s = d.createElement("script");
+        s.src = "https://client.crisp.chat/l.js"; s.async = 1;
+        d.getElementsByTagName("head")[0].appendChild(s);
+      }
+
+      function schedule() {
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(loadThirdParty, { timeout: 4000 });
+        } else {
+          window.setTimeout(loadThirdParty, 2000);
+        }
+      }
+
+      if (document.readyState === "complete") schedule();
+      else window.addEventListener("load", schedule, { once: true });
+    })();
     </script>
-    <script>!function(key) {if (window.reb2b) return;window.reb2b = {loaded: true};var s = document.createElement("script");s.async = true;s.src = "https://b2bjsstore.s3.us-west-2.amazonaws.com/b/" + key + "/" + key + ".js.gz";document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]);}("G4N210H0DK6Z");</script>
-    <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="09fd1c51-2e69-4224-876c-5913f498b5da";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
   </head>
   <body>
     <div id="root"></div>

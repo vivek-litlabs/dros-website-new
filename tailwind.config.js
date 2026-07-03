@@ -4,10 +4,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        // Body / UI
-        sans: ['Inter', 'Lexend', 'system-ui', 'sans-serif'],
-        // Display headings
-        display: ['Sentient', 'Inter', 'serif'],
+        // Saans (Customer.io face) is now the site-wide typeface for body + display.
+        sans: ['Saans', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['Saans', 'Inter', 'system-ui', 'sans-serif'],
+        saans: ['Saans', 'Inter', 'system-ui', 'sans-serif'],
         // Eyebrows, labels, code
         mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
@@ -19,7 +19,7 @@ export default {
         ink: '#F5F7FA',         // primary text on dark
         // Light sections (Lateral alternates light/dark)
         paper: '#F9F9F9',       // off-white light-section background
-        'ink-dark': '#080808',  // primary text on light
+        'ink-dark': '#0C1E45',  // primary text on light (dark navy blue)
         'ink-grey': '#636363',  // muted text on light
         'line-dark': '#E6E3E3', // hairline borders on light
         accent: {
@@ -45,11 +45,11 @@ export default {
         eyebrow: '0.08em',
       },
       fontSize: {
-        // Display scale (Sentient) - matches Lateral: 62px desktop / 48px small, -0.05em
-        'display-lg': ['clamp(2.625rem, 5vw, 3.875rem)', { lineHeight: '1.05', letterSpacing: '-0.05em' }],
-        'display': ['clamp(2rem, 4vw, 3rem)', { lineHeight: '1.08', letterSpacing: '-0.05em' }],
-        'heading': ['clamp(1.625rem, 3vw, 2.25rem)', { lineHeight: '1.12', letterSpacing: '-0.04em' }],
-        'metric': ['clamp(3.5rem, 7vw, 5.5rem)', { lineHeight: '1', letterSpacing: '-0.05em' }],
+        // Display scale (Saans) - matches Lateral: 62px desktop / 48px small, -0.05em
+        'display-lg': ['clamp(2.625rem, 5vw, 3.875rem)', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
+        'display': ['clamp(2rem, 4vw, 3rem)', { lineHeight: '1.08', letterSpacing: '-0.02em' }],
+        'heading': ['clamp(1.625rem, 3vw, 2.25rem)', { lineHeight: '1.12', letterSpacing: '-0.02em' }],
+        'metric': ['clamp(3.5rem, 7vw, 5.5rem)', { lineHeight: '1', letterSpacing: '-0.02em' }],
         'eyebrow': ['0.75rem', { lineHeight: '1', letterSpacing: '0.08em' }],
       },
       maxWidth: {

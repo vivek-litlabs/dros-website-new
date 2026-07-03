@@ -81,7 +81,7 @@ export default function CollectionsAIWorkshop() {
                   <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle, rgba(221,57,249,0.18) 0%, transparent 70%)', margin: -22 }} />
                   <div className="absolute inset-0 rounded-full p-0.5" style={gradBg}>
                     <div className="w-full h-full rounded-full overflow-hidden bg-slate-950">
-                      <img
+                      <img loading="lazy" decoding="async"
                         src="/Untitled_design_(15) copy.png"
                         alt="Anshul Shrivastava"
                         className="w-full h-full object-cover object-top"

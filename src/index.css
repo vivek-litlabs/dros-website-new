@@ -2,34 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Sentient (display) - self-hosted to match Lateral exactly ── */
+/* ── Saans (Customer.io display face) - self-hosted variable font ── */
 @font-face {
-  font-family: 'Sentient';
-  src: url('/fonts/sentient/sentient-300.woff2') format('woff2');
-  font-weight: 300;
+  font-family: 'Saans';
+  src: url('/fonts/saans/saans-variable.woff2') format('woff2');
+  font-weight: 100 800;
   font-style: normal;
   font-display: swap;
-}
-@font-face {
-  font-family: 'Sentient';
-  src: url('/fonts/sentient/sentient-400.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Sentient';
-  src: url('/fonts/sentient/sentient-500.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Sentient';
-  src: url('/fonts/sentient/sentient-700.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+  ascent-override: 90%;
 }
 
 :root {
@@ -49,25 +29,24 @@
     @apply antialiased;
     overflow-x: hidden;
     overscroll-behavior-x: none;
-    font-family: 'Inter', 'Lexend', system-ui, sans-serif;
+    font-family: 'Saans', 'Inter', system-ui, sans-serif;
     font-weight: 400;
-    font-feature-settings: 'cv11', 'ss01';
     text-rendering: optimizeLegibility;
   }
 
-  /* Display headings use Sentient, matching Lateral (regular weight, tight tracking) */
+  /* Display headings use Saans (Customer.io face), site-wide */
   h1, h2, h3 {
-    font-family: 'Sentient', 'Times New Roman', serif;
-    font-weight: 400;
+    font-family: 'Saans', 'Inter', system-ui, sans-serif;
+    font-weight: 500;
     line-height: 1.1;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.02em;
   }
 
   h4, h5, h6 {
-    font-family: 'Sentient', 'Times New Roman', serif;
-    font-weight: 400;
+    font-family: 'Saans', 'Inter', system-ui, sans-serif;
+    font-weight: 500;
     line-height: 1.2;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.015em;
   }
 
   small, label, caption {
@@ -137,6 +116,37 @@ html.lenis body {
 }
 
 @layer utilities {
+  /* ── Vapi-style hero animations (ported from vapi.ai tokens) ── */
+  /* Live-call waveform bars */
+  @keyframes fhero-wave {
+    0%, 100% { transform: scaleY(0.35); opacity: 0.65; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+  /* Pulsing rings on the end-call button */
+  @keyframes fhero-phone-pulse {
+    0% { opacity: 0; transform: scale(0.9); }
+    18% { opacity: 0.7; }
+    100% { opacity: 0; transform: scale(1.5); }
+  }
+  /* Chat/telemetry entrance */
+  @keyframes fhero-bubble-in {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  /* Traveling beam bars along the desktop frame */
+  @keyframes fhero-beam-x {
+    0% { transform: translate3d(-320px, -50%, 0); opacity: 0; }
+    12% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { transform: translate3d(calc(100vw + 320px), -50%, 0); opacity: 0; }
+  }
+  @keyframes fhero-beam-y {
+    0% { transform: translate3d(-50%, -320px, 0); opacity: 0; }
+    12% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { transform: translate3d(-50%, calc(100vh + 320px), 0); opacity: 0; }
+  }
+
   @keyframes fadeSlideUp {
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: none; }

@@ -64,6 +64,7 @@ export default function BlogPostAIAgentsDeployment() {
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
       <BlogLayout
+        image="/features/dashboard.jpg"
         title="How to Deploy AI Agents Across the Debt Collection Lifecycle"
         readTime="18 min"
         tags={['Collections Strategy & Performance']}
@@ -220,12 +221,12 @@ export default function BlogPostAIAgentsDeployment() {
               { stage: 'Day-1 / Third-Party', tag: 'AI Front-Line', tagColor: '#03D2FC', tagBg: 'rgba(3,210,252,0.12)', body: 'AI agents run high-volume, rules-bound contact attempts and pre-qualify accounts before booking callbacks for human collectors.' },
               { stage: 'Late Stage / Legal', tag: 'AI Support', tagColor: '#DD39F9', tagBg: 'rgba(221,57,249,0.12)', body: 'AI is more useful for status updates, document collection, and inbound triage than for negotiation. Human collectors stay primary.' },
             ].map((row, i, arr) => (
-              <div key={row.stage} className={`flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4 ${i < arr.length - 1 ? 'pb-4 border-b border-slate-700' : ''}`}>
+              <div key={row.stage} className={`flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4 ${i < arr.length - 1 ? 'pb-4 border-b border-[#E6E3E3]' : ''}`}>
                 <div className="sm:w-44 flex-shrink-0">
-                  <p className="text-white font-medium text-sm mb-1.5">{row.stage}</p>
+                  <p className="text-black font-medium text-sm mb-1.5">{row.stage}</p>
                   <span className="inline-block text-xs font-medium px-2.5 py-1 rounded-full" style={{ color: row.tagColor, background: row.tagBg }}>{row.tag}</span>
                 </div>
-                <p className="text-slate-300 text-sm leading-relaxed">{row.body}</p>
+                <p className="text-black/70 text-sm leading-relaxed">{row.body}</p>
               </div>
             ))}
           </div>
@@ -350,9 +351,9 @@ export default function BlogPostAIAgentsDeployment() {
               body: 'Without requiring you to rip and replace your existing dialer or back-end systems.',
             },
           ].map((item, i) => (
-            <div key={i} className="flex flex-col sm:flex-row gap-3 sm:gap-4 bg-slate-800 border border-slate-700/60 rounded-xl p-5 mb-3 last:mb-0" style={{ borderLeft: `3px solid ${item.accent}` }}>
+            <div key={i} className="flex flex-col sm:flex-row gap-3 sm:gap-4 bg-[#FAFAFA] border border-[#E6E3E3]/60 rounded-xl p-5 mb-3 last:mb-0" style={{ borderLeft: `3px solid ${item.accent}` }}>
               <span style={{ color: item.accent, fontWeight: 600, fontSize: 14 }} className="sm:min-w-[260px] sm:pt-0.5 flex-shrink-0">{item.title}</span>
-              <span className="text-slate-300 leading-relaxed text-sm font-light">{item.body}</span>
+              <span className="text-black/70 leading-relaxed text-sm font-light">{item.body}</span>
             </div>
           ))}
         </DarkCard>

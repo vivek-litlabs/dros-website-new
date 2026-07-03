@@ -777,8 +777,8 @@ export default function ThirdPartyCollectionsPage() {
                       <path d="M5 4V2.5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V4" fill="none" stroke="#67e8f9" strokeWidth="1.4" />
                       <line x1="0" y1="9" x2="16" y2="9" stroke="#67e8f9" strokeWidth="1" strokeOpacity=".5" />
                     </g>
-                    <text x="96" y={n.cy - 5} fill="#ffffff" fontSize="14" fontWeight="700" fontFamily="-apple-system,sans-serif">{n.label}</text>
-                    <text x="96" y={n.cy + 11} fill="#64748b" fontSize="11.5" fontFamily="-apple-system,sans-serif">{n.sub}</text>
+                    <text x="96" y={n.cy - 5} fill="#ffffff" fontSize="14" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">{n.label}</text>
+                    <text x="96" y={n.cy + 11} fill="#64748b" fontSize="11.5" fontFamily="Saans,-apple-system,sans-serif">{n.sub}</text>
                   </g>
                 ))}
 
@@ -797,8 +797,8 @@ export default function ThirdPartyCollectionsPage() {
                 <rect x="360" y="128" width="260" height="240" rx="20" fill="url(#tp-hubfill)" stroke="#06b6d4" strokeWidth="2" />
                 <line x1="376" y1="129" x2="604" y2="129" stroke="rgba(255,255,255,.15)" strokeWidth="1" />
                 {/* DROS wordmark */}
-                <text x="490" y="188" textAnchor="middle" fill="#ffffff" fontSize="36" fontWeight="800" fontFamily="-apple-system,sans-serif" letterSpacing="-1">DROS</text>
-                <text x="490" y="209" textAnchor="middle" fill="#67e8f9" fontSize="11" fontWeight="700" fontFamily="-apple-system,sans-serif" letterSpacing="2.5">ENGAGEMENT OS</text>
+                <text x="490" y="188" textAnchor="middle" fill="#ffffff" fontSize="36" fontWeight="800" fontFamily="Saans,-apple-system,sans-serif" letterSpacing="-1">DROS</text>
+                <text x="490" y="209" textAnchor="middle" fill="#67e8f9" fontSize="11" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif" letterSpacing="2.5">ENGAGEMENT OS</text>
                 <line x1="385" y1="226" x2="595" y2="226" stroke="rgba(6,182,212,.18)" strokeWidth="1" />
                 {/* Three evenly-spaced pills inside hub — total hub width 260, center x=490 */}
                 {/* pill widths: Rules=62, Context=72, Queues=68 → total=202, gaps=2×14=28, total=230 — fits 260 */}
@@ -809,7 +809,7 @@ export default function ThirdPartyCollectionsPage() {
                 <g transform="translate(386,246)">
                   <path d="M4 0L8 1.4L8 4.5Q8 7.5 4 9Q0 7.5 0 4.5L0 1.4Z" fill="none" stroke="#67e8f9" strokeWidth="1.2" />
                 </g>
-                <text x="406" y="257" textAnchor="middle" fill="#94a3b8" fontSize="10.5" fontFamily="-apple-system,sans-serif">Rules</text>
+                <text x="406" y="257" textAnchor="middle" fill="#94a3b8" fontSize="10.5" fontFamily="Saans,-apple-system,sans-serif">Rules</text>
                 {/* Context: x=452 w=72 cx=488 */}
                 <rect x="452" y="240" width="72" height="24" rx="7" fill="rgba(6,182,212,.1)" stroke="rgba(6,182,212,.22)" strokeWidth="1" />
                 {/* layers icon at 460,246 */}
@@ -817,7 +817,7 @@ export default function ThirdPartyCollectionsPage() {
                   <path d="M0 3.5L5 1.5L10 3.5L5 5.5Z" fill="none" stroke="#67e8f9" strokeWidth="1.2" />
                   <path d="M0 6.5L5 4.5L10 6.5" fill="none" stroke="#67e8f9" strokeWidth="1.2" strokeOpacity=".6" />
                 </g>
-                <text x="484" y="257" textAnchor="middle" fill="#94a3b8" fontSize="10.5" fontFamily="-apple-system,sans-serif">Context</text>
+                <text x="484" y="257" textAnchor="middle" fill="#94a3b8" fontSize="10.5" fontFamily="Saans,-apple-system,sans-serif">Context</text>
                 {/* Queues: x=538 w=68 cx=572 */}
                 <rect x="538" y="240" width="68" height="24" rx="7" fill="rgba(6,182,212,.1)" stroke="rgba(6,182,212,.22)" strokeWidth="1" />
                 {/* list icon at 547,246 */}
@@ -826,13 +826,13 @@ export default function ThirdPartyCollectionsPage() {
                   <line x1="0" y1="5" x2="9" y2="5" stroke="#67e8f9" strokeWidth="1.2" />
                   <line x1="0" y1="8" x2="6" y2="8" stroke="#67e8f9" strokeWidth="1.2" />
                 </g>
-                <text x="571" y="257" textAnchor="middle" fill="#94a3b8" fontSize="10.5" fontFamily="-apple-system,sans-serif">Queues</text>
+                <text x="571" y="257" textAnchor="middle" fill="#94a3b8" fontSize="10.5" fontFamily="Saans,-apple-system,sans-serif">Queues</text>
 
                 {/* Compliance row inside hub */}
                 <line x1="385" y1="280" x2="595" y2="280" stroke="rgba(6,182,212,.1)" strokeWidth="1" />
-                <text x="418" y="302" textAnchor="middle" fill="#64748b" fontSize="10" fontFamily="-apple-system,sans-serif">Reg F</text>
-                <text x="490" y="302" textAnchor="middle" fill="#64748b" fontSize="10" fontFamily="-apple-system,sans-serif">FDCPA</text>
-                <text x="562" y="302" textAnchor="middle" fill="#64748b" fontSize="10" fontFamily="-apple-system,sans-serif">TCPA</text>
+                <text x="418" y="302" textAnchor="middle" fill="#64748b" fontSize="10" fontFamily="Saans,-apple-system,sans-serif">Reg F</text>
+                <text x="490" y="302" textAnchor="middle" fill="#64748b" fontSize="10" fontFamily="Saans,-apple-system,sans-serif">FDCPA</text>
+                <text x="562" y="302" textAnchor="middle" fill="#64748b" fontSize="10" fontFamily="Saans,-apple-system,sans-serif">TCPA</text>
                 {/* small dots */}
                 <circle cx="418" cy="313" r="2.5" fill="#06b6d4" opacity=".4" />
                 <circle cx="490" cy="313" r="2.5" fill="#06b6d4" opacity=".4" />
@@ -855,8 +855,8 @@ export default function ThirdPartyCollectionsPage() {
                 <g transform="translate(770,95)">
                   <path d="M2 1Q1 1 1 2L1 4Q1 8.5 6.5 14Q8.5 16 10.5 16L12.5 16Q13.5 16 13.5 15L13.5 13Q13.5 12 12.5 12L10.5 12Q9.5 12 9.5 11L9.5 10Q9.5 9 8.5 9L6.5 7Q6.5 7 6 6L6 4Q6 3 5 3L3 3Q2 3 2 2Z" fill="none" stroke="#a78bfa" strokeWidth="1.3" />
                 </g>
-                <text x="810" y="99" fill="#ffffff" fontSize="13" fontWeight="700" fontFamily="-apple-system,sans-serif">Dialers / SMS / Email</text>
-                <text x="810" y="115" fill="#64748b" fontSize="11" fontFamily="-apple-system,sans-serif">Communication channels</text>
+                <text x="810" y="99" fill="#ffffff" fontSize="13" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">Dialers / SMS / Email</text>
+                <text x="810" y="115" fill="#64748b" fontSize="11" fontFamily="Saans,-apple-system,sans-serif">Communication channels</text>
 
                 {/* ── RIGHT NODE 2: AI agents ── */}
                 <rect x="740" y="212" width="218" height="72" rx="12" fill="#1e1408" stroke="rgba(255,255,255,.1)" strokeWidth="1" />
@@ -871,8 +871,8 @@ export default function ThirdPartyCollectionsPage() {
                   <line x1="1" y1="16" x2="0" y2="19" stroke="#fb923c" strokeWidth="1.3" />
                   <line x1="19" y1="16" x2="20" y2="19" stroke="#fb923c" strokeWidth="1.3" />
                 </g>
-                <text x="810" y="243" fill="#ffffff" fontSize="13" fontWeight="700" fontFamily="-apple-system,sans-serif">AI agents</text>
-                <text x="810" y="259" fill="#64748b" fontSize="11" fontFamily="-apple-system,sans-serif">Intelligent automation</text>
+                <text x="810" y="243" fill="#ffffff" fontSize="13" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">AI agents</text>
+                <text x="810" y="259" fill="#64748b" fontSize="11" fontFamily="Saans,-apple-system,sans-serif">Intelligent automation</text>
 
                 {/* ── RIGHT NODE 3: Human agents ── */}
                 <rect x="740" y="356" width="218" height="72" rx="12" fill="#0a1428" stroke="rgba(255,255,255,.1)" strokeWidth="1" />
@@ -882,12 +882,12 @@ export default function ThirdPartyCollectionsPage() {
                   <circle cx="9" cy="4" r="3.8" fill="none" stroke="#60a5fa" strokeWidth="1.3" />
                   <path d="M1 19Q1 13 9 13Q17 13 17 19" fill="none" stroke="#60a5fa" strokeWidth="1.3" />
                 </g>
-                <text x="810" y="387" fill="#ffffff" fontSize="13" fontWeight="700" fontFamily="-apple-system,sans-serif">Human agents</text>
-                <text x="810" y="403" fill="#64748b" fontSize="11" fontFamily="-apple-system,sans-serif">Live engagement</text>
+                <text x="810" y="387" fill="#ffffff" fontSize="13" fontWeight="700" fontFamily="Saans,-apple-system,sans-serif">Human agents</text>
+                <text x="810" y="403" fill="#64748b" fontSize="11" fontFamily="Saans,-apple-system,sans-serif">Live engagement</text>
 
                 {/* ── TAGLINE ── */}
                 <line x1="180" y1="462" x2="360" y2="462" stroke="#06b6d4" strokeWidth="1" strokeOpacity=".35" />
-                <text x="490" y="466" textAnchor="middle" fill="#94a3b8" fontSize="13" fontFamily="-apple-system,sans-serif">One system. Every touchpoint. Full account context.</text>
+                <text x="490" y="466" textAnchor="middle" fill="#94a3b8" fontSize="13" fontFamily="Saans,-apple-system,sans-serif">One system. Every touchpoint. Full account context.</text>
                 <line x1="620" y1="462" x2="800" y2="462" stroke="#06b6d4" strokeWidth="1" strokeOpacity=".35" />
               </svg>
 
