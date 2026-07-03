@@ -42,44 +42,72 @@ function ScrollToTop() {
 import App from './pages/App.tsx';
 import './index.css';
 
+// After a deploy, chunk filenames get new hashes. A returning visitor may still
+// have the old index.html cached, which references chunk names that no longer
+// exist on the server, so the dynamic import() rejects and the page appears to
+// hang on the Suspense fallback until a hard refresh. Wrap every lazy import so
+// that when a chunk fails to load we reload the page once to pull fresh HTML.
+type ComponentModule = { default: React.ComponentType<unknown> };
+
+function lazyWithRetry(factory: () => Promise<ComponentModule>) {
+  return lazy(async () => {
+    const RELOAD_KEY = 'chunk-reload';
+    try {
+      const mod = await factory();
+      sessionStorage.removeItem(RELOAD_KEY);
+      return mod;
+    } catch (err) {
+      // Only force a reload once, to avoid an infinite loop if the failure is
+      // not actually caused by a stale chunk.
+      if (!sessionStorage.getItem(RELOAD_KEY)) {
+        sessionStorage.setItem(RELOAD_KEY, '1');
+        window.location.reload();
+        // Return a never-resolving promise so nothing renders before reload.
+        return new Promise<ComponentModule>(() => {});
+      }
+      throw err;
+    }
+  });
+}
+
 // Every route below the landing page is code-split into its own chunk and
 // fetched on demand, so the initial download only carries the home page.
-const BookMeeting = lazy(() => import('./pages/BookMeeting.tsx'));
-const EventsPage = lazy(() => import('./pages/EventsPage.tsx'));
-const EventsListingPage = lazy(() => import('./pages/EventsListingPage.tsx'));
-const ArmTechDallasEvent = lazy(() => import('./pages/ArmTechDallasEvent.tsx'));
-const RMAILasVegasEvent = lazy(() => import('./pages/RMAILasVegasEvent.tsx'));
-const ACAOrlandoEvent = lazy(() => import('./pages/ACAOrlandoEvent.tsx'));
-const VideosPage = lazy(() => import('./pages/VideosPage.tsx'));
-const WebinarsPage = lazy(() => import('./pages/WebinarsPage.tsx'));
-const BlogsPage = lazy(() => import('./pages/BlogsPage.tsx'));
-const BlogPost = lazy(() => import('./pages/BlogPost.tsx'));
-const BlogPostDigitalFirst = lazy(() => import('./pages/BlogPostDigitalFirst.tsx'));
-const BlogPostRPC = lazy(() => import('./pages/BlogPostRPC.tsx'));
-const ContactUs = lazy(() => import('./pages/ContactUs.tsx'));
-const RedirectToApiDocs = lazy(() => import('./pages/RedirectToApiDocs.tsx'));
-const RedirectToReleaseNotes = lazy(() => import('./pages/RedirectToReleaseNotes.tsx'));
-const PricingPage = lazy(() => import('./pages/PricingPage.tsx'));
-const BlogPostAICompliance = lazy(() => import('./pages/BlogPostAICompliance.tsx'));
-const BlogPostLegacyIntegrations = lazy(() => import('./pages/BlogPostLegacyIntegrations.tsx'));
-const BlogPostDNCVoiceAgents = lazy(() => import('./pages/BlogPostDNCVoiceAgents.tsx'));
-const BlogPostRegFCallLimits = lazy(() => import('./pages/BlogPostRegFCallLimits.tsx'));
-const AboutUs = lazy(() => import('./pages/AboutUs.tsx'));
-const NewsroomPage = lazy(() => import('./pages/NewsroomPage.tsx'));
-const CustomerStoriesPage = lazy(() => import('./pages/CustomerStoriesPage.tsx'));
-const FirstPartyCollectionsPage = lazy(() => import('./pages/FirstPartyCollectionsPage.tsx'));
-const BlogPostAIVoiceAgents = lazy(() => import('./pages/BlogPostAIVoiceAgents.tsx'));
-const BlogPostAIAgentsDeployment = lazy(() => import('./pages/BlogPostAIAgentsDeployment.tsx'));
-const BlogPostHumanInTheLoop = lazy(() => import('./pages/BlogPostHumanInTheLoop.tsx'));
-const BlogPostAICollectionsOperatingLayer = lazy(() => import('./pages/BlogPostAICollectionsOperatingLayer.tsx'));
-const ThirdPartyCollectionsPage = lazy(() => import('./pages/ThirdPartyCollectionsPage.tsx'));
-const CollectionsAIWorkshop = lazy(() => import('./pages/CollectionsAIWorkshop.tsx'));
-const GreystoneStory = lazy(() => import('./pages/GreystoneStory.tsx'));
-const VoiceAgentsPage = lazy(() => import('./pages/features/context-aware-voice-ai-agents-for-debt-collection.tsx'));
-const UtahConsumerFinanceStory = lazy(() => import('./pages/UtahConsumerFinanceStory.tsx'));
-const DebtBuyerCollectionsPage = lazy(() => import('./pages/DebtBuyerCollectionsPage.tsx'));
-const PaymentReminders = lazy(() => import('./pages/PaymentReminders.tsx'));
-const BlogPostOmnichannel = lazy(() => import('./pages/BlogPostOmnichannel.tsx'));
+const BookMeeting = lazyWithRetry(() => import('./pages/BookMeeting.tsx'));
+const EventsPage = lazyWithRetry(() => import('./pages/EventsPage.tsx'));
+const EventsListingPage = lazyWithRetry(() => import('./pages/EventsListingPage.tsx'));
+const ArmTechDallasEvent = lazyWithRetry(() => import('./pages/ArmTechDallasEvent.tsx'));
+const RMAILasVegasEvent = lazyWithRetry(() => import('./pages/RMAILasVegasEvent.tsx'));
+const ACAOrlandoEvent = lazyWithRetry(() => import('./pages/ACAOrlandoEvent.tsx'));
+const VideosPage = lazyWithRetry(() => import('./pages/VideosPage.tsx'));
+const WebinarsPage = lazyWithRetry(() => import('./pages/WebinarsPage.tsx'));
+const BlogsPage = lazyWithRetry(() => import('./pages/BlogsPage.tsx'));
+const BlogPost = lazyWithRetry(() => import('./pages/BlogPost.tsx'));
+const BlogPostDigitalFirst = lazyWithRetry(() => import('./pages/BlogPostDigitalFirst.tsx'));
+const BlogPostRPC = lazyWithRetry(() => import('./pages/BlogPostRPC.tsx'));
+const ContactUs = lazyWithRetry(() => import('./pages/ContactUs.tsx'));
+const RedirectToApiDocs = lazyWithRetry(() => import('./pages/RedirectToApiDocs.tsx'));
+const RedirectToReleaseNotes = lazyWithRetry(() => import('./pages/RedirectToReleaseNotes.tsx'));
+const PricingPage = lazyWithRetry(() => import('./pages/PricingPage.tsx'));
+const BlogPostAICompliance = lazyWithRetry(() => import('./pages/BlogPostAICompliance.tsx'));
+const BlogPostLegacyIntegrations = lazyWithRetry(() => import('./pages/BlogPostLegacyIntegrations.tsx'));
+const BlogPostDNCVoiceAgents = lazyWithRetry(() => import('./pages/BlogPostDNCVoiceAgents.tsx'));
+const BlogPostRegFCallLimits = lazyWithRetry(() => import('./pages/BlogPostRegFCallLimits.tsx'));
+const AboutUs = lazyWithRetry(() => import('./pages/AboutUs.tsx'));
+const NewsroomPage = lazyWithRetry(() => import('./pages/NewsroomPage.tsx'));
+const CustomerStoriesPage = lazyWithRetry(() => import('./pages/CustomerStoriesPage.tsx'));
+const FirstPartyCollectionsPage = lazyWithRetry(() => import('./pages/FirstPartyCollectionsPage.tsx'));
+const BlogPostAIVoiceAgents = lazyWithRetry(() => import('./pages/BlogPostAIVoiceAgents.tsx'));
+const BlogPostAIAgentsDeployment = lazyWithRetry(() => import('./pages/BlogPostAIAgentsDeployment.tsx'));
+const BlogPostHumanInTheLoop = lazyWithRetry(() => import('./pages/BlogPostHumanInTheLoop.tsx'));
+const BlogPostAICollectionsOperatingLayer = lazyWithRetry(() => import('./pages/BlogPostAICollectionsOperatingLayer.tsx'));
+const ThirdPartyCollectionsPage = lazyWithRetry(() => import('./pages/ThirdPartyCollectionsPage.tsx'));
+const CollectionsAIWorkshop = lazyWithRetry(() => import('./pages/CollectionsAIWorkshop.tsx'));
+const GreystoneStory = lazyWithRetry(() => import('./pages/GreystoneStory.tsx'));
+const VoiceAgentsPage = lazyWithRetry(() => import('./pages/features/context-aware-voice-ai-agents-for-debt-collection.tsx'));
+const UtahConsumerFinanceStory = lazyWithRetry(() => import('./pages/UtahConsumerFinanceStory.tsx'));
+const DebtBuyerCollectionsPage = lazyWithRetry(() => import('./pages/DebtBuyerCollectionsPage.tsx'));
+const PaymentReminders = lazyWithRetry(() => import('./pages/PaymentReminders.tsx'));
+const BlogPostOmnichannel = lazyWithRetry(() => import('./pages/BlogPostOmnichannel.tsx'));
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
