@@ -6,10 +6,10 @@ import type Lenis from 'lenis';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Hero from '../components/home/Hero';
-import Problem from '../components/home/Problem';
+import MeetYourAgent from '../components/home/MeetYourAgent';
+import WhoIsItFor from '../components/home/WhoIsItFor';
 import HowItWorks from '../components/home/HowItWorks';
 import Features from '../components/home/Features';
-import UseCases from '../components/home/UseCases';
 import Compliance from '../components/home/Compliance';
 import SocialProof from '../components/home/SocialProof';
 import Pricing from '../components/home/Pricing';
@@ -85,10 +85,10 @@ export default function App() {
 
       <main>
         <Hero />
-        <Problem />
+        <WhoIsItFor />
+        <MeetYourAgent />
         <HowItWorks />
         <Features />
-        <UseCases />
         <Compliance />
         <SocialProof />
         <Pricing />
