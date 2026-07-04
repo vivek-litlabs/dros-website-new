@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Phone, PhoneOff, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -14,128 +14,8 @@ import { trackCta } from '../../lib/analytics';
  * DROS content is preserved; only the visual design follows Vapi.
  */
 
-// Beam palette lifted from Vapi (coral -> yellow -> off-white -> teal -> purple).
-const BEAM_X =
-  'linear-gradient(90deg, rgba(250,94,83,0) 0%, rgba(250,94,83,0.35) 4%, #FA5E53 10%, #FFFD97 28%, #FCFDF3 44%, #31E7DD 62%, #5F3F8B 80%, #5F3F8B 90%, rgba(95,63,139,0.35) 96%, rgba(95,63,139,0) 100%)';
-const BEAM_Y =
-  'linear-gradient(180deg, rgba(250,94,83,0) 0%, rgba(250,94,83,0.35) 4%, #FA5E53 10%, #FFFD97 28%, #FCFDF3 44%, #31E7DD 62%, #5F3F8B 80%, #5F3F8B 90%, rgba(95,63,139,0.35) 96%, rgba(95,63,139,0) 100%)';
-
 function prefersReducedMotion() {
   return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
-/* ── Animated grid canvas that lives inside the desktop frame ── */
-function FrameCanvas() {
-  const ref = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas || prefersReducedMotion()) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let raf = 0;
-    let t = 0;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const cell = 44;
-
-    function resize() {
-      if (!canvas) return;
-      const { width, height } = canvas.getBoundingClientRect();
-      canvas.width = Math.max(1, Math.floor(width * dpr));
-      canvas.height = Math.max(1, Math.floor(height * dpr));
-    }
-    resize();
-    const ro = new ResizeObserver(resize);
-    ro.observe(canvas);
-
-    function draw() {
-      if (!ctx || !canvas) return;
-      const w = canvas.width;
-      const h = canvas.height;
-      ctx.clearRect(0, 0, w, h);
-      ctx.lineWidth = 1;
-      const step = cell * dpr;
-      // Faint static grid.
-      ctx.strokeStyle = 'rgba(120,144,140,0.10)';
-      ctx.beginPath();
-      for (let x = 0; x <= w; x += step) {
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, h);
-      }
-      for (let y = 0; y <= h; y += step) {
-        ctx.moveTo(0, y);
-        ctx.lineTo(w, y);
-      }
-      ctx.stroke();
-
-      // A soft glow that drifts diagonally across the grid.
-      const gx = (Math.sin(t * 0.0004) * 0.5 + 0.5) * w;
-      const gy = (Math.cos(t * 0.0003) * 0.5 + 0.5) * h;
-      const glow = ctx.createRadialGradient(gx, gy, 0, gx, gy, Math.max(w, h) * 0.35);
-      glow.addColorStop(0, 'rgba(49,231,221,0.10)');
-      glow.addColorStop(1, 'rgba(49,231,221,0)');
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, w, h);
-
-      t += 16;
-      raf = requestAnimationFrame(draw);
-    }
-    raf = requestAnimationFrame(draw);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      ro.disconnect();
-    };
-  }, []);
-
-  return <canvas ref={ref} aria-hidden="true" className="block h-full w-full" tabIndex={-1} />;
-}
-
-/* ── Decorative desktop-only frame: lines, vignette, canvas, traveling beams ── */
-function HeroFrame() {
-  return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-30 hidden xl:block">
-      {/* Frame lines inset by 72px */}
-      <div className="absolute inset-[72px]">
-        <div className="absolute inset-x-0 top-0 h-px bg-[rgba(120,144,140,0.5)]" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-[rgba(120,144,140,0.5)]" />
-        <div className="absolute inset-y-0 left-0 w-px bg-[rgba(120,144,140,0.5)]" />
-        <div className="absolute inset-y-0 right-0 w-px bg-[rgba(120,144,140,0.5)]" />
-        {/* Inner vignette + canvas grid */}
-        <div className="absolute inset-0 bg-black/[0.18] shadow-[inset_0_0_80px_0_rgba(0,0,0,0.1)]" />
-        <div
-          className="absolute inset-0"
-          style={{
-            maskImage: 'linear-gradient(to bottom, black 0%, black 55%, transparent 80%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 55%, transparent 80%)',
-          }}
-        >
-          <FrameCanvas />
-        </div>
-      </div>
-
-      {/* Traveling beam bars along the frame edges (mix-blend screen) */}
-      <div className="absolute inset-[72px] overflow-hidden [mix-blend-mode:screen]">
-        <div
-          className="absolute left-0 top-0 h-px w-[300px] motion-reduce:hidden"
-          style={{ background: BEAM_X, animation: 'fhero-beam-x 7s linear infinite' }}
-        />
-        <div
-          className="absolute bottom-0 left-0 h-px w-[300px] motion-reduce:hidden"
-          style={{ background: BEAM_X, animation: 'fhero-beam-x 7s linear infinite', animationDelay: '3.5s' }}
-        />
-        <div
-          className="absolute left-0 top-0 h-[300px] w-px motion-reduce:hidden"
-          style={{ background: BEAM_Y, animation: 'fhero-beam-y 9s linear infinite', animationDelay: '1.5s' }}
-        />
-        <div
-          className="absolute right-0 top-0 h-[300px] w-px motion-reduce:hidden"
-          style={{ background: BEAM_Y, animation: 'fhero-beam-y 9s linear infinite', animationDelay: '5s' }}
-        />
-      </div>
-    </div>
-  );
 }
 
 /* ── Background video: two layers that slowly crossfade ── */
@@ -313,7 +193,6 @@ export default function Hero() {
       className="relative grid h-screen min-h-[710px] w-full grid-cols-1 grid-rows-[auto] overflow-hidden bg-black text-white"
     >
       <HeroVideo />
-      <HeroFrame />
 
       {/* Content column */}
       <div className="relative z-40 [grid-column:1] [grid-row:1] h-full">
