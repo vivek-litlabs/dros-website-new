@@ -30,6 +30,12 @@ interface ResourceItem {
   external?: boolean;
 }
 
+const WHO_WE_SERVE_ITEMS: ResourceItem[] = [
+  { label: 'First-Party Collections', href: '/collections/first-party', description: 'AI-orchestrated engagement for in-house collections teams' },
+  { label: 'Third-Party Collections', href: '/collections/third-party', description: 'AI-powered engagement for agencies running client portfolios' },
+  { label: 'Debt Buyer Collections', href: '/collections/debt-buyer', description: 'The engagement OS for debt buyers who self-collect' },
+];
+
 const RESOURCE_COLUMNS: ResourceItem[][] = [
   [
     { label: 'Blogs', href: '/blogs', description: 'Insights on debt recovery and AI voice' },
@@ -68,6 +74,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileResourcesOpen, setIsMobileResourcesOpen] = useState(false);
+  const [isMobileWhoWeServeOpen, setIsMobileWhoWeServeOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
@@ -190,6 +197,61 @@ export default function Navbar({ transparent = false }: NavbarProps) {
               className="hidden items-center lg:flex"
               onMouseLeave={() => setHovered(null)}
             >
+              {/* Who We Serve dropdown */}
+              <div
+                className="relative"
+                onMouseEnter={() => handleDropdownEnter('who-we-serve')}
+                onMouseLeave={handleDropdownLeave}
+              >
+                <button className={`${itemClass} text-ink/65 hover:text-ink`}>
+                  <HoverPill id="who-we-serve" />
+                  Who We Serve
+                  <motion.span
+                    animate={{ rotate: activeDropdown === 'who-we-serve' ? 180 : 0 }}
+                    transition={springSnappy}
+                  >
+                    <ChevronDown className="h-4 w-4" />
+                  </motion.span>
+                </button>
+
+                <AnimatePresence>
+                  {activeDropdown === 'who-we-serve' && (
+                    <div
+                      className="absolute left-0 top-full pt-3"
+                      onMouseEnter={() => handleDropdownEnter('who-we-serve')}
+                      onMouseLeave={handleDropdownLeave}
+                    >
+                      <motion.div
+                        variants={dropdownPanel}
+                        initial="hidden"
+                        animate="show"
+                        exit="exit"
+                        style={{ transformOrigin: 'top left', backgroundColor: 'rgba(4,7,15,0.72)', backdropFilter: 'blur(20px)' }}
+                        className="w-[280px] rounded-2xl border border-hair p-4 shadow-lift"
+                      >
+                        <div className="flex flex-col gap-3">
+                          {WHO_WE_SERVE_ITEMS.map(({ label, href, description }) => (
+                            <motion.div key={label} variants={dropdownItem}>
+                              <Link
+                                to={href}
+                                className="group flex flex-col gap-1 rounded-lg px-3 py-2 transition-colors hover:bg-white/[0.05]"
+                              >
+                                <span className="flex items-center text-[15px] font-medium leading-[1.2] text-ink/90 transition-colors group-hover:text-ink">
+                                  {label}
+                                </span>
+                                <span className="text-[11px] leading-[1.3] text-ink/55 transition-colors group-hover:text-ink/70">
+                                  {description}
+                                </span>
+                              </Link>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               {primaryLinks.map(({ label, anchor }) => (
                 <button
                   key={anchor}
@@ -385,6 +447,41 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                   </Link>
                 </motion.div>
               ))}
+
+              <motion.div variants={dropdownItem}>
+                <button
+                  onClick={() => setIsMobileWhoWeServeOpen((v) => !v)}
+                  className="flex w-full items-center justify-between py-2.5 text-ink/75 transition-colors hover:text-ink"
+                >
+                  Who We Serve
+                  <motion.span animate={{ rotate: isMobileWhoWeServeOpen ? 180 : 0 }} transition={springSnappy}>
+                    <ChevronDown className="h-4 w-4" />
+                  </motion.span>
+                </button>
+                <AnimatePresence>
+                  {isMobileWhoWeServeOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.24, ease: [0.44, 0, 0.11, 1] }}
+                      className="ml-3 overflow-hidden border-l border-hair pl-3"
+                    >
+                      {WHO_WE_SERVE_ITEMS.map(({ label, href, description }) => (
+                        <Link
+                          key={label}
+                          to={href}
+                          className="block py-2 transition-colors hover:text-ink"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <span className="flex items-center text-sm text-ink/70">{label}</span>
+                          <span className="block text-xs text-ink/40">{description}</span>
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
 
               <motion.div variants={dropdownItem}>
                 <button
