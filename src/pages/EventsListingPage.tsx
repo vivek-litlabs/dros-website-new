@@ -5,6 +5,7 @@ import Footer from './Footer';
 import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 import Reveal, { RevealItem } from '../components/Reveal';
+import ResourceHero from '../components/ResourceHero';
 import { BlogCtaBand } from './BlogShared';
 
 interface Event {
@@ -49,19 +50,16 @@ export default function EventsListingPage() {
         <title>Events | Meet DROS at Collections Conferences</title>
         <meta name="description" content="Meet us at industry conferences and discover how DROS is transforming debt collection." />
       </Helmet>
-      <Navbar />
+      <Navbar transparent />
 
-      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-32 sm:px-10 md:pt-36 lg:px-[60px]">
+      <ResourceHero
+        image="/resources/events-hero.jpg"
+        badge="Events"
+        headingLines={["Meet us at the industry's", 'biggest events']}
+        subtext="Meet us at industry conferences and discover how DROS is transforming debt collection."
+      />
 
-        {/* Section header */}
-        <div className="mb-12 flex flex-col gap-1">
-          <h1 className="font-saans text-[32px] font-light leading-[1.15] tracking-[-0.04em] text-black">
-            Events
-          </h1>
-          <p className="text-[17px] text-[#393939]">
-            Meet us at industry conferences and discover how DROS is transforming debt collection.
-          </p>
-        </div>
+      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-16 sm:px-10 lg:px-[60px]">
 
         <div className="mb-16">
           <h2 className="mb-6 font-saans text-xl font-light tracking-[-0.03em] text-black">Upcoming Events</h2>

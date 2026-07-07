@@ -6,6 +6,7 @@ import Footer from './Footer';
 import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 import Reveal, { RevealItem } from '../components/Reveal';
+import ResourceHero from '../components/ResourceHero';
 import { BlogCtaBand } from './BlogShared';
 
 type Category = 'All' | 'Press Releases' | 'Featured In';
@@ -89,22 +90,19 @@ export default function NewsroomPage() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
-      <Navbar />
+      <Navbar transparent />
 
-      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-32 sm:px-10 md:pt-36 lg:px-[60px]">
+      <ResourceHero
+        image="/resources/newsroom-hero.jpg"
+        badge="Press & media"
+        headingLines={['News about DROS,', 'as it happens']}
+        subtext="Press releases, external coverage, and official announcements around DROS."
+      />
 
-        {/* Section header */}
-        <div className="mb-8 flex flex-col gap-1">
-          <h1 className="font-saans text-[32px] font-light leading-[1.15] tracking-[-0.04em] text-black">
-            Newsroom
-          </h1>
-          <p className="text-[17px] text-[#393939]">
-            Press releases, external coverage, and official announcements around DROS.
-          </p>
-        </div>
+      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-16 sm:px-10 lg:px-[60px]">
 
         {/* Category pills */}
-        <div className="mb-12 flex flex-wrap items-center gap-2.5">
+        <div className="mb-12 flex flex-wrap items-center justify-center gap-2.5">
           {categories.map((category) => (
             <button
               key={category}

@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 import Reveal, { RevealItem } from '../components/Reveal';
+import ResourceHero from '../components/ResourceHero';
 import { BlogCtaBand } from './BlogShared';
 
 const PAGE_SIZE = 6;
@@ -160,22 +161,19 @@ function VideosPage() {
         <title>Video Resources | DROS Collections Insights</title>
         <meta name="description" content="Tutorials, customer stories, and conversations to help you get the most out of DROS." />
       </Helmet>
-      <Navbar />
+      <Navbar transparent />
 
-      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-32 sm:px-10 md:pt-36 lg:px-[60px]">
+      <ResourceHero
+        image="/resources/videos-hero.jpg"
+        badge="Video resources"
+        headingLines={['Watch DROS', 'in action']}
+        subtext="Tutorials, customer stories, and conversations to help you get the most out of DROS."
+      />
 
-        {/* Section header */}
-        <div className="mb-8 flex flex-col gap-1">
-          <h1 className="font-saans text-[32px] font-light leading-[1.15] tracking-[-0.04em] text-black">
-            Video Resources
-          </h1>
-          <p className="text-[17px] text-[#393939]">
-            Tutorials, customer stories, and conversations to help you get the most out of DROS.
-          </p>
-        </div>
+      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-16 sm:px-10 lg:px-[60px]">
 
         {/* Category pills */}
-        <div id="customer-stories" ref={tabsRef} className="mb-12 flex flex-wrap items-center gap-2.5 scroll-mt-32">
+        <div id="customer-stories" ref={tabsRef} className="mb-12 flex flex-wrap items-center justify-center gap-2.5 scroll-mt-32">
           {TABS.map(tab => (
             <button
               key={tab.id}

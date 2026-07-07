@@ -142,7 +142,6 @@ export default function Navbar({ transparent = false }: NavbarProps) {
 
   const routeLinks: { label: string; to: string }[] = [
     { label: 'Pricing', to: '/pricing' },
-    { label: 'Case Studies', to: '/customer-stories' },
   ];
 
   /* Shared styling for a desktop nav item: holds the sliding hover pill. */

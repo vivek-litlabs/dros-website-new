@@ -5,6 +5,7 @@ import Footer from './Footer';
 import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 import Reveal, { RevealItem } from '../components/Reveal';
+import ResourceHero from '../components/ResourceHero';
 import { BlogCtaBand } from './BlogShared';
 
 interface CustomerStory {
@@ -46,19 +47,16 @@ export default function CustomerStoriesPage() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
       </Helmet>
-      <Navbar />
+      <Navbar transparent />
 
-      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-32 sm:px-10 md:pt-36 lg:px-[60px]">
+      <ResourceHero
+        image="/resources/customer-stories-hero.jpg"
+        badge="Customer stories"
+        headingLines={['Real teams. Real results.', 'with DROS']}
+        subtext="See how collection teams use DROS to simplify operations, improve visibility, and modernize recovery workflows."
+      />
 
-        {/* Section header */}
-        <div className="mb-12 flex flex-col gap-1">
-          <h1 className="font-saans text-[32px] font-light leading-[1.15] tracking-[-0.04em] text-black">
-            Customer Stories
-          </h1>
-          <p className="text-[17px] text-[#393939]">
-            See how collection teams use DROS to simplify operations, improve visibility, and modernize recovery workflows.
-          </p>
-        </div>
+      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-16 sm:px-10 lg:px-[60px]">
 
         <Reveal stagger={0.06} className="grid grid-cols-1 gap-x-[60px] gap-y-[50px] md:grid-cols-2">
           {stories.map((story) => (

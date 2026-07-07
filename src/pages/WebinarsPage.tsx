@@ -6,6 +6,7 @@ import { trackCta } from '../lib/analytics';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Reveal, { RevealItem } from '../components/Reveal';
+import ResourceHero from '../components/ResourceHero';
 import { BlogCtaBand } from './BlogShared';
 
 const PAST_WEBINARS = [
@@ -78,19 +79,16 @@ export default function WebinarsPage() {
         <meta property="og:type" content="website" />
       </Helmet>
 
-      <Navbar />
+      <Navbar transparent />
 
-      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-32 sm:px-10 md:pt-36 lg:px-[60px]">
+      <ResourceHero
+        image="/resources/webinars-hero.jpg"
+        badge="Webinars"
+        headingLines={['Live sessions on', 'collections and AI']}
+        subtext="Live sessions on AI technology, collections strategy, and what's actually working in the field."
+      />
 
-        {/* Section header */}
-        <div className="mb-12 flex flex-col gap-1">
-          <h1 className="font-saans text-[32px] font-light leading-[1.15] tracking-[-0.04em] text-black">
-            Webinars
-          </h1>
-          <p className="text-[17px] text-[#393939]">
-            Live sessions on AI technology, collections strategy, and what's actually working in the field.
-          </p>
-        </div>
+      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-16 sm:px-10 lg:px-[60px]">
 
         <div className="mb-16">
           <h2 className="mb-6 font-saans text-xl font-light tracking-[-0.03em] text-black">Upcoming Webinars</h2>
