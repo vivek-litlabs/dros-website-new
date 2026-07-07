@@ -22,7 +22,7 @@ const MotionLink = motion(Link);
  * markup, which has no scroll-reveal on this section either.
  */
 
-const SPIN_GRADIENT =
+export const SPIN_GRADIENT =
   'conic-gradient(from 90deg, rgba(3,210,252,0) 0deg, rgba(3,210,252,0) 230deg, rgba(3,210,252,0.45) 275deg, #03D2FC 300deg, #ffffff 315deg, #03D2FC 330deg, rgba(3,210,252,0.45) 352deg, rgba(3,210,252,0) 360deg)';
 
 export function SpinButton({

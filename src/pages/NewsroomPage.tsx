@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { ExternalLink } from 'lucide-react';
 import Footer from './Footer';
 import { Helmet } from 'react-helmet-async';
-import { trackCta } from '../lib/analytics';
 import Navbar from './Navbar';
+import Reveal, { RevealItem } from '../components/Reveal';
+import { BlogCtaBand } from './BlogShared';
 
 type Category = 'All' | 'Press Releases' | 'Featured In';
 
@@ -76,7 +77,7 @@ export default function NewsroomPage() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-white">
       <Helmet>
         <title>Newsroom | DROS Press Releases and Coverage</title>
         <meta name="description" content="Press releases, external coverage, and official announcements around DROS." />
@@ -90,61 +91,51 @@ export default function NewsroomPage() {
       </Helmet>
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-950/20 via-slate-950 to-blue-950/20"></div>
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        </div>
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-12 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-6">
+      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-32 sm:px-10 md:pt-36 lg:px-[60px]">
+
+        {/* Section header */}
+        <div className="mb-8 flex flex-col gap-1">
+          <h1 className="font-saans text-[32px] font-light leading-[1.15] tracking-[-0.04em] text-black">
             Newsroom
           </h1>
-          <p className="text-lg text-slate-400 leading-relaxed max-w-xl mx-auto">
+          <p className="text-[17px] text-[#393939]">
             Press releases, external coverage, and official announcements around DROS.
           </p>
         </div>
-      </section>
 
-      {/* Filter Tabs */}
-      <div className="bg-[#F3F8FC] border-b border-[#DAEAF5] sticky top-20 z-30">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex gap-1.5 py-4 overflow-x-auto">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 ${
-                  activeCategory === cat
-                    ? 'bg-cyan-500 text-slate-950 shadow-sm'
-                    : 'bg-white text-slate-600 border border-[#DAEAF5] hover:bg-[#EAF4FB] hover:text-slate-800'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+        {/* Category pills */}
+        <div className="mb-12 flex flex-wrap items-center gap-2.5">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm transition-colors duration-150 ${
+                activeCategory === category
+                  ? 'bg-[#F5F5F5] text-black'
+                  : 'bg-transparent text-[#777777] hover:text-black'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
         </div>
+
+        {filtered.length === 0 ? (
+          <div className="py-24 text-center">
+            <p className="text-lg text-[#777]">No items in this category yet.</p>
+          </div>
+        ) : (
+          <Reveal stagger={0.06} className="grid grid-cols-1 gap-x-[30px] gap-y-[50px] sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((item) => (
+              <RevealItem key={item.id}>
+                <NewsCard item={item} />
+              </RevealItem>
+            ))}
+          </Reveal>
+        )}
       </div>
 
-      {/* Content */}
-      <main className="bg-[#F3F8FC]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
-
-          {filtered.length === 0 ? (
-            <div className="text-center py-24">
-              <p className="text-[#4F647A] text-lg">No items in this category yet.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((item) => (
-                <NewsCard key={item.id} item={item} />
-              ))}
-            </div>
-          )}
-        </div>
-      </main>
+      <BlogCtaBand />
 
       <Footer />
     </div>
@@ -162,49 +153,26 @@ function NewsCard({ item }: { item: NewsItem }) {
   const logoSrc = SOURCE_LOGOS[item.source];
 
   const content = (
-    <div
-      className="group h-full flex flex-col rounded-3xl transition-all duration-200"
-      style={{
-        padding: '1px',
-        background: 'linear-gradient(135deg, rgba(103,210,234,0.38) 0%, rgba(147,197,220,0.18) 40%, rgba(103,210,234,0.28) 100%)',
-        boxShadow: '0 8px 36px 0 rgba(14,42,71,0.11), 0 2px 8px 0 rgba(14,42,71,0.07)',
-      }}
-    >
-      <div className="h-full flex flex-col rounded-3xl overflow-hidden" style={{ background: '#F3F8FC' }}>
-        {/* Source logo area */}
-        <div
-          className="flex items-center justify-center h-28 border-b px-6"
-          style={{
-            background: 'rgba(255,255,255,0.75)',
-            borderColor: 'rgba(186,222,243,0.5)',
-          }}
-        >
-          {logoSrc ? (
-            <img loading="lazy" decoding="async" src={logoSrc} alt={item.source} className="max-h-14 max-w-full object-contain mix-blend-multiply" />
-          ) : (
-            <span className="text-[#4F647A] text-base font-semibold text-center leading-snug">
-              {item.source}
-            </span>
-          )}
-        </div>
-        <div className="flex-1 flex flex-col p-8">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase bg-cyan-50 text-cyan-600 border border-cyan-200">
-              {item.category}
-            </span>
-            <span className="text-[#7A95AB] text-xs">{item.date}</span>
-          </div>
-          <h3 className="text-[#0A1A2F] font-bold text-lg leading-snug mb-3 group-hover:text-cyan-700 transition-colors duration-200">
-            {item.title}
-          </h3>
-          <p className="text-[#4F647A] text-sm leading-relaxed flex-1 mb-6">
-            {item.excerpt}
-          </p>
-          <div className="flex items-center gap-1.5 text-cyan-600 text-sm font-semibold mt-auto">
-            <span>{item.source}</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </div>
-        </div>
+    <div className="group flex h-full flex-col">
+      <div className="flex h-28 items-center justify-center rounded-lg border border-[#EDEDED] bg-[#FAFAFA] px-6">
+        {logoSrc ? (
+          <img loading="lazy" decoding="async" src={logoSrc} alt={item.source} className="max-h-14 max-w-full object-contain mix-blend-multiply" />
+        ) : (
+          <span className="text-sm font-medium text-[#777]">{item.source}</span>
+        )}
+      </div>
+      <div className="flex flex-1 flex-col gap-2 pl-2 pt-5">
+        <span className="text-sm text-black/40">{item.category} · {item.date}</span>
+        <h3 className="line-clamp-2 font-saans text-xl font-light leading-[1.15] tracking-[-0.03em] text-black md:text-[22px]">
+          {item.title}
+        </h3>
+        <p className="line-clamp-3 flex-1 text-[15px] leading-relaxed text-black/60">
+          {item.excerpt}
+        </p>
+        <span className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-black">
+          {item.source}
+          <ExternalLink className="h-3.5 w-3.5" />
+        </span>
       </div>
     </div>
   );

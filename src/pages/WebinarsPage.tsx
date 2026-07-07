@@ -5,13 +5,8 @@ import { Link } from 'react-router-dom';
 import { trackCta } from '../lib/analytics';
 import Navbar from './Navbar';
 import Footer from './Footer';
-
-const gradStyle = {
-  background: 'linear-gradient(135deg, #DD39F9, #03D2FC)',
-  WebkitBackgroundClip: 'text' as const,
-  WebkitTextFillColor: 'transparent' as const,
-  backgroundClip: 'text' as const,
-};
+import Reveal, { RevealItem } from '../components/Reveal';
+import { BlogCtaBand } from './BlogShared';
 
 const PAST_WEBINARS = [
   {
@@ -26,75 +21,53 @@ const PAST_WEBINARS = [
   },
 ];
 
-function WebinarCard({ w, past = false }: { w: typeof PAST_WEBINARS[0]; past?: boolean }) {
+function WebinarCard({ w }: { w: typeof PAST_WEBINARS[0] }) {
   return (
-    <div
-      className="rounded-2xl overflow-hidden shadow-md flex flex-col"
-      style={{ background: '#fff', border: '1px solid #E2E5F0' }}
-    >
-      <div className="px-5 pt-5 pb-6" style={{ background: 'linear-gradient(135deg, #1E1B4B 0%, #312E81 60%, #4338CA 100%)' }}>
-        <div className="mb-3">
-          <span
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider"
-            style={{ background: 'rgba(221,57,249,0.18)', color: '#DD39F9', border: '1px solid rgba(221,57,249,0.35)' }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#DD39F9' }} />
-            {w.badge}
-          </span>
-        </div>
-        <h3 className="text-base font-bold text-white leading-snug">{w.title}</h3>
+    <div className="group flex h-full flex-col gap-4 pl-2 pt-5">
+      <span className="w-fit rounded-full border border-[#EDEDED] px-3 py-1 text-xs font-medium text-[#777]">
+        {w.badge}
+      </span>
+      <h3 className="line-clamp-2 font-saans text-xl font-light leading-[1.15] tracking-[-0.03em] text-black md:text-[22px]">
+        {w.title}
+      </h3>
+      <div className="flex flex-col gap-1.5 text-sm text-black/50">
+        <span className="inline-flex items-center gap-2">
+          <Calendar className="h-3.5 w-3.5" />
+          {w.date}
+        </span>
+        <span className="inline-flex items-center gap-2">
+          <Clock className="h-3.5 w-3.5" />
+          {w.time}
+        </span>
+        <span className="inline-flex items-center gap-2">
+          <Monitor className="h-3.5 w-3.5" />
+          {w.duration}
+        </span>
       </div>
-
-      <div className="px-5 pt-5 pb-5 flex flex-col flex-1">
-        <div className="space-y-2.5 mb-4">
-          <div className="flex items-center gap-2.5 text-xs text-slate-700">
-            <Calendar className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#03D2FC' }} />
-            <span><span className="font-semibold text-slate-900">Date:</span> {w.date}</span>
-          </div>
-          <div className="flex items-center gap-2.5 text-xs text-slate-700">
-            <Clock className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#03D2FC' }} />
-            <span><span className="font-semibold text-slate-900">Time:</span> {w.time}</span>
-          </div>
-          <div className="flex items-center gap-2.5 text-xs text-slate-700">
-            <Monitor className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#03D2FC' }} />
-            <span><span className="font-semibold text-slate-900">Duration:</span> {w.duration}</span>
-          </div>
+      <div className="flex items-center gap-3 border-t border-[#EDEDED] pt-4">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F5F5F5] text-xs font-semibold text-black">
+          {w.presenter.split(' ').map(n => n[0]).join('')}
         </div>
-
-        <div className="border-t border-slate-100 my-4" />
-
-        <div className="flex items-center gap-3 mb-5 flex-1">
-          <div
-            className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg, #DD39F9, #03D2FC)' }}
-          >
-            {w.presenter.split(' ').map(n => n[0]).join('')}
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-slate-900">{w.presenter}</p>
-            <p className="text-xs text-slate-500">{w.presenterTitle}</p>
-          </div>
+        <div>
+          <p className="text-sm font-medium text-black">{w.presenter}</p>
+          <p className="text-xs text-black/40">{w.presenterTitle}</p>
         </div>
-
-        <Link
-          to={w.detailsHref}
-          onClick={() => trackCta('webinars_view_details')}
-          className="flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold text-sm transition-all hover:opacity-90 active:scale-95"
-          style={past
-            ? { background: '#F0F2F8', color: '#1E1B4B', border: '1px solid #E2E5F0' }
-            : { background: 'linear-gradient(90deg, #DD39F9, #03D2FC)', color: '#fff' }
-          }
-        >
-          View Details <ArrowRight className="w-4 h-4" />
-        </Link>
       </div>
+      <Link
+        to={w.detailsHref}
+        onClick={() => trackCta('webinars_view_details')}
+        className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-black"
+      >
+        View Details
+        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+      </Link>
     </div>
   );
 }
 
 export default function WebinarsPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-white">
       <Helmet>
         <title>Webinars | DROS</title>
         <meta name="description" content="Live sessions on AI technology, collections strategy, and what's actually working in the field." />
@@ -107,46 +80,36 @@ export default function WebinarsPage() {
 
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-950/20 via-slate-950 to-blue-950/20" />
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
-        </div>
+      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-32 sm:px-10 md:pt-36 lg:px-[60px]">
 
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <p className="text-xs font-semibold tracking-widest uppercase mb-5 text-cyan-400">Live Webinar Series</p>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            DROS{' '}
-            <span style={gradStyle}>Webinars</span>
+        {/* Section header */}
+        <div className="mb-12 flex flex-col gap-1">
+          <h1 className="font-saans text-[32px] font-light leading-[1.15] tracking-[-0.04em] text-black">
+            Webinars
           </h1>
-          <p className="text-xl md:text-2xl text-slate-400 mb-0 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-[17px] text-[#393939]">
             Live sessions on AI technology, collections strategy, and what's actually working in the field.
           </p>
         </div>
-      </section>
 
-      {/* Upcoming Webinars */}
-      <section className="py-16 px-6 lg:px-8" style={{ background: '#F0F2F8' }}>
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">Upcoming Webinars</h2>
-          <p className="text-slate-500 text-base mb-10">No upcoming webinars scheduled. Check back soon.</p>
+        <div className="mb-16">
+          <h2 className="mb-6 font-saans text-xl font-light tracking-[-0.03em] text-black">Upcoming Webinars</h2>
+          <p className="text-[15px] text-black/50">No upcoming webinars scheduled. Check back soon.</p>
         </div>
-      </section>
 
-      {/* Past Webinars */}
-      <section className="py-16 px-6 lg:px-8" style={{ background: '#fff' }}>
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-slate-900 mb-10">Past Webinars</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div>
+          <h2 className="mb-6 font-saans text-xl font-light tracking-[-0.03em] text-black">Past Webinars</h2>
+          <Reveal stagger={0.06} className="grid grid-cols-1 gap-x-[30px] gap-y-[50px] sm:grid-cols-2 lg:grid-cols-3">
             {PAST_WEBINARS.map((w) => (
-              <WebinarCard key={w.title} w={w} past />
+              <RevealItem key={w.title}>
+                <WebinarCard w={w} />
+              </RevealItem>
             ))}
-          </div>
+          </Reveal>
         </div>
-      </section>
+      </div>
+
+      <BlogCtaBand />
 
       <Footer />
     </div>

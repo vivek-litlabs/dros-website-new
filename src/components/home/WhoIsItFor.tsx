@@ -15,31 +15,31 @@ const AUDIENCES = [
   {
     title: 'First-Party Collections',
     body: 'Recover your own debt earlier in the cycle while protecting the customer relationship.',
-    image: '/industries/first-party.jpg',
+    image: '/industries/vodex/who-is-it-for-1.jpg',
     href: '/collections/first-party',
   },
   {
     title: 'Third-Party Agencies',
     body: 'Scale outreach across portfolios without adding headcount or compliance risk.',
-    image: '/industries/third-party.jpg',
+    image: '/industries/vodex/who-is-it-for-2.jpg',
     href: '/collections/third-party',
   },
   {
     title: 'Debt Buyers',
     body: 'Work purchased portfolios with a complete, auditable record for every account.',
-    image: '/industries/government.jpg',
+    image: '/industries/vodex/who-is-it-for-3.jpg',
     href: '/collections/debt-buyer',
   },
   {
     title: 'Credit Unions',
     body: 'Keep member outreach compliant and on-brand from first notice to resolution.',
-    image: '/industries/utah-consumer-finance.jpg',
+    image: '/industries/vodex/who-is-it-for-4.jpg',
     href: '/book-meeting',
   },
   {
     title: 'Consumer Lending',
     body: 'Automated reminders and follow-ups that get balances paid without the awkward calls.',
-    image: '/industries/invoice.jpg',
+    image: '/industries/vodex/who-is-it-for-5.jpg',
     href: '/book-meeting',
   },
 ];

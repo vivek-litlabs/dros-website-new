@@ -1,5 +1,5 @@
 export const route = '/pricing';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -19,103 +19,9 @@ import { trackCta } from '../lib/analytics';
  * this page. Visuals stay on the site's current single-accent (teal) design
  * system - no separate purple/teal gradient - using the same tokens and
  * shared primitives (Section/Container/Heading/Button) as every other page.
- * The hero reuses the homepage hero's frame/canvas chrome (see
- * src/components/home/Hero.tsx) over a supplied static background image
- * instead of the homepage's video, per request.
+ * The hero uses a static background image and the same white / white-55
+ * two-tone heading treatment as the homepage hero (src/components/home/Hero.tsx).
  */
-
-/* ── Hero frame chrome, ported from Hero.tsx (static bg instead of video) ── */
-function prefersReducedMotion() {
-  return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
-function FrameCanvas() {
-  const ref = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas || prefersReducedMotion()) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let raf = 0;
-    let t = 0;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const cell = 44;
-
-    function resize() {
-      if (!canvas) return;
-      const { width, height } = canvas.getBoundingClientRect();
-      canvas.width = Math.max(1, Math.floor(width * dpr));
-      canvas.height = Math.max(1, Math.floor(height * dpr));
-    }
-    resize();
-    const ro = new ResizeObserver(resize);
-    ro.observe(canvas);
-
-    function draw() {
-      if (!ctx || !canvas) return;
-      const w = canvas.width;
-      const h = canvas.height;
-      ctx.clearRect(0, 0, w, h);
-      ctx.lineWidth = 1;
-      const step = cell * dpr;
-      ctx.strokeStyle = 'rgba(120,144,140,0.10)';
-      ctx.beginPath();
-      for (let x = 0; x <= w; x += step) {
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, h);
-      }
-      for (let y = 0; y <= h; y += step) {
-        ctx.moveTo(0, y);
-        ctx.lineTo(w, y);
-      }
-      ctx.stroke();
-
-      const gx = (Math.sin(t * 0.0004) * 0.5 + 0.5) * w;
-      const gy = (Math.cos(t * 0.0003) * 0.5 + 0.5) * h;
-      const glow = ctx.createRadialGradient(gx, gy, 0, gx, gy, Math.max(w, h) * 0.35);
-      glow.addColorStop(0, 'rgba(49,231,221,0.10)');
-      glow.addColorStop(1, 'rgba(49,231,221,0)');
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, w, h);
-
-      t += 16;
-      raf = requestAnimationFrame(draw);
-    }
-    raf = requestAnimationFrame(draw);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      ro.disconnect();
-    };
-  }, []);
-
-  return <canvas ref={ref} aria-hidden="true" className="block h-full w-full" tabIndex={-1} />;
-}
-
-function PricingHeroFrame() {
-  return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-30 hidden xl:block">
-      <div className="absolute inset-[72px]">
-        <div className="absolute inset-x-0 top-0 h-px bg-[rgba(120,144,140,0.5)]" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-[rgba(120,144,140,0.5)]" />
-        <div className="absolute inset-y-0 left-0 w-px bg-[rgba(120,144,140,0.5)]" />
-        <div className="absolute inset-y-0 right-0 w-px bg-[rgba(120,144,140,0.5)]" />
-        <div className="absolute inset-0 bg-black/[0.18] shadow-[inset_0_0_80px_0_rgba(0,0,0,0.1)]" />
-        <div
-          className="absolute inset-0"
-          style={{
-            maskImage: 'linear-gradient(to bottom, black 0%, black 55%, transparent 80%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 55%, transparent 80%)',
-          }}
-        >
-          <FrameCanvas />
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function PricingHeroBg() {
   return (
@@ -459,7 +365,6 @@ export default function PricingPage() {
           className="relative flex h-screen min-h-[640px] w-full items-center justify-center overflow-hidden bg-base text-white"
         >
           <PricingHeroBg />
-          <PricingHeroFrame />
 
           <Container wide className="relative z-40">
             <motion.div
@@ -477,7 +382,7 @@ export default function PricingPage() {
               <RevealItem large>
                 <h1 className="font-saans text-[40px] font-medium leading-[1.08] tracking-[-0.02em] sm:text-[52px] xl:text-[60px]">
                   <span className="block text-white">Simple, Transparent</span>
-                  <span className="block text-accent">Pricing</span>
+                  <span className="block text-white/55">Pricing</span>
                 </h1>
               </RevealItem>
 

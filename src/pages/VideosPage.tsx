@@ -1,10 +1,12 @@
 export const route = '/resources/videos';
 import { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Footer from './Footer';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
+import Reveal, { RevealItem } from '../components/Reveal';
+import { BlogCtaBand } from './BlogShared';
 
 const PAGE_SIZE = 6;
 
@@ -21,21 +23,12 @@ interface Video {
 
 type FilterTab = 'all' | VideoCategory;
 
-
 const CATEGORY_LABELS: Record<VideoCategory, string> = {
   tutorial: 'Product Tutorial',
   'customer-story': 'Customer Story',
   conversation: 'Conversation',
   feature: 'Feature',
   demo: 'Demo',
-};
-
-const CATEGORY_COLORS: Record<VideoCategory, string> = {
-  tutorial: 'bg-cyan-50 text-cyan-700 border border-cyan-200',
-  'customer-story': 'bg-emerald-50 text-emerald-700 border border-emerald-200',
-  conversation: 'bg-blue-50 text-blue-700 border border-blue-200',
-  feature: 'bg-amber-50 text-amber-700 border border-amber-200',
-  demo: 'bg-violet-50 text-violet-700 border border-violet-200',
 };
 
 const videos: Video[] = [
@@ -162,199 +155,132 @@ function VideosPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-white">
       <Helmet>
         <title>Video Resources | DROS Collections Insights</title>
         <meta name="description" content="Tutorials, customer stories, and conversations to help you get the most out of DROS." />
       </Helmet>
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-16 overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-950/20 via-slate-950 to-blue-950/20"></div>
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        </div>
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full px-4 py-2 text-cyan-400 text-sm font-medium mb-6">
-            <Play className="w-3.5 h-3.5 fill-current" />
-            Video Library
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-            Video <span style={{ background: 'linear-gradient(135deg, #DD39F9, #03D2FC)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Resources</span>
+      <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-32 sm:px-10 md:pt-36 lg:px-[60px]">
+
+        {/* Section header */}
+        <div className="mb-8 flex flex-col gap-1">
+          <h1 className="font-saans text-[32px] font-light leading-[1.15] tracking-[-0.04em] text-black">
+            Video Resources
           </h1>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+          <p className="text-[17px] text-[#393939]">
             Tutorials, customer stories, and conversations to help you get the most out of DROS.
           </p>
         </div>
-      </section>
 
-      {/* Videos Section */}
-      <section className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Category pills */}
+        <div id="customer-stories" ref={tabsRef} className="mb-12 flex flex-wrap items-center gap-2.5 scroll-mt-32">
+          {TABS.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => handleTabChange(tab.id)}
+              className={`whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm transition-colors duration-150 ${
+                activeTab === tab.id
+                  ? 'bg-[#F5F5F5] text-black'
+                  : 'bg-transparent text-[#777777] hover:text-black'
+              }`}
+            >
+              {tab.label}
+              <span className={activeTab === tab.id ? 'ml-1.5 text-black/40' : 'ml-1.5 text-[#AAA]'}>
+                ({tab.id === 'all' ? videos.length : videos.filter(v => v.category === tab.id).length})
+              </span>
+            </button>
+          ))}
+        </div>
 
-          {/* Category Tabs */}
-          <div id="customer-stories" ref={tabsRef} className="mb-12 flex flex-wrap gap-3 justify-center scroll-mt-32">
-            {TABS.map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => handleTabChange(tab.id)}
-                className={`px-6 py-3 rounded-lg font-medium text-base transition-all duration-200 ${
-                  activeTab === tab.id
-                    ? 'bg-cyan-500 text-slate-950'
-                    : 'bg-white text-slate-600 border border-[#DAEAF5] hover:bg-[#EAF4FB] hover:text-slate-800'
-                }`}
-                style={
-                  activeTab === tab.id
-                    ? { boxShadow: '0 4px 16px 0 rgba(6,182,212,0.25), 0 1px 4px 0 rgba(6,182,212,0.15)' }
-                    : { boxShadow: '0 2px 10px 0 rgba(10,26,47,0.09), 0 1px 3px 0 rgba(10,26,47,0.06)' }
-                }
-              >
-                {tab.label}
-                <span className={`ml-2 text-sm font-normal ${
-                  activeTab === tab.id ? 'opacity-60' : 'text-slate-400'
-                }`}>
-                  ({tab.id === 'all' ? videos.length : videos.filter(v => v.category === tab.id).length})
-                </span>
-              </button>
-            ))}
+        {/* Video grid */}
+        {filtered.length === 0 ? (
+          <div className="py-24 text-center">
+            <Play className="mx-auto mb-4 h-10 w-10 text-[#DDD]" />
+            <p className="mb-2 text-lg font-medium text-black">No videos in this category yet.</p>
+            <p className="text-[#777]">Check back soon.</p>
           </div>
-
-          {/* Video Grid */}
-          {filtered.length === 0 ? (
-            <div className="text-center py-24 text-slate-400">
-              <Play className="w-12 h-12 mx-auto mb-4 opacity-30" />
-              <p className="text-lg">No videos in this category yet.</p>
-              <p className="text-sm mt-1">Check back soon.</p>
-            </div>
-          ) : (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {paginated.map(video => (
+        ) : (
+          <>
+            <Reveal stagger={0.06} className="grid grid-cols-1 gap-x-[30px] gap-y-[50px] sm:grid-cols-2 lg:grid-cols-3">
+              {paginated.map(video => (
+                <RevealItem key={video.id}>
                   <div
-                    key={video.id}
                     ref={video.id === HIGHLIGHT_VIDEO_ID && highlightedId === video.id ? highlightRef : null}
-                    className="rounded-xl overflow-hidden transition-all duration-300 group flex flex-col"
-                    style={
-                      highlightedId === video.id
-                        ? {
-                            background: '#F3F8FC',
-                            border: '1.5px solid rgba(6,182,212,0.5)',
-                            boxShadow: '0 0 0 3px rgba(6,182,212,0.15), 0 8px 40px 0 rgba(10,26,47,0.11), 0 3px 12px 0 rgba(10,26,47,0.07), inset 0 1px 0 0 rgba(255,255,255,0.65)',
-                            transform: 'scale(1.01)',
-                          }
-                        : {
-                            background: '#F3F8FC',
-                            border: '1px solid rgba(10,26,47,0.10)',
-                            boxShadow: '0 8px 40px 0 rgba(10,26,47,0.11), 0 3px 12px 0 rgba(10,26,47,0.07), inset 0 1px 0 0 rgba(255,255,255,0.65)',
-                          }
-                    }
+                    className={`flex h-full flex-col transition-all duration-300 ${highlightedId === video.id ? 'rounded-lg ring-2 ring-black/20' : ''}`}
                   >
-                    <div className="relative aspect-video" style={{ borderBottom: '1px solid rgba(10,26,47,0.07)', background: '#0f172a' }}>
+                    <div className="relative aspect-video overflow-hidden rounded-lg bg-black">
                       <iframe
                         src={`https://www.youtube.com/embed/${video.id}`}
                         title={video.title}
-                        className="w-full h-full"
+                        className="h-full w-full"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerPolicy="strict-origin-when-cross-origin"
                         allowFullScreen
                       />
                     </div>
-                    <div className="p-6 flex flex-col flex-1">
-                      <div className="mb-3">
-                        <span className={`inline-block text-xs font-medium px-2.5 py-1 rounded-full ${CATEGORY_COLORS[video.category]}`}>
-                          {CATEGORY_LABELS[video.category]}
-                        </span>
-                      </div>
-                      <h3 className="text-base font-bold mb-2 text-slate-900 group-hover:text-cyan-600 transition-colors leading-snug">
+                    <div className="flex flex-1 flex-col gap-2 pl-2 pt-5">
+                      <span className="text-sm text-black/40">{CATEGORY_LABELS[video.category]}</span>
+                      <h3 className="line-clamp-2 font-saans text-xl font-light leading-[1.15] tracking-[-0.03em] text-black md:text-[22px]">
                         {video.title}
                       </h3>
-                      <p className="text-slate-500 text-sm mb-4 flex-1">
+                      <p className="line-clamp-2 flex-1 text-[15px] leading-relaxed text-black/60">
                         {video.description}
                       </p>
-                      <div className="flex flex-wrap gap-1.5 mt-auto">
+                      <div className="mt-1 flex flex-wrap gap-1.5">
                         {video.tags.map(tag => (
-                          <span
-                            key={tag}
-                            className="text-xs px-2.5 py-1 rounded-full bg-white text-slate-500 border border-[#DAEAF5]"
-                          >
+                          <span key={tag} className="rounded-full border border-[#EDEDED] px-2.5 py-1 text-xs text-black/50">
                             {tag}
                           </span>
                         ))}
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+                </RevealItem>
+              ))}
+            </Reveal>
 
-              {totalPages > 1 && (
-                <div className="mt-12 flex items-center justify-center gap-3">
-                  <button
-                    onClick={() => setPage(p => Math.max(1, p - 1))}
-                    disabled={page === 1}
-                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-white border border-[#DAEAF5] text-slate-600 hover:text-slate-900 hover:bg-[#EAF4FB] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-                    style={{ boxShadow: '0 2px 8px 0 rgba(10,26,47,0.07)' }}
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                    Previous
-                  </button>
+            {totalPages > 1 && (
+              <div className="mt-16 flex items-center justify-center gap-3">
+                <button
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                  className="flex items-center gap-1.5 rounded-full px-4 py-2 text-sm text-[#777] transition-colors hover:text-black disabled:cursor-not-allowed disabled:opacity-30"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  Previous
+                </button>
 
-                  <div className="flex items-center gap-1.5">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
-                      <button
-                        key={p}
-                        onClick={() => setPage(p)}
-                        className={`w-9 h-9 rounded-lg text-sm font-medium transition-all ${
-                          page === p
-                            ? 'bg-cyan-500 text-slate-950'
-                            : 'bg-white border border-[#DAEAF5] text-slate-500 hover:text-slate-900 hover:bg-[#EAF4FB]'
-                        }`}
-                        style={
-                          page === p
-                            ? { boxShadow: '0 4px 16px 0 rgba(6,182,212,0.25)' }
-                            : { boxShadow: '0 2px 8px 0 rgba(10,26,47,0.07)' }
-                        }
-                      >
-                        {p}
-                      </button>
-                    ))}
-                  </div>
-
-                  <button
-                    onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-                    disabled={page === totalPages}
-                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-white border border-[#DAEAF5] text-slate-600 hover:text-slate-900 hover:bg-[#EAF4FB] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-                    style={{ boxShadow: '0 2px 8px 0 rgba(10,26,47,0.07)' }}
-                  >
-                    Next
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
+                <div className="flex items-center gap-1.5">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
+                    <button
+                      key={p}
+                      onClick={() => setPage(p)}
+                      className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-medium transition-colors ${
+                        page === p ? 'bg-[#F5F5F5] text-black' : 'text-[#777] hover:text-black'
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  ))}
                 </div>
-              )}
-            </>
-          )}
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-slate-900/50">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-2xl p-12 border border-cyan-500/30">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Get Started?</h2>
-            <p className="text-lg text-slate-400 mb-8">
-              Book a meeting to see how DROS can transform your collections workflow
-            </p>
-            <a
-              href="https://dros.ai/book-meeting"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105" style={{ background: '#03D2FC', color: '#010C20' }}
-            >
-              Book a Meeting
-            </a>
-          </div>
-        </div>
-      </section>
+                <button
+                  onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages}
+                  className="flex items-center gap-1.5 rounded-full px-4 py-2 text-sm text-[#777] transition-colors hover:text-black disabled:cursor-not-allowed disabled:opacity-30"
+                >
+                  Next
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
+      <BlogCtaBand />
 
       <Footer />
     </div>

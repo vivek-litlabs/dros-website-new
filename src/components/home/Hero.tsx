@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Phone, PhoneOff, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -6,6 +6,7 @@ import { Container } from '../ui';
 import { RevealItem } from '../Reveal';
 import { staggerContainer } from '../../lib/motion';
 import { trackCta } from '../../lib/analytics';
+import { SPIN_GRADIENT } from './PostCTA';
 
 /*
  * Vapi-inspired hero. A full-bleed abstract background video sits inside a
@@ -18,54 +19,33 @@ function prefersReducedMotion() {
   return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-/* ── Background video: two layers that slowly crossfade ── */
+/* ── Background video ── */
 function HeroVideo() {
   const [reduced] = useState(prefersReducedMotion);
-  const [showB, setShowB] = useState(false);
-
-  useEffect(() => {
-    if (reduced) return;
-    const id = window.setInterval(() => setShowB((v) => !v), 7000);
-    return () => window.clearInterval(id);
-  }, [reduced]);
 
   return (
     <div aria-hidden="true" className="absolute inset-0 z-0">
       {/* Poster fallback (always present; the only visual under reduced motion) */}
       <img
-        src="/airfoil/hero/hero-a-poster.jpg"
+        src="/airfoil/hero/vodex-hero-poster.jpg"
         alt=""
         fetchPriority="high"
         decoding="async"
-        className="pointer-events-none absolute inset-0 h-full w-full -scale-x-100 object-cover object-[center_0%]"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
       />
       {!reduced && (
-        <>
-          <video
-            muted
-            playsInline
-            autoPlay
-            loop
-            tabIndex={-1}
-            poster="/airfoil/hero/hero-a-poster.jpg"
-            className="pointer-events-none absolute inset-0 block h-full w-full -scale-x-100 object-cover object-[center_0%] transition-opacity duration-[420ms] ease-out"
-            style={{ opacity: showB ? 0 : 1 }}
-          >
-            <source src="/airfoil/hero/hero-a.webm" type="video/webm" />
-          </video>
-          <video
-            muted
-            playsInline
-            autoPlay
-            loop
-            tabIndex={-1}
-            poster="/airfoil/hero/hero-a-poster.jpg"
-            className="pointer-events-none absolute inset-0 block h-full w-full -scale-x-100 object-cover object-[center_0%] transition-opacity duration-[420ms] ease-out"
-            style={{ opacity: showB ? 1 : 0 }}
-          >
-            <source src="/airfoil/hero/hero-b.webm" type="video/webm" />
-          </video>
-        </>
+        <video
+          muted
+          playsInline
+          autoPlay
+          loop
+          tabIndex={-1}
+          poster="/airfoil/hero/vodex-hero-poster.jpg"
+          className="pointer-events-none absolute inset-0 block h-full w-full object-cover object-center"
+        >
+          <source src="/airfoil/hero/vodex-hero.webm" type="video/webm" />
+          <source src="/airfoil/hero/vodex-hero.mp4" type="video/mp4" />
+        </video>
       )}
       {/* Darkening overlays for text legibility */}
       <div className="absolute inset-0 [background:linear-gradient(180deg,rgba(0,0,0,0.15)_0%,rgba(0,0,0,0.45)_100%)]" />
@@ -146,10 +126,10 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
 
   return (
     <div className="w-full max-w-[560px]">
-      <div className="flex flex-col items-stretch gap-2.5 sm:flex-row sm:items-center">
+      <div className="flex flex-col items-stretch gap-3 rounded-2xl border border-white/10 bg-black/30 p-2.5 backdrop-blur-[40px] shadow-[0_8px_30px_rgba(0,0,0,0.35)] sm:flex-row sm:items-center sm:gap-2">
         <form
           onSubmit={handleSubmit}
-          className="flex h-[50px] flex-1 items-center gap-2 rounded-xl bg-black/30 p-1.5 pl-4 backdrop-blur-[40px] ring-1 ring-white/10"
+          className="flex h-[50px] flex-1 items-center gap-2.5 rounded-xl bg-white/[0.05] pl-4 pr-1.5 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50"
         >
           <Phone className="h-4 w-4 shrink-0 text-white/50" />
           <input
@@ -164,19 +144,33 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
           />
           <button
             type="submit"
-            className="inline-flex h-full items-center gap-2 rounded-lg bg-white px-4 text-sm font-medium text-[#0C1E45] transition-transform active:scale-95"
+            className="group relative isolate inline-flex h-9 shrink-0 overflow-hidden rounded-full p-px transition-transform active:scale-95"
           >
-            Initiate Call
-            <Play className="h-3.5 w-3.5 fill-current" />
+            <span
+              aria-hidden="true"
+              className="absolute -inset-[140%] -z-10 animate-spin opacity-0 [animation-duration:3s] transition-opacity duration-300 group-hover:opacity-100 motion-reduce:hidden"
+              style={{ background: SPIN_GRADIENT }}
+            />
+            <span className="flex h-full items-center gap-2 rounded-full bg-[#0C1E45] px-4 text-sm font-medium text-white">
+              Initiate Call
+              <Play className="h-3.5 w-3.5 fill-current" />
+            </span>
           </button>
         </form>
         <Link
           to="/book-meeting"
           onClick={() => trackCta('hero_book_a_demo')}
-          className="inline-flex h-[50px] shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-4 text-sm font-medium text-[#0C1E45] transition-transform active:scale-95"
+          className="group relative isolate inline-flex h-[50px] shrink-0 overflow-hidden rounded-full p-px transition-transform active:scale-95"
         >
-          Book a Demo
-          <ArrowRight className="h-4 w-4" />
+          <span
+            aria-hidden="true"
+            className="absolute -inset-[140%] -z-10 animate-spin opacity-0 [animation-duration:3s] transition-opacity duration-300 group-hover:opacity-100 motion-reduce:hidden"
+            style={{ background: SPIN_GRADIENT }}
+          />
+          <span className="flex h-full items-center gap-2 rounded-full bg-white px-4 text-sm font-medium text-[#0C1E45]">
+            Book a Demo
+            <ArrowRight className="h-4 w-4" />
+          </span>
         </Link>
       </div>
       <p className="mt-2.5 text-xs text-white/50">We won't spam you. This is a one-time demo call.</p>
