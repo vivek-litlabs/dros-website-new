@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Container } from './ui';
 import Reveal from './Reveal';
+import HeroBg from './HeroBg';
 
 /*
  * Shared hero for resources-hub pages (Newsroom, Contact, Customer Stories,
@@ -27,11 +28,7 @@ export default function ResourceHero({
       data-nav-theme="dark"
       className="relative flex h-screen min-h-[560px] w-full items-center justify-center overflow-hidden bg-base text-white"
     >
-      <div aria-hidden="true" className="absolute inset-0 z-0">
-        <img loading="lazy" decoding="async" src={image} alt="" className="pointer-events-none absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 [background:linear-gradient(180deg,rgba(4,7,15,0.35)_0%,rgba(4,7,15,0.82)_100%)]" />
-        <div className="absolute inset-0 bg-black/20" />
-      </div>
+      <HeroBg image={image} />
 
       <Container wide className="relative z-40">
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">

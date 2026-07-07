@@ -8,6 +8,7 @@ import Footer from './Footer';
 import { Section, Container, Eyebrow, Heading, Button } from '../components/ui';
 import Reveal, { RevealItem } from '../components/Reveal';
 import PageFade from '../components/PageFade';
+import HeroBg from '../components/HeroBg';
 import { trackCta } from '../lib/analytics';
 
 /*
@@ -21,16 +22,6 @@ import { trackCta } from '../lib/analytics';
  * illustrative styling since they're informational graphics rather
  * than page chrome.
  */
-
-function HeroBg() {
-  return (
-    <div aria-hidden="true" className="absolute inset-0 z-0">
-      <img loading="lazy" decoding="async" src="/industries/third-party.jpg" alt="" className="pointer-events-none absolute inset-0 h-full w-full object-cover" />
-      <div className="absolute inset-0 [background:linear-gradient(180deg,rgba(4,7,15,0.35)_0%,rgba(4,7,15,0.82)_100%)]" />
-      <div className="absolute inset-0 bg-black/20" />
-    </div>
-  );
-}
 
 // ─── Persona data ─────────────────────────────────────────────────────────────
 const PERSONAS = [
@@ -136,7 +127,7 @@ export default function ThirdPartyCollectionsPage() {
           data-nav-theme="dark"
           className="relative flex h-screen min-h-[640px] w-full items-center justify-center overflow-hidden bg-base text-white"
         >
-          <HeroBg />
+          <HeroBg image="/industries/third-party.jpg" />
 
           <Container wide className="relative z-40">
             <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">

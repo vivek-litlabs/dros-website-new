@@ -87,7 +87,10 @@ export default function Navbar({ transparent = false }: NavbarProps) {
       setScrolled(true);
       return;
     }
-    const onScroll = () => setScrolled(window.scrollY > window.innerHeight - 80);
+    const onScroll = () => {
+      const threshold = window.innerHeight - 80;
+      setScrolled((prev) => (prev ? window.scrollY > threshold - 60 : window.scrollY > threshold));
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -154,7 +157,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
       <motion.span
         layoutId="nav-hover-pill"
         className="absolute inset-0 -z-10 rounded-full bg-white/[0.07]"
-        transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 380, damping: 32, mass: 0.6 }}
+        transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 30, mass: 0.7 }}
       />
     ) : null;
 
@@ -169,15 +172,16 @@ export default function Navbar({ transparent = false }: NavbarProps) {
         animate={{
           backgroundColor: solid ? 'rgba(4,7,15,0.72)' : 'rgba(4,7,15,0)',
           borderColor: solid ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0)',
+          backdropFilter: solid ? 'blur(20px)' : 'blur(0px)',
+          WebkitBackdropFilter: solid ? 'blur(20px)' : 'blur(0px)',
         }}
-        transition={{ duration: 0.4, ease: [0.44, 0, 0.11, 1] }}
-        style={{ backdropFilter: solid ? 'blur(20px)' : 'blur(0px)' }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className="border-b"
       >
         <div className="mx-auto max-w-wide px-6 lg:px-10">
           <motion.div
             animate={{ height: solid ? 64 : 76 }}
-            transition={{ duration: 0.4, ease: [0.44, 0, 0.11, 1] }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="flex items-center justify-between"
           >
             <Link to="/" className="group flex items-center" aria-label="DROS home">

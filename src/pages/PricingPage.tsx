@@ -24,9 +24,17 @@ import { trackCta } from '../lib/analytics';
  */
 
 function PricingHeroBg() {
+  const [loaded, setLoaded] = useState(false);
   return (
     <div aria-hidden="true" className="absolute inset-0 z-0">
-      <img loading="lazy" decoding="async" src="/pricing-hero-bg.jpg" alt="" className="pointer-events-none absolute inset-0 h-full w-full object-cover" />
+      <img
+        src="/pricing-hero-bg.jpg"
+        alt=""
+        fetchPriority="high"
+        decoding="async"
+        onLoad={() => setLoaded(true)}
+        className={`pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${loaded ? 'opacity-100' : 'opacity-0'}`}
+      />
       <div className="absolute inset-0 [background:linear-gradient(180deg,rgba(4,7,15,0.08)_0%,rgba(4,7,15,0.68)_100%)]" />
       <div className="absolute inset-0 bg-black/10" />
     </div>
