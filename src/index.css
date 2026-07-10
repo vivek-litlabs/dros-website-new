@@ -154,6 +154,20 @@ html.lenis body {
   }
 }
 
+/* Keep dark/transparent inputs readable when the browser autofills them.
+   Webkit paints a solid light "autofill" background over the field, which
+   hides the white text (the white block on the hero call inputs). Delaying the
+   background-color transition indefinitely stops that fill from ever painting,
+   and text-fill-color keeps the value visible. */
+.autofill-transparent:-webkit-autofill,
+.autofill-transparent:-webkit-autofill:hover,
+.autofill-transparent:-webkit-autofill:focus,
+.autofill-transparent:-webkit-autofill:active {
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
 /* Opt-in gradient text: ensure clipping works across browsers */
 .text-transparent.bg-clip-text {
   -webkit-background-clip: text !important;

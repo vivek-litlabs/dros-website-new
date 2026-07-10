@@ -10,13 +10,27 @@ export default function DemoWidget() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim()) return;
+    if (!name.trim() || !phone.trim() || loading) return;
     trackCta('demo_widget_call_me_now');
-    triggerDemoCall(name.trim(), phone.trim());
-    setSubmitted(true);
+    setError(null);
+    setLoading(true);
+    const result = await triggerDemoCall(name.trim(), phone.trim());
+    setLoading(false);
+    if (result.ok) {
+      // Only show the success state once the call was actually accepted.
+      setSubmitted(true);
+    } else {
+      setError(
+        result.status
+          ? `Couldn't start the call (error ${result.status}). Please try again.`
+          : `Couldn't reach the call service (request blocked or network error). Disable ad/privacy blockers and try again.`,
+      );
+    }
   }
 
   return (
@@ -77,13 +91,19 @@ export default function DemoWidget() {
               </div>
               <button
                 type="submit"
-                className="inline-flex h-[52px] items-center justify-center gap-2 self-center rounded-btn bg-[#0C1E45] px-6 font-semibold text-white transition-opacity hover:opacity-90"
+                disabled={loading}
+                className="inline-flex h-[52px] items-center justify-center gap-2 self-center rounded-btn bg-[#0C1E45] px-6 font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
               >
-                Call me now <ArrowRight className="h-4 w-4" />
+                {loading ? 'Calling...' : (
+                  <>
+                    Call me now <ArrowRight className="h-4 w-4" />
+                  </>
+                )}
               </button>
             </form>
           )}
 
+          {error && <p className="mt-4 text-xs text-red-600">{error}</p>}
           <p className="mt-4 text-xs text-ink-grey/60">We won't spam you. This is a one-time demo call.</p>
         </motion.div>
       </Container>

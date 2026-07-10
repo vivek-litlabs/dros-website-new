@@ -118,13 +118,27 @@ function CallPanel({ phone, onEnd }: { phone: string; onEnd: () => void }) {
 function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim()) return;
+    if (!name.trim() || !phone.trim() || loading) return;
     trackCta('hero_initiate_call');
-    triggerDemoCall(name.trim(), phone.trim());
-    onStart(phone.trim());
+    setError(null);
+    setLoading(true);
+    const result = await triggerDemoCall(name.trim(), phone.trim());
+    setLoading(false);
+    if (result.ok) {
+      // Only show the live-call panel once the call was actually accepted.
+      onStart(phone.trim());
+    } else {
+      setError(
+        result.status
+          ? `Couldn't start the call (error ${result.status}). Please try again.`
+          : `Couldn't reach the call service (request blocked or network error). Disable ad/privacy blockers and try again.`,
+      );
+    }
   }
 
   return (
@@ -144,7 +158,7 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your name"
                   aria-label="Your name"
-                  className="h-full min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
+                  className="autofill-transparent h-full min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
                 />
               </div>
               <div className="flex h-[50px] items-center gap-2.5 rounded-xl bg-white/[0.05] pl-4 pr-3 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50">
@@ -159,13 +173,14 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+1 (555) 000-0000"
                   aria-label="Your phone number"
-                  className="h-full min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
+                  className="autofill-transparent h-full min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
                 />
               </div>
             </div>
             <button
               type="submit"
-              className="group relative isolate inline-flex h-[50px] shrink-0 overflow-hidden rounded-full p-px transition-transform active:scale-95 sm:h-9"
+              disabled={loading}
+              className="group relative isolate inline-flex h-[50px] shrink-0 overflow-hidden rounded-full p-px transition-transform active:scale-95 disabled:cursor-not-allowed disabled:opacity-70 sm:h-9"
             >
               <span
                 aria-hidden="true"
@@ -173,8 +188,8 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
                 style={{ background: SPIN_GRADIENT }}
               />
               <span className="flex h-full items-center justify-center gap-2 rounded-full bg-[#0C1E45] px-4 text-sm font-medium text-white">
-                Initiate Call
-                <Play className="h-3.5 w-3.5 fill-current" />
+                {loading ? 'Initiating...' : 'Initiate Call'}
+                {!loading && <Play className="h-3.5 w-3.5 fill-current" />}
               </span>
             </button>
           </form>
@@ -195,7 +210,11 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
           </span>
         </Link>
       </div>
-      <p className="mt-2.5 text-xs text-white/50">We won't spam you. This is a one-time demo call.</p>
+      {error ? (
+        <p className="mt-2.5 text-xs text-red-400">{error}</p>
+      ) : (
+        <p className="mt-2.5 text-xs text-white/50">We won't spam you. This is a one-time demo call.</p>
+      )}
     </div>
   );
 }
@@ -206,7 +225,7 @@ export default function Hero() {
   return (
     <header
       data-nav-theme="dark"
-      className="relative grid h-screen min-h-[710px] w-full grid-cols-1 grid-rows-[auto] overflow-hidden bg-black text-white"
+      className="relative grid min-h-[max(100vh,710px)] w-full grid-cols-1 grid-rows-[1fr] overflow-hidden bg-black text-white"
     >
       <HeroVideo />
 

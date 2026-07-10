@@ -13,27 +13,49 @@ function normalizePhone(raw: string): string {
   return hasPlus ? `+${digits}` : digits;
 }
 
-// Fires an outbound demo call for the given lead. Fire-and-forget: callers do
-// not await this, and it never throws - a network/CORS failure must not block
-// the form's visual transition.
-export async function triggerDemoCall(name: string, phone: string): Promise<void> {
+export interface DemoCallResult {
+  ok: boolean;
+  // HTTP status when the server answered (e.g. 403 unauthorized). Absent when
+  // the request never reached the server (network error, or blocked by an
+  // ad/privacy extension -> ERR_BLOCKED_BY_CLIENT, which throws a TypeError).
+  status?: number;
+  error?: string;
+}
+
+// Triggers an outbound demo call for the given lead. Never throws - it always
+// resolves to a DemoCallResult so the caller can decide what to show.
+export async function triggerDemoCall(name: string, phone: string): Promise<DemoCallResult> {
   const payload = {
-    email: '', // neither form has an email box; API confirmed to accept empty
+    email: '', // neither form has an email box; confirm the API accepts empty
     phone: normalizePhone(phone),
     firstName: name,
     lastName: '(DROS Home Demo Bot)', // marker the Vodex backend expects
   };
 
   try {
-    // Note: no manual "Referer" header - it's a forbidden header that browsers
-    // refuse to set via fetch; the browser sends the real page origin itself.
+    // No manual "Referer" header - it's a forbidden header browsers refuse to
+    // set via fetch; the browser sends the real page origin itself. Vodex
+    // authorizes by that origin, so the serving domain must be allowlisted in
+    // the Vodex workspace or the server answers 403 "unauthorized".
     const response = await fetch(DEMO_CALL_API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-    console.log('Demo call response:', response);
+
+    if (!response.ok) {
+      const body = await response.text().catch(() => '');
+      console.log('Demo call failed:', response.status, body);
+      return { ok: false, status: response.status, error: body || response.statusText };
+    }
+
+    console.log('Demo call response:', response.status);
+    return { ok: true, status: response.status };
   } catch (error) {
-    console.log('Demo call error:', error);
+    // Thrown before any HTTP status exists: offline, DNS/CORS failure, or the
+    // request was blocked by a browser extension (ERR_BLOCKED_BY_CLIENT).
+    const message = error instanceof Error ? error.message : String(error);
+    console.log('Demo call error:', message);
+    return { ok: false, error: message };
   }
 }
