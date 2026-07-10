@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Phone, PhoneOff, Play } from 'lucide-react';
+import { ArrowRight, Phone, PhoneOff, Play, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Container } from '../ui';
 import { RevealItem } from '../Reveal';
@@ -113,50 +113,70 @@ function CallPanel({ phone, onEnd }: { phone: string; onEnd: () => void }) {
   );
 }
 
-/* ── Idle "Initiate Call" widget (Vapi frosted pill, adapted to a phone input) ── */
+/* ── Idle "Initiate Call" widget (Vapi frosted pill, adapted to name + phone inputs) ── */
 function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
+  const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!phone.trim()) return;
+    if (!name.trim() || !phone.trim()) return;
     trackCta('hero_initiate_call');
     onStart(phone.trim());
   }
 
   return (
-    <div className="w-full max-w-[560px]">
-      <div className="flex flex-col items-stretch gap-3 rounded-2xl border border-white/10 bg-black/30 p-2.5 backdrop-blur-[40px] shadow-[0_8px_30px_rgba(0,0,0,0.35)] sm:flex-row sm:items-center sm:gap-2">
-        <form
-          onSubmit={handleSubmit}
-          className="flex h-[50px] flex-1 items-center gap-2.5 rounded-xl bg-white/[0.05] pl-4 pr-1.5 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50"
-        >
-          <Phone className="h-4 w-4 shrink-0 text-white/50" />
-          <input
-            type="tel"
-            inputMode="tel"
-            required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="+1 (555) 000-0000"
-            aria-label="Your phone number"
-            className="h-full min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="group relative isolate inline-flex h-9 shrink-0 overflow-hidden rounded-full p-px transition-transform active:scale-95"
-          >
-            <span
-              aria-hidden="true"
-              className="absolute -inset-[140%] -z-10 animate-spin opacity-0 [animation-duration:3s] transition-opacity duration-300 group-hover:opacity-100 motion-reduce:hidden"
-              style={{ background: SPIN_GRADIENT }}
-            />
-            <span className="flex h-full items-center gap-2 rounded-full bg-[#0C1E45] px-4 text-sm font-medium text-white">
-              Initiate Call
-              <Play className="h-3.5 w-3.5 fill-current" />
-            </span>
-          </button>
-        </form>
+    <div className="w-full max-w-[760px]">
+      <div className="flex flex-col items-stretch gap-3 lg:flex-row lg:items-center">
+        <div className="flex flex-1 flex-col items-stretch gap-3 rounded-2xl border border-white/10 bg-black/30 p-2.5 backdrop-blur-[40px] shadow-[0_8px_30px_rgba(0,0,0,0.35)] sm:flex-row sm:items-center">
+          <form onSubmit={handleSubmit} className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="grid flex-1 grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="flex h-[50px] items-center gap-2.5 rounded-xl bg-white/[0.05] pl-4 pr-3 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50">
+                <User className="h-4 w-4 shrink-0 text-white/50" />
+                <input
+                  type="text"
+                  id="hero-call-name"
+                  name="name"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name"
+                  aria-label="Your name"
+                  className="h-full min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
+                />
+              </div>
+              <div className="flex h-[50px] items-center gap-2.5 rounded-xl bg-white/[0.05] pl-4 pr-3 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50">
+                <Phone className="h-4 w-4 shrink-0 text-white/50" />
+                <input
+                  type="tel"
+                  inputMode="tel"
+                  id="hero-call-phone"
+                  name="phone"
+                  required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="+1 (555) 000-0000"
+                  aria-label="Your phone number"
+                  className="h-full min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="group relative isolate inline-flex h-[50px] shrink-0 overflow-hidden rounded-full p-px transition-transform active:scale-95 sm:h-9"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute -inset-[140%] -z-10 animate-spin opacity-0 [animation-duration:3s] transition-opacity duration-300 group-hover:opacity-100 motion-reduce:hidden"
+                style={{ background: SPIN_GRADIENT }}
+              />
+              <span className="flex h-full items-center justify-center gap-2 rounded-full bg-[#0C1E45] px-4 text-sm font-medium text-white">
+                Initiate Call
+                <Play className="h-3.5 w-3.5 fill-current" />
+              </span>
+            </button>
+          </form>
+        </div>
         <Link
           to="/book-meeting"
           onClick={() => trackCta('hero_book_a_demo')}
@@ -167,7 +187,7 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
             className="absolute -inset-[140%] -z-10 animate-spin opacity-0 [animation-duration:3s] transition-opacity duration-300 group-hover:opacity-100 motion-reduce:hidden"
             style={{ background: SPIN_GRADIENT }}
           />
-          <span className="flex h-full items-center gap-2 rounded-full bg-white px-4 text-sm font-medium text-[#0C1E45]">
+          <span className="flex h-full items-center justify-center gap-2 rounded-full bg-white px-4 text-sm font-medium text-[#0C1E45]">
             Book a Demo
             <ArrowRight className="h-4 w-4" />
           </span>
@@ -195,7 +215,7 @@ export default function Hero() {
           className="flex h-full max-w-[1296px] items-end justify-start pb-16 pt-28 sm:pb-20 xl:px-[104px] xl:pb-24"
         >
           <motion.div
-            className="flex w-full max-w-[560px] flex-col items-start gap-6"
+            className="flex w-full max-w-[760px] flex-col items-start gap-6"
             initial="hidden"
             animate="show"
             variants={staggerContainer(0.12)}

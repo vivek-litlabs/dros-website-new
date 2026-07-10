@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check as CheckIcon, Minus, ChevronDown, ShieldCheck, Lock, FileCheck, Activity, Quote } from 'lucide-react';
+import { Check as CheckIcon, Minus, ChevronDown, ShieldCheck, Lock, FileCheck, Activity, Quote, Users, Sparkles, Headset } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { Section, Container, Eyebrow, Heading, Button } from '../components/ui';
@@ -161,6 +161,46 @@ const TABLE_ROWS: Row[] = [
   { f: 'Priority support', d: [NO, NO, YES, YES, YES, YES] },
 ];
 
+// Hand-curated subset of TABLE_ROWS / PLANS - keep in sync if those change.
+const PLAN_FEATURES: Record<string, { intro: string; items: string[] }> = {
+  free: {
+    intro: 'Features you get:',
+    items: ['Standard platform access', '100 active accounts', '50 AI calling minutes/mo', 'Up to 3 team members'],
+  },
+  starter: {
+    intro: 'Everything in Free, plus:',
+    items: ['Workflow automation', 'Multi-channel engagement', '500 accounts, 100 min/mo', 'Unlimited team members'],
+  },
+  professional: {
+    intro: 'Everything in Starter, plus:',
+    items: ['All compliance tools', 'Priority support', '5,000 accounts, 1,000 min/mo', '25 workspaces'],
+  },
+  business: {
+    intro: 'Everything in Professional, plus:',
+    items: ['Advanced analytics', 'Dedicated account manager', '24/7 phone support', 'API access'],
+  },
+  'business-plus': {
+    intro: 'Everything in Business, plus:',
+    items: ['Custom integrations', 'Unlimited accounts', 'Unlimited workspaces'],
+  },
+  enterprise: {
+    intro: 'Everything in Business Plus, plus:',
+    items: ['Unlimited AI calling minutes', 'White-label options', 'SLA guarantee'],
+  },
+};
+
+const TRUST_LOGOS: { src: string; alt: string; href: string }[] = [
+  { src: '/RMAi-Logo-500.png', alt: 'RMAi - Receivables Management Association International', href: 'https://rmaintl.org/' },
+  { src: '/aca-international.svg', alt: 'ACA International', href: 'https://www.acainternational.org/' },
+  { src: 'https://www.debtlink.com/images/Debtlink-Logo-Favicon-3.png', alt: 'DebtLink', href: 'https://www.debtlink.com/united-states/dover/collection-software/dros-ai?from=badge' },
+];
+
+const CATEGORY_ICONS: Record<string, typeof ShieldCheck> = {
+  'Accounts & Capacity': Users,
+  Features: Sparkles,
+  Support: Headset,
+};
+
 const TESTIMONIALS = [
   {
     initials: 'DB',
@@ -291,52 +331,69 @@ function PriceBlock({ monthly, annual }: { monthly: number | null; annual: boole
 }
 
 function PlanCard({ plan, annual }: { plan: Plan; annual: boolean }) {
+  const features = PLAN_FEATURES[plan.key];
   return (
     <motion.div
       whileHover={{ y: -6, scale: 1.01, transition: springStd }}
-      className={`relative flex h-full flex-col rounded-card border bg-surface-2/60 p-6 pt-8 transition-colors ${
+      className={`relative flex h-full flex-col rounded-card border bg-surface-2/60 transition-colors ${
         plan.badge ? 'border-accent/30' : 'border-hair hover:border-line'
       }`}
     >
       {plan.badge && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-accent px-3 py-1 text-[11px] font-medium text-[#04070F] shadow-sm">
+        <span className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-accent px-3 py-1 text-[11px] font-medium text-[#04070F] shadow-sm">
           {plan.badge}
         </span>
       )}
 
-      <div className="text-base font-semibold text-ink">{plan.name}</div>
-      <div className="mt-1 text-xs text-ink/45">{plan.tagline}</div>
+      <div className={`rounded-t-card border-b border-hair p-6 pt-8 ${plan.badge ? 'bg-accent/[0.07]' : 'bg-accent/[0.03]'}`}>
+        <div className="text-base font-semibold text-ink">{plan.name}</div>
+        <div className="mt-1 text-xs text-ink/45">{plan.tagline}</div>
 
-      <div className="mt-5">
-        <PriceBlock monthly={plan.monthly} annual={annual} />
+        <div className="mt-5">
+          <PriceBlock monthly={plan.monthly} annual={annual} />
+        </div>
+
+        <p className="mt-4 text-[13px] leading-relaxed text-ink/55">{plan.description}</p>
+
+        <div className="mt-6">
+          {plan.external ? (
+            <Button
+              variant={plan.emphasized ? 'primary' : 'secondary'}
+              size="lg"
+              href={plan.ctaHref}
+              target="_blank"
+              onClick={() => trackCta(plan.ctaKey)}
+              className="w-full"
+            >
+              {plan.ctaLabel}
+            </Button>
+          ) : (
+            <Button
+              variant={plan.emphasized ? 'primary' : 'secondary'}
+              size="lg"
+              to={plan.ctaHref}
+              onClick={() => trackCta(plan.ctaKey)}
+              className="w-full"
+            >
+              {plan.ctaLabel}
+            </Button>
+          )}
+        </div>
       </div>
 
-      <p className="mt-4 flex-1 text-[13px] leading-relaxed text-ink/55">{plan.description}</p>
-
-      <div className="mt-6">
-        {plan.external ? (
-          <Button
-            variant={plan.emphasized ? 'primary' : 'secondary'}
-            size="lg"
-            href={plan.ctaHref}
-            target="_blank"
-            onClick={() => trackCta(plan.ctaKey)}
-            className="w-full"
-          >
-            {plan.ctaLabel}
-          </Button>
-        ) : (
-          <Button
-            variant={plan.emphasized ? 'primary' : 'secondary'}
-            size="lg"
-            to={plan.ctaHref}
-            onClick={() => trackCta(plan.ctaKey)}
-            className="w-full"
-          >
-            {plan.ctaLabel}
-          </Button>
-        )}
-      </div>
+      {features && (
+        <div className="flex-1 p-6">
+          <p className="text-[11px] font-medium uppercase tracking-wider text-ink/40">{features.intro}</p>
+          <ul className="mt-3 flex flex-col gap-2.5">
+            {features.items.map((item) => (
+              <li key={item} className="flex items-start gap-2 text-[13px] leading-snug text-ink/60">
+                <CheckIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" strokeWidth={2.5} />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </motion.div>
   );
 }
@@ -449,68 +506,99 @@ export default function PricingPage() {
           </Container>
         </Section>
 
+        {/* ── TRUST STRIP ── */}
+        <Section tone="base" spacing="sm" id="trust-strip">
+          <Container>
+            <Reveal className="flex flex-col items-center gap-6">
+              <Eyebrow className="justify-center text-ink/40">Member of</Eyebrow>
+              <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+                {TRUST_LOGOS.map(({ src, alt, href }) => (
+                  <a
+                    key={alt}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="opacity-50 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+                  >
+                    <img src={src} alt={alt} className="h-9 w-auto object-contain sm:h-10" />
+                  </a>
+                ))}
+              </div>
+            </Reveal>
+          </Container>
+        </Section>
+
         {/* ── COMPARE TABLE ── */}
         <Section tone="light" spacing="lg" id="compare">
           <Container>
-            <Reveal className="mx-auto max-w-2xl text-center">
-              <Eyebrow className="justify-center text-ink-grey">Full breakdown</Eyebrow>
-              <Heading as="h2" size="display" className="mt-4 text-ink-dark">
-                Compare all plans
-              </Heading>
-              <p className="mt-3 text-sm text-ink-grey">Everything side by side.</p>
-            </Reveal>
+            <div className="relative">
+              <Reveal className="mx-auto max-w-2xl text-center">
+                <Eyebrow className="justify-center text-ink-grey">Full breakdown</Eyebrow>
+                <Heading as="h2" size="display" className="mt-4 text-ink-dark">
+                  Compare all plans
+                </Heading>
+                <p className="mt-3 text-sm text-ink-grey">Everything side by side.</p>
+              </Reveal>
 
-            <Reveal className="mt-12 overflow-x-auto rounded-card border border-line-dark bg-white shadow-sm">
-              <table className="w-full min-w-[880px] border-separate border-spacing-0 text-sm">
-                <thead>
-                  <tr>
-                    <th className="w-[20%] border-b border-line-dark bg-white px-4 py-4 text-left text-[11px] font-medium uppercase tracking-wider text-ink-grey" />
-                    {PLANS.map((plan) => (
-                      <th key={plan.key} className="border-b border-line-dark bg-white px-3 py-4 text-center">
-                        <div
-                          className={`text-[11px] font-medium uppercase tracking-wider ${
-                            plan.badge ? 'text-accent' : 'text-ink-grey'
-                          }`}
-                        >
-                          {plan.name}
-                        </div>
-                        <div className="mt-1 text-base font-semibold text-ink-dark">
-                          {plan.monthly === null
-                            ? 'Custom'
-                            : plan.monthly === 0
-                              ? '$0'
-                              : `$${(annual ? Math.round(plan.monthly * 0.8) : plan.monthly).toLocaleString()}`}
-                        </div>
-                        {plan.monthly !== null && plan.monthly !== 0 && <div className="text-[11px] font-light text-ink-grey">/mo</div>}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {TABLE_ROWS.map((row, idx) =>
-                    'cat' in row ? (
-                      <tr key={idx}>
-                        <td
-                          colSpan={7}
-                          className="border-y border-accent/15 bg-accent/5 px-4 py-2.5 text-[10px] font-semibold uppercase tracking-wider text-accent"
-                        >
-                          {row.cat}
-                        </td>
-                      </tr>
-                    ) : (
-                      <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-[#FAFBFF]'}>
-                        <td className="border-b border-line-dark/60 px-4 py-3 text-ink-dark">{row.f}</td>
-                        {row.d.map((cell, ci) => (
-                          <td key={ci} className="border-b border-line-dark/60 px-3 py-3 text-center">
-                            {cell}
-                          </td>
-                        ))}
-                      </tr>
-                    ),
-                  )}
-                </tbody>
-              </table>
-            </Reveal>
+              <Reveal className="mt-12 overflow-x-auto rounded-card border border-line-dark bg-white shadow-sm">
+                <table className="w-full min-w-[880px] border-separate border-spacing-0 text-sm">
+                  <thead>
+                    <tr>
+                      <th className="w-[20%] border-b border-line-dark bg-white px-4 py-4 text-left text-[11px] font-medium uppercase tracking-wider text-ink-grey" />
+                      {PLANS.map((plan) => (
+                        <th key={plan.key} className="border-b border-line-dark bg-white px-3 py-4 text-center">
+                          <div
+                            className={`text-[11px] font-medium uppercase tracking-wider ${
+                              plan.badge ? 'text-accent' : 'text-ink-grey'
+                            }`}
+                          >
+                            {plan.name}
+                          </div>
+                          <div className="mt-1 text-base font-semibold text-ink-dark">
+                            {plan.monthly === null
+                              ? 'Custom'
+                              : plan.monthly === 0
+                                ? '$0'
+                                : `$${(annual ? Math.round(plan.monthly * 0.8) : plan.monthly).toLocaleString()}`}
+                          </div>
+                          {plan.monthly !== null && plan.monthly !== 0 && <div className="text-[11px] font-light text-ink-grey">/mo</div>}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {TABLE_ROWS.map((row, idx) => {
+                      if ('cat' in row) {
+                        const CategoryIcon = CATEGORY_ICONS[row.cat];
+                        return (
+                          <tr key={idx}>
+                            <td
+                              colSpan={7}
+                              className="border-y border-accent/15 bg-accent/5 px-4 py-2.5 text-[10px] font-semibold uppercase tracking-wider text-accent"
+                            >
+                              <span className="inline-flex items-center gap-1.5">
+                                {CategoryIcon && <CategoryIcon className="h-3.5 w-3.5" strokeWidth={2} />}
+                                {row.cat}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      }
+                      return (
+                        <tr key={idx} className={`transition-colors hover:bg-accent/[0.05] ${idx % 2 === 0 ? 'bg-white' : 'bg-[#FAFBFF]'}`}>
+                          <td className="border-b border-line-dark/60 px-4 py-3 text-ink-dark">{row.f}</td>
+                          {row.d.map((cell, ci) => (
+                            <td key={ci} className="border-b border-line-dark/60 px-3 py-3 text-center">
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </Reveal>
+            </div>
           </Container>
         </Section>
 
@@ -602,9 +690,19 @@ export default function PricingPage() {
                           }`}
                         />
                       </div>
-                      {openFaq === i && (
-                        <p className="mt-3 text-sm font-light leading-relaxed text-ink/55">{faq.aNode ?? faq.a}</p>
-                      )}
+                      <AnimatePresence initial={false}>
+                        {openFaq === i && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.24, ease: [0.44, 0, 0.11, 1] }}
+                            className="overflow-hidden"
+                          >
+                            <p className="mb-0.5 mt-3 text-sm font-light leading-relaxed text-ink/55">{faq.aNode ?? faq.a}</p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </RevealItem>
                 ))}
@@ -614,43 +712,49 @@ export default function PricingPage() {
         </Section>
 
         {/* ── END CTA ── */}
-        <Section tone="light" spacing="lg" id="cta">
+        <Section tone="panel" spacing="lg" id="cta" className="relative overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 opacity-40"
+            style={{
+              backgroundImage:
+                'repeating-linear-gradient(135deg, rgba(3,210,252,0.06) 0px, rgba(3,210,252,0.06) 1px, transparent 1px, transparent 16px)',
+            }}
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute bottom-0 left-1/2 h-[280px] w-[500px] -translate-x-1/2 rounded-full"
+            style={{ background: 'radial-gradient(ellipse, rgba(3,210,252,0.14) 0%, transparent 70%)' }}
+          />
           <Container>
-            <Reveal className="relative overflow-hidden rounded-card border border-accent/20 bg-base px-8 py-16 text-center sm:px-12 md:py-20">
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute bottom-0 left-1/2 h-[280px] w-[500px] -translate-x-1/2 rounded-full"
-                style={{ background: 'radial-gradient(ellipse, rgba(3,210,252,0.12) 0%, transparent 70%)' }}
-              />
-              <div className="relative">
-                <Heading as="h2" size="display" className="mx-auto max-w-md">
-                  Not sure which plan fits?
-                </Heading>
-                <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-ink/55">
-                  Talk to a DROS expert. We'll map your portfolio size, tech stack, and compliance requirements to the right
-                  plan, or build one around you.
-                </p>
-                <div className="mt-6 flex flex-wrap justify-center gap-2">
-                  {['Free 30-min assessment', 'No commitment required', 'Implementation roadmap included'].map((perk) => (
-                    <span key={perk} className="rounded-full border border-accent/20 bg-accent/10 px-3.5 py-1.5 text-xs text-accent/90">
-                      {perk}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                  <Button variant="primary" size="lg" to="/book-meeting" onClick={() => trackCta('pricing_endcta_expert')}>
-                    Talk to an Expert
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    size="lg"
-                    href="https://app.dros.ai"
-                    target="_blank"
-                    onClick={() => trackCta('pricing_endcta_trial')}
-                  >
-                    Start Free Trial
-                  </Button>
-                </div>
+            <Reveal className="relative mx-auto max-w-md text-center">
+              <Heading as="h2" size="display" className="mx-auto max-w-md">
+                Not sure which plan fits?
+              </Heading>
+              <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-ink/55">
+                Talk to a DROS expert. We'll map your portfolio size, tech stack, and compliance requirements to the right
+                plan, or build one around you.
+              </p>
+              <div className="mt-6 flex flex-wrap justify-center gap-2">
+                {['Free 30-min assessment', 'No commitment required', 'Implementation roadmap included'].map((perk) => (
+                  <span key={perk} className="rounded-full border border-accent/20 bg-accent/10 px-3.5 py-1.5 text-xs text-accent/90">
+                    {perk}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+                <Button variant="primary" size="lg" to="/book-meeting" onClick={() => trackCta('pricing_endcta_expert')}>
+                  Talk to an Expert
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  href="https://app.dros.ai"
+                  target="_blank"
+                  onClick={() => trackCta('pricing_endcta_trial')}
+                >
+                  Start Free Trial
+                </Button>
               </div>
             </Reveal>
           </Container>
