@@ -4,6 +4,7 @@ import { Phone, ArrowRight, CheckCircle2, User } from 'lucide-react';
 import { Section, Container, Heading, Eyebrow } from '../ui';
 import { fadeUp } from '../../lib/motion';
 import { trackCta } from '../../lib/analytics';
+import { triggerDemoCall } from '../../lib/api';
 
 export default function DemoWidget() {
   const [name, setName] = useState('');
@@ -14,8 +15,7 @@ export default function DemoWidget() {
     e.preventDefault();
     if (!name.trim() || !phone.trim()) return;
     trackCta('demo_widget_call_me_now');
-    // NOTE: front-end stub only. Backend lead routing (RB2B -> Instantly ->
-    // outbound AI call) is wired up separately and is out of scope here.
+    triggerDemoCall(name.trim(), phone.trim());
     setSubmitted(true);
   }
 

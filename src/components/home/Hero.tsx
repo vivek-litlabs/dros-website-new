@@ -6,6 +6,7 @@ import { Container } from '../ui';
 import { RevealItem } from '../Reveal';
 import { staggerContainer } from '../../lib/motion';
 import { trackCta } from '../../lib/analytics';
+import { triggerDemoCall } from '../../lib/api';
 import { SPIN_GRADIENT } from './PostCTA';
 
 /*
@@ -122,6 +123,7 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
     e.preventDefault();
     if (!name.trim() || !phone.trim()) return;
     trackCta('hero_initiate_call');
+    triggerDemoCall(name.trim(), phone.trim());
     onStart(phone.trim());
   }
 
