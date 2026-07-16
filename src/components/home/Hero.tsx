@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Phone, PhoneOff, Play, User } from 'lucide-react';
+import { ArrowRight, PhoneOff, Play, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Container } from '../ui';
 import { RevealItem } from '../Reveal';
 import { staggerContainer } from '../../lib/motion';
 import { trackCta } from '../../lib/analytics';
-import { triggerDemoCall } from '../../lib/api';
+import { composePhone, triggerDemoCall } from '../../lib/api';
+import { COUNTRIES, defaultCountryIso } from '../../lib/countries';
+import CountryCodeSelect from '../CountryCodeSelect';
 import { SPIN_GRADIENT } from './PostCTA';
 
 /*
@@ -117,6 +119,7 @@ function CallPanel({ phone, onEnd }: { phone: string; onEnd: () => void }) {
 /* ── Idle "Initiate Call" widget (Vapi frosted pill, adapted to name + phone inputs) ── */
 function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
   const [name, setName] = useState('');
+  const [country, setCountry] = useState(defaultCountryIso);
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -127,11 +130,13 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
     trackCta('hero_initiate_call');
     setError(null);
     setLoading(true);
-    const result = await triggerDemoCall(name.trim(), phone.trim());
+    const dial = COUNTRIES.find((c) => c.iso === country)?.dial ?? '1';
+    const fullPhone = composePhone(dial, phone);
+    const result = await triggerDemoCall(name.trim(), fullPhone);
     setLoading(false);
     if (result.ok) {
       // Only show the live-call panel once the call was actually accepted.
-      onStart(phone.trim());
+      onStart(fullPhone);
     } else {
       setError(
         result.status
@@ -161,8 +166,13 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
                   className="autofill-transparent h-full min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
                 />
               </div>
-              <div className="flex h-[50px] items-center gap-2.5 rounded-xl bg-white/[0.05] pl-4 pr-3 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50">
-                <Phone className="h-4 w-4 shrink-0 text-white/50" />
+              <div className="flex h-[50px] items-center gap-2.5 rounded-xl bg-white/[0.05] pl-3 pr-3 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50">
+                <CountryCodeSelect
+                  id="hero-call-country"
+                  tone="dark"
+                  value={country}
+                  onChange={setCountry}
+                />
                 <input
                   type="tel"
                   inputMode="tel"
@@ -171,7 +181,7 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
                   required
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="555 000 0000"
                   aria-label="Your phone number"
                   className="autofill-transparent h-full min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
                 />

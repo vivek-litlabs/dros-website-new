@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, ArrowRight, CheckCircle2, User } from 'lucide-react';
+import { ArrowRight, CheckCircle2, User } from 'lucide-react';
 import { Section, Container, Heading, Eyebrow } from '../ui';
 import { fadeUp } from '../../lib/motion';
 import { trackCta } from '../../lib/analytics';
-import { triggerDemoCall } from '../../lib/api';
+import { composePhone, triggerDemoCall } from '../../lib/api';
+import { COUNTRIES, defaultCountryIso } from '../../lib/countries';
+import CountryCodeSelect from '../CountryCodeSelect';
 
 export default function DemoWidget() {
   const [name, setName] = useState('');
+  const [country, setCountry] = useState(defaultCountryIso);
   const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -19,7 +22,8 @@ export default function DemoWidget() {
     trackCta('demo_widget_call_me_now');
     setError(null);
     setLoading(true);
-    const result = await triggerDemoCall(name.trim(), phone.trim());
+    const dial = COUNTRIES.find((c) => c.iso === country)?.dial ?? '1';
+    const result = await triggerDemoCall(name.trim(), composePhone(dial, phone));
     setLoading(false);
     if (result.ok) {
       // Only show the success state once the call was actually accepted.
@@ -73,8 +77,13 @@ export default function DemoWidget() {
                     className="h-[52px] w-full rounded-btn border border-line-dark bg-white pl-11 pr-4 text-ink-dark placeholder:text-ink-grey/50 focus:border-accent/60 focus:outline-none focus:ring-2 focus:ring-accent/30"
                   />
                 </div>
-                <div className="relative">
-                  <Phone className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-grey/60" />
+                <div className="flex h-[52px] items-center gap-2.5 rounded-btn border border-line-dark bg-white pl-3 pr-4 focus-within:border-accent/60 focus-within:ring-2 focus-within:ring-accent/30">
+                  <CountryCodeSelect
+                    id="demo-widget-country"
+                    tone="light"
+                    value={country}
+                    onChange={setCountry}
+                  />
                   <input
                     type="tel"
                     inputMode="tel"
@@ -83,9 +92,9 @@ export default function DemoWidget() {
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="555 000 0000"
                     aria-label="Your phone number"
-                    className="h-[52px] w-full rounded-btn border border-line-dark bg-white pl-11 pr-4 text-ink-dark placeholder:text-ink-grey/50 focus:border-accent/60 focus:outline-none focus:ring-2 focus:ring-accent/30"
+                    className="h-full min-w-0 flex-1 bg-transparent text-ink-dark placeholder:text-ink-grey/50 focus:outline-none"
                   />
                 </div>
               </div>
