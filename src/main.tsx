@@ -107,6 +107,7 @@ const VoiceAgentsPage = lazyWithRetry(() => import('./pages/features/context-awa
 const DebtBuyerCollectionsPage = lazyWithRetry(() => import('./pages/DebtBuyerCollectionsPage.tsx'));
 const PaymentReminders = lazyWithRetry(() => import('./pages/PaymentReminders.tsx'));
 const BlogPostOmnichannel = lazyWithRetry(() => import('./pages/BlogPostOmnichannel.tsx'));
+const Aca = lazyWithRetry(() => import('./pages/Aca.tsx'));
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -118,6 +119,7 @@ createRoot(document.getElementById('root')!).render(
       <Suspense fallback={<div className="min-h-screen bg-base" />}>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/aca" element={<Aca />} />
         <Route path="/book-meeting" element={<BookMeeting />} />
         <Route path="/events/armtech-rmai-2026" element={<EventsPage />} />
         <Route path="/events" element={<EventsListingPage />} />

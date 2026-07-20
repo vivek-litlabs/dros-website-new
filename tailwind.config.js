@@ -8,6 +8,10 @@ export default {
         sans: ['Saans', 'Inter', 'system-ui', 'sans-serif'],
         display: ['Saans', 'Inter', 'system-ui', 'sans-serif'],
         saans: ['Saans', 'Inter', 'system-ui', 'sans-serif'],
+        // ACA landing typefaces (opt-in via font-grotesk / font-inter / font-serif-accent)
+        grotesk: ['"Space Grotesk"', 'Saans', 'Inter', 'system-ui', 'sans-serif'],
+        inter: ['Inter', 'Saans', 'system-ui', 'sans-serif'],
+        'serif-accent': ['"Instrument Serif"', 'Georgia', 'Cambria', 'serif'],
         // Eyebrows, labels, code
         mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },

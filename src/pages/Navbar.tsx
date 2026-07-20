@@ -45,6 +45,7 @@ const RESOURCE_COLUMNS: ResourceItem[][] = [
     { label: 'Webinars', href: '/webinars', description: 'Live sessions on collections automation' },
   ],
   [
+    { label: 'ACA', href: '/aca', description: 'ACA Annual Convention 2026 - Orlando' },
     { label: 'Videos', href: '/resources/videos', description: 'Product walkthroughs and demos' },
     { label: 'API Docs', href: 'https://app.dros.ai/api-docs', description: 'Integrate DROS into your stack', external: true },
     { label: 'Release Notes', href: '/release-notes', description: 'What is new in every DROS release' },
