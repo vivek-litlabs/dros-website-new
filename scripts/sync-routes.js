@@ -1,17 +1,16 @@
 #!/usr/bin/env node
 // Scans src/pages/*.tsx for files that export `export const route = '...'`
-// and ensures each one has a matching import + <Route> in src/pages/main.tsx.
-// Also removes stale imports for files that no longer exist.
+// and ensures each one has a matching lazy import + <Route> in src/main.tsx.
 // Safe to run multiple times.
 
-import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync } from 'fs';
 import { join, basename } from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const pagesDir = join(__dirname, '..', 'src', 'pages');
-const mainPath = join(pagesDir, 'main.tsx');
+const mainPath = join(__dirname, '..', 'src', 'main.tsx');
 
 const SKIP = new Set(['main.tsx', 'Navbar.tsx', 'Footer.tsx', 'BlogLayout.tsx', 'AnnouncementBanner.tsx']);
 
@@ -42,28 +41,19 @@ for (const file of files) {
 let main = readFileSync(mainPath, 'utf8');
 let changed = false;
 
-// Remove stale imports - imported .tsx files that no longer exist in src/pages/
-const staleImportRe = /^import\s+\w+\s+from\s+'\.\/(\w+)\.tsx';\n?/gm;
-main = main.replace(staleImportRe, (match, moduleName) => {
-  const filePath = join(pagesDir, `${moduleName}.tsx`);
-  if (!existsSync(filePath)) {
-    console.log(`- Removed stale import: ${moduleName}`);
-    changed = true;
-    return '';
-  }
-  return match;
-});
+// Every route is code-split via lazyWithRetry(() => import('./pages/X.tsx')),
+// declared just above this call. New lazy consts are inserted right before it.
+const renderAnchor = `createRoot(document.getElementById('root')!).render(`;
 
-// Add missing imports and routes
-for (const { file, route, component, moduleName } of pages) {
-  const importLine = `import ${component} from './${moduleName}.tsx';`;
-  const routeLine = `        <Route path="${route}" element={<${component} />} />`;
+// Add missing imports and routes. Presence is detected by the module path
+// showing up anywhere in main.tsx, since the homepage import is a plain
+// `import` while every other route uses the lazyWithRetry(...) form.
+for (const { route, component, moduleName } of pages) {
+  const modulePathRe = new RegExp(`\\./pages/${moduleName}\\.tsx`);
 
-  if (!main.includes(importLine)) {
-    main = main.replace(
-      `import './index.css';`,
-      `${importLine}\nimport './index.css';`
-    );
+  if (!modulePathRe.test(main)) {
+    const importLine = `const ${component} = lazyWithRetry(() => import('./pages/${moduleName}.tsx'));\n`;
+    main = main.replace(renderAnchor, `${importLine}${renderAnchor}`);
     console.log(`+ import ${component}`);
     changed = true;
   }
@@ -71,7 +61,7 @@ for (const { file, route, component, moduleName } of pages) {
   if (!main.includes(`path="${route}"`)) {
     main = main.replace(
       `      </Routes>`,
-      `${routeLine}\n      </Routes>`
+      `        <Route path="${route}" element={<${component} />} />\n      </Routes>`
     );
     console.log(`+ Route ${route}`);
     changed = true;
