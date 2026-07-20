@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { PhoneOff } from 'lucide-react';
 
 interface VoiceCallModalProps {
@@ -105,7 +106,7 @@ export default function VoiceCallModal({ phone, onEnd }: VoiceCallModalProps) {
   const mm = Math.floor(seconds / 60);
   const ss = String(seconds % 60).padStart(2, '0');
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md"
       style={{ animation: 'forb-overlay-in 0.25s ease both' }}
@@ -161,6 +162,7 @@ export default function VoiceCallModal({ phone, onEnd }: VoiceCallModalProps) {
           <span className="text-sm text-white/60">Tap to end the demo call</span>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
