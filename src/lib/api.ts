@@ -1,8 +1,10 @@
-// DROS demo-call API. The browser posts to the DROS-owned backend
-// (api.dros.ai), which calls the Vodex service server-to-server - so no
+// DROS demo-call API. The browser posts to the DROS-owned Supabase edge
+// function, which calls the voice provider (Vapi) server-to-server - so no
 // browser-origin allowlist applies and the flow works from any domain
-// (production, staging, Vercel previews, localhost).
-const DEMO_CALL_API = 'https://api.dros.ai/functions/v1/trigger-demo-call';
+// (production, staging, Vercel previews, localhost). CORS is open on the
+// function (Access-Control-Allow-Origin: *), verified 2026-07-20.
+const DEMO_CALL_API =
+  'https://dwqixblwturswkwolktu.supabase.co/functions/v1/trigger-demo-call';
 
 // Builds the E.164 number the API requires (e.g. +14155551234) from the
 // country-code picker's dial code plus whatever the visitor typed:
