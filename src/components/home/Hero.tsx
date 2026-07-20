@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, PhoneOff, Play, User } from 'lucide-react';
+import { ArrowRight, Play, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Container } from '../ui';
 import { RevealItem } from '../Reveal';
@@ -10,6 +10,7 @@ import { composePhone, triggerDemoCall } from '../../lib/api';
 import { COUNTRIES, defaultCountryIso } from '../../lib/countries';
 import CountryCodeSelect from '../CountryCodeSelect';
 import { SPIN_GRADIENT } from './PostCTA';
+import VoiceCallModal from './VoiceCallModal';
 
 /*
  * Vapi-inspired hero. A full-bleed abstract background video sits inside a
@@ -53,65 +54,6 @@ function HeroVideo() {
       {/* Darkening overlays for text legibility */}
       <div className="absolute inset-0 [background:linear-gradient(180deg,rgba(0,0,0,0.15)_0%,rgba(0,0,0,0.45)_100%)]" />
       <div className="absolute inset-0 [background:linear-gradient(90deg,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0.15)_45%,rgba(0,0,0,0)_75%)]" />
-    </div>
-  );
-}
-
-/* ── Live-call panel shown after "Initiate Call" ── */
-function CallPanel({ phone, onEnd }: { phone: string; onEnd: () => void }) {
-  const [seconds, setSeconds] = useState(0);
-
-  useEffect(() => {
-    const id = window.setInterval(() => setSeconds((s) => s + 1), 1000);
-    return () => window.clearInterval(id);
-  }, []);
-
-  const mm = Math.floor(seconds / 60);
-  const ss = String(seconds % 60).padStart(2, '0');
-
-  return (
-    <div className="w-full max-w-[440px] rounded-2xl border border-white/10 bg-black/30 p-5 backdrop-blur-[40px]">
-      <div className="flex items-center justify-between">
-        <span className="font-mono text-[0.7rem] uppercase tracking-wider text-white/60">DROS Agent</span>
-        <span className="flex items-center gap-2 text-xs text-white/70">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-          Live · {mm}:{ss}
-        </span>
-      </div>
-
-      <p className="mt-3 text-sm text-white/70">
-        Connecting to <span className="text-white">{phone}</span>
-      </p>
-
-      {/* Waveform */}
-      <div className="mt-4 flex h-12 items-center gap-1">
-        {Array.from({ length: 28 }).map((_, i) => (
-          <span
-            key={i}
-            className="h-full flex-1 origin-center rounded-full bg-gradient-to-t from-accent/40 to-accent motion-reduce:animate-none"
-            style={{
-              animation: 'fhero-wave 1s ease-in-out infinite',
-              animationDelay: `${(i % 7) * 0.09}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="mt-5 flex items-center gap-3">
-        <button
-          type="button"
-          onClick={onEnd}
-          className="relative inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#e5484d] text-white transition-transform active:scale-95"
-          aria-label="End call"
-        >
-          <span
-            className="absolute inset-0 rounded-full bg-[#e5484d] motion-reduce:hidden"
-            style={{ animation: 'fhero-phone-pulse 2.4s cubic-bezier(.22,.61,.36,1) infinite' }}
-          />
-          <PhoneOff className="relative h-4 w-4" />
-        </button>
-        <span className="text-sm text-white/60">Tap to end the demo call</span>
-      </div>
     </div>
   );
 }
@@ -279,17 +221,15 @@ export default function Hero() {
               </p>
             </RevealItem>
 
-            {/* Interactive call widget / live-call panel */}
+            {/* Interactive call widget */}
             <RevealItem>
-              {call ? (
-                <CallPanel phone={call} onEnd={() => setCall(null)} />
-              ) : (
-                <CallWidget onStart={(phone) => setCall(phone)} />
-              )}
+              <CallWidget onStart={(phone) => setCall(phone)} />
             </RevealItem>
           </motion.div>
         </Container>
       </div>
+
+      {call && <VoiceCallModal phone={call} onEnd={() => setCall(null)} />}
     </header>
   );
 }

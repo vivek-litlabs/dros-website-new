@@ -7,6 +7,7 @@ import { trackCta } from '../../lib/analytics';
 import { composePhone, triggerDemoCall } from '../../lib/api';
 import { COUNTRIES, defaultCountryIso } from '../../lib/countries';
 import CountryCodeSelect from '../CountryCodeSelect';
+import VoiceCallModal from './VoiceCallModal';
 
 export default function DemoWidget() {
   const [name, setName] = useState('');
@@ -15,6 +16,7 @@ export default function DemoWidget() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [callPhone, setCallPhone] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,11 +25,13 @@ export default function DemoWidget() {
     setError(null);
     setLoading(true);
     const dial = COUNTRIES.find((c) => c.iso === country)?.dial ?? '1';
-    const result = await triggerDemoCall(name.trim(), composePhone(dial, phone));
+    const fullPhone = composePhone(dial, phone);
+    const result = await triggerDemoCall(name.trim(), fullPhone);
     setLoading(false);
     if (result.ok) {
       // Only show the success state once the call was actually accepted.
       setSubmitted(true);
+      setCallPhone(fullPhone);
     } else {
       setError(
         result.status
@@ -116,6 +120,8 @@ export default function DemoWidget() {
           <p className="mt-4 text-xs text-ink-grey/60">We won't spam you. This is a one-time demo call.</p>
         </motion.div>
       </Container>
+
+      {callPhone && <VoiceCallModal phone={callPhone} onEnd={() => setCallPhone(null)} />}
     </Section>
   );
 }
