@@ -427,7 +427,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
               initial="hidden"
               animate="show"
               variants={{ show: { transition: { staggerChildren: 0.04, delayChildren: 0.05 } } }}
-              className="space-y-1 px-6 py-5"
+              className="max-h-[calc(100dvh-4rem)] space-y-1 overflow-y-auto overscroll-contain px-6 py-5"
             >
               {primaryLinks.map(({ label, anchor }) => (
                 <motion.button
