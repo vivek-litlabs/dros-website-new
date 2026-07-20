@@ -41,3 +41,10 @@ screencapture-*
 # Loose reference images at repo root
 /post cta.jpg
 /pricing bg.jpg
+/pricing new bg.jpg
+/1.jpeg
+/2.jpeg
+/3.jpeg
+
+# Raw / unprocessed asset dumps
+Vodex assets/
