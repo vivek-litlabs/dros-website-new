@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { PhoneOff } from 'lucide-react';
+import VoiceOrbVideo from './VoiceOrbVideo';
 
 interface VoiceCallModalProps {
   phone: string;
   onEnd: () => void;
 }
 
-/* Minimal liquid-gradient orb: a single flowing teal marble with soft outer
-   glow and expanding "listening" rings, no scattered particles. */
+/* Liquid-gradient orb: a real chroma-keyed video clip (transparent
+   background, composited live in-browser) wrapped in a soft teal bloom and
+   expanding "listening" rings tying it back to the brand accent. */
 function VoiceOrb() {
   return (
     <div className="relative mx-auto flex h-[190px] w-[190px] items-center justify-center">
@@ -29,44 +31,10 @@ function VoiceOrb() {
         style={{ animation: 'forb-pulse 2.2s ease-out infinite', animationDelay: '1.1s' }}
       />
       <div
-        className="relative h-[176px] w-[176px] overflow-hidden rounded-full"
-        style={{
-          background: '#050d18',
-          boxShadow: 'inset 0 0 40px rgba(0,0,0,0.65), 0 14px 44px rgba(0,0,0,0.5)',
-        }}
+        className="relative overflow-hidden rounded-full"
+        style={{ boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.08), 0 14px 44px rgba(0,0,0,0.5)' }}
       >
-        <span
-          className="absolute left-[6px] top-[-2px] h-[150px] w-[150px] rounded-full blur-[22px]"
-          style={{
-            background: 'radial-gradient(closest-side, rgba(3,210,252,0.9), rgba(3,210,252,0) 72%)',
-            animation: 'forb-flow1 7s ease-in-out infinite',
-          }}
-        />
-        <span
-          className="absolute bottom-[-4px] right-[-6px] h-[140px] w-[140px] rounded-full blur-[22px]"
-          style={{
-            background: 'radial-gradient(closest-side, rgba(20,90,220,0.85), rgba(20,90,220,0) 72%)',
-            animation: 'forb-flow2 9s ease-in-out infinite',
-          }}
-        />
-        <span
-          className="absolute bottom-[6px] left-[28px] h-[120px] w-[120px] rounded-full blur-[22px]"
-          style={{
-            background: 'radial-gradient(closest-side, rgba(120,225,255,0.8), rgba(120,225,255,0) 72%)',
-            animation: 'forb-flow3 6s ease-in-out infinite',
-          }}
-        />
-        <div
-          className="pointer-events-none absolute inset-0 rounded-full"
-          style={{
-            background:
-              'radial-gradient(42% 34% at 34% 26%, rgba(255,255,255,0.35), rgba(255,255,255,0) 58%), radial-gradient(120% 120% at 50% 50%, transparent 52%, rgba(3,8,16,0.55) 82%, rgba(3,8,16,0.9) 100%)',
-          }}
-        />
-        <div
-          className="pointer-events-none absolute inset-0 rounded-full"
-          style={{ boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 0 26px rgba(3,210,252,0.14)' }}
-        />
+        <VoiceOrbVideo size={176} />
       </div>
     </div>
   );

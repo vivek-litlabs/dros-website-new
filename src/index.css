@@ -162,19 +162,6 @@ html.lenis body {
     80%  { opacity: 0; }
     100% { transform: scale(1.55); opacity: 0; }
   }
-  /* Liquid gradient drift inside the orb */
-  @keyframes forb-flow1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50%      { transform: translate(34px, 26px) scale(1.18); }
-  }
-  @keyframes forb-flow2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50%      { transform: translate(-30px, -24px) scale(1.22); }
-  }
-  @keyframes forb-flow3 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50%      { transform: translate(22px, -30px) scale(1.15); }
-  }
 
   .animate-fade-in {
     animation: fadeIn 1s ease-in;
