@@ -3,8 +3,7 @@
 // browser-origin allowlist applies and the flow works from any domain
 // (production, staging, Vercel previews, localhost). CORS is open on the
 // function (Access-Control-Allow-Origin: *), verified 2026-07-20.
-const DEMO_CALL_API =
-  'https://dwqixblwturswkwolktu.supabase.co/functions/v1/trigger-demo-call';
+const DEMO_CALL_API = 'https://api.dros.ai/functions/v1/trigger-demo-call';
 
 // Builds the E.164 number the API requires (e.g. +14155551234) from the
 // country-code picker's dial code plus whatever the visitor typed:
