@@ -11,7 +11,7 @@ interface VoiceCallModalProps {
    glow and expanding "listening" rings, no scattered particles. */
 function VoiceOrb() {
   return (
-    <div className="relative flex h-[190px] w-[190px] items-center justify-center">
+    <div className="relative mx-auto flex h-[190px] w-[190px] items-center justify-center">
       <div
         className="absolute -inset-[18%] rounded-full opacity-90 blur-[16px]"
         style={{
@@ -138,7 +138,7 @@ export default function VoiceCallModal({ phone, onEnd }: VoiceCallModalProps) {
           </span>
         </div>
 
-        <div className="mx-auto my-7">
+        <div className="my-7">
           <VoiceOrb />
         </div>
 
