@@ -12,14 +12,6 @@ const CASE_STUDIES = [
     cta: 'Read the story',
     href: '/customer-stories/greystone-associates',
   },
-  {
-    key: 'utah-consumer-finance',
-    image: '/industries/utah-consumer-finance.jpg',
-    heading: '$1.2M recovered, fully compliant.',
-    body: 'Automated first- and third-party follow-ups while keeping a complete, audit-ready compliance record.',
-    cta: 'Read the story',
-    href: '/customer-stories/utah-consumer-finance',
-  },
 ];
 
 const STATS = [

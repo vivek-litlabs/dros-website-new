@@ -447,64 +447,6 @@ export default function PaymentReminders() {
         </div>
       </section>
 
-      {/* ─── CUSTOMER STORY ─── */}
-      <section style={{ background: '#F5F7FF' }} className="pb-24">
-        <div className="max-w-6xl mx-auto px-6 lg:px-10">
-          <div className="text-center max-w-[560px] mx-auto mb-12">
-            <Eyebrow light>Customer Story</Eyebrow>
-            <h2 className="text-3xl lg:text-[38px] font-medium leading-[1.15]" style={{ color: '#010C20' }}>Seen in production, not just a demo</h2>
-          </div>
-          <div className="grid lg:grid-cols-2 rounded-2xl overflow-hidden" style={{ background: '#fff', border: '1px solid rgba(26,35,126,0.1)', boxShadow: '0 4px 24px rgba(26,35,126,0.07)' }}>
-            {/* left */}
-            <div className="p-10 lg:p-11 flex flex-col gap-6" style={{ borderRight: '1px solid rgba(26,35,126,0.07)' }}>
-              {/* stat bar */}
-              <div className="flex items-center rounded-xl px-6 py-5" style={{ background: 'linear-gradient(135deg,#010C20,#1A237E)' }}>
-                {[
-                  { val: '15,000+', lbl: 'Calls automated per day' },
-                  { val: '~80%', lbl: 'Reduction in manual handling' },
-                  { val: '<15 min', lbl: 'Retry lag on missed contacts' },
-                ].map((s, i) => (
-                  <div key={i} className="flex-1 text-center">
-                    {i > 0 && <div className="absolute left-0 top-1/2 -translate-y-1/2 w-px h-9" style={{ background: 'rgba(255,255,255,0.1)' }} />}
-                    <p className="text-[22px] font-medium mb-1" style={{ background: 'linear-gradient(135deg,#DD39F9,#03D2FC)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{s.val}</p>
-                    <p className="text-[11px] leading-snug" style={{ color: 'rgba(255,255,255,0.5)' }}>{s.lbl}</p>
-                  </div>
-                ))}
-              </div>
-              {/* tags */}
-              <div className="flex flex-wrap gap-1.5">
-                {['Consumer Finance', 'First-Party Collections', 'Payment Reminders'].map(t => (
-                  <span key={t} className="text-[11px] font-medium rounded-full px-3 py-1" style={{ background: '#F0F2FB', border: '1px solid rgba(26,35,126,0.1)', color: '#1A237E' }}>{t}</span>
-                ))}
-              </div>
-              <h3 className="text-[18px] font-medium leading-snug" style={{ color: '#010C20' }}>
-                How a Utah-Based Consumer Finance Company Replaced Manual Outbound With a Self-Running AI Operation
-              </h3>
-              <p className="text-sm leading-[1.75]" style={{ color: '#5A6480' }}>
-                Running ~15,000 outbound calls a day across loan prequalification, 1st party collections, and payment reminders - after deploying DROS, campaigns run and recover automatically. Human agents handle escalations. The system handles everything else.
-              </p>
-              <a href="/customer-stories/utah-consumer-finance" className="inline-flex items-center gap-1.5 text-sm font-medium transition-all hover:gap-3" style={{ color: '#1A237E' }}>
-                Read the full story
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-            {/* right */}
-            <div className="p-10 lg:p-11 flex flex-col justify-center" style={{ background: '#F8F9FF' }}>
-              <div className="rounded-2xl p-7 flex flex-col gap-5" style={{ background: '#fff', border: '1px solid rgba(26,35,126,0.08)' }}>
-                <div className="text-[44px] leading-none font-saans opacity-20" style={{ color: '#1A237E' }}>"</div>
-                <p className="text-[15px] leading-[1.75] italic" style={{ color: '#010C20' }}>
-                  Before this, every campaign needed someone to run it. Now the system runs - we just manage the outcomes.
-                </p>
-                <div className="flex items-center gap-2 text-xs" style={{ color: '#8A94AA' }}>
-                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-[#03D2FC]" />
-                  Collections Manager, Utah Consumer Finance Company
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ─── REMINDER TYPES ─── */}
       <section className="py-24" style={{ background: '#010C20' }}>
         <div className="max-w-6xl mx-auto px-6 lg:px-10">

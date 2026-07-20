@@ -104,7 +104,6 @@ const ThirdPartyCollectionsPage = lazyWithRetry(() => import('./pages/ThirdParty
 const CollectionsAIWorkshop = lazyWithRetry(() => import('./pages/CollectionsAIWorkshop.tsx'));
 const GreystoneStory = lazyWithRetry(() => import('./pages/GreystoneStory.tsx'));
 const VoiceAgentsPage = lazyWithRetry(() => import('./pages/features/context-aware-voice-ai-agents-for-debt-collection.tsx'));
-const UtahConsumerFinanceStory = lazyWithRetry(() => import('./pages/UtahConsumerFinanceStory.tsx'));
 const DebtBuyerCollectionsPage = lazyWithRetry(() => import('./pages/DebtBuyerCollectionsPage.tsx'));
 const PaymentReminders = lazyWithRetry(() => import('./pages/PaymentReminders.tsx'));
 const BlogPostOmnichannel = lazyWithRetry(() => import('./pages/BlogPostOmnichannel.tsx'));
@@ -150,7 +149,6 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/collections/debt-buyer" element={<DebtBuyerCollectionsPage />} />
         <Route path="/features/context-aware-voice-ai-agents-for-debt-collection" element={<VoiceAgentsPage />} />
         <Route path="/collections-ai-workshop" element={<CollectionsAIWorkshop />} />
-        <Route path="/customer-stories/utah-consumer-finance" element={<UtahConsumerFinanceStory />} />
         <Route path="/use-cases/ai-voice-agent-payment-reminders" element={<PaymentReminders />} />
         <Route path="/blogs/omnichannel-ai-debt-collection" element={<BlogPostOmnichannel />} />
         <Route path="/api-docs" element={<RedirectToApiDocs />} />

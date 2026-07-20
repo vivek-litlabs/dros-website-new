@@ -18,13 +18,6 @@ interface CustomerStory {
 
 const stories: CustomerStory[] = [
   {
-    title: 'How a Utah-Based Consumer Finance Company Replaced Manual Outbound With a Self-Running AI Operation with DROS',
-    description: 'A story about automating 15,000 daily outbound calls across loan prequalification, 1st party collections, and payment reminders - without adding headcount.',
-    segment: '1st Party Collections',
-    region: 'Utah, United States',
-    slug: '/customer-stories/utah-consumer-finance',
-  },
-  {
     title: 'How Greystone & Associates Simplified Daily Collections and Reduced Operational Friction with DROS',
     description: 'A customer story on faster account onboarding, real-time visibility, and simpler day-to-day collections workflows.',
     segment: 'Third-Party Collections',

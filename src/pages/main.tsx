@@ -26,7 +26,6 @@ import NewsroomPage from './NewsroomPage.tsx';
 import FirstPartyCollectionsPage from './FirstPartyCollectionsPage.tsx';
 import CustomerStoriesPage from './CustomerStoriesPage.tsx';
 import GreystoneStory from './GreystoneStory.tsx';
-import UtahConsumerFinanceStory from './UtahConsumerFinanceStory.tsx';
 import ThirdPartyCollectionsPage from './ThirdPartyCollectionsPage.tsx';
 import DebtBuyerCollectionsPage from './DebtBuyerCollectionsPage.tsx';
 import BlogPostAIVoiceAgents from './BlogPostAIVoiceAgents.tsx';
@@ -87,7 +86,6 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/collections/first-party" element={<FirstPartyCollectionsPage />} />
         <Route path="/customer-stories" element={<CustomerStoriesPage />} />
         <Route path="/customer-stories/greystone-associates" element={<GreystoneStory />} />
-        <Route path="/customer-stories/utah-consumer-finance" element={<UtahConsumerFinanceStory />} />
         <Route path="/collections/third-party" element={<ThirdPartyCollectionsPage />} />
         <Route path="/collections/debt-buyer" element={<DebtBuyerCollectionsPage />} />
         <Route path="/blogs/ai-voice-agents-debt-disputes-compliance" element={<BlogPostAIVoiceAgents />} />
