@@ -1,5 +1,4 @@
 export const route = '/contact';
-import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import Footer from './Footer';
 import { Helmet } from 'react-helmet-async';

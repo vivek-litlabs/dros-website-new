@@ -69,13 +69,15 @@ export default function ExclusiveOffer() {
                 ))}
               </ul>
 
-              <Link
-                to="/book-meeting"
+              <a
+                href="https://dros-leads.bolt.host/submit-lead?event=6d4aedc3-ad73-474a-96ef-0ceb214b3652"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 font-inter text-[0.98rem] font-semibold text-[#3a1d6e] transition-transform hover:-translate-y-0.5 active:scale-[0.99]"
               >
                 Claim my 2,000 minutes
                 <ArrowRight className="h-4 w-4" />
-              </Link>
+              </a>
 
               <p className="mt-4 font-inter text-[0.85rem] text-white/70">
                 Takes about 60 seconds . We'll follow up to get you live.

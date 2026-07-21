@@ -2,7 +2,7 @@ export const route = '/blogs/ai-voice-agents-dnc-disputes-compliance-2026';
 export const tags = ['Compliance & Operations', 'AI Voice Agents', 'DNC', 'Technology & Integrations'];
 import { Helmet } from 'react-helmet-async';
 import { ArrowRight } from 'lucide-react';
-import BlogLayout, { P, H2, H3, Ul, DarkCard, StepCard, Screenshot, BlogCTA, BlogFAQ } from './BlogLayout';
+import BlogLayout, { P, H2, Ul, DarkCard, StepCard, Screenshot, BlogCTA, BlogFAQ } from './BlogLayout';
 
 const faqItems = [
   { q: 'How does an AI debt collection agent handle "don\'t call me again"?', a: 'A well-configured AI agent is trained to recognize phrases like "don\'t call me again", "stop calling", or "take me off your list" as a Do Not Call (DNC) request, confirm it verbally, and trigger an event that adds the number to your internal DNC list and blocks future calls in your campaigns.' },

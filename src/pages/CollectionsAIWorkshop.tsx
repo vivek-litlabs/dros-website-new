@@ -82,7 +82,7 @@ export default function CollectionsAIWorkshop() {
                   <div className="absolute inset-0 rounded-full p-0.5" style={gradBg}>
                     <div className="w-full h-full rounded-full overflow-hidden bg-slate-950">
                       <img loading="lazy" decoding="async"
-                        src="/Untitled_design_(15) copy.png"
+                        src="/Untitled_design_(15).png"
                         alt="Anshul Shrivastava"
                         className="w-full h-full object-cover object-top"
                       />

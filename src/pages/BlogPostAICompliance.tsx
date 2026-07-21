@@ -1,6 +1,5 @@
 export const route = '/blogs/integrate-ai-agents-collections-compliance';
 export const tags = ['Collections Strategy & Performance', 'Compliance & Operations', 'Technology & Integrations', 'AI Agents'];
-import { ArrowRight } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import BlogLayout, { P, H2, H3, Ul, DarkCard, StepCard, Blockquote, CalloutPill, BlogCTA } from './BlogLayout';
 

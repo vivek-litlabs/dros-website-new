@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ChevronDown, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import type { Variants } from 'framer-motion';
+import type { Variants, TargetAndTransition } from 'framer-motion';
 import type Lenis from 'lenis';
 import { springSnappy, springStd } from '../lib/motion';
 
@@ -170,12 +170,14 @@ export default function Navbar({ transparent = false }: NavbarProps) {
       className="fixed top-0 z-50 w-full"
     >
       <motion.div
+        // WebkitBackdropFilter is kept for older Safari, which only honours the
+        // prefixed property. It is not in framer-motion's target type, hence the cast.
         animate={{
           backgroundColor: solid ? 'rgba(4,7,15,0.72)' : 'rgba(4,7,15,0)',
           borderColor: solid ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0)',
           backdropFilter: solid ? 'blur(20px)' : 'blur(0px)',
           WebkitBackdropFilter: solid ? 'blur(20px)' : 'blur(0px)',
-        }}
+        } as TargetAndTransition}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className="border-b"
       >

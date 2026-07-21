@@ -1,7 +1,7 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "dros-website",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +13,6 @@
     "postinstall": "node scripts/sync-routes.js"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.57.4",
     "framer-motion": "^12.42.1",
     "lenis": "^1.3.25",
     "lucide-react": "^0.344.0",

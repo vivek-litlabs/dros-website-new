@@ -1,5 +1,4 @@
 export const route = '/about';
-import { Link } from 'react-router-dom';
 import { ArrowRight, Linkedin } from 'lucide-react';
 import Footer from './Footer';
 import { Helmet } from 'react-helmet-async';
