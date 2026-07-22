@@ -7,7 +7,7 @@ export default function TrustBar() {
     <section className="bg-paper py-9 text-ink-dark">
       <AcaContainer>
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-          <p className="font-inter text-[0.92rem] text-ink-grey">
+          <p className="text-center font-inter text-[0.88rem] leading-[1.5] text-ink-grey sm:text-[0.92rem] md:text-left">
             Built by the team behind <span className="font-semibold text-ink-dark">Vodex</span> - Backed by{' '}
             <span className="font-semibold text-ink-dark">100X VC, Unicorn &amp; Penthalon Ventures</span>
           </p>

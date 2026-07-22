@@ -61,19 +61,19 @@ export default function HeroAca() {
         <div className="absolute inset-0 bg-black/10" />
 
         {/* Content */}
-        <div className="relative mx-auto flex min-h-[100vh] max-w-[1420px] flex-col items-center px-6 pb-10 pt-28 text-center sm:pt-32 lg:pt-36">
+        <div className="relative mx-auto flex min-h-[100svh] max-w-[1420px] flex-col items-center px-5 pb-10 pt-28 text-center sm:px-6 sm:pt-32 lg:pt-36">
           <motion.div
             className="flex w-full flex-1 flex-col items-center justify-center gap-7"
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.08] px-4 py-1.5 font-inter text-[0.82rem] text-white/90 backdrop-blur-md">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.08] px-4 py-1.5 text-center font-inter text-[0.76rem] text-white/90 backdrop-blur-md sm:text-[0.82rem]">
               <span className="h-1.5 w-1.5 rounded-full bg-white/70" />
               The talent problem isn't hiring.
             </span>
 
-            <h1 className="font-grotesk text-[clamp(2.3rem,5.4vw,5.15rem)] font-bold leading-[1.04] tracking-[-0.02em] text-white">
+            <h1 className="font-grotesk text-[clamp(1.85rem,7vw,2.75rem)] font-bold leading-[1.1] tracking-[-0.02em] text-white md:text-[clamp(2.6rem,5.4vw,5.15rem)] md:leading-[1.04]">
               <span className="inline-flex items-center justify-center lg:whitespace-nowrap">
                 Every agent you have is still
                 <DotGrid />
@@ -87,24 +87,24 @@ export default function HeroAca() {
               Pick a use case below and hear it live in 60 seconds.
             </p>
 
-            <div className="mt-1 flex flex-col items-center gap-3.5 sm:flex-row">
+            <div className="mt-1 flex w-full max-w-[340px] flex-col items-center gap-3.5 sm:max-w-none sm:flex-row sm:justify-center">
               <button
                 onClick={() => scrollToId('use-cases')}
-                className="inline-flex items-center gap-2.5 rounded bg-white px-6 py-3.5 font-inter text-[0.95rem] font-semibold text-[#0C1E45] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] transition-transform hover:-translate-y-0.5 active:scale-[0.98]"
+                className="inline-flex w-full items-center justify-center gap-2.5 rounded bg-white px-6 py-3.5 font-inter text-[0.95rem] font-semibold text-[#0C1E45] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)] transition-transform hover:-translate-y-0.5 active:scale-[0.98] sm:w-auto"
               >
                 <Phone className="h-4 w-4" />
                 Get a live call
               </button>
               <button
                 onClick={() => scrollToId('use-cases')}
-                className="inline-flex items-center gap-2.5 rounded border border-white/35 bg-white/[0.08] px-6 py-3.5 font-inter text-[0.95rem] font-medium text-white backdrop-blur-md transition-colors hover:bg-white/[0.14]"
+                className="inline-flex w-full items-center justify-center gap-2.5 rounded border border-white/35 bg-white/[0.08] px-6 py-3.5 font-inter text-[0.95rem] font-medium text-white backdrop-blur-md transition-colors hover:bg-white/[0.14] sm:w-auto"
               >
                 Average response: 47 seconds
               </button>
             </div>
           </motion.div>
 
-          <p className="mt-10 font-serif-accent text-[1.05rem] italic tracking-wide text-white/90">
+          <p className="mt-10 font-serif-accent text-[0.9rem] italic tracking-wide text-white/90 sm:text-[1.05rem]">
             <span className="mr-2 inline-block h-2.5 w-2.5 translate-y-[1px] bg-white/90 align-middle" />
             BOOTH #403 ORLANDO - JULY 22-24, 2026
           </p>

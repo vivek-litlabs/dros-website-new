@@ -39,34 +39,35 @@ export default function PickUseCase() {
 
   const fieldWrap = 'flex flex-col gap-2';
   const labelCls = 'font-inter text-[0.9rem] font-medium text-white';
+  // 16px on mobile so iOS Safari doesn't zoom the viewport on focus.
   const inputCls =
-    'autofill-transparent w-full border-0 border-b border-white/15 bg-transparent pb-2 font-inter text-[0.95rem] text-white placeholder:text-white/35 focus:border-white/50 focus:outline-none';
+    'autofill-transparent w-full border-0 border-b border-white/15 bg-transparent pb-2 font-inter text-base text-white placeholder:text-white/35 focus:border-white/50 focus:outline-none sm:text-[0.95rem]';
 
   return (
-    <section id="use-cases" className="bg-base py-20 md:py-28">
+    <section id="use-cases" className="bg-base py-16 md:py-28">
       <AcaContainer>
-        <div className="mb-8 font-inter text-[0.8rem] italic tracking-wide text-white/40">LIVE DEMO</div>
+        <div className="mb-6 font-inter text-[0.8rem] italic tracking-wide text-white/40 md:mb-8">LIVE DEMO</div>
 
-        <h2 className="max-w-[26ch] font-grotesk text-[clamp(2.2rem,5.4vw,5.15rem)] font-bold leading-[1.08] tracking-[-0.02em] text-white">
+        <h2 className="max-w-[26ch] font-grotesk text-[clamp(1.9rem,7vw,2.9rem)] font-bold leading-[1.12] tracking-[-0.02em] text-white md:text-[clamp(2.4rem,5.4vw,5.15rem)] md:leading-[1.08]">
           Hear it for yourself.{' '}
           <span className="font-serif-accent font-normal italic text-white/95">
             We'll call you in 60 seconds.
           </span>
         </h2>
 
-        <div className="mt-12 flex justify-center">
+        <div className="mt-10 flex justify-center md:mt-12">
           {/* Call card */}
           <div className="w-full max-w-[460px] rounded border border-white/10 bg-[#0E0E10]">
-            <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
-              <span className="font-serif-accent text-[1.05rem] italic text-white/80">
+            <div className="flex items-center justify-between gap-3 border-b border-white/10 px-5 py-4 sm:px-6">
+              <span className="font-serif-accent text-[0.98rem] italic text-white/80 sm:text-[1.05rem]">
                 Get a call in 60 seconds
               </span>
-              <span className="rounded bg-white/10 px-2.5 py-1 font-inter text-[0.72rem] font-medium text-white/80">
+              <span className="shrink-0 rounded bg-white/10 px-2.5 py-1 font-inter text-[0.72rem] font-medium text-white/80">
                 avg 47s
               </span>
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6 px-6 py-7">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6 px-5 py-6 sm:px-6 sm:py-7">
               <div className={fieldWrap}>
                 <label htmlFor="uc-name" className={labelCls}>
                   Name*
@@ -96,7 +97,7 @@ export default function PickUseCase() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="(555) 123-3435"
-                    className="autofill-transparent min-w-0 flex-1 bg-transparent font-inter text-[0.95rem] text-white placeholder:text-white/35 focus:outline-none"
+                    className="autofill-transparent min-w-0 flex-1 bg-transparent font-inter text-base text-white placeholder:text-white/35 focus:outline-none sm:text-[0.95rem]"
                   />
                 </div>
               </div>

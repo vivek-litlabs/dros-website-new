@@ -36,9 +36,9 @@ function QuoteMark({ className }: { className?: string }) {
 
 export default function Testimonials() {
   return (
-    <section className="bg-base py-20 md:py-28">
+    <section className="bg-base py-16 md:py-28">
       <AcaContainer>
-        <div className="flex flex-col gap-20 md:gap-28">
+        <div className="flex flex-col gap-16 md:gap-28">
           {QUOTES.map((q) => (
             <motion.figure
               key={q.name}
@@ -48,24 +48,27 @@ export default function Testimonials() {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               className="relative"
             >
-              {/* Quote marks flank the paragraph at the section's outer edges,
-                  not the narrower centered text column (matches Figma). */}
-              <QuoteMark className="absolute left-0 top-0 h-9 w-11 text-[#c026d3] sm:h-12 sm:w-14" />
-              <QuoteMark className="absolute right-0 top-1/2 h-9 w-11 -translate-y-1/2 rotate-180 text-[#c026d3] sm:h-12 sm:w-14" />
+              {/* On md+ the quote marks flank the paragraph at the section's outer
+                  edges (matches Figma). On narrow screens the text column fills the
+                  full width, so absolute marks would sit on top of the words -
+                  there they stack above/below the quote instead. */}
+              <QuoteMark className="mx-auto block h-8 w-10 text-[#c026d3] md:absolute md:left-0 md:top-0 md:mx-0 md:h-12 md:w-14" />
 
-              <div className="mx-auto max-w-[820px] text-center">
-                <blockquote className="font-grotesk text-[clamp(1.6rem,3.2vw,2.6rem)] font-bold leading-[1.3] tracking-[-0.01em] text-white">
+              <div className="mx-auto mt-5 max-w-[820px] text-center md:mt-0">
+                <blockquote className="font-grotesk text-[clamp(1.35rem,5.2vw,2.6rem)] font-bold leading-[1.32] tracking-[-0.01em] text-white">
                   {q.text}
                 </blockquote>
 
-                <figcaption className="mt-10">
-                  <div className="font-inter text-[1.05rem] font-semibold text-white">{q.name}</div>
-                  <div className="mt-1.5 font-inter text-[0.9rem] text-white/50">{q.detail}</div>
+                <figcaption className="mt-8 md:mt-10">
+                  <div className="font-inter text-[1rem] font-semibold text-white sm:text-[1.05rem]">{q.name}</div>
+                  <div className="mt-1.5 font-inter text-[0.85rem] text-white/50 sm:text-[0.9rem]">{q.detail}</div>
                   <span className="mt-4 inline-flex items-center rounded-full border border-white/20 px-4 py-1.5 font-inter text-[0.78rem] text-white/70">
                     {q.tag}
                   </span>
                 </figcaption>
               </div>
+
+              <QuoteMark className="mx-auto mt-6 block h-8 w-10 rotate-180 text-[#c026d3] md:absolute md:right-0 md:top-1/2 md:mx-0 md:mt-0 md:h-12 md:w-14 md:-translate-y-1/2" />
             </motion.figure>
           ))}
         </div>

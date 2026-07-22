@@ -37,15 +37,15 @@ export default function InfoCards() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 }}
-                className={`bg-[#0B0B0D] p-8 ring-1 ring-inset ${c.ring} ${c.glow}`}
+                className={`bg-[#0B0B0D] p-6 ring-1 ring-inset sm:p-8 ${c.ring} ${c.glow}`}
               >
                 <div className={`flex h-12 w-12 items-center justify-center rounded-full border ${c.iconRing}`}>
                   <Icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-6 font-grotesk text-[1.4rem] font-bold tracking-[-0.01em] text-white">
+                <h3 className="mt-5 font-grotesk text-[1.2rem] font-bold tracking-[-0.01em] text-white sm:mt-6 sm:text-[1.4rem]">
                   {c.title}
                 </h3>
-                <p className="mt-4 max-w-[42ch] font-inter text-[1.02rem] leading-[1.6] text-white/60">
+                <p className="mt-3.5 max-w-[42ch] font-inter text-[0.96rem] leading-[1.6] text-white/60 sm:mt-4 sm:text-[1.02rem]">
                   {c.body}
                 </p>
               </motion.div>

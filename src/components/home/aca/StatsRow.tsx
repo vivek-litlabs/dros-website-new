@@ -19,7 +19,7 @@ export default function StatsRow() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 }}
-              className={`relative flex min-h-[280px] flex-col justify-between overflow-hidden p-7 ${
+              className={`relative flex min-h-[220px] flex-col justify-between overflow-hidden p-6 sm:min-h-[280px] sm:p-7 ${
                 s.gradient ? '' : 'border border-white/10 bg-[#111214]'
               }`}
             >
@@ -35,13 +35,13 @@ export default function StatsRow() {
                 </>
               )}
               <div
-                className={`relative font-grotesk text-[clamp(3.8rem,7vw,6.5rem)] font-bold leading-none tracking-[-0.02em] ${
+                className={`relative font-grotesk text-[clamp(3rem,11vw,6.5rem)] font-bold leading-none tracking-[-0.02em] sm:text-[clamp(3.8rem,7vw,6.5rem)] ${
                   s.gradient ? 'text-white' : 'text-white'
                 }`}
               >
                 {s.value}
               </div>
-              <div className="relative mt-6 max-w-[24ch] font-inter text-[0.95rem] leading-[1.4] text-white/85">
+              <div className="relative mt-5 max-w-[24ch] font-inter text-[0.9rem] leading-[1.4] text-white/85 sm:mt-6 sm:text-[0.95rem]">
                 {s.label}
               </div>
             </motion.div>

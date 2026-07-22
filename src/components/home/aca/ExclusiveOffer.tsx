@@ -7,9 +7,9 @@ const BULLETS = ['No setup fees', 'Live on your accounts in under a week', 'Canc
 
 export default function ExclusiveOffer() {
   return (
-    <section id="offer" className="bg-base py-20 md:py-28">
+    <section id="offer" className="bg-base py-16 md:py-28">
       <AcaContainer>
-        <div className="mb-10 font-inter text-[0.8rem] italic tracking-wide text-white/40">
+        <div className="mb-8 font-inter text-[0.8rem] italic tracking-wide text-white/40 md:mb-10">
           \ ACA EXCLUSIVE OFFER
         </div>
 
@@ -21,10 +21,10 @@ export default function ExclusiveOffer() {
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h2 className="max-w-[15ch] font-grotesk text-[clamp(2.1rem,5vw,4.8rem)] font-bold leading-[1.06] tracking-[-0.02em] text-white">
+            <h2 className="max-w-[15ch] font-grotesk text-[clamp(1.9rem,7vw,2.9rem)] font-bold leading-[1.08] tracking-[-0.02em] text-white md:text-[clamp(2.4rem,5vw,4.8rem)] md:leading-[1.06]">
               Claim 2,000 free AI calling minutes.
             </h2>
-            <p className="mt-6 max-w-[420px] font-inter text-[1.02rem] leading-[1.6] text-white/55">
+            <p className="mt-5 max-w-[420px] font-inter text-[0.98rem] leading-[1.6] text-white/55 sm:text-[1.02rem] md:mt-6">
               No setup fees. Live on your own accounts in under a week. One redemption per company,
               ACA attendees only.
             </p>
@@ -43,7 +43,7 @@ export default function ExclusiveOffer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
-            className="relative overflow-hidden rounded-3xl p-8 shadow-[0_30px_80px_-30px_rgba(120,60,220,0.5)] sm:p-10"
+            className="relative overflow-hidden rounded-3xl p-6 shadow-[0_30px_80px_-30px_rgba(120,60,220,0.5)] sm:p-10"
           >
             <img
               src="/aca/offer-bg.png"
