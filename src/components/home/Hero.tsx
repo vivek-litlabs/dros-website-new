@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play, User } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -9,6 +9,7 @@ import { trackCta } from '../../lib/analytics';
 import { composePhone, triggerDemoCall } from '../../lib/api';
 import { COUNTRIES, defaultCountryIso } from '../../lib/countries';
 import CountryCodeSelect from '../CountryCodeSelect';
+import Recaptcha, { type RecaptchaHandle } from '../Recaptcha';
 import { SPIN_GRADIENT } from './PostCTA';
 import VoiceCallModal from './VoiceCallModal';
 
@@ -65,21 +66,27 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<RecaptchaHandle>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim() || loading) return;
+    if (!name.trim() || !phone.trim() || !token || loading) return;
     trackCta('hero_initiate_call');
     setError(null);
     setLoading(true);
     const dial = COUNTRIES.find((c) => c.iso === country)?.dial ?? '1';
     const fullPhone = composePhone(dial, phone);
-    const result = await triggerDemoCall(name.trim(), fullPhone);
+    const result = await triggerDemoCall(name.trim(), fullPhone, token);
     setLoading(false);
     if (result.ok) {
       // Only show the live-call panel once the call was actually accepted.
       onStart(fullPhone);
     } else {
+      // The token is spent after one use - reset the checkbox so a retry gets
+      // a fresh one instead of being rejected.
+      recaptchaRef.current?.reset();
+      setToken(null);
       setError(
         result.status
           ? `Couldn't start the call (error ${result.status}). Please try again.`
@@ -131,7 +138,7 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
             </div>
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || !token}
               className="group relative isolate inline-flex h-[50px] shrink-0 overflow-hidden rounded-full p-px transition-transform active:scale-95 disabled:cursor-not-allowed disabled:opacity-70 sm:h-9"
             >
               <span
@@ -162,6 +169,9 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
           </span>
         </Link>
       </div>
+      {/* Sits below the pill (a 302px widget would break the horizontal row).
+          The token lives in React state, so it needn't be inside the <form>. */}
+      <Recaptcha ref={recaptchaRef} theme="dark" onVerify={setToken} className="mt-3" />
       {error ? (
         <p className="mt-2.5 text-xs text-red-400">{error}</p>
       ) : (

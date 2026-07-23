@@ -30,10 +30,17 @@ export interface DemoCallResult {
 }
 
 // Triggers an outbound demo call for the given lead. `phone` must already be
-// a full E.164 number (see composePhone). Never throws - it always resolves
-// to a DemoCallResult so the caller can decide what to show.
-export async function triggerDemoCall(name: string, phone: string): Promise<DemoCallResult> {
-  const payload = { name, phone };
+// a full E.164 number (see composePhone). `token` is the reCAPTCHA v2 response
+// the visitor produced by ticking the checkbox; it rides along under the
+// standard `g-recaptcha-response` key so the endpoint can verify it with
+// Google before dialing. Never throws - it always resolves to a DemoCallResult
+// so the caller can decide what to show.
+export async function triggerDemoCall(
+  name: string,
+  phone: string,
+  token: string,
+): Promise<DemoCallResult> {
+  const payload = { name, phone, 'g-recaptcha-response': token };
 
   try {
     const response = await fetch(DEMO_CALL_API, {

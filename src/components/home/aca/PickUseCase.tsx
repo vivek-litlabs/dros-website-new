@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Phone } from 'lucide-react';
 import AcaContainer from './AcaContainer';
 import { composePhone, triggerDemoCall } from '../../../lib/api';
 import { COUNTRIES, defaultCountryIso } from '../../../lib/countries';
 import { trackCta } from '../../../lib/analytics';
 import CountryCodeSelect from '../../CountryCodeSelect';
+import Recaptcha, { type RecaptchaHandle } from '../../Recaptcha';
 import VoiceCallModal from '../VoiceCallModal';
 
 export default function PickUseCase() {
@@ -15,20 +16,25 @@ export default function PickUseCase() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [callPhone, setCallPhone] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<RecaptchaHandle>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim() || loading) return;
+    if (!name.trim() || !phone.trim() || !token || loading) return;
     trackCta('pick_use_case_call_me_now');
     setError(null);
     setLoading(true);
     const dial = COUNTRIES.find((c) => c.iso === country)?.dial ?? '1';
     const fullPhone = composePhone(dial, phone);
-    const result = await triggerDemoCall(name.trim(), fullPhone);
+    const result = await triggerDemoCall(name.trim(), fullPhone, token);
     setLoading(false);
     if (result.ok) {
       setCallPhone(fullPhone);
     } else {
+      // Token is single-use - reset the checkbox so a retry gets a fresh one.
+      recaptchaRef.current?.reset();
+      setToken(null);
       setError(
         result.status
           ? `Couldn't start the call (error ${result.status}). Please try again.`
@@ -116,9 +122,10 @@ export default function PickUseCase() {
                 />
               </div>
 
+              <Recaptcha ref={recaptchaRef} theme="dark" onVerify={setToken} />
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || !token}
                 className="mt-1 flex w-full items-center justify-center gap-2.5 rounded bg-white px-6 py-3.5 font-inter text-[0.95rem] font-semibold text-[#0C1E45] transition-transform hover:-translate-y-0.5 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70"
               >
                 <Phone className="h-4 w-4" />

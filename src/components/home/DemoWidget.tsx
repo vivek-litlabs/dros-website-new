@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, User } from 'lucide-react';
 import { Section, Container, Heading, Eyebrow } from '../ui';
@@ -7,6 +7,7 @@ import { trackCta } from '../../lib/analytics';
 import { composePhone, triggerDemoCall } from '../../lib/api';
 import { COUNTRIES, defaultCountryIso } from '../../lib/countries';
 import CountryCodeSelect from '../CountryCodeSelect';
+import Recaptcha, { type RecaptchaHandle } from '../Recaptcha';
 import VoiceCallModal from './VoiceCallModal';
 
 export default function DemoWidget() {
@@ -17,22 +18,27 @@ export default function DemoWidget() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [callPhone, setCallPhone] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<RecaptchaHandle>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim() || loading) return;
+    if (!name.trim() || !phone.trim() || !token || loading) return;
     trackCta('demo_widget_call_me_now');
     setError(null);
     setLoading(true);
     const dial = COUNTRIES.find((c) => c.iso === country)?.dial ?? '1';
     const fullPhone = composePhone(dial, phone);
-    const result = await triggerDemoCall(name.trim(), fullPhone);
+    const result = await triggerDemoCall(name.trim(), fullPhone, token);
     setLoading(false);
     if (result.ok) {
       // Only show the success state once the call was actually accepted.
       setSubmitted(true);
       setCallPhone(fullPhone);
     } else {
+      // Token is single-use - reset the checkbox so a retry gets a fresh one.
+      recaptchaRef.current?.reset();
+      setToken(null);
       setError(
         result.status
           ? `Couldn't start the call (error ${result.status}). Please try again.`
@@ -102,9 +108,10 @@ export default function DemoWidget() {
                   />
                 </div>
               </div>
+              <Recaptcha ref={recaptchaRef} theme="light" onVerify={setToken} className="flex justify-center" />
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || !token}
                 className="inline-flex h-[52px] items-center justify-center gap-2 self-center rounded-btn bg-[#0C1E45] px-6 font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {loading ? 'Calling...' : (

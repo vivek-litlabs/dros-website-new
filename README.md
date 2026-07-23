@@ -64,8 +64,21 @@ workflow, including the blog-post checklist.
 
 ## Configuration
 
-There are no environment variables and no secrets in this repository. Two values
-are set in code and should be confirmed as pointing at the right accounts:
+### Environment variables
+
+| Variable | Where | Notes |
+| --- | --- | --- |
+| `VITE_RECAPTCHA_SITE_KEY` | `.env.local` (dev) and Vercel project settings (Production, Preview, Development) | Public reCAPTCHA v2 **checkbox** site key for the demo-call forms. Read at build time — if it's missing when Vercel builds, the checkbox won't render and the call buttons stay disabled. Safe to expose (it ships in the bundle). |
+
+The reCAPTCHA **secret key** is not used in this repository. It belongs to whatever
+verifies the token server-side (before a call is placed) and must never be committed
+here or exposed to the browser. In the reCAPTCHA admin console the key pair must be
+**v2 "I'm not a robot" Checkbox**, with `dros.ai`, `localhost`, and the Vercel preview
+domain listed under Domains.
+
+### Values set in code
+
+Two values are set in code and should be confirmed as pointing at the right accounts:
 
 - **Google Analytics** measurement ID `G-TT8WJVR53D`, in `src/main.tsx`
 - **Demo call endpoint** `https://api.dros.ai/functions/v1/trigger-demo-call`,
