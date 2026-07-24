@@ -198,6 +198,14 @@ html.lenis body {
   transition: background-color 9999s ease-in-out 0s;
 }
 
+/* The box-shadow above only fills the <input> box. When the input sits inside a
+   field wrapper (icon + input, or +91 select + input), the wrapper's padding
+   area keeps its lighter translucent bg and a seam shows against the fill. Paint
+   the wrapper the same solid color so the whole field reads as one surface. */
+.autofill-wrap:has(.autofill-transparent:-webkit-autofill) {
+  background-color: #0e0e10 !important;
+}
+
 /* Opt-in gradient text: ensure clipping works across browsers */
 .text-transparent.bg-clip-text {
   -webkit-background-clip: text !important;

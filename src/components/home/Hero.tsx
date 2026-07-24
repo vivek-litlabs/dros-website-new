@@ -106,7 +106,7 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
         <div className="flex flex-1 flex-col items-stretch gap-3 rounded-2xl border border-white/10 bg-black/30 p-2.5 backdrop-blur-[40px] shadow-[0_8px_30px_rgba(0,0,0,0.35)] sm:flex-row sm:items-center">
           <form onSubmit={handleSubmit} className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
             <div className="grid flex-1 grid-cols-1 gap-3 sm:grid-cols-2">
-              <div className="flex h-[50px] items-center gap-2.5 rounded-xl bg-white/[0.05] pl-4 pr-3 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50">
+              <div className="autofill-wrap flex h-[50px] items-center gap-2.5 rounded-xl bg-white/[0.05] pl-4 pr-3 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50">
                 <User className="h-4 w-4 shrink-0 text-white/50" />
                 <input
                   type="text"
@@ -120,7 +120,7 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
                   className="autofill-transparent h-full min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
                 />
               </div>
-              <div className="flex h-[50px] items-center gap-2.5 rounded-xl bg-white/[0.05] pl-3 pr-3 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50">
+              <div className="autofill-wrap flex h-[50px] items-center gap-2.5 rounded-xl bg-white/[0.05] pl-3 pr-3 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50">
                 <CountryCodeSelect
                   id="hero-call-country"
                   tone="dark"

@@ -99,7 +99,7 @@ export default function PickUseCase() {
                 <label htmlFor="uc-phone" className={labelCls}>
                   Phone Number*
                 </label>
-                <div className="flex items-center gap-2 border-b border-white/15 pb-2 focus-within:border-white/50">
+                <div className="autofill-wrap flex items-center gap-2 border-b border-white/15 pb-2 focus-within:border-white/50">
                   <CountryCodeSelect id="uc-country" tone="dark" value={country} onChange={setCountry} />
                   <input
                     id="uc-phone"
