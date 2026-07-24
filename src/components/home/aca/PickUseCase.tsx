@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Phone } from 'lucide-react';
 import AcaContainer from './AcaContainer';
-import { composePhone, triggerDemoCall } from '../../../lib/api';
+import { composePhone, demoCallErrorMessage, isAllowedPhone, triggerDemoCall } from '../../../lib/api';
 import { COUNTRIES, defaultCountryIso } from '../../../lib/countries';
 import { trackCta } from '../../../lib/analytics';
 import CountryCodeSelect from '../../CountryCodeSelect';
@@ -27,19 +27,25 @@ export default function PickUseCase() {
     setLoading(true);
     const dial = COUNTRIES.find((c) => c.iso === country)?.dial ?? '1';
     const fullPhone = composePhone(dial, phone);
+    if (!isAllowedPhone(fullPhone)) {
+      setError(
+        'We can only place demo calls to US (+1) and India (+91) numbers right now. Please check your number.',
+      );
+      setLoading(false);
+      return;
+    }
     const result = await triggerDemoCall(name.trim(), fullPhone, token);
     setLoading(false);
+    // reCAPTCHA tokens are single-use and expire in ~2 min - reset after every
+    // submit so the next attempt starts from a fresh tick, and re-gate the
+    // button (token null). This widget stays mounted under the call modal, so
+    // resetting on success matters too.
+    recaptchaRef.current?.reset();
+    setToken(null);
     if (result.ok) {
       setCallPhone(fullPhone);
     } else {
-      // Token is single-use - reset the checkbox so a retry gets a fresh one.
-      recaptchaRef.current?.reset();
-      setToken(null);
-      setError(
-        result.status
-          ? `Couldn't start the call (error ${result.status}). Please try again.`
-          : `Couldn't reach the call service (request blocked or network error). Disable ad/privacy blockers and try again.`,
-      );
+      setError(demoCallErrorMessage(result));
     }
   }
 

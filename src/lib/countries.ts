@@ -191,7 +191,15 @@ export interface Country {
   dial: string;
 }
 
-export const COUNTRIES: Country[] = RAW.map(([name, iso, dial]) => ({ name, iso, dial }));
+// Demo calls are limited to two dial regions today: United States (+1) and
+// India (+91). The full RAW list is kept above so this can be re-expanded by
+// editing one array. US is first so it stays the default fallback below.
+const ALLOWED_ISOS = ['US', 'IN'];
+
+export const COUNTRIES: Country[] = ALLOWED_ISOS.map((iso) => {
+  const [name, code, dial] = RAW.find((r) => r[1] === iso)!;
+  return { name, iso: code, dial };
+});
 
 // Best-guess default from the browser locale (e.g. "en-IN" -> IN). Falls back
 // to the US, the site's primary audience.

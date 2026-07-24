@@ -6,7 +6,7 @@ import { Container } from '../ui';
 import { RevealItem } from '../Reveal';
 import { staggerContainer } from '../../lib/motion';
 import { trackCta } from '../../lib/analytics';
-import { composePhone, triggerDemoCall } from '../../lib/api';
+import { composePhone, demoCallErrorMessage, isAllowedPhone, triggerDemoCall } from '../../lib/api';
 import { COUNTRIES, defaultCountryIso } from '../../lib/countries';
 import CountryCodeSelect from '../CountryCodeSelect';
 import Recaptcha, { type RecaptchaHandle } from '../Recaptcha';
@@ -77,21 +77,26 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
     setLoading(true);
     const dial = COUNTRIES.find((c) => c.iso === country)?.dial ?? '1';
     const fullPhone = composePhone(dial, phone);
+    if (!isAllowedPhone(fullPhone)) {
+      setError(
+        'We can only place demo calls to US (+1) and India (+91) numbers right now. Please check your number.',
+      );
+      setLoading(false);
+      return;
+    }
     const result = await triggerDemoCall(name.trim(), fullPhone, token);
     setLoading(false);
+    // reCAPTCHA tokens are single-use and expire in ~2 min - reset after every
+    // submit so the next attempt starts from a fresh tick, and re-gate the
+    // button (token null). This widget stays mounted under the call modal, so
+    // resetting on success matters too.
+    recaptchaRef.current?.reset();
+    setToken(null);
     if (result.ok) {
       // Only show the live-call panel once the call was actually accepted.
       onStart(fullPhone);
     } else {
-      // The token is spent after one use - reset the checkbox so a retry gets
-      // a fresh one instead of being rejected.
-      recaptchaRef.current?.reset();
-      setToken(null);
-      setError(
-        result.status
-          ? `Couldn't start the call (error ${result.status}). Please try again.`
-          : `Couldn't reach the call service (request blocked or network error). Disable ad/privacy blockers and try again.`,
-      );
+      setError(demoCallErrorMessage(result));
     }
   }
 
