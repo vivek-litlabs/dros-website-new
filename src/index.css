@@ -180,16 +180,21 @@ html.lenis body {
 }
 
 /* Keep dark/transparent inputs readable when the browser autofills them.
-   Webkit paints a solid light "autofill" background over the field, which
-   hides the white text (the white block on the hero call inputs). Delaying the
-   background-color transition indefinitely stops that fill from ever painting,
-   and text-fill-color keeps the value visible. */
+   Webkit paints the solid light "autofill" background as an inset box-shadow
+   layer (the white block on the hero call inputs), which hides the white text.
+   The transition trick only defers a background-color animation, so it misses
+   autofill that fires on initial page load - no transition ever runs. Overriding
+   the box-shadow layer with a solid dark fill (matching the near-black #0E0E10
+   field/card surfaces) removes the white box in every case; text-fill-color
+   keeps the value visible. */
 .autofill-transparent:-webkit-autofill,
 .autofill-transparent:-webkit-autofill:hover,
 .autofill-transparent:-webkit-autofill:focus,
 .autofill-transparent:-webkit-autofill:active {
-  -webkit-text-fill-color: #fff;
+  -webkit-text-fill-color: #fff !important;
   caret-color: #fff;
+  -webkit-box-shadow: 0 0 0 1000px #0e0e10 inset !important;
+  box-shadow: 0 0 0 1000px #0e0e10 inset !important;
   transition: background-color 9999s ease-in-out 0s;
 }
 
