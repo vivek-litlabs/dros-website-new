@@ -10,11 +10,13 @@ import { Section, Container, Eyebrow, Heading, Button } from '../components/ui';
 import Reveal, { RevealItem } from '../components/Reveal';
 import { springStd, springSnappy } from '../lib/motion';
 import { trackCta } from '../lib/analytics';
+import { PLANS, type Plan } from '../data/plans';
 
 /*
  * Pricing page. Content (plans, prices, features, testimonials, FAQ, CTA
- * copy) is sourced from the live dros.ai/pricing page - six real tiers, not
- * illustrative ones. Structure (card anatomy, comparison table,
+ * copy) is sourced from the live dros.ai/pricing page - four real tiers, not
+ * illustrative ones. Tier data lives in src/data/plans.ts and is shared with
+ * the homepage pricing section. Structure (card anatomy, comparison table,
  * two-column FAQ) follows the Customer.io-inspired layout already built for
  * this page. Visuals stay on the site's current single-accent (teal) design
  * system - no separate purple/teal gradient - using the same tokens and
@@ -41,153 +43,33 @@ function PricingHeroBg() {
   );
 }
 
-/* ── Plan data (matches the live dros.ai/pricing page) ── */
-interface Plan {
-  key: string;
-  name: string;
-  tagline: string;
-  monthly: number | null;
-  badge?: string;
-  description: string;
-  ctaLabel: string;
-  ctaHref: string;
-  ctaKey: string;
-  external: boolean;
-  /** Solid white pill (matches Button variant="primary" used site-wide) vs outline. */
-  emphasized: boolean;
-}
-
-const PLANS: Plan[] = [
-  {
-    key: 'free',
-    name: 'Free',
-    tagline: 'Perfect for getting started',
-    monthly: 0,
-    description: 'Run your first AI calls and explore the platform before spending a dollar.',
-    ctaLabel: 'Start Free Trial',
-    ctaHref: 'https://app.dros.ai',
-    ctaKey: 'pricing_free_cta',
-    external: true,
-    emphasized: false,
-  },
-  {
-    key: 'starter',
-    name: 'Starter',
-    tagline: 'For growing teams',
-    monthly: 20,
-    badge: 'Most Popular',
-    description: 'Automate first-touch outreach and right-party contact. Stop chasing accounts manually.',
-    ctaLabel: 'Start Free Trial',
-    ctaHref: 'https://app.dros.ai',
-    ctaKey: 'pricing_starter_cta',
-    external: true,
-    emphasized: true,
-  },
-  {
-    key: 'professional',
-    name: 'Professional',
-    tagline: 'For established teams',
-    monthly: 199,
-    description: 'Full compliance tooling and real portfolio capacity for serious first- or third-party operations.',
-    ctaLabel: 'Start Free Trial',
-    ctaHref: 'https://app.dros.ai',
-    ctaKey: 'pricing_professional_cta',
-    external: true,
-    emphasized: false,
-  },
-  {
-    key: 'business',
-    name: 'Business',
-    tagline: 'For high-volume operations',
-    monthly: 499,
-    description: 'API access, dedicated AM, and analytics to run multiple portfolios without manual follow-up.',
-    ctaLabel: 'Start Free Trial',
-    ctaHref: 'https://app.dros.ai',
-    ctaKey: 'pricing_business_cta',
-    external: true,
-    emphasized: false,
-  },
-  {
-    key: 'business-plus',
-    name: 'Business Plus',
-    tagline: 'For scaling enterprises',
-    monthly: 1999,
-    badge: 'New Plan',
-    description: 'Unlimited accounts and custom integrations, no volume ceilings.',
-    ctaLabel: 'Start Free Trial',
-    ctaHref: 'https://app.dros.ai',
-    ctaKey: 'pricing_bizplus_cta',
-    external: true,
-    emphasized: true,
-  },
-  {
-    key: 'enterprise',
-    name: 'Enterprise',
-    tagline: 'For organizations with unique needs',
-    monthly: null,
-    description: 'White-label deployment, SLA guarantee, and a solution built around your exact requirements.',
-    ctaLabel: 'Contact Sales',
-    ctaHref: '/book-meeting',
-    ctaKey: 'pricing_enterprise_cta',
-    external: false,
-    emphasized: true,
-  },
-];
-
 const YES = <CheckIcon className="mx-auto h-4 w-4 text-accent" strokeWidth={2.5} />;
 const NO = <Minus className="mx-auto h-3.5 w-3.5 text-ink-grey/25" strokeWidth={2.5} />;
 
 type Row = { cat: string } | { f: string; d: (string | React.ReactNode)[] };
 
+/* Each `d` maps positionally onto PLANS - one cell per tier, same order. */
 const TABLE_ROWS: Row[] = [
   { cat: 'Accounts & Capacity' },
-  { f: 'Active accounts', d: ['100', '500', '5,000', '20,000', 'Unlimited', 'Unlimited'] },
-  { f: 'AI calling minutes / mo', d: ['50', '100', '1,000', '4,000', '20,000', 'Unlimited'] },
-  { f: 'Workspaces', d: ['2', '5', '25', 'Unlimited', 'Unlimited', 'Unlimited'] },
-  { f: 'Team members', d: ['Up to 3', 'Unlimited', 'Unlimited', 'Unlimited', 'Unlimited', 'Unlimited'] },
+  { f: 'Active accounts', d: ['5,000', '20,000', 'Unlimited', 'Unlimited'] },
+  { f: 'AI calling minutes / mo', d: ['1,000', '4,000', '20,000', 'Unlimited'] },
+  { f: 'Workspaces', d: ['25', 'Unlimited', 'Unlimited', 'Unlimited'] },
+  { f: 'Team members', d: ['Unlimited', 'Unlimited', 'Unlimited', 'Unlimited'] },
   { cat: 'Features' },
-  { f: 'Standard access to platform', d: [YES, YES, YES, YES, YES, YES] },
-  { f: 'Workflow automation', d: [NO, YES, YES, YES, YES, YES] },
-  { f: 'Multi-channel engagement', d: [NO, YES, YES, YES, YES, YES] },
-  { f: 'All compliance tools', d: [NO, NO, YES, YES, YES, YES] },
-  { f: 'Advanced analytics', d: [NO, NO, NO, YES, YES, YES] },
-  { f: 'Dedicated account manager', d: [NO, NO, NO, YES, YES, YES] },
-  { f: '24/7 phone support', d: [NO, NO, NO, YES, YES, YES] },
-  { f: 'API access', d: [NO, NO, NO, YES, YES, YES] },
-  { f: 'Custom integrations', d: [NO, NO, NO, NO, YES, YES] },
-  { f: 'White-label options', d: [NO, NO, NO, NO, NO, YES] },
-  { f: 'SLA guarantee', d: [NO, NO, NO, NO, NO, YES] },
+  { f: 'Standard access to platform', d: [YES, YES, YES, YES] },
+  { f: 'Workflow automation', d: [YES, YES, YES, YES] },
+  { f: 'Multi-channel engagement', d: [YES, YES, YES, YES] },
+  { f: 'All compliance tools', d: [YES, YES, YES, YES] },
+  { f: 'Advanced analytics', d: [NO, YES, YES, YES] },
+  { f: 'Dedicated account manager', d: [NO, YES, YES, YES] },
+  { f: '24/7 phone support', d: [NO, YES, YES, YES] },
+  { f: 'API access', d: [NO, YES, YES, YES] },
+  { f: 'Custom integrations', d: [NO, NO, YES, YES] },
+  { f: 'White-label options', d: [NO, NO, NO, YES] },
+  { f: 'SLA guarantee', d: [NO, NO, NO, YES] },
   { cat: 'Support' },
-  { f: 'Priority support', d: [NO, NO, YES, YES, YES, YES] },
+  { f: 'Priority support', d: [NO, YES, YES, YES] },
 ];
-
-// Hand-curated subset of TABLE_ROWS / PLANS - keep in sync if those change.
-const PLAN_FEATURES: Record<string, { intro: string; items: string[] }> = {
-  free: {
-    intro: 'Features you get:',
-    items: ['Standard platform access', '100 active accounts', '50 AI calling minutes/mo', 'Up to 3 team members'],
-  },
-  starter: {
-    intro: 'Everything in Free, plus:',
-    items: ['Workflow automation', 'Multi-channel engagement', '500 accounts, 100 min/mo', 'Unlimited team members'],
-  },
-  professional: {
-    intro: 'Everything in Starter, plus:',
-    items: ['All compliance tools', 'Priority support', '5,000 accounts, 1,000 min/mo', '25 workspaces'],
-  },
-  business: {
-    intro: 'Everything in Professional, plus:',
-    items: ['Advanced analytics', 'Dedicated account manager', '24/7 phone support', 'API access'],
-  },
-  'business-plus': {
-    intro: 'Everything in Business, plus:',
-    items: ['Custom integrations', 'Unlimited accounts', 'Unlimited workspaces'],
-  },
-  enterprise: {
-    intro: 'Everything in Business Plus, plus:',
-    items: ['Unlimited AI calling minutes', 'White-label options', 'SLA guarantee'],
-  },
-};
 
 const TRUST_LOGOS: { src: string; alt: string; href: string }[] = [
   { src: '/RMAi-Logo-500.png', alt: 'RMAi - Receivables Management Association International', href: 'https://rmaintl.org/' },
@@ -249,7 +131,7 @@ const FAQS: Faq[] = [
   },
   {
     q: 'Is Reg F compliance actually built in, or do I configure it?',
-    a: 'Both. You configure the rules once at the campaign level, things like call frequency caps, time-of-day windows, and opt-out handling, and DROS enforces them automatically from there. Available from Professional tier upward; Starter gives you the workflow foundation to build on.',
+    a: 'Both. You configure the rules once at the campaign level, things like call frequency caps, time-of-day windows, and opt-out handling, and DROS enforces them automatically from there. Full rule enforcement is included from Professional upward, which is where every plan starts.',
   },
   {
     q: 'How long does onboarding actually take?',
@@ -295,7 +177,8 @@ const FAQ_SCHEMA = {
 
 function PriceBlock({ monthly, annual }: { monthly: number | null; annual: boolean }) {
   if (monthly === null) {
-    return <div className="text-[30px] font-semibold leading-none text-ink">Custom Pricing</div>;
+    // Matched to the h-[44px] of the numeric block below so every card's CTA lines up.
+    return <div className="flex h-[44px] items-center text-[30px] font-semibold leading-none text-ink">Custom</div>;
   }
   if (monthly === 0) {
     return (
@@ -331,7 +214,8 @@ function PriceBlock({ monthly, annual }: { monthly: number | null; annual: boole
 }
 
 function PlanCard({ plan, annual }: { plan: Plan; annual: boolean }) {
-  const features = PLAN_FEATURES[plan.key];
+  const { features } = plan;
+  const ctaLabel = plan.external ? 'Start Free Trial' : 'Contact Sales';
   return (
     <motion.div
       whileHover={{ y: -6, scale: 1.01, transition: springStd }}
@@ -353,7 +237,8 @@ function PlanCard({ plan, annual }: { plan: Plan; annual: boolean }) {
           <PriceBlock monthly={plan.monthly} annual={annual} />
         </div>
 
-        <p className="mt-4 text-[13px] leading-relaxed text-ink/55">{plan.description}</p>
+        {/* min-h reserves three lines so the CTA row stays level across the tier grid. */}
+        <p className="mt-4 min-h-[63px] text-[13px] leading-relaxed text-ink/55">{plan.description}</p>
 
         <div className="mt-6">
           {plan.external ? (
@@ -365,7 +250,7 @@ function PlanCard({ plan, annual }: { plan: Plan; annual: boolean }) {
               onClick={() => trackCta(plan.ctaKey)}
               className="w-full"
             >
-              {plan.ctaLabel}
+              {ctaLabel}
             </Button>
           ) : (
             <Button
@@ -375,7 +260,7 @@ function PlanCard({ plan, annual }: { plan: Plan; annual: boolean }) {
               onClick={() => trackCta(plan.ctaKey)}
               className="w-full"
             >
-              {plan.ctaLabel}
+              {ctaLabel}
             </Button>
           )}
         </div>
@@ -408,13 +293,13 @@ export default function PricingPage() {
         <title>Pricing - DROS</title>
         <meta
           name="description"
-          content="Six plans from free to enterprise. Simple, transparent pricing for AI-powered debt collection that scales with your portfolio."
+          content="Four plans built to scale with your portfolio. Simple, transparent pricing for AI-powered debt collection."
         />
         <link rel="canonical" href="https://dros.ai/pricing" />
         <meta property="og:title" content="Pricing - DROS" />
         <meta
           property="og:description"
-          content="Six plans from free to enterprise. Simple, transparent pricing for AI-powered debt collection that scales with your portfolio."
+          content="Four plans built to scale with your portfolio. Simple, transparent pricing for AI-powered debt collection."
         />
         <meta property="og:url" content="https://dros.ai/pricing" />
         <meta property="og:type" content="website" />
@@ -453,7 +338,7 @@ export default function PricingPage() {
 
               <RevealItem>
                 <p className="max-w-md text-base leading-relaxed text-white/70 sm:text-lg">
-                  Six plans from free to enterprise. Scale up as your portfolio grows.
+                  Four plans built for collections teams. Scale up as your portfolio grows.
                 </p>
               </RevealItem>
             </motion.div>
@@ -496,7 +381,7 @@ export default function PricingPage() {
               <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-[#04070F]">Save 20%</span>
             </Reveal>
 
-            <Reveal stagger={0.08} className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <Reveal stagger={0.08} className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
               {PLANS.map((plan) => (
                 <RevealItem key={plan.key}>
                   <PlanCard plan={plan} annual={annual} />
@@ -573,7 +458,7 @@ export default function PricingPage() {
                         return (
                           <tr key={idx}>
                             <td
-                              colSpan={7}
+                              colSpan={PLANS.length + 1}
                               className="border-y border-accent/15 bg-accent/5 px-4 py-2.5 text-[10px] font-semibold uppercase tracking-wider text-accent"
                             >
                               <span className="inline-flex items-center gap-1.5">
