@@ -347,7 +347,7 @@ export default function PricingPage() {
         </header>
 
         {/* ── PLAN CARDS ── */}
-        <Section tone="base" spacing="lg" id="plans" className="pt-0">
+        <Section tone="base" spacing="lg" id="plans" className="pt-10 md:pt-16">
           <Container>
             <Reveal className="flex items-center justify-center gap-3 pb-10">
               <button
