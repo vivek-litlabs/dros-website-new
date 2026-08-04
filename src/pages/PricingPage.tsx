@@ -55,6 +55,7 @@ const TABLE_ROWS: Row[] = [
   { f: 'AI calling minutes / mo', d: ['1,000', '4,000', '20,000', 'Unlimited'] },
   { f: 'Workspaces', d: ['25', 'Unlimited', 'Unlimited', 'Unlimited'] },
   { f: 'Team members', d: ['Unlimited', 'Unlimited', 'Unlimited', 'Unlimited'] },
+  { f: 'Additional minutes billed at', d: ['$0.20/min', '$0.125/min', '$0.10/min', NO] },
   { cat: 'Features' },
   { f: 'Standard access to platform', d: [YES, YES, YES, YES] },
   { f: 'Workflow automation', d: [YES, YES, YES, YES] },
@@ -127,7 +128,7 @@ const FAQS: Faq[] = [
   },
   {
     q: 'What happens when I hit my AI calling minutes limit?',
-    a: "You get an in-app alert at 80% usage, and calls already in progress won't be cut off. Once you hit the limit, outbound AI campaigns pause until you add minutes or upgrade, so there's no surprise overage.",
+    a: "You get an in-app alert at 80% usage, and calls already in progress won't be cut off. Additional minutes beyond your plan's allotment are billed automatically at your tier's overage rate ($0.20/min on Professional, $0.125/min on Business, $0.10/min on Business Plus), so campaigns keep running without interruption.",
   },
   {
     q: 'Is Reg F compliance actually built in, or do I configure it?',
