@@ -10,7 +10,7 @@ const COLUMNS: { title: string; links: [string, string, boolean?][] }[] = [
       ['AI Voice Agents', '/features/context-aware-voice-ai-agents-for-debt-collection'],
       ['How It Works', '/#how-it-works'],
       ['Pricing', '/pricing'],
-      ['Compliance', '/#compliance'],
+      ['Compliance', '/trust-center'],
     ],
   },
   {
@@ -19,6 +19,8 @@ const COLUMNS: { title: string; links: [string, string, boolean?][] }[] = [
       ['First-Party Collections', '/collections/first-party'],
       ['Third-Party Collections', '/collections/third-party'],
       ['Debt Buyers', '/collections/debt-buyer'],
+      ['Credit Unions', '/collections/credit-unions'],
+      ['Consumer Lending', '/collections/consumer-lending'],
     ],
   },
   {

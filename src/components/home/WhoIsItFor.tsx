@@ -34,13 +34,13 @@ const AUDIENCES = [
     title: 'Credit Unions',
     body: 'Keep member outreach compliant and on-brand from first notice to resolution.',
     image: '/industries/vodex/who-is-it-for-4.jpg',
-    href: '/book-meeting',
+    href: '/collections/credit-unions',
   },
   {
     title: 'Consumer Lending',
     body: 'Automated reminders and follow-ups that get balances paid without the awkward calls.',
     image: '/industries/vodex/who-is-it-for-5.jpg',
-    href: '/book-meeting',
+    href: '/collections/consumer-lending',
   },
 ];
 

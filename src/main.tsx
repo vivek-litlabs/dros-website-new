@@ -109,6 +109,9 @@ const PaymentReminders = lazyWithRetry(() => import('./pages/PaymentReminders.ts
 const BlogPostOmnichannel = lazyWithRetry(() => import('./pages/BlogPostOmnichannel.tsx'));
 const Aca = lazyWithRetry(() => import('./pages/Aca.tsx'));
 
+const ConsumerLendingCollectionsPage = lazyWithRetry(() => import('./pages/ConsumerLendingCollectionsPage.tsx'));
+const CreditUnionCollectionsPage = lazyWithRetry(() => import('./pages/CreditUnionCollectionsPage.tsx'));
+const TrustCenter = lazyWithRetry(() => import('./pages/TrustCenter.tsx'));
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HelmetProvider>
@@ -155,6 +158,9 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/blogs/omnichannel-ai-debt-collection" element={<BlogPostOmnichannel />} />
         <Route path="/api-docs" element={<RedirectToApiDocs />} />
         <Route path="/release-notes" element={<RedirectToReleaseNotes />} />
+        <Route path="/collections/consumer-lending" element={<ConsumerLendingCollectionsPage />} />
+        <Route path="/collections/credit-unions" element={<CreditUnionCollectionsPage />} />
+        <Route path="/trust-center" element={<TrustCenter />} />
       </Routes>
       </Suspense>
     </BrowserRouter>

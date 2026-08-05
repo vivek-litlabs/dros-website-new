@@ -34,6 +34,13 @@ const WHO_WE_SERVE_ITEMS: ResourceItem[] = [
   { label: 'First-Party Collections', href: '/collections/first-party', description: 'AI-orchestrated engagement for in-house collections teams' },
   { label: 'Third-Party Collections', href: '/collections/third-party', description: 'AI-powered engagement for agencies running client portfolios' },
   { label: 'Debt Buyer Collections', href: '/collections/debt-buyer', description: 'The engagement OS for debt buyers who self-collect' },
+  { label: 'Credit Unions', href: '/collections/credit-unions', description: 'Compliant, on-brand member outreach from first notice to resolution' },
+  { label: 'Consumer Lending', href: '/collections/consumer-lending', description: 'Cure accounts in the first bucket before they ever roll' },
+];
+
+const WHO_WE_SERVE_COLUMNS: ResourceItem[][] = [
+  WHO_WE_SERVE_ITEMS.slice(0, 3),
+  WHO_WE_SERVE_ITEMS.slice(3),
 ];
 
 const RESOURCE_COLUMNS: ResourceItem[][] = [
@@ -141,11 +148,11 @@ export default function Navbar({ transparent = false }: NavbarProps) {
   const primaryLinks: { label: string; anchor: string }[] = [
     { label: 'How It Works', anchor: 'how-it-works' },
     { label: 'Use Cases', anchor: 'use-cases' },
-    { label: 'Compliance', anchor: 'compliance' },
   ];
 
   const routeLinks: { label: string; to: string }[] = [
     { label: 'Pricing', to: '/pricing' },
+    { label: 'Compliance', to: '/trust-center' },
   ];
 
   /* Shared styling for a desktop nav item: holds the sliding hover pill. */
@@ -233,23 +240,30 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                         animate="show"
                         exit="exit"
                         style={{ transformOrigin: 'top left', backgroundColor: 'rgba(4,7,15,0.72)', backdropFilter: 'blur(20px)' }}
-                        className="w-[280px] rounded-2xl border border-hair p-4 shadow-lift"
+                        className="w-[420px] rounded-2xl border border-hair p-4 shadow-lift"
                       >
-                        <div className="flex flex-col gap-3">
-                          {WHO_WE_SERVE_ITEMS.map(({ label, href, description }) => (
-                            <motion.div key={label} variants={dropdownItem}>
-                              <Link
-                                to={href}
-                                className="group flex flex-col gap-1 rounded-lg px-3 py-2 transition-colors hover:bg-white/[0.05]"
-                              >
-                                <span className="flex items-center text-[15px] font-medium leading-[1.2] text-ink/90 transition-colors group-hover:text-ink">
-                                  {label}
-                                </span>
-                                <span className="text-[11px] leading-[1.3] text-ink/55 transition-colors group-hover:text-ink/70">
-                                  {description}
-                                </span>
-                              </Link>
-                            </motion.div>
+                        <div className="flex gap-4">
+                          {WHO_WE_SERVE_COLUMNS.map((column, columnIndex) => (
+                            <div key={columnIndex} className="contents">
+                              {columnIndex === 1 && <div className="w-px shrink-0 self-stretch bg-hair" />}
+                              <div className="flex w-[190px] flex-col gap-3">
+                                {column.map(({ label, href, description }) => (
+                                  <motion.div key={label} variants={dropdownItem}>
+                                    <Link
+                                      to={href}
+                                      className="group flex flex-col gap-1 rounded-lg px-3 py-2 transition-colors hover:bg-white/[0.05]"
+                                    >
+                                      <span className="flex items-center text-[15px] font-medium leading-[1.2] text-ink/90 transition-colors group-hover:text-ink">
+                                        {label}
+                                      </span>
+                                      <span className="text-[11px] leading-[1.3] text-ink/55 transition-colors group-hover:text-ink/70">
+                                        {description}
+                                      </span>
+                                    </Link>
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </div>
                           ))}
                         </div>
                       </motion.div>

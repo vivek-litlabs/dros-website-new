@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ShieldCheck, PhoneCall, BadgeCheck, Scale, MapPin } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Section, Container, Eyebrow, Button } from '../ui';
@@ -48,8 +49,14 @@ export default function Compliance() {
               Every interaction is scripted, logged, and audited automatically - so compliance
               never depends on a judgment call.
             </p>
-            <div className="mt-2">
+            <div className="mt-2 flex flex-wrap items-center justify-center gap-4 md:justify-start">
               <Button variant="onLight" to="/book-meeting">Talk to Our AI Agent</Button>
+              <Link
+                to="/trust-center"
+                className="text-sm font-medium text-ink-dark underline underline-offset-2 hover:opacity-70"
+              >
+                Visit the Trust Center
+              </Link>
             </div>
           </Reveal>
 

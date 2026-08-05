@@ -80,6 +80,7 @@ export default defineConfig({
         '/about':                         0.8,
         '/contact':                       0.8,
         '/book-meeting':                  0.8,
+        '/trust-center':                  0.8,
         '/blogs':                         0.8,
         '/events':                        0.7,
         '/events/2026/aca-orlando':       0.6,
