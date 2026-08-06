@@ -10,7 +10,13 @@ import CountryCodeSelect from '../CountryCodeSelect';
 import Recaptcha, { type RecaptchaHandle } from '../Recaptcha';
 import VoiceCallModal from './VoiceCallModal';
 
-export default function DemoWidget() {
+interface DemoWidgetProps {
+  subtext?: string;
+}
+
+export default function DemoWidget({
+  subtext = "Enter your number and we will call you in 30 seconds - from an agent that already knows your company name.",
+}: DemoWidgetProps = {}) {
   const [name, setName] = useState('');
   const [country, setCountry] = useState(defaultCountryIso);
   const [phone, setPhone] = useState('');
@@ -65,10 +71,7 @@ export default function DemoWidget() {
           <Heading as="h2" size="display" className="mt-4 text-ink-dark">
             Want to hear what your AI collections agent sounds like?
           </Heading>
-          <p className="mt-5 text-lg text-ink-grey">
-            Enter your number and we will call you in 30 seconds - from an agent that already knows
-            your company name.
-          </p>
+          <p className="mt-5 text-lg text-ink-grey">{subtext}</p>
 
           {submitted ? (
             <div className="mx-auto mt-9 flex max-w-md items-center justify-center gap-3 rounded-card border border-accent/30 bg-accent/5 px-6 py-5 text-ink-dark">

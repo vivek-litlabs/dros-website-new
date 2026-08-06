@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import type { CSSProperties } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ChevronDown, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
@@ -59,6 +60,25 @@ const RESOURCE_COLUMNS: ResourceItem[][] = [
     { label: 'Contact Us', href: '/contact', description: 'Talk to our team directly' },
   ],
 ];
+
+/* Shared surface for the dropdown panels and the mobile sheet: a top-lighter
+   gradient for depth, opaque enough that nothing behind it ghosts through.
+
+   Deliberately no backdrop-filter. These panels render inside the header bar,
+   which always sets one of its own (blur(0px) when transparent is still a
+   backdrop-filter, not `none`). That makes the header a backdrop root, so a
+   descendant's backdrop-filter samples only what paints inside the header and
+   blurs nothing. Any translucency here therefore shows the page through
+   perfectly sharp -- and the homepage hero puts white display type directly
+   under this panel, which at even 14% reads as ghosting behind the links. */
+const panelSurface: CSSProperties = {
+  backgroundImage: 'linear-gradient(to bottom, rgba(23,31,49,0.98), rgba(5,8,17,0.99))',
+};
+
+/* Card depth for the desktop panels: a wide ambient shadow, a 1px top
+   highlight, and a whisper-thin ring standing in for the old hard border. */
+const panelShadow =
+  '0 32px 80px -28px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.10), inset 0 0 0 1px rgba(255,255,255,0.05)';
 
 /* Staggered reveal for the dropdown panel's links. */
 const dropdownPanel: Variants = {
@@ -239,8 +259,8 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                         initial="hidden"
                         animate="show"
                         exit="exit"
-                        style={{ transformOrigin: 'top left', backgroundColor: 'rgba(4,7,15,0.72)', backdropFilter: 'blur(20px)' }}
-                        className="w-[420px] rounded-2xl border border-hair p-4 shadow-lift"
+                        style={{ transformOrigin: 'top left', ...panelSurface, boxShadow: panelShadow }}
+                        className="w-[420px] rounded-3xl p-4"
                       >
                         <div className="flex gap-4">
                           {WHO_WE_SERVE_COLUMNS.map((column, columnIndex) => (
@@ -325,8 +345,8 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                         initial="hidden"
                         animate="show"
                         exit="exit"
-                        style={{ transformOrigin: 'top right', backgroundColor: 'rgba(4,7,15,0.72)', backdropFilter: 'blur(20px)' }}
-                        className="w-[480px] rounded-2xl border border-hair p-4 shadow-lift"
+                        style={{ transformOrigin: 'top right', ...panelSurface, boxShadow: panelShadow }}
+                        className="w-[480px] rounded-3xl p-4"
                       >
                         <div className="flex gap-4">
                           {RESOURCE_COLUMNS.map((column, columnIndex) => (
@@ -437,7 +457,8 @@ export default function Navbar({ transparent = false }: NavbarProps) {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.32, ease: [0.44, 0, 0.11, 1] }}
-            className="overflow-hidden border-b border-hair bg-base/95 backdrop-blur-xl lg:hidden"
+            style={panelSurface}
+            className="overflow-hidden border-b border-hair lg:hidden"
           >
             <motion.div
               initial="hidden"

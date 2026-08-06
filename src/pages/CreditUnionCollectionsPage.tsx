@@ -427,7 +427,7 @@ export default function CreditUnionCollectionsPage() {
           </Container>
         </Section>
 
-        <DemoWidget />
+        <DemoWidget subtext="Enter your number and we will call you in 30 seconds." />
 
         {/* ── PRICING TEASER ── */}
         <Section tone="light" spacing="sm" id="pricing-teaser">
