@@ -123,7 +123,7 @@ export default function NewsroomPage() {
             <p className="text-lg text-[#777]">No items in this category yet.</p>
           </div>
         ) : (
-          <Reveal stagger={0.06} className="grid grid-cols-1 gap-x-[30px] gap-y-[50px] sm:grid-cols-2 lg:grid-cols-3">
+          <Reveal key={activeCategory} stagger={0.06} className="grid grid-cols-1 gap-x-[30px] gap-y-[50px] sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((item) => (
               <RevealItem key={item.id}>
                 <NewsCard item={item} />

@@ -201,7 +201,7 @@ function VideosPage() {
           </div>
         ) : (
           <>
-            <Reveal stagger={0.06} className="grid grid-cols-1 gap-x-[30px] gap-y-[50px] sm:grid-cols-2 lg:grid-cols-3">
+            <Reveal key={`${activeTab}-${page}`} stagger={0.06} className="grid grid-cols-1 gap-x-[30px] gap-y-[50px] sm:grid-cols-2 lg:grid-cols-3">
               {paginated.map(video => (
                 <RevealItem key={video.id}>
                   <div

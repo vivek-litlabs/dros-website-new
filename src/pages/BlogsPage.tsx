@@ -27,6 +27,17 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    title: 'What We Learned at ACA International Convention 2026',
+    category: 'Field Insights',
+    tags: ['Field Insights', 'Compliance & Operations', 'Collections Strategy & Performance', 'Events'],
+    summary: 'Field notes from three days at Booth #403: inbound demand, compliance as the first question, and why consumers may prefer talking to AI about debt.',
+    slug: '/blogs/what-we-learned-aca-2026',
+    readTime: '7 min read',
+    badge: 'New',
+    image: '/blog/aca-2026-conference-session.jpg',
+    date: 'Aug 7, 2026',
+  },
+  {
     title: 'How to Deploy AI Agents Across the Debt Collection Lifecycle',
     category: 'Collections Strategy & Performance',
     tags: ['Collections Strategy & Performance', 'AI Voice Agents', 'Compliance & Operations', 'First-Party', 'Third-Party'],
@@ -394,7 +405,11 @@ export default function BlogsPage() {
 
         {/* Grid */}
         {gridPosts.length > 0 && (
-          <Reveal stagger={0.06} className="grid grid-cols-1 gap-x-[30px] gap-y-[50px] sm:grid-cols-2 lg:grid-cols-3">
+          <Reveal
+            key={isSearchActive ? `search:${searchQuery.trim()}` : `category:${selectedCategory}`}
+            stagger={0.06}
+            className="grid grid-cols-1 gap-x-[30px] gap-y-[50px] sm:grid-cols-2 lg:grid-cols-3"
+          >
             {gridPosts.map((post, index) => (
               <RevealItem key={post.slug || post.externalUrl || index}>
                 <BlogPostCard post={post} />

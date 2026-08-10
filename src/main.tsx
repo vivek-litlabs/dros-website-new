@@ -112,6 +112,7 @@ const Aca = lazyWithRetry(() => import('./pages/Aca.tsx'));
 const ConsumerLendingCollectionsPage = lazyWithRetry(() => import('./pages/ConsumerLendingCollectionsPage.tsx'));
 const CreditUnionCollectionsPage = lazyWithRetry(() => import('./pages/CreditUnionCollectionsPage.tsx'));
 const TrustCenter = lazyWithRetry(() => import('./pages/TrustCenter.tsx'));
+const BlogPostACA2026 = lazyWithRetry(() => import('./pages/BlogPostACA2026.tsx'));
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <HelmetProvider>
@@ -161,6 +162,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/collections/consumer-lending" element={<ConsumerLendingCollectionsPage />} />
         <Route path="/collections/credit-unions" element={<CreditUnionCollectionsPage />} />
         <Route path="/trust-center" element={<TrustCenter />} />
+        <Route path="/blogs/what-we-learned-aca-2026" element={<BlogPostACA2026 />} />
       </Routes>
       </Suspense>
     </BrowserRouter>
