@@ -87,6 +87,7 @@ export default defineConfig({
         '/events/2026/armtech-dallas':    0.5,
         '/events/2026/rmai-las-vegas':    0.5,
         '/resources/videos':              0.6,
+        '/adoption-gap-report-state-of-collections-2026': 0.8,
       },
       readable: true,
       generateRobotsTxt: true,

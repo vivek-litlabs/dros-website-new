@@ -2,15 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X, CheckCircle2 } from 'lucide-react';
 import { trackCta } from '../lib/analytics';
+import { hubspotCookie, submitUrl } from '../lib/hubspot';
 
-const HS_PORTAL_ID = '22244787';
 const HS_FORM_ID = '87c5019b-ad1d-41f2-a413-a1080dfc2262';
-const SUBMIT_URL = `https://api.hsforms.com/submissions/v3/integration/submit/${HS_PORTAL_ID}/${HS_FORM_ID}`;
+const SUBMIT_URL = submitUrl(HS_FORM_ID);
 const FALLBACK_EMAIL = 'contact@dros.ai';
-
-function hubspotCookie(): string | undefined {
-  return document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]*)/)?.[1];
-}
 
 export interface RequestAccessDoc {
   id: string;

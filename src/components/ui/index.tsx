@@ -161,6 +161,8 @@ interface ButtonProps {
   onClick?: () => void;
   type?: 'button' | 'submit';
   ariaLabel?: string;
+  /** Button-only. Ignored when rendering as a link (`to`/`href`). */
+  disabled?: boolean;
 }
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
@@ -188,6 +190,7 @@ export function Button({
   onClick,
   type = 'button',
   ariaLabel,
+  disabled = false,
 }: ButtonProps) {
   const classes = cx(
     'group inline-flex items-center justify-center gap-2 rounded-full font-medium transition-colors duration-200',
@@ -196,10 +199,13 @@ export function Button({
     SIZE_CLASSES[size],
     className,
   );
-  // Hover dims opacity, matching Lateral's button feel.
+  // Hover dims opacity, matching Lateral's button feel. A disabled button gets
+  // neither, so it doesn't read as pressable.
   const motionProps = {
-    whileHover: { opacity: variant === 'secondary' || variant === 'ghost' ? 0.78 : 0.85 },
-    whileTap: { scale: 0.98 },
+    whileHover: disabled
+      ? undefined
+      : { opacity: variant === 'secondary' || variant === 'ghost' ? 0.78 : 0.85 },
+    whileTap: disabled ? undefined : { scale: 0.98 },
     transition: { type: 'spring' as const, duration: 0.4, bounce: 0.2 },
   };
 
@@ -226,7 +232,14 @@ export function Button({
     );
   }
   return (
-    <motion.button type={type} className={classes} onClick={onClick} aria-label={ariaLabel} {...motionProps}>
+    <motion.button
+      type={type}
+      className={classes}
+      onClick={onClick}
+      aria-label={ariaLabel}
+      disabled={disabled}
+      {...motionProps}
+    >
       {children}
     </motion.button>
   );
