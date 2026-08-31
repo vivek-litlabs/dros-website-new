@@ -15,7 +15,7 @@ interface DemoWidgetProps {
 }
 
 export default function DemoWidget({
-  subtext = "Enter your number and we will call you in 30 seconds - from an agent that already knows your company name.",
+  subtext = "Enter your number and we will call you in 30 seconds.",
 }: DemoWidgetProps = {}) {
   const [name, setName] = useState('');
   const [country, setCountry] = useState(defaultCountryIso);
