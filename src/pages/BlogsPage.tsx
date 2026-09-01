@@ -27,6 +27,17 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    title: 'AI Readiness Checklist for Collection Agencies: 12 Questions to Answer Before You Evaluate Vendors',
+    category: 'Collections Strategy & Performance',
+    tags: ['Collections Strategy & Performance', 'Compliance & Operations', 'Technology & Integrations'],
+    summary: 'An interactive, scored checklist covering the twelve conditions that decide whether an AI evaluation reaches procurement, including the three blockers that stop a deployment on their own.',
+    slug: '/blogs/ai-readiness-checklist-collection-agencies',
+    readTime: '9 min read',
+    badge: 'New',
+    image: '/blog/ai-readiness-checklist.avif',
+    date: 'Aug 24, 2026',
+  },
+  {
     title: 'What We Learned at ACA International Convention 2026',
     category: 'Field Insights',
     tags: ['Field Insights', 'Compliance & Operations', 'Collections Strategy & Performance', 'Events'],
