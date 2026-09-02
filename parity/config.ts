@@ -1,0 +1,37 @@
+import routes from './routes.json';
+
+export interface Viewport {
+  name: 'mobile' | 'tablet' | 'desktop';
+  width: number;
+  height: number;
+}
+
+export const VIEWPORTS: Viewport[] = [
+  { name: 'mobile', width: 375, height: 812 },
+  { name: 'tablet', width: 768, height: 1024 },
+  { name: 'desktop', width: 1440, height: 900 },
+];
+
+export const DEVICE_SCALE_FACTOR = 2;
+
+export const ROUTES: string[] = routes;
+
+/** '/' -> 'home'; '/collections/first-party' -> 'collections__first-party' */
+export function slugFor(route: string): string {
+  if (route === '/') return 'home';
+  return route.replace(/^\//, '').replace(/\//g, '__');
+}
+
+/**
+ * CSS selectors masked before capture, per route.
+ * Every mask is declared here — nothing is masked implicitly.
+ * Add an entry only for genuinely non-deterministic content, and note why.
+ */
+export const MASKS: Record<string, string[]> = {};
+
+export const BASELINE_DIR = 'parity/baseline';
+export const CURRENT_DIR = 'parity/current';
+export const REPORT_DIR = 'parity/report';
+
+/** Max pixels allowed to differ. Zero. Do not raise this. */
+export const PIXEL_TOLERANCE = 0;
