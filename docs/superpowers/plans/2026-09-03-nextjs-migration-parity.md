@@ -19,9 +19,11 @@
 - **Do not add a Lenis provider.** `window.__lenis` is never assigned in this codebase; all four read sites already fall through to native `window.scrollTo`.
 - Canonical URLs have exactly **one** source: `metadata.alternates.canonical`. Never emit `<link rel="canonical">` from a component.
 - All 43 current URLs keep working byte-for-byte, including the inconsistent singular
-  `/blog/reg-f-call-limits-ai-debt-collection`. 41 remain screenshot-diffed pages; `/api-docs`
-  and `/release-notes` become `next.config.js` redirects in Task 11 and are removed from
-  `parity/routes.json` at that point, which is why later tasks assert 41 rather than 43.
+  `/blog/reg-f-call-limits-ai-debt-collection`. **41 of them are screenshot-diffed pages.**
+  `/api-docs` and `/release-notes` are client-side redirects that render nothing and navigate
+  away, so they are excluded from `parity/routes.json` from the start (Task 1, Step 2b) and
+  become real 307s in `next.config.js` in Task 11, which verifies them by asserting the
+  redirect rather than by screenshot.
 - No redesign, no copy changes, no new pages, no dependency upgrades beyond what Next requires.
 - GA4 measurement ID is `G-TT8WJVR53D`.
 - Node 20+.
@@ -100,13 +102,38 @@ console.log(out.length+' routes');
 
 Expected output: `43 routes`
 
-- [ ] **Step 3: Verify the manifest has exactly 43 entries and includes the odd singular route**
+- [ ] **Step 2b: Remove the two client-side redirect routes from the manifest**
+
+`/api-docs` and `/release-notes` are not pages. Both are components whose only behaviour is
+`window.location.href = 'https://app.dros.ai/...'` inside a `useEffect`; they render nothing
+and immediately navigate away. A route whose job is to leave the page can never reach visual
+stability, so it cannot be screenshot-diffed in either build — the capture races the
+navigation. Task 11 converts both to real 307s in `next.config.js`; they leave the screenshot
+manifest here, at the point the manifest is created.
 
 ```bash
-node -e "const r=require('./parity/routes.json');console.log(r.length);console.log(r.includes('/blog/reg-f-call-limits-ai-debt-collection'));"
+node -e "
+const fs=require('fs');
+const drop=['/api-docs','/release-notes'];
+const r=require('./parity/routes.json').filter(x=>!drop.includes(x));
+fs.writeFileSync('parity/routes.json',JSON.stringify(r,null,2)+'\n');
+console.log(r.length+' screenshot routes');
+"
 ```
 
-Expected: `43` then `true`. If either is wrong, stop — the manifest is the foundation of every later gate.
+Expected output: `41 screenshot routes`
+
+Both URLs still keep working and are still verified — Task 11 asserts each returns a 307 to
+the correct destination. They are excluded from pixel diffing only.
+
+- [ ] **Step 3: Verify the manifest has exactly 41 entries and includes the odd singular route**
+
+```bash
+node -e "const r=require('./parity/routes.json');console.log(r.length);console.log(r.includes('/blog/reg-f-call-limits-ai-debt-collection'));console.log(r.includes('/api-docs')||r.includes('/release-notes'));"
+```
+
+Expected: `41`, then `true`, then `false`. If any is wrong, stop — the manifest is the
+foundation of every later gate.
 
 - [ ] **Step 4: Write `parity/config.ts`**
 
@@ -659,7 +686,7 @@ Leave this running in a second terminal. The `-s` flag serves the SPA fallback, 
 - [ ] **Step 3: Capture the baseline**
 
 Run: `npm run parity:capture -- http://localhost:3000`
-Expected: 129 lines of `captured ...`, and `parity/baseline/{mobile,tablet,desktop}/` each containing 43 PNGs.
+Expected: 123 lines of `captured ...`, and `parity/baseline/{mobile,tablet,desktop}/` each containing 41 PNGs.
 
 - [ ] **Step 4: Verify the baseline is complete**
 
@@ -668,11 +695,11 @@ node -e "
 const fs=require('fs');
 for (const v of ['mobile','tablet','desktop']) {
   const n=fs.readdirSync('parity/baseline/'+v).length;
-  console.log(v, n, n===43?'OK':'MISSING');
+  console.log(v, n, n===41?'OK':'MISSING');
 }"
 ```
 
-Expected: `mobile 43 OK`, `tablet 43 OK`, `desktop 43 OK`.
+Expected: `mobile 41 OK`, `tablet 41 OK`, `desktop 41 OK`.
 
 - [ ] **Step 5: Prove determinism — compare the harness against the unchanged build**
 
@@ -1287,7 +1314,18 @@ module.exports = {
 
 `permanent: false` (307) matches today's behaviour, which asserts nothing permanent.
 
-Delete both `.tsx` files. Remove these two paths from `parity/routes.json` and delete their baselines — a 308 has no screenshot. Record the removal in `parity-exceptions.md` under "Discovered exceptions" with the reason, so the route count drop from 43 to 41 is documented rather than silent.
+Delete both `.tsx` files. They are already absent from `parity/routes.json` (removed in Task 1,
+Step 2b) and already recorded in `parity-exceptions.md`, so no manifest change is needed here.
+
+Instead, verify the redirects actually work, since these two URLs are the only ones in the
+project not covered by a screenshot diff:
+
+```bash
+curl -s -o /dev/null -w '%{http_code} %{redirect_url}\n' http://localhost:3000/api-docs
+curl -s -o /dev/null -w '%{http_code} %{redirect_url}\n' http://localhost:3000/release-notes
+```
+
+Expected: `307 https://app.dros.ai/api-docs` and `307 https://app.dros.ai/release-notes`.
 
 **Extra step:** `/contact` and `/book-meeting` carry the reCAPTCHA and HubSpot integrations. Rename `VITE_RECAPTCHA_SITE_KEY` to `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` in `src/components/Recaptcha.tsx` (`import.meta.env.VITE_RECAPTCHA_SITE_KEY` → `process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY`), add it to `.env.local`, and add it to the Vercel project's environment variables before CP7.
 
@@ -1322,7 +1360,7 @@ rm -f parity/baseline/probe.meta.json
 With `npx next build && npx next start -p 3000` running:
 
 Run: `npm run parity:compare -- http://localhost:3000`
-Expected: **`All parity checks passed.`** — 41 routes × 3 viewports, every one `(0px)`.
+Expected: **`All parity checks passed.`** — 41 routes × 3 viewports (123 checks), every one `(0px)`.
 
 **This is CP5.** Any failure is either fixed or, if genuinely unavoidable, recorded in `parity-exceptions.md` with the diff image and explicit sign-off. Never raise `PIXEL_TOLERANCE`.
 
