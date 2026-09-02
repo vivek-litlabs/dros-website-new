@@ -18,7 +18,10 @@
 - **Do not adopt `next/font`.** Saans loads via the existing `@font-face` in `src/index.css` (with its load-bearing `ascent-override: 90%`), and Google families via the existing `<link>` tags. Port both verbatim.
 - **Do not add a Lenis provider.** `window.__lenis` is never assigned in this codebase; all four read sites already fall through to native `window.scrollTo`.
 - Canonical URLs have exactly **one** source: `metadata.alternates.canonical`. Never emit `<link rel="canonical">` from a component.
-- All 43 route paths are preserved byte-for-byte, including the inconsistent singular `/blog/reg-f-call-limits-ai-debt-collection`.
+- All 43 current URLs keep working byte-for-byte, including the inconsistent singular
+  `/blog/reg-f-call-limits-ai-debt-collection`. 41 remain screenshot-diffed pages; `/api-docs`
+  and `/release-notes` become `next.config.js` redirects in Task 11 and are removed from
+  `parity/routes.json` at that point, which is why later tasks assert 41 rather than 43.
 - No redesign, no copy changes, no new pages, no dependency upgrades beyond what Next requires.
 - GA4 measurement ID is `G-TT8WJVR53D`.
 - Node 20+.
@@ -363,8 +366,25 @@ export function diffPng(baselinePath: string, currentPath: string, outPath: stri
 ```ts
 import type { PageMeta } from './capture';
 
+/**
+ * Deterministic serialisation with recursively sorted object keys, so two
+ * structurally identical JSON-LD blocks compare equal regardless of key order.
+ * Note: JSON.stringify's array second argument is a key *filter*, not a sorter —
+ * using it here would silently drop nested keys (e.g. everything under @graph).
+ */
 function canon(v: unknown): string {
-  return JSON.stringify(v, Object.keys(v as object ?? {}).sort());
+  const sort = (x: unknown): unknown => {
+    if (Array.isArray(x)) return x.map(sort);
+    if (x && typeof x === 'object') {
+      return Object.fromEntries(
+        Object.keys(x as Record<string, unknown>)
+          .sort()
+          .map((k) => [k, sort((x as Record<string, unknown>)[k])])
+      );
+    }
+    return x;
+  };
+  return JSON.stringify(sort(v));
 }
 
 /** Returns one string per difference. Empty array means identical. */
@@ -780,12 +800,17 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 }
 ```
 
-- [ ] **Step 5: Write the typography probe at `app/probe/page.tsx`**
+- [ ] **Step 5: Write the typography probe body as a shared module**
 
-This page exists only to catch font-metric and token drift while it is cheap to fix. It is deleted in Task 13.
+This probe exists only to catch font-metric and token drift while it is cheap to fix; it
+is deleted in Task 13. Both builds must render **the same markup**, so it lives in one
+shared file that Vite and Next each import — never copied into two files, which would let
+them drift and invalidate the comparison.
+
+Create `src/probe/ProbeBody.tsx`:
 
 ```tsx
-export default function Probe() {
+export default function ProbeBody() {
   const weights = [100, 200, 300, 400, 500, 600, 700, 800];
   return (
     <main className="bg-base text-ink p-10 space-y-8">
@@ -812,9 +837,31 @@ export default function Probe() {
 }
 ```
 
-- [ ] **Step 6: Create the equivalent probe in the Vite app for comparison**
+Then create `app/probe/page.tsx`, which only mounts it:
 
-Create `src/pages/Probe.tsx` with `export const route = '/probe';` on line 1, then `export default function Probe()` containing the **identical JSX body** from Step 5 (copy it verbatim, changing only the function declaration). Then run `node scripts/sync-routes.js` to register it.
+```tsx
+import ProbeBody from '../../src/probe/ProbeBody';
+
+export default function Page() {
+  return <ProbeBody />;
+}
+```
+
+- [ ] **Step 6: Mount the same shared body in the Vite app**
+
+Create `src/pages/Probe.tsx` — it imports the identical module, so the two builds cannot
+drift:
+
+```tsx
+export const route = '/probe';
+import ProbeBody from '../probe/ProbeBody';
+
+export default function Probe() {
+  return <ProbeBody />;
+}
+```
+
+Then run `node scripts/sync-routes.js` to register it.
 
 - [ ] **Step 7: Capture the Vite probe baseline**
 
@@ -1220,7 +1267,7 @@ Delete both `.tsx` files. Remove these two paths from `parity/routes.json` and d
 - [ ] **Step 1: Remove the probe**
 
 ```bash
-rm app/probe/page.tsx src/pages/Probe.tsx parity/baseline/*/probe.png
+rm -rf app/probe src/pages/Probe.tsx src/probe parity/baseline/*/probe.png
 rm -f parity/baseline/probe.meta.json
 ```
 
