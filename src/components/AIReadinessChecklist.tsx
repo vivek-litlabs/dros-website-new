@@ -355,6 +355,20 @@ export default function AIReadinessChecklist() {
       </div>`;
     }).join('');
 
+    const responsesHtml = GROUPS.map(g => {
+      const rows = g.items
+        .map((item, i) => {
+          const isOn = !!checked[`${g.key}-${i}`];
+          const blockerTag = item.critical ? '<span class="tag-blocker">Blocker</span>' : '';
+          return `<div class="resp-item">
+            <span class="chk${isOn ? '' : ' empty'}">${isOn ? '&#10003;' : ''}</span>
+            <span class="resp-text${isOn ? '' : ' unchecked'}">${escapeHtml(pick(item.q, seg))}${blockerTag}</span>
+          </div>`;
+        })
+        .join('');
+      return `<div class="resp-group">${escapeHtml(pick(g.title, seg))}</div>${rows}`;
+    }).join('');
+
     const doc = `<!doctype html>
 <html><head><meta charset="utf-8">
 <title>Voice AI Readiness Checklist: Your Result</title>
@@ -398,6 +412,14 @@ export default function AIReadinessChecklist() {
   .bar-fill { display: block; height: 100%; background: #000; }
   .bar-fill.full { background: #03D2FC; }
   .bar-val { flex: 0 0 26pt; text-align: right; font-size: 9.5pt; color: #696969; }
+  .resp-group { font-family: 'Saans', 'Inter', sans-serif; font-weight: 600; font-size: 10pt; color: #000; margin: 13pt 0 6pt; break-after: avoid; page-break-after: avoid; }
+  .resp-group:first-child { margin-top: 0; }
+  .resp-item { display: flex; align-items: flex-start; gap: 7pt; padding: 3pt 0; break-inside: avoid; page-break-inside: avoid; }
+  .chk { flex: 0 0 10pt; width: 10pt; height: 10pt; margin-top: 3pt; border-radius: 2.5pt; background: #000; color: #fff; font-size: 7pt; line-height: 10pt; text-align: center; }
+  .chk.empty { background: #fff; border: 1pt solid #C3C8D6; }
+  .resp-text { font-size: 10.5pt; line-height: 1.5; color: #000; }
+  .resp-text.unchecked { color: #A3A3A3; }
+  .tag-blocker { display: inline-block; font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #92400E; background: #FEF3C7; padding: 1.5pt 4pt; border-radius: 2.5pt; margin-left: 5pt; vertical-align: 1pt; }
   .foot { margin-top: 30pt; padding-top: 12pt; border-top: 1px solid #E6E3E3; font-size: 8.5pt; line-height: 1.6; color: #A3A3A3; }
 </style>
 </head>
@@ -444,6 +466,11 @@ export default function AIReadinessChecklist() {
     ${barsHtml}
   </div>
 
+  <div class="section">
+    <div class="label">Your responses</div>
+    ${responsesHtml}
+  </div>
+
   <div class="foot">
     Generated from dros.ai. Your specific answers were never sent anywhere.<br>
     Talk it through: dros.ai/book-meeting
@@ -468,7 +495,7 @@ export default function AIReadinessChecklist() {
     };
     win.document.fonts?.ready?.then(doPrint).catch(doPrint);
     window.setTimeout(doPrint, 600);
-  }, [total, result, counts, open, seg]);
+  }, [total, result, counts, open, seg, checked]);
 
   return (
     <div className="my-10">
