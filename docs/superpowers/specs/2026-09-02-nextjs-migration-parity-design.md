@@ -77,8 +77,8 @@ twice.
 ## 3. Target architecture
 
 **Stack:** Next.js (App Router) · React 18 · Tailwind (config ported unchanged) ·
-framer-motion · lenis · `next/font/local` (Saans) + `next/font/google` (Geist Mono,
-Inter, Instrument Serif).
+framer-motion · **plain-CSS fonts, no `next/font`** (see Finding 2) · **no lenis**
+(see Finding 1).
 
 ### 3.1 Routing
 
@@ -140,7 +140,10 @@ Vercel project itself.
 - `VITE_RECAPTCHA_SITE_KEY` → `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` (rename only).
 - Two external calls stay client-side and port unchanged:
   `https://api.dros.ai/functions/v1/trigger-demo-call` and the HubSpot forms endpoint.
-- GA4 via `react-ga4` moves into a client provider in the root layout.
+- GA4 via `react-ga4` (measurement ID `G-TT8WJVR53D`, currently initialised in
+  `src/main.tsx`) moves into a client provider in the root layout, which also takes over
+  the `ScrollToTop` and pageview-on-navigation behaviour.
+- `lenis` is removed from `package.json` (Finding 1).
 
 ---
 
@@ -148,12 +151,49 @@ Vercel project itself.
 
 Named up front so they are designed for rather than discovered late.
 
+### 4.1 Codebase findings that reduce or reshape the risk
+
+Three facts verified in the codebase after the design review. Two remove named risks
+entirely; the third adds a defect that must be fixed rather than ported.
+
+**Finding 1 — Lenis is never instantiated. The smooth-scroll risk does not exist.**
+`window.__lenis` is *read* in four places (`Navbar.tsx`, `App.tsx`, `Aca.tsx`,
+`components/home/aca/HeroAca.tsx`) but is **never assigned anywhere in the codebase**.
+There is no `new Lenis(...)` call. Every one of those call sites already falls through
+to its native `window.scrollTo` branch. The `lenis` dependency is dead weight.
+*Consequence:* no Lenis provider is needed, no `window.__lenis` gate is needed, and the
+dependency is dropped. Scroll behaviour is native today and stays native.
+
+**Finding 2 — Fonts are plain CSS, so `next/font` is not needed. The largest parity
+risk is avoidable rather than merely testable.**
+Saans is a hand-written `@font-face` in `src/index.css` carrying a load-bearing
+`ascent-override: 90%`; the Google families load via `<link>` tags in `index.html` using
+the `media="print"` swap trick. None of this depends on Vite.
+*Consequence:* **do not adopt `next/font`.** Port `index.css` unchanged and reproduce the
+`index.html` `<link>` and `<link rel="preload">` tags verbatim in the Next root layout.
+Font metrics are then byte-identical by construction, and the CP1 probe verifies rather
+than discovers. Adopting `next/font` would inject a different loading strategy and
+override the `ascent-override`, which is precisely the drift we are trying to avoid.
+
+**Finding 3 — Canonical tags are currently emitted twice on blog posts. This is a
+defect to fix, not behaviour to preserve.**
+`CanonicalTag` in `src/main.tsx` emits `<link rel="canonical">` for *every* route, and
+`BlogLayout.tsx:114` emits its own when `canonicalPath` is set. Today `react-helmet-async`
+deduplicates at runtime so only one survives. Server-rendered, **both would appear in the
+raw HTML** — a genuine SEO defect that CP6 would otherwise ship.
+*Consequence:* canonical gets exactly one source of truth — `metadata.alternates.canonical`
+per route. `CanonicalTag` is deleted and `BlogLayout` stops emitting the tag. CP6 asserts
+**exactly one** canonical element per route. This is an intentional, recorded deviation
+from current DOM output and is pre-approved as a `parity-exceptions.md` entry.
+
+### 4.2 Remaining risks
+
 | Risk | Why it threatens parity | Mitigation |
 |---|---|---|
-| **Font loading** | Saans is hand-preloaded; Google fonts use a `media="print"` swap trick. `next/font` changes loading strategy, which can shift fallback metrics and cause reflow. **Most likely source of sub-pixel text drift.** | Caught at CP1 by a dedicated typography probe page, before any route is migrated |
-| **Lenis smooth scroll** | Initialised globally, stashed on `window.__lenis`; route-change behaviour differs under App Router | Client provider in root layout; CP3 gate asserts `window.__lenis` initialises; scroll behaviour reviewed in CP5 interaction videos |
-| **Hydration flash** | framer-motion components with `initial={{ opacity: 0 }}` now server-render in their initial (invisible) state, then animate — different from CSR today | Dedicated first-paint pre-hydration screenshot gate (§5.3) |
+| **Font rendering** | Downgraded by Finding 2 from "most likely drift source" to a verification step, since the CSS is ported verbatim | CP1 typography probe confirms byte-identical metrics |
+| **Hydration flash** | framer-motion components with `initial={{ opacity: 0 }}` now server-render in their initial (invisible) state, then animate — different from CSR today. **Now the highest remaining risk.** | Dedicated first-paint pre-hydration screenshot gate (§5.3) |
 | **Hydration mismatches** | Any date-relative or client-only rendering that differs server vs client | Zero-hydration-warning gate on every wave |
+| **Suspense fallback removal** | Today every non-home route is `lazy()` behind a `<div className="min-h-screen bg-base" />` fallback, plus a `lazyWithRetry` stale-chunk reload guard. Next replaces both | Next handles chunk loading and its own error recovery; the retry wrapper is dropped. Verified by the internal link crawl in §5.3 |
 | **Chunking** | `manualChunks` has no direct Next equivalent | Accepted. Not a parity gate; performance is a non-goal |
 
 ---
