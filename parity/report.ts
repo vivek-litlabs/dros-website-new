@@ -13,6 +13,16 @@ export interface RouteResult {
   diffPng: string | null;
 }
 
+/** Escapes text for safe interpolation into HTML content and attribute values. */
+function esc(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 export function writeReport(results: RouteResult[]): { pass: boolean; failures: number } {
   const failed = results.filter(
     (r) => r.pixels !== 0 || !r.stable || r.metaProblems.length > 0 || r.consoleErrors.length > 0
@@ -22,13 +32,13 @@ export function writeReport(results: RouteResult[]): { pass: boolean; failures: 
     .map((r) => {
       const ok = r.pixels === 0 && r.stable && r.metaProblems.length === 0 && r.consoleErrors.length === 0;
       const imgs = r.diffPng
-        ? `<div class="imgs"><img src="../../${r.baselinePng}"><img src="../../${r.currentPng}"><img src="../../${r.diffPng}"></div>`
+        ? `<div class="imgs"><img src="../../${esc(r.baselinePng)}"><img src="../../${esc(r.currentPng)}"><img src="../../${esc(r.diffPng)}"></div>`
         : '';
       const notes = [...r.metaProblems, ...r.consoleErrors]
-        .map((p) => `<li><pre>${p.replace(/</g, '&lt;')}</pre></li>`)
+        .map((p) => `<li><pre>${esc(p)}</pre></li>`)
         .join('');
       return `<tr class="${ok ? 'ok' : 'fail'}">
-        <td>${r.route}</td><td>${r.viewport}</td><td>${r.pixels}</td>
+        <td>${esc(r.route)}</td><td>${esc(r.viewport)}</td><td>${r.pixels}</td>
         <td>${r.stable ? 'yes' : 'NO'}</td>
         <td>${ok ? 'PASS' : 'FAIL'}</td>
         <td><ul>${notes}</ul>${imgs}</td></tr>`;

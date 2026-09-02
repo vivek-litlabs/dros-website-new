@@ -48,8 +48,13 @@ export const STABILITY_TIMEOUT_MS = 15000;
  * Anything not matched here still fails the gate. Do not add an entry to work
  * around a real difference — add it only for a documented, reviewed exception.
  *
- * - `VITE_RECAPTCHA_SITE_KEY not set`: form-bearing routes warn about the
+ * - `RECAPTCHA_SITE_KEY is not set`: form-bearing routes warn about the
  *   missing reCAPTCHA key in a local environment. Setting a placeholder key
  *   instead would render a visible error widget and break pixel parity.
+ *   The `VITE_`/`NEXT_PUBLIC_` env var prefix is deliberately omitted from
+ *   the pattern so this entry keeps matching after the migration renames
+ *   `VITE_RECAPTCHA_SITE_KEY` to `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` — matching
+ *   only the `VITE_` form would silently stop working on the Next build and
+ *   look exactly like a migration regression.
  */
-export const KNOWN_CONSOLE_NOISE: RegExp[] = [/VITE_RECAPTCHA_SITE_KEY not set/];
+export const KNOWN_CONSOLE_NOISE: RegExp[] = [/RECAPTCHA_SITE_KEY is not set/i];
