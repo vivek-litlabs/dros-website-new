@@ -10,7 +10,10 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "sync-routes": "node scripts/sync-routes.js",
-    "postinstall": "node scripts/sync-routes.js"
+    "postinstall": "node scripts/sync-routes.js",
+    "parity:capture": "tsx parity/run.ts capture",
+    "parity:compare": "tsx parity/run.ts compare",
+    "parity": "npm run parity:compare"
   },
   "dependencies": {
     "framer-motion": "^12.42.1",
@@ -26,6 +29,8 @@
     "@eslint/js": "^9.9.1",
     "@playwright/test": "^1.62.1",
     "@types/node": "^20.19.43",
+    "@types/pixelmatch": "^5.2.6",
+    "@types/pngjs": "^6.0.5",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",

@@ -41,3 +41,15 @@ export const STABILITY_INTERVAL_MS = 250;
 
 /** Max time to wait for two consecutive polled screenshots to be byte-identical. */
 export const STABILITY_TIMEOUT_MS = 15000;
+
+/**
+ * Console messages that are pre-existing, deterministic, and identical in both
+ * the baseline and current builds, so they cannot mask a migration regression.
+ * Anything not matched here still fails the gate. Do not add an entry to work
+ * around a real difference — add it only for a documented, reviewed exception.
+ *
+ * - `VITE_RECAPTCHA_SITE_KEY not set`: form-bearing routes warn about the
+ *   missing reCAPTCHA key in a local environment. Setting a placeholder key
+ *   instead would render a visible error widget and break pixel parity.
+ */
+export const KNOWN_CONSOLE_NOISE: RegExp[] = [/VITE_RECAPTCHA_SITE_KEY not set/];
