@@ -1,0 +1,124 @@
+{
+  "title": "Choosing an AI Collections Operating Layer: What to Look For",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "Learn how to evaluate an AI collections operating layer that orchestrates voice bots, agents, channels, and compliance rules across your entire portfolio.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/blogs/ai-collections-operating-layer",
+    "og:title": "Choosing an AI Collections Operating Layer: What to Look For",
+    "og:description": "Learn how to evaluate an AI collections operating layer that orchestrates voice bots, agents, channels, and compliance rules across your entire portfolio.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg"
+  },
+  "canonical": [
+    "https://dros.ai/blogs/ai-collections-operating-layer"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Choosing an AI Collections Operating Layer: What to Look For (and Why It Matters More Than Any Bot)",
+      "url": "https://dros.ai/blogs/ai-collections-operating-layer",
+      "datePublished": "2026-06-12",
+      "author": {
+        "@id": "https://dros.ai"
+      },
+      "publisher": {
+        "@id": "https://dros.ai"
+      },
+      "articleSection": "Technology & Integrations",
+      "dateModified": "2026-06-12",
+      "keywords": "Technology & Integrations"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dros.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://dros.ai/blogs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Technology & Integrations",
+          "item": "https://dros.ai/blogs?category=Technology%20%26%20Integrations"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Choosing an AI Collections Operating Layer: What to Look For (and Why It Matters More Than Any Bot)",
+          "item": "https://dros.ai/blogs/ai-collections-operating-layer"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is an AI collections operating layer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An AI collections operating layer is the orchestration platform that sits above individual tools - AI voice bots, dialers, SMS systems, CRMs - and coordinates engagement strategy, contact rules, compliance policies, and reporting in one place. It decides which accounts get which treatment, on which channel, and when - and ensures every AI agent and human collector follows the same rulebook."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is an operating layer more important than choosing the right AI voice bot?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An AI voice bot handles one channel and one type of interaction. An operating layer governs how all channels, bots, and human agents work together across your entire portfolio. Without it, you end up with fragmented contact history, conflicting rules, and compliance gaps that individual bots cannot solve on their own."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I look for when evaluating AI collections platforms?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The five core capabilities to evaluate are: a unified account timeline across all channels, a configurable strategy and policy engine, cross-channel orchestration that coordinates bots and human queues, centralized compliance and governance controls, and analytics that span AI and human performance in one view."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does an AI collections operating layer help with Reg F and FDCPA compliance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A proper operating layer centralizes contact rules, consent records, call-hour windows, and dispute workflows - and enforces them before any outbound attempt, regardless of channel. This means your AI voice bots and human collectors cannot accidentally violate frequency limits or contact a consumer whose number is on the DNC list, because the platform blocks the attempt before it happens."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between an AI voice bot for collections and an AI collections operating layer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An AI voice bot is an execution tool - it handles conversations on the voice channel according to a defined script and intent model. An operating layer is the governance and orchestration system that decides when and whether the voice bot should act, what rules it operates under, and how its results feed back into the account record alongside every other channel and agent type."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS function as an AI collections operating layer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS holds engagement strategies, contact rules, and account context centrally. It orchestrates AI voice bots, human agents, dialers, SMS agents, and self-service portals as execution surfaces - enforcing Reg F, FDCPA, and client-specific rules before every attempt, maintaining a unified account timeline across first- and third-party work, and providing reporting that spans all channels and agent types in one view."
+          }
+        }
+      ]
+    }
+  ]
+}

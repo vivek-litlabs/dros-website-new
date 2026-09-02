@@ -1,0 +1,69 @@
+{
+  "title": "Why Debt Collection Needs Fewer Systems (Context Orchestration)",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "Too many tools slow collections teams down. Learn how context orchestration reduces system sprawl, improves visibility, and simplifies recovery workflows.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/blogs/why-context-not-more-tools-is-the-future-of-debt-collection",
+    "og:title": "Why Debt Collection Needs Fewer Systems (Context Orchestration)",
+    "og:description": "Too many tools slow collections teams down. Learn how context orchestration reduces system sprawl, improves visibility, and simplifies recovery workflows.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg"
+  },
+  "canonical": [
+    "https://dros.ai/blogs/why-context-not-more-tools-is-the-future-of-debt-collection"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "url": "https://dros.ai/blogs/why-context-not-more-tools-is-the-future-of-debt-collection",
+      "datePublished": "2025-11-01",
+      "author": {
+        "@id": "https://dros.ai"
+      },
+      "publisher": {
+        "@id": "https://dros.ai"
+      },
+      "articleSection": "Technology & Integrations",
+      "dateModified": "2025-11-01",
+      "keywords": "Technology & Integrations, Context & Omnichannel, Collections Strategy & Performance"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dros.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://dros.ai/blogs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Technology & Integrations",
+          "item": "https://dros.ai/blogs?category=Technology%20%26%20Integrations"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Article",
+          "item": "https://dros.ai/blogs/why-context-not-more-tools-is-the-future-of-debt-collection"
+        }
+      ]
+    }
+  ]
+}

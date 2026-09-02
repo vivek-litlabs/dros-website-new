@@ -36,3 +36,15 @@ screencapture-*
 
 .vercel
 .env*
+
+parity/current/
+parity/report/
+parity/video/
+
+# Baseline screenshots are ~461MB of binary PNGs and are regenerated, not versioned.
+# Committing them would permanently bloat history by that much per recapture.
+# Regenerate with:  npm run build && npx serve dist -l 3000 -s && npm run parity:capture
+# The .meta.json files ARE committed - they are small and are the SEO reference
+# (title/meta/canonical/JSON-LD) that the migration must preserve, so they belong in
+# code review.
+parity/baseline/**/*.png

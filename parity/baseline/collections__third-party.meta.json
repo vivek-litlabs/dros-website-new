@@ -1,0 +1,79 @@
+{
+  "title": "AI-Powered Third-Party Collections Software for Agencies | DROS",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "DROS coordinates AI voice agents, human agents, and your existing dialers across every client portfolio - with FDCPA, Reg F, and TCPA compliance enforced before the first dial.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/collections/third-party",
+    "og:title": "AI-Powered Third-Party Collections Software for Agencies | DROS",
+    "og:description": "DROS coordinates AI voice agents, human agents, and your existing dialers across every client portfolio. FDCPA, Reg F, and TCPA compliance enforced before the first dial.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "keywords": "third-party collections software, debt collection agency software, collections agency platform, AI voice agents debt collection, FDCPA compliant collections software, Reg F 7-in-7 compliance, TCPA consent management, multi-portfolio collections management, collections dialer compliance, third party debt collection technology, collections engagement platform"
+  },
+  "canonical": [
+    "https://dros.ai/collections/third-party"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is an engagement OS and how is it different from a collections dialer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A collections dialer optimizes for more calls per hour. DROS is a third-party collections software platform that orchestrates your dialers, AI agents, and human agents from one place - deciding which accounts are dialable, when, how often, and through which channel, with FDCPA and Reg F compliance enforced before any attempt is authorized."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does DROS replace our existing debt collection dialers and CRM?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. DROS connects to your existing dialers, SMS providers, CRMs, and payment portals as execution channels. Your current tools stay in place; DROS adds the compliance and strategy layer above them. Switching dialers later is easy because your workflows live in DROS, not inside any single platform."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS handle Reg F 7-in-7 and FDCPA compliance for third-party agencies?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS enforces Reg F 7-in-7 call limits, local call-hour windows, FDCPA validation and dispute workflows, and cease-communication rules at the platform layer - before any AI or human agent is authorized to make an attempt. Accounts pause or restrict automatically when triggered. Every interaction logs a full audit trail for client or regulator review."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can AI agents handle third-party debt collection calls compliantly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. DROS AI voice agents follow the same FDCPA and TCPA rules as human agents - identical consent checks, call-hour windows, and DNC logic. When a situation requires human judgment, the AI transfers the call to the right agent queue with full account context. Every AI call produces a transcript and summary."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS support agencies managing multiple client portfolios?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Each client portfolio in DROS has its own strategy rules - contact frequency, allowed channels, wording limits. AI and human agents share infrastructure but every account is governed by its client-specific rules. Agencies can produce per-client MI packs showing contact journeys, outcomes, and compliance signals."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can DROS help a debt collection agency win RFPs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS gives agencies specific, demonstrable answers to what modern creditors ask during RFPs: how do you handle AI compliance? What is your omnichannel strategy? How do you enforce client-specific contact rules? Instead of promising higher dial volume, you can show a modern debt collection agency software stack with compliance and strategy built into the platform."
+          }
+        }
+      ]
+    }
+  ]
+}

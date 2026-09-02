@@ -1,0 +1,86 @@
+{
+  "title": "AI-Powered First-Party Collections Platform | DROS",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "DROS is the AI-powered engagement OS for first-party and in-house collections teams. Orchestrate AI voice agents, human agents, and omnichannel workflows — with Reg F compliance, brand rules, and CX guardrails enforced at the platform layer.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/collections/first-party",
+    "og:title": "AI-Powered First-Party Collections Platform | DROS",
+    "og:description": "DROS is the AI-powered engagement OS for first-party and in-house collections teams. Orchestrate AI voice agents, human agents, and omnichannel workflows — with Reg F compliance, brand rules, and CX guardrails enforced at the platform layer.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg"
+  },
+  "canonical": [
+    "https://dros.ai/collections/first-party"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is first-party collections software?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "First-party collections software helps creditors manage in-house debt recovery in their own name, typically for early-stage and pre-charge-off accounts. Unlike third-party platforms built for separate agencies, first-party software must enforce brand tone, CX policies, and compliance rules alongside standard collections workflows. DROS is built specifically for this: it orchestrates AI voice agents, human agents, and omnichannel outreach from a single platform, with Reg F compliance and brand rules enforced before any contact attempt."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is first-party collections different from third-party collections?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "First-party outreach happens in the creditor's own name, typically early in the delinquency lifecycle, with emphasis on brand continuity, customer retention, and respectful communication. Third-party involves a separate brand at later or charged-off stages. DROS is purpose-built for first-party: it enforces brand tone, CX rules, and compliance at the operating layer - not just call-frequency caps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do AI voice agents work in first-party collections?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS AI voice agents handle high-volume early-stage outreach - payment reminders, balance confirmations, standard payment plan suggestions, and 24/7 inbound queries - using your approved scripts, brand intros, and disclosures. When a hardship signal, dispute, or escalation trigger is detected mid-call, the AI routes immediately to a human agent with the full account timeline attached, so agents walk in context-ready."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does DROS support Reg F compliance for in-house collections teams?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. DROS bakes Reg F, UDAAP, and configurable internal policies into the operating layer as default guardrails - including 7-in-7-style call frequency caps, quiet hour enforcement, and real-time consent management across all channels. Many first-party teams also voluntarily follow FDCPA-style best practices; these can be encoded directly into DROS workflows per product line or account type."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does DROS replace our existing CRM, billing system, or dialer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No - and that's intentional. DROS connects to your existing tools as execution endpoints. Your current stack stays. Switching a dialer or adding a new channel is a configuration change, not a rebuild - because your engagement logic lives in DROS, not inside any single platform."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS enforce brand tone alongside compliance rules?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS applies brand tone, approved scripts, and disclosure requirements at the same layer as compliance rules - before any AI or human agent makes a contact attempt. AI voice agents use your approved intros, language guidelines, and disclaimers. Human agents see the same script library."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS help with handoff to third-party agencies or debt buyers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When accounts reach pre-placement stage, DROS provides a rich account timeline, updated contact data, and documented outreach history. That context improves agency performance and debt-buyer pricing - and it's already there, produced naturally by running DROS throughout the collections lifecycle."
+          }
+        }
+      ]
+    }
+  ]
+}

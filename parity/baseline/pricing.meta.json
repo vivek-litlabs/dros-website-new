@@ -1,0 +1,94 @@
+{
+  "title": "Pricing - DROS",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "Four plans built to scale with your portfolio. Simple, transparent pricing for AI-powered debt collection.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/pricing",
+    "og:title": "Pricing - DROS",
+    "og:description": "Four plans built to scale with your portfolio. Simple, transparent pricing for AI-powered debt collection.",
+    "og:image": "https://dros.ai/untitled_logo_1_basic-file.png",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/untitled_logo_1_basic-file.png"
+  },
+  "canonical": [
+    "https://dros.ai/pricing"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I switch plans at any time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Upgrades apply immediately and you're billed the prorated difference right away. Downgrades take effect at the start of your next billing cycle, so you keep your current limits until then."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What exactly counts as an 'account'?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An account is one active debtor record in DROS. Archived accounts don't count toward your limit, so you only pay for what you're actively working. Your dashboard shows your live count at all times."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens when I hit my AI calling minutes limit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You get an in-app alert at 80% usage, and calls already in progress won't be cut off. Additional minutes beyond your plan's allotment are billed automatically at your tier's overage rate ($0.20/min on Professional, $0.125/min on Business, $0.10/min on Business Plus), so campaigns keep running without interruption."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Reg F compliance actually built in, or do I configure it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both. You configure the rules once at the campaign level, things like call frequency caps, time-of-day windows, and opt-out handling, and DROS enforces them automatically from there. Full rule enforcement is included from Professional upward, which is where every plan starts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does onboarding actually take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most teams run their first AI campaign within 48 hours of signing up. DROS provides pre-built call flows, a guided setup checklist, and live support. Enterprise clients get a dedicated onboarding engineer who works through your tech stack and compliance configuration directly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you integrate with our existing CRM or dialer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "API access is included from Business tier upward, enabling custom integrations with your existing stack. We have pre-built connectors for common collections CRMs. On lower tiers, you can import and export data via CSV."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "We're a third-party agency, does DROS support that?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. DROS handles both first-party collections and third-party agency workflows. Run multiple client portfolios in separate workspaces, each with its own call flows, compliance settings, and reporting. Unlimited workspaces from Business tier upward."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does 'white-label' mean on Enterprise?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Enterprise clients deploy DROS under their own brand, with a custom domain, logo, and UI skin. Used by agencies offering AI collections as a managed service, or large servicers who want DROS embedded inside their own platform."
+          }
+        }
+      ]
+    }
+  ]
+}
