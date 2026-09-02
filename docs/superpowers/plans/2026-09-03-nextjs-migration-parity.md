@@ -142,6 +142,18 @@ export function slugFor(route: string): string {
  */
 export const MASKS: Record<string, string[]> = {};
 
+/**
+ * Console messages that already occur in the current build and are not migration defects.
+ * Filtered from `consoleErrors` before the gate is applied, so anything NEW still fails.
+ * Every entry needs a comment justifying it: this list is the only place the console gate
+ * can be weakened, so it stays short and reviewed.
+ */
+export const KNOWN_CONSOLE_NOISE: RegExp[] = [
+  // reCAPTCHA site key is absent in a local environment. Emitted identically by the Vite
+  // and Next builds, so it cannot hide a migration regression.
+  /RECAPTCHA_SITE_KEY/i,
+];
+
 export const BASELINE_DIR = 'parity/baseline';
 export const CURRENT_DIR = 'parity/current';
 export const REPORT_DIR = 'parity/report';
@@ -325,8 +337,23 @@ git commit -m "test(parity): add deterministic route capture"
 - Modify: `package.json` (scripts)
 
 **Interfaces:**
-- Consumes: `captureRoute`, `extractMeta`, `PageMeta` (Task 2); config exports (Task 1).
+- Consumes: `captureRoute`, `extractMeta`, `PageMeta`, `CaptureResult` (Task 2, which now also returns `stable: boolean`); config exports (Task 1).
 - Produces: `diffPng(a: string, b: string, out: string): number` (returns differing pixel count); `diffMeta(base: PageMeta, cur: PageMeta): string[]` (returns human-readable difference descriptions, empty when identical); `npm run parity:capture` and `npm run parity:compare`.
+
+**Two additions decided during Task 2, already reflected in the code blocks below:**
+
+1. **`captureRoute` now returns `stable`.** A capture that never reached visual stability is
+   worthless as a baseline *and* as a comparison. `run.ts` must treat `stable === false` as a
+   hard failure in BOTH modes, and `report.ts` must surface it. Writing a mid-animation frame
+   as the baseline would poison every later run that diffs against it.
+
+2. **A documented console-noise allowlist.** Form-bearing routes emit a pre-existing
+   `VITE_RECAPTCHA_SITE_KEY not set` warning in a local environment. It is deterministic and
+   identical in both builds, so it cannot mask a migration regression — but the gate fails on
+   *any* console message, so it would block every run. The fix is an explicit, reviewed
+   allowlist, not a weakened gate: listed messages are filtered, anything new still fails.
+   Do **not** silence it by setting a placeholder key — an invalid reCAPTCHA key renders a
+   visible error widget, which would break pixel parity itself.
 
 - [ ] **Step 1: Write `parity/diff.ts`**
 
@@ -436,6 +463,7 @@ export interface RouteResult {
   route: string;
   viewport: string;
   pixels: number;
+  stable: boolean;
   metaProblems: string[];
   consoleErrors: string[];
   baselinePng: string;
@@ -445,12 +473,12 @@ export interface RouteResult {
 
 export function writeReport(results: RouteResult[]): { pass: boolean; failures: number } {
   const failed = results.filter(
-    (r) => r.pixels > 0 || r.metaProblems.length > 0 || r.consoleErrors.length > 0
+    (r) => r.pixels !== 0 || !r.stable || r.metaProblems.length > 0 || r.consoleErrors.length > 0
   );
 
   const rows = results
     .map((r) => {
-      const ok = r.pixels === 0 && r.metaProblems.length === 0 && r.consoleErrors.length === 0;
+      const ok = r.pixels === 0 && r.stable && r.metaProblems.length === 0 && r.consoleErrors.length === 0;
       const imgs = r.diffPng
         ? `<div class="imgs"><img src="../../${r.baselinePng}"><img src="../../${r.currentPng}"><img src="../../${r.diffPng}"></div>`
         : '';
@@ -459,6 +487,7 @@ export function writeReport(results: RouteResult[]): { pass: boolean; failures: 
         .join('');
       return `<tr class="${ok ? 'ok' : 'fail'}">
         <td>${r.route}</td><td>${r.viewport}</td><td>${r.pixels}</td>
+        <td>${r.stable ? 'yes' : 'NO'}</td>
         <td>${ok ? 'PASS' : 'FAIL'}</td>
         <td><ul>${notes}</ul>${imgs}</td></tr>`;
     })
@@ -478,7 +507,7 @@ export function writeReport(results: RouteResult[]): { pass: boolean; failures: 
 </style>
 <h1>Parity report</h1>
 <p><strong>${results.length - failed.length}/${results.length}</strong> checks passed.</p>
-<table><tr><th>Route</th><th>Viewport</th><th>Diff px</th><th>Status</th><th>Notes</th></tr>
+<table><tr><th>Route</th><th>Viewport</th><th>Diff px</th><th>Stable</th><th>Status</th><th>Notes</th></tr>
 ${rows}</table>`
   );
 
@@ -492,7 +521,7 @@ ${rows}</table>`
 import { chromium } from '@playwright/test';
 import { mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { ROUTES, VIEWPORTS, slugFor, BASELINE_DIR, CURRENT_DIR, REPORT_DIR, DEVICE_SCALE_FACTOR } from './config';
+import { ROUTES, VIEWPORTS, slugFor, BASELINE_DIR, CURRENT_DIR, REPORT_DIR, DEVICE_SCALE_FACTOR, KNOWN_CONSOLE_NOISE } from './config';
 import { captureRoute, extractMeta } from './capture';
 import { diffPng } from './diff';
 import { diffMeta } from './assert-meta';
@@ -511,14 +540,25 @@ const outDir = mode === 'capture' ? BASELINE_DIR : CURRENT_DIR;
 const browser = await chromium.launch();
 const context = await browser.newContext({ deviceScaleFactor: DEVICE_SCALE_FACTOR });
 const results: RouteResult[] = [];
+let unstableCount = 0;
 
 for (const route of ROUTES) {
   const slug = slugFor(route);
   for (const vp of VIEWPORTS) {
     const page = await context.newPage();
-    const { png, consoleErrors } = await captureRoute(page, baseUrl, route, vp, outDir);
+    const { png, consoleErrors: rawErrors, stable } = await captureRoute(page, baseUrl, route, vp, outDir);
     const meta = await extractMeta(page);
     await page.close();
+
+    // Filter only the documented pre-existing noise; anything else still fails the gate.
+    const consoleErrors = rawErrors.filter((e) => !KNOWN_CONSOLE_NOISE.some((re) => re.test(e)));
+
+    // An unstable capture is not a usable baseline. Fail loudly in capture mode too, rather
+    // than silently writing a mid-animation frame that every later run diffs against.
+    if (!stable) {
+      console.error(`UNSTABLE  ${vp.name.padEnd(7)} ${route} - capture never settled`);
+      unstableCount++;
+    }
 
     if (vp.name === 'desktop') {
       mkdirSync(outDir, { recursive: true });
@@ -539,11 +579,12 @@ for (const route of ROUTES) {
       }
 
       results.push({
-        route, viewport: vp.name, pixels, metaProblems, consoleErrors,
+        route, viewport: vp.name, pixels, stable, metaProblems, consoleErrors,
         baselinePng: basePng, currentPng: png,
         diffPng: pixels > 0 ? dPath : null,
       });
-      console.log(`${pixels === 0 && !metaProblems.length && !consoleErrors.length ? 'PASS' : 'FAIL'}  ${vp.name.padEnd(7)} ${route}  (${pixels}px)`);
+      const ok = pixels === 0 && stable && !metaProblems.length && !consoleErrors.length;
+      console.log(`${ok ? 'PASS' : 'FAIL'}  ${vp.name.padEnd(7)} ${route}  (${pixels}px)`);
     } else {
       console.log(`captured ${vp.name.padEnd(7)} ${route}`);
     }
@@ -557,6 +598,11 @@ if (mode === 'compare') {
   console.log(`\nReport: ${REPORT_DIR}/index.html`);
   if (!pass) { console.error(`${failures} check(s) failed.`); process.exit(1); }
   console.log('All parity checks passed.');
+} else if (unstableCount > 0) {
+  console.error(`\n${unstableCount} capture(s) never settled. Baseline rejected.`);
+  process.exit(1);
+} else {
+  console.log('\nBaseline captured; every capture reached visual stability.');
 }
 ```
 
