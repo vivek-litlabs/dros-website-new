@@ -6,11 +6,11 @@ import AIReadinessChecklist from '../components/AIReadinessChecklist';
 
 const faqItems = [
   {
-    q: 'What is an AI readiness checklist for a collection agency?',
-    a: 'A structured set of conditions an agency should be able to satisfy before running a vendor evaluation for AI voice. A useful one covers more than compliance. It should test whether the shop has settled the collector question, whether the business case is sized on the right basis, whether the collection platform can absorb the output, and whether client or seller agreements permit the change.',
+    q: 'What is a voice AI readiness checklist for a debt collection team?',
+    a: 'A structured set of conditions a debt collection team should be able to satisfy before running a vendor evaluation for voice AI. A useful one covers more than compliance. It should test whether the shop has settled the collector question, whether the business case is sized on the right basis, whether the collection platform can absorb the output, and whether client or seller agreements permit the change.',
   },
   {
-    q: 'What makes an AI evaluation in collections stall rather than fail?',
+    q: 'What makes a voice AI evaluation in collections stall rather than fail?',
     a: 'A stalled evaluation produces no decision at all. It usually happens when the process runs into an internal question a vendor cannot answer, most often around collector compensation, client permission, or platform integration. Because none of these are product questions, more vendor diligence does not resolve them, and the evaluation loses momentum without anyone concluding anything.',
   },
   {
@@ -26,7 +26,7 @@ const faqItems = [
     a: 'Recovery, in most cases. The binding constraint in a collections operation is usually contact coverage rather than collector productivity, so a case written as headcount reduction caps itself at the size of the payroll line and puts you in conflict with the floor. A coverage case sizes on accounts that get no meaningful contact effort today, which is additive.',
   },
   {
-    q: 'What compliance controls should an AI vendor demonstrate?',
+    q: 'What compliance controls should a voice AI vendor demonstrate?',
     a: 'Four. Right party contact verification, with no account detail released until identity is confirmed to your standard. Disclosure placement, with the Mini Miranda and state-specific disclosures delivered verbatim at the defined point. Authorization limits, meaning a hard refusal to offer terms outside a configured envelope. Cease and desist handling, with reliable handoff or termination on dispute, cease communication, or attorney representation. Each should be visible as configured system behavior with an audit trail.',
   },
 ];
@@ -38,12 +38,12 @@ export default function BlogPostAIReadinessChecklist() {
         <title>Voice AI Readiness Checklist for Debt Collection Teams</title>
         <meta
           name="description"
-          content="Twelve questions that decide whether your AI evaluation reaches procurement, and the three that are non-negotiable. Interactive, scored, no email required."
+          content="Twelve questions that decide whether your voice AI evaluation reaches procurement, and the three that are non-negotiable. Interactive, scored, no email required."
         />
         <meta property="og:title" content="Voice AI Readiness Checklist for Debt Collection Teams" />
         <meta
           property="og:description"
-          content="Twelve questions that decide whether your AI evaluation reaches procurement, and the three that are non-negotiable. Interactive, scored, no email required."
+          content="Twelve questions that decide whether your voice AI evaluation reaches procurement, and the three that are non-negotiable. Interactive, scored, no email required."
         />
         <meta property="og:image" content="https://dros.ai/blog/ai-readiness-checklist.jpg" />
         <meta property="og:url" content="https://dros.ai/blogs/ai-readiness-checklist-collection-agencies" />
@@ -54,7 +54,7 @@ export default function BlogPostAIReadinessChecklist() {
       <BlogLayout
         image="/blog/ai-readiness-checklist.avif"
         title="Voice AI Readiness Checklist for Debt Collection Teams"
-        subtitle="Interactive and scored. Nothing is submitted, and there is no form at the end."
+        subtitle="Interactive and scored. Your answers stay in your browser, and there is no form at the end."
         readTime="9 min"
         tags={tags}
         canonicalPath={route}
@@ -73,8 +73,8 @@ export default function BlogPostAIReadinessChecklist() {
         }
       >
         <P>
-          Most AI evaluations in collections do not fail. They stall, somewhere between the second demo and the internal
-          business case, and nobody can name the reason.
+          Most voice AI evaluations in collections do not fail. They stall, somewhere between the second demo and the
+          internal business case, and nobody can name the reason.
         </P>
         <P>
           It is rarely the product. It is usually one of the twelve conditions below going unmet. Three of them are hard
@@ -86,8 +86,8 @@ export default function BlogPostAIReadinessChecklist() {
         <H2 id="why-evaluations-stall">Why evaluations stall rather than fail</H2>
         <P>
           A failed evaluation produces a decision. A stalled one produces nothing, which is why it is so hard to learn
-          from. Nobody concludes that AI is wrong for them. The internal champion moves on to something with a clearer
-          path, and the topic comes back eighteen months later with the same questions unanswered.
+          from. Nobody concludes that voice AI is wrong for them. The internal champion moves on to something with a
+          clearer path, and the topic comes back eighteen months later with the same questions unanswered.
         </P>
         <P>
           The mechanism is consistent. Nearly every conversation opens on regulatory ground, and those questions deserve
@@ -136,7 +136,7 @@ export default function BlogPostAIReadinessChecklist() {
           Outbound on the segment your capacity never reaches. Additive by construction.
         </StepCard>
         <StepCard step="03" title="A governed channel">
-          AI sits in the contact strategy under the same QA and audit standard as your collectors.
+          Voice AI sits in the contact strategy under the same QA and audit standard as your collectors.
         </StepCard>
 
         <H2 id="faq">FAQ</H2>

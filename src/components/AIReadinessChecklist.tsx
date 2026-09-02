@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { Lock, RotateCcw, ArrowRight } from 'lucide-react';
+import { Lock, RotateCcw, ArrowRight, Download } from 'lucide-react';
 import { springStd } from '../lib/motion';
-import { trackCta } from '../lib/analytics';
+import { trackCta, trackEvent } from '../lib/analytics';
 
 /**
- * Interactive, client-side AI readiness assessment used by the
+ * Interactive, client-side voice AI readiness assessment used by the
  * /blogs/ai-readiness-checklist-collection-agencies post.
  *
- * Nothing is submitted or persisted: all state lives in this component for
- * the life of the tab, which is the promise made in the privacy note.
+ * Answers themselves are never sent anywhere; only three anonymous, no-PII
+ * GA4 events fire (checklist started / results downloaded / CTA clicked),
+ * each carrying just the aggregate score and band label. See the privacy
+ * note copy below, which reflects this.
  *
  * Four questions are rewritten per segment (third-party agency, first-party
  * creditor, debt buyer) because the client-contract blocker is a placement
@@ -32,6 +34,9 @@ const pillSpring = { type: 'spring', stiffness: 420, damping: 34, mass: 0.7 } as
 const nudgeSpring = { type: 'spring', stiffness: 500, damping: 32, mass: 0.5 } as const;
 
 const pick = (v: SegText | undefined, seg: Seg) => (typeof v === 'string' ? v : v?.[seg] ?? '');
+
+const escapeHtml = (s: string) =>
+  s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] as string);
 
 interface Item {
   q: SegText;
@@ -137,8 +142,8 @@ const GROUPS: Group[] = [
       {
         critical: 'clients',
         q: {
-          tp: 'Our placement agreements allow AI-assisted contact, or we know which clients to notify first.',
-          fp: 'Legal, compliance, and brand have signed off on AI voice contacting our own customers.',
+          tp: 'Our placement agreements allow voice AI contact, or we know which clients to notify first.',
+          fp: 'Legal, compliance, and brand have signed off on voice AI contacting our own customers.',
           db: 'Our purchase and forward-flow agreements do not restrict contact methods, and our agencies are aligned.',
         },
         hint: {
@@ -271,8 +276,13 @@ export default function AIReadinessChecklist() {
   const [railVisible, setRailVisible] = useState(false);
   const assessRef = useRef<HTMLDivElement>(null);
   const resultRef = useRef<HTMLDivElement>(null);
+  const hasTrackedStart = useRef(false);
 
   const toggle = useCallback((id: string) => {
+    if (!hasTrackedStart.current) {
+      hasTrackedStart.current = true;
+      trackEvent('voice_ai_checklist_started');
+    }
     setChecked(prev => ({ ...prev, [id]: !prev[id] }));
   }, []);
 
@@ -313,6 +323,152 @@ export default function AIReadinessChecklist() {
     : total >= 10
       ? 'Book a technical walkthrough'
       : 'Talk through your result';
+
+  const handleDownload = useCallback(() => {
+    trackEvent('voice_ai_checklist_download', { score: total, band: result.title });
+
+    const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const diagText = diagnose(counts, open.length);
+
+    const blockersHtml = open.length
+      ? `<div class="section">
+          <div class="label label-amber">Outstanding blockers</div>
+          ${open
+            .map(
+              key => `<div class="blocker">
+                <b>${escapeHtml(pick(BLOCKERS[key].title, seg))}</b>
+                <div>${escapeHtml(pick(BLOCKERS[key].detail, seg))}</div>
+              </div>`
+            )
+            .join('')}
+        </div>`
+      : '';
+
+    const barsHtml = GROUPS.map(g => {
+      const done = counts[g.key];
+      const pct = Math.round((done / g.items.length) * 100);
+      const full = done === g.items.length;
+      return `<div class="bar-row">
+        <span class="bar-name">${escapeHtml(pick(g.barName, seg))}</span>
+        <span class="bar-track"><span class="bar-fill${full ? ' full' : ''}" style="width:${pct}%"></span></span>
+        <span class="bar-val">${done}/${g.items.length}</span>
+      </div>`;
+    }).join('');
+
+    const doc = `<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Voice AI Readiness Checklist: Your Result</title>
+<style>
+  @font-face {
+    font-family: 'Saans';
+    src: url('/fonts/saans/saans-variable.woff2') format('woff2');
+    font-weight: 100 800;
+    font-style: normal;
+  }
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { margin: 0.55in 0.65in; }
+  body {
+    font-family: 'Saans', 'Inter', system-ui, sans-serif;
+    color: #393939; margin: 0; background: #fff;
+  }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding-bottom: 14pt; border-bottom: 1px solid #E6E3E3; margin-bottom: 22pt; }
+  .brand { display: flex; align-items: center; gap: 7pt; }
+  .brand svg { display: block; }
+  .brand span { font-family: 'Saans', 'Inter', sans-serif; font-weight: 600; font-size: 12.5pt; letter-spacing: -0.01em; color: #000; }
+  .meta { font-size: 9pt; color: #696969; }
+  .kicker { font-size: 9pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: #000; margin-bottom: 6pt; }
+  h1 { font-family: 'Saans', 'Inter', sans-serif; font-weight: 400; font-size: 23pt; letter-spacing: -0.03em; color: #000; margin: 0 0 20pt; }
+  .scorewrap { display: flex; align-items: baseline; gap: 10pt; margin-bottom: 4pt; }
+  .score { font-family: 'Saans', 'Inter', sans-serif; font-weight: 600; font-size: 40pt; letter-spacing: -0.03em; color: #000; line-height: 1; }
+  .score em { font-style: normal; font-weight: 400; font-size: 15pt; color: #A3A3A3; }
+  .band { font-family: 'Saans', 'Inter', sans-serif; font-weight: 500; font-size: 15pt; color: #000; }
+  .verdict { font-size: 11pt; line-height: 1.6; max-width: 62ch; margin: 8pt 0 0; color: #393939; }
+  .section { margin-top: 22pt; }
+  .label { font-size: 9pt; text-transform: uppercase; letter-spacing: 0.12em; color: #696969; margin-bottom: 9pt; font-weight: 600; }
+  .label-amber { color: #92400E; }
+  .blocker { border-left: 2.5pt solid #F0B429; padding: 2pt 0 2pt 11pt; margin-bottom: 11pt; font-size: 11pt; line-height: 1.5; }
+  .blocker:last-child { margin-bottom: 0; }
+  .blocker b { display: block; margin-bottom: 2pt; color: #000; font-weight: 600; }
+  .blocker div { color: #696969; }
+  .diag { font-size: 11pt; line-height: 1.6; max-width: 62ch; margin: 0; color: #393939; }
+  .bar-row { display: flex; align-items: center; gap: 10pt; padding: 4pt 0; }
+  .bar-name { flex: 0 0 128pt; font-size: 9.5pt; color: #696969; }
+  .bar-track { flex: 1; height: 5pt; background: #EEF0F4; border-radius: 3pt; overflow: hidden; }
+  .bar-fill { display: block; height: 100%; background: #000; }
+  .bar-fill.full { background: #03D2FC; }
+  .bar-val { flex: 0 0 26pt; text-align: right; font-size: 9.5pt; color: #696969; }
+  .foot { margin-top: 30pt; padding-top: 12pt; border-top: 1px solid #E6E3E3; font-size: 8.5pt; line-height: 1.6; color: #A3A3A3; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">
+      <svg width="18" height="18" viewBox="0 0 373.93 378.56" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pg1" x1="349.44" y1="29.17" x2="-3.93" y2="233.09" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#00aee3"/><stop offset=".13" stop-color="#09a6df"/><stop offset=".34" stop-color="#2391d7"/>
+            <stop offset=".61" stop-color="#4e6eca"/><stop offset=".92" stop-color="#883fb8"/><stop offset="1" stop-color="#9932b3"/>
+          </linearGradient>
+          <linearGradient id="pg3" x1="302.87" y1="83.47" x2="66.99" y2="429.21" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#00d5fc"/><stop offset=".38" stop-color="#5f91fa"/><stop offset=".68" stop-color="#a361f9"/>
+            <stop offset=".89" stop-color="#cd44f9"/><stop offset="1" stop-color="#dd39f9"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#pg1)" d="M373.9,89.49v123.08c0,16.99-15.15,29.98-31.94,27.39L23.48,190.77C9.97,188.68,0,177.05,0,163.38V40.95C0,15.85,22.38-3.34,47.19.49l288.62,44.58c21.91,3.38,38.08,22.24,38.08,44.42Z"/>
+        <path fill="url(#pg3)" d="M336.87,133.87l-44.61,6.91L30.76,181.18c-17.7,2.73-30.76,17.97-30.76,35.88v114.94c0,28.55,25.45,50.37,53.66,46.01l277.56-42.88c24.55-3.79,42.67-24.93,42.67-49.77V92.04c-.37,9.67-4.93,17.96-4.93,17.96-10.84,21.49-32.1,23.88-32.1,23.88ZM373.9,89.49v2.55c.03-.84.04-1.7,0-2.55Z"/>
+      </svg>
+      <span>DROS</span>
+    </div>
+    <div class="meta">Generated ${date}</div>
+  </div>
+
+  <div class="kicker">Voice AI Readiness Checklist</div>
+  <h1>Your Result</h1>
+
+  <div class="scorewrap">
+    <div class="score">${total}<em> / ${TOTAL}</em></div>
+  </div>
+  <div class="band">${escapeHtml(result.title)}</div>
+  <p class="verdict">${escapeHtml(result.verdict)}</p>
+
+  ${blockersHtml}
+
+  <div class="section">
+    <div class="label">Where the gap sits</div>
+    <p class="diag">${escapeHtml(diagText)}</p>
+  </div>
+
+  <div class="section">
+    <div class="label">Section breakdown</div>
+    ${barsHtml}
+  </div>
+
+  <div class="foot">
+    Generated from dros.ai. Your specific answers were never sent anywhere.<br>
+    Talk it through: dros.ai/book-meeting
+  </div>
+</body></html>`;
+
+    const win = window.open('', '_blank', 'width=850,height=1100');
+    if (!win) return;
+    win.document.open();
+    win.document.write(doc);
+    win.document.close();
+    win.focus();
+
+    // Wait for the self-hosted Saans font to finish loading before printing,
+    // capped at 600ms so a slow/cold font fetch never blocks the dialog —
+    // the print stylesheet's fallback stack still reads cleanly either way.
+    let printed = false;
+    const doPrint = () => {
+      if (printed) return;
+      printed = true;
+      win.print();
+    };
+    win.document.fonts?.ready?.then(doPrint).catch(doPrint);
+    window.setTimeout(doPrint, 600);
+  }, [total, result, counts, open, seg]);
 
   return (
     <div className="my-10">
@@ -391,8 +547,8 @@ export default function AIReadinessChecklist() {
       <div className="mb-10 flex items-start gap-3 rounded-2xl border border-[#E6E3E3] bg-[#FAFAFA] p-4">
         <Lock className="mt-0.5 h-4 w-4 flex-shrink-0 text-black/50" />
         <p className="text-sm leading-relaxed text-[#393939]">
-          <b className="font-semibold text-black">Nothing is submitted, stored, or emailed.</b> This runs entirely in
-          your browser, and there is no form at the end. Close the tab and it is gone.
+          <b className="font-semibold text-black">Your answers stay in your browser.</b> No form, no email required.
+          We log an anonymous, no-name signal when someone finishes, never your specific answers or who you are.
         </p>
       </div>
 
@@ -604,10 +760,26 @@ export default function AIReadinessChecklist() {
                 </div>
               </div>
 
+              <p className="px-7 pb-4 text-[15px] leading-relaxed text-white/55">
+                Download your results and bring them to the call. We'll spend it on your blockers, not a generic
+                pitch.
+              </p>
+
               <div className="flex flex-wrap items-center gap-3 px-7 pb-5">
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  className="group inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-[15px] font-medium text-white transition-colors hover:border-accent hover:text-accent"
+                >
+                  <Download className="h-4 w-4" />
+                  Download results
+                </button>
                 <a
                   href="https://dros.ai/book-meeting"
-                  onClick={() => trackCta(`AI readiness checklist - ${ctaLabel}`)}
+                  onClick={() => {
+                    trackCta(`AI readiness checklist - ${ctaLabel}`);
+                    trackEvent('voice_ai_checklist_cta_click', { score: total, band: result.title });
+                  }}
                   className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[15px] font-medium text-[#04070F] transition-opacity hover:opacity-85"
                 >
                   {ctaLabel}
@@ -623,7 +795,7 @@ export default function AIReadinessChecklist() {
                 </button>
               </div>
               <p className="px-7 pb-7 text-sm text-white/35">
-                This result was not sent anywhere. It exists only in this browser tab.
+                Your specific answers were never sent anywhere. Download the PDF to keep them.
               </p>
             </motion.div>
           )}
