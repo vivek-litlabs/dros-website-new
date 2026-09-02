@@ -35,3 +35,9 @@ export const REPORT_DIR = 'parity/report';
 
 /** Max pixels allowed to differ. Zero. Do not raise this. */
 export const PIXEL_TOLERANCE = 0;
+
+/** Polling interval used while waiting for a page to reach visual stability before capture. */
+export const STABILITY_INTERVAL_MS = 250;
+
+/** Max time to wait for two consecutive polled screenshots to be byte-identical. */
+export const STABILITY_TIMEOUT_MS = 15000;

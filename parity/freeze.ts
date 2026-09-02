@@ -30,5 +30,18 @@ export const FREEZE_INIT = `
       return mq.call(window, q);
     };
     Object.defineProperty(window, '__lenis', { value: undefined, writable: false });
+
+    const injectFreezeStyle = () => {
+      if (document.getElementById('__parity-freeze-style')) return;
+      const style = document.createElement('style');
+      style.id = '__parity-freeze-style';
+      style.textContent = ${JSON.stringify(FREEZE_CSS)};
+      document.documentElement.appendChild(style);
+    };
+    if (document.documentElement) {
+      injectFreezeStyle();
+    } else {
+      document.addEventListener('DOMContentLoaded', injectFreezeStyle);
+    }
   })();
 `;
