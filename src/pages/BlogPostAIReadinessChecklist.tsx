@@ -35,12 +35,12 @@ export default function BlogPostAIReadinessChecklist() {
   return (
     <>
       <Helmet>
-        <title>AI Readiness Checklist for Collection Agencies | 12 Questions</title>
+        <title>Voice AI Readiness Checklist for Debt Collection Teams</title>
         <meta
           name="description"
           content="Twelve questions that decide whether your AI evaluation reaches procurement, and the three that are non-negotiable. Interactive, scored, no email required."
         />
-        <meta property="og:title" content="AI Readiness Checklist for Collection Agencies | 12 Questions" />
+        <meta property="og:title" content="Voice AI Readiness Checklist for Debt Collection Teams" />
         <meta
           property="og:description"
           content="Twelve questions that decide whether your AI evaluation reaches procurement, and the three that are non-negotiable. Interactive, scored, no email required."
@@ -53,7 +53,7 @@ export default function BlogPostAIReadinessChecklist() {
       </Helmet>
       <BlogLayout
         image="/blog/ai-readiness-checklist.avif"
-        title="AI Readiness Checklist for Collection Agencies: 12 Questions to Answer Before You Evaluate Vendors"
+        title="Voice AI Readiness Checklist for Debt Collection Teams"
         subtitle="Interactive and scored. Nothing is submitted, and there is no form at the end."
         readTime="9 min"
         tags={tags}

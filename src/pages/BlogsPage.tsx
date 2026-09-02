@@ -27,7 +27,7 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
-    title: 'AI Readiness Checklist for Collection Agencies: 12 Questions to Answer Before You Evaluate Vendors',
+    title: 'Voice AI Readiness Checklist for Debt Collection Teams',
     category: 'Collections Strategy & Performance',
     tags: ['Collections Strategy & Performance', 'Compliance & Operations', 'Technology & Integrations'],
     summary: 'An interactive, scored checklist covering the twelve conditions that decide whether an AI evaluation reaches procurement, including the three blockers that stop a deployment on their own.',
