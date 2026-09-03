@@ -1,6 +1,5 @@
-export const route = '/blogs/integrate-ai-agents-collections-compliance';
-export const tags = ['Collections Strategy & Performance', 'Compliance & Operations', 'Technology & Integrations', 'AI Agents'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Collections Strategy & Performance', 'Compliance & Operations', 'Technology & Integrations', 'AI Agents'];
 import BlogLayout, { P, H2, H3, Ul, DarkCard, StepCard, Blockquote, CalloutPill, BlogCTA } from './BlogLayout';
 
 const TOC = [
@@ -15,18 +14,6 @@ const TOC = [
 
 export default function BlogPostAICompliance() {
   return (
-    <>
-      <Helmet>
-        <title>Integrating AI Agents in Debt Collection Without Compliance Risk</title>
-        <meta name="description" content="A practical guide to integrating AI agents into debt collection while maintaining compliance, control, and operational clarity." />
-        <meta property="og:title" content="Integrating AI Agents in Debt Collection Without Compliance Risk" />
-        <meta property="og:description" content="A practical guide to integrating AI agents into debt collection while maintaining compliance, control, and operational clarity." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blogs/integrate-ai-agents-collections-compliance" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <BlogLayout
       image="/features/ask-ai.jpg"
       title={
@@ -37,7 +24,7 @@ export default function BlogPostAICompliance() {
       readTime="18 min"
       tags={['Collections Strategy', 'Compliance & Operations', 'Technology & Integrations']}
       tocSections={TOC}
-      canonicalPath={route}
+      canonicalPath="/blogs/integrate-ai-agents-collections-compliance"
       datePublished="2025-12-01"
       category="Collections Strategy"
       cta={
@@ -232,6 +219,5 @@ export default function BlogPostAICompliance() {
         'Use what you learn to decide where AI truly adds value, and where human collectors should always stay in control.',
       ]} />
     </BlogLayout>
-    </>
   );
 }

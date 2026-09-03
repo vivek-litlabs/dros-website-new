@@ -1,6 +1,5 @@
-export const route = '/blogs/right-party-contact-rpc-learnings-from-the-field';
-export const tags = ['Field Insights', 'Right Party Contact', 'Collections Strategy & Performance'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Field Insights', 'Right Party Contact', 'Collections Strategy & Performance'];
 import BlogLayout, { P, H2, H3, Ul, DarkCard, StepCard, BlogCTA } from './BlogLayout';
 
 const TOC = [
@@ -17,18 +16,6 @@ const TOC = [
 
 export default function BlogPostRPC() {
   return (
-    <>
-      <Helmet>
-        <title>Right Party Contact in Debt Collection: What Calls Reveal</title>
-        <meta name="description" content="Why right party contact is stuck at 26% and what real collection calls reveal about improving contact rates and recovery outcomes." />
-        <meta property="og:title" content="Right Party Contact in Debt Collection: What Calls Reveal" />
-        <meta property="og:description" content="Why right party contact is stuck at 26% and what real collection calls reveal about improving contact rates and recovery outcomes." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blogs/right-party-contact-rpc-learnings-from-the-field" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <BlogLayout
       image="/features/call-analytics.jpg"
       title="What Thousands of Debt Collection Calls Taught Us About Right Party Contact"
@@ -36,7 +23,7 @@ export default function BlogPostRPC() {
       readTime="15 min"
       tags={tags}
       tocSections={TOC}
-      canonicalPath={route}
+      canonicalPath="/blogs/right-party-contact-rpc-learnings-from-the-field"
       datePublished="2025-10-01"
       category="Collections Strategy"
       cta={
@@ -222,6 +209,5 @@ export default function BlogPostRPC() {
         <p className="text-slate-900 font-bold text-xl sm:text-2xl text-center">RPC is not a mystery. It is a design problem.</p>
       </div>
     </BlogLayout>
-    </>
   );
 }

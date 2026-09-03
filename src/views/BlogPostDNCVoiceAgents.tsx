@@ -1,6 +1,5 @@
-export const route = '/blogs/ai-voice-agents-dnc-disputes-compliance-2026';
-export const tags = ['Compliance & Operations', 'AI Voice Agents', 'DNC', 'Technology & Integrations'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Compliance & Operations', 'AI Voice Agents', 'DNC', 'Technology & Integrations'];
 import { ArrowRight } from 'lucide-react';
 import BlogLayout, { P, H2, Ul, DarkCard, StepCard, Screenshot, BlogCTA, BlogFAQ } from './BlogLayout';
 
@@ -26,18 +25,6 @@ const TOC = [
 
 export default function BlogPostDNCVoiceAgents() {
   return (
-    <>
-      <Helmet>
-        <title>AI Voice Agents &amp; DNC Compliance in Debt Collection</title>
-        <meta name="description" content="How AI voice agents handle do-not-call requests, disputes, and compliance scenarios in modern debt collection workflows." />
-        <meta property="og:title" content="AI Voice Agents &amp; DNC Compliance in Debt Collection" />
-        <meta property="og:description" content="How AI voice agents handle do-not-call requests, disputes, and compliance scenarios in modern debt collection workflows." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blogs/ai-voice-agents-dnc-disputes-compliance-2026" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <BlogLayout
       image="/blog/grid-perspective.avif"
       title={
@@ -48,7 +35,7 @@ export default function BlogPostDNCVoiceAgents() {
       readTime="12 min"
       tags={['Compliance & Operations']}
       tocSections={TOC}
-      canonicalPath={route}
+      canonicalPath="/blogs/ai-voice-agents-dnc-disputes-compliance-2026"
       datePublished="2026-01-15"
       category="Compliance & Operations"
       faq={faqItems}
@@ -183,6 +170,5 @@ export default function BlogPostDNCVoiceAgents() {
       <H2 id="faq">FAQ</H2>
       <BlogFAQ items={faqItems} />
     </BlogLayout>
-    </>
   );
 }

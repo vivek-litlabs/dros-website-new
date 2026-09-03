@@ -1,29 +1,16 @@
-export const route = '/blogs/what-we-learned-aca-2026';
-export const tags = ['Field Insights', 'Compliance & Operations', 'Collections Strategy & Performance'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Field Insights', 'Compliance & Operations', 'Collections Strategy & Performance'];
 import BlogLayout, { P, H2, Ul, DarkCard, Blockquote, BlogCTA } from './BlogLayout';
 
 export default function BlogPostACA2026() {
   return (
-    <>
-      <Helmet>
-        <title>What We Learned at ACA International Convention 2026</title>
-        <meta name="description" content="DROS spent three days at Booth #403 at ACA International Convention 2026 in Orlando. Here is what collections leaders told us about inbound demand, compliance, and the digital shift in debt collection." />
-        <meta property="og:title" content="What We Learned at ACA International Convention 2026" />
-        <meta property="og:description" content="Field notes from three days at Booth #403: inbound demand, compliance as the first question, and why consumers may prefer talking to AI about debt." />
-        <meta property="og:image" content="https://dros.ai/blog/aca-2026-conference-session.jpg" />
-        <meta property="og:url" content="https://dros.ai/blogs/what-we-learned-aca-2026" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/blog/aca-2026-conference-session.jpg" />
-      </Helmet>
       <BlogLayout
         image="/blog/aca-2026-conference-session.jpg"
         title="What We Learned at ACA International Convention 2026"
         subtitle="Three days at Booth #403. Hundreds of conversations. Five things the industry told us."
         readTime="7 min"
         tags={tags}
-        canonicalPath={route}
+        canonicalPath="/blogs/what-we-learned-aca-2026"
         datePublished="2026-08-07"
         category="Field Insights"
         cta={
@@ -142,6 +129,5 @@ export default function BlogPostACA2026() {
           Voice solved the call. It never solved the workflow. Three days in Orlando confirmed the industry knows it too.
         </P>
       </BlogLayout>
-    </>
   );
 }

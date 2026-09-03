@@ -1,8 +1,7 @@
-export const route = '/events';
-import { Link } from 'react-router-dom';
+'use client';
+import Link from 'next/link';
 import { ArrowRight, Calendar, MapPin } from 'lucide-react';
 import Footer from './Footer';
-import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 import Reveal, { RevealItem } from '../components/Reveal';
 import ResourceHero from '../components/ResourceHero';
@@ -46,10 +45,6 @@ const pastEvents: Event[] = [
 export default function EventsListingPage() {
   return (
     <div className="min-h-screen bg-white">
-      <Helmet>
-        <title>Events | Meet DROS at Collections Conferences</title>
-        <meta name="description" content="Meet us at industry conferences and discover how DROS is transforming debt collection." />
-      </Helmet>
       <Navbar transparent />
 
       <ResourceHero
@@ -93,7 +88,7 @@ export default function EventsListingPage() {
 
 function EventRow({ event, muted = false }: { event: Event; muted?: boolean }) {
   return (
-    <Link to={event.slug} className="group flex flex-col gap-3 py-8">
+    <Link href={event.slug} prefetch={false} className="group flex flex-col gap-3 py-8">
       <h3 className={`font-saans text-xl font-light leading-[1.15] tracking-[-0.03em] transition-colors md:text-[22px] ${muted ? 'text-black/70 group-hover:text-black' : 'text-black'}`}>
         {event.title}
       </h3>

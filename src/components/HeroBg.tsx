@@ -1,4 +1,3 @@
-'use client';
 import { useEffect, useRef, useState } from 'react';
 
 /*
@@ -7,15 +6,18 @@ import { useEffect, useRef, useState } from 'react';
  * Loads eager + high priority since it's always the LCP element, and
  * cross-fades in on load instead of popping in after the hero text and
  * causing a jarring double-render.
+ *
+ * `onLoad` alone misses the case where the browser serves the image from
+ * cache synchronously (byte-cache-hit): the native `load` event can fire
+ * before React finishes attaching the listener, so `loaded` never flips
+ * and the image stays permanently at opacity-0. The effect below checks
+ * `img.complete` once after mount to catch that case without changing the
+ * fade-in behaviour for a genuinely uncached load.
  */
 export default function HeroBg({ image }: { image: string }) {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
-  // Under SSR/hydration, a cached image can finish loading (and fire its
-  // native `load` event) before React attaches the `onLoad` handler below,
-  // which would leave `loaded` stuck at false forever. Check `complete` once
-  // mounted as a fallback for that race.
   useEffect(() => {
     if (imgRef.current?.complete) setLoaded(true);
   }, []);
