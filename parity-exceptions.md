@@ -87,3 +87,16 @@ authored and would leave the silent-overwrite bug in place.
 **Visual impact:** None.
 **Signed off:** Controller, 2026-09-03. Flagged to the user; revert to the `*`-only rule set
 if strict parity is preferred over shipping the authored intent.
+
+### viewport meta: `initial-scale=1.0` vs `initial-scale=1` (normalised, not excepted)
+**Cause:** `index.html` declared `initial-scale=1.0`. Next's `Viewport` type takes a number,
+and JS serialises `1.0` as `"1"`, so an exact-string match is impossible through the
+framework. The values are identical to every browser and produce a 0px pixel diff.
+**Resolution:** a single targeted rewrite in `parity/assert-meta.ts` treats those two exact
+values as equivalent. Chosen over excepting the `viewport` field wholesale, which would have
+made all 41 routes report a failure on a semantically-null difference and trained readers to
+ignore metadata failures.
+**Scope proven by negative test:** `initial-scale=2`, an added `maximum-scale=1`, and
+`width=1024` all still FAIL the gate. Only the one known-equivalent pair is normalised.
+**Visual impact:** None (0px on all three viewports).
+**Signed off:** Controller, 2026-09-03.

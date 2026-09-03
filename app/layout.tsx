@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { Suspense } from 'react';
 import '../src/index.css';
@@ -12,6 +12,18 @@ export const metadata: Metadata = {
     'AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.',
   icons: { icon: '/DROS_symbol_1_(1).svg' },
   verification: { google: 'fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw' },
+};
+
+/**
+ * index.html declared `initial-scale=1.0`; Next's implicit default emits `initial-scale=1`.
+ * The two are semantically identical to every browser and have zero visual effect, but the
+ * parity harness compares metadata as exact strings, so the difference would fail all 41
+ * routes. Declaring it explicitly keeps the gate meaningful rather than teaching it to
+ * ignore a field.
+ */
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

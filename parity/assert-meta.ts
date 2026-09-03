@@ -21,6 +21,25 @@ function canon(v: unknown): string {
   return JSON.stringify(sort(v));
 }
 
+
+/**
+ * Normalises the ONE known semantically-equivalent difference between the two builds.
+ *
+ * index.html declared `initial-scale=1.0`; Next's Viewport type takes a number, and JS
+ * serialises 1.0 as "1", so an exact-string match is impossible through the framework.
+ * The two values are identical to every browser and produce a 0px pixel diff.
+ *
+ * This is deliberately a single targeted rewrite rather than skipping the viewport field:
+ * any OTHER change to viewport still fails the gate. Excepting the field wholesale would
+ * have made 41 routes fail on a semantically-null difference, which trains readers to
+ * ignore metadata failures — worse than the difference itself.
+ */
+function normaliseMetaValue(key: string, value: string | undefined): string | undefined {
+  if (value === undefined) return value;
+  if (key === 'viewport') return value.replace(/initial-scale=1\.0(?![0-9])/, 'initial-scale=1');
+  return value;
+}
+
 /** Returns one string per difference. Empty array means identical. */
 export function diffMeta(base: PageMeta, cur: PageMeta): string[] {
   const problems: string[] = [];
@@ -31,7 +50,9 @@ export function diffMeta(base: PageMeta, cur: PageMeta): string[] {
 
   const keys = new Set([...Object.keys(base.metas), ...Object.keys(cur.metas)]);
   for (const k of keys) {
-    if (base.metas[k] !== cur.metas[k]) {
+    const b = normaliseMetaValue(k, base.metas[k]);
+    const c = normaliseMetaValue(k, cur.metas[k]);
+    if (b !== c) {
       problems.push(`meta[${k}]: baseline "${base.metas[k] ?? '(missing)'}" vs current "${cur.metas[k] ?? '(missing)'}"`);
     }
   }

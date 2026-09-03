@@ -77,6 +77,14 @@ async function applyNetworkPolicy(page: Page, baseUrl: string): Promise<void> {
   const siteOrigin = new URL(baseUrl).origin;
   await page.route('**/*', (route) => {
     const url = route.request().url();
+    // Next prefetches linked routes in the background. Mid-migration those hit not-yet-ported
+    // paths, and even when complete they keep the network busy indefinitely, which stalls the
+    // `networkidle` wait this harness depends on. Prefetches never affect what the page
+    // renders, so satisfying them silently costs no fidelity.
+    if (route.request().headers()['next-router-prefetch'] !== undefined) {
+      return route.fulfill({ status: 204, body: '' });
+    }
+
     if (url.startsWith(siteOrigin) || url.startsWith('data:') || url.startsWith('blob:')) {
       return route.continue();
     }
