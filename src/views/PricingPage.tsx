@@ -1,7 +1,6 @@
-export const route = '/pricing';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+'use client';
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check as CheckIcon, Minus, ChevronDown, ShieldCheck, Lock, FileCheck, Activity, Quote, Users, Sparkles, Headset } from 'lucide-react';
 import Navbar from './Navbar';
@@ -27,9 +26,16 @@ import { PLANS, type Plan } from '../data/plans';
 
 function PricingHeroBg() {
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
+
   return (
     <div aria-hidden="true" className="absolute inset-0 z-0">
       <img
+        ref={imgRef}
         src="/pricing-hero-bg.jpg"
         alt=""
         fetchPriority="high"
@@ -148,11 +154,11 @@ const FAQS: Faq[] = [
     aNode: (
       <>
         Yes. DROS handles both{' '}
-        <Link to="/collections/first-party" className="text-accent underline underline-offset-2 transition-opacity hover:opacity-80">
+        <Link href="/collections/first-party" className="text-accent underline underline-offset-2 transition-opacity hover:opacity-80">
           first-party collections
         </Link>{' '}
         and{' '}
-        <Link to="/collections/third-party" className="text-accent underline underline-offset-2 transition-opacity hover:opacity-80">
+        <Link href="/collections/third-party" className="text-accent underline underline-offset-2 transition-opacity hover:opacity-80">
           third-party agency
         </Link>{' '}
         workflows. Run multiple client portfolios in separate workspaces, each with its own call flows, compliance settings, and
@@ -290,22 +296,7 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-base text-ink">
-      <Helmet>
-        <title>Pricing - DROS</title>
-        <meta
-          name="description"
-          content="Four plans built to scale with your portfolio. Simple, transparent pricing for AI-powered debt collection."
-        />
-        <link rel="canonical" href="https://dros.ai/pricing" />
-        <meta property="og:title" content="Pricing - DROS" />
-        <meta
-          property="og:description"
-          content="Four plans built to scale with your portfolio. Simple, transparent pricing for AI-powered debt collection."
-        />
-        <meta property="og:url" content="https://dros.ai/pricing" />
-        <meta property="og:type" content="website" />
-        <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
-      </Helmet>
+      <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
 
       <Navbar transparent />
 
@@ -552,7 +543,7 @@ export default function PricingPage() {
                 </Heading>
                 <p className="mt-4 text-sm leading-relaxed text-ink/50">
                   Can't find your answer?{' '}
-                  <Link to="/contact" className="text-accent underline underline-offset-2 hover:opacity-80">
+                  <Link href="/contact" className="text-accent underline underline-offset-2 hover:opacity-80">
                     Reach out to our team
                   </Link>
                   .

@@ -1,5 +1,5 @@
 import { Plus, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Container, Eyebrow } from '../ui';
 import Reveal from '../Reveal';
 
@@ -56,7 +56,7 @@ export default function WhoIsItFor() {
             </h2>
           </div>
           <Link
-            to="/book-meeting"
+            href="/book-meeting"
             className="group inline-flex shrink-0 items-center gap-2 pb-0.5 text-base font-semibold text-ink-dark"
           >
             Talk to Our AI Agent
@@ -71,7 +71,7 @@ export default function WhoIsItFor() {
           {AUDIENCES.map((audience) => (
             <Link
               key={audience.title}
-              to={audience.href}
+              href={audience.href}
               className="group relative isolate flex min-w-[200px] flex-1 flex-col items-start justify-between overflow-hidden p-5 transition-[flex-grow] duration-[600ms] ease-premium will-change-[flex-grow] sm:p-6 md:hover:flex-[1.6]"
             >
               <img
