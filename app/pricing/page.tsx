@@ -16,16 +16,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    title: 'AI Agents for Collections | DROS AI',
+    description:
+      'AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.',
+    images: ['https://dros.ai/untitled_logo_1_basic-file.png'],
   },
   other: {
     title: 'AI Agents for Collections | DROS AI',
     'og:url': 'https://dros.ai/pricing',
     'og:image': 'https://dros.ai/untitled_logo_1_basic-file.png',
     'twitter:url': 'https://dros.ai/',
-    'twitter:title': 'AI Agents for Collections | DROS AI',
-    'twitter:description':
-      'AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.',
-    'twitter:image': 'https://dros.ai/untitled_logo_1_basic-file.png',
   },
 };
 
