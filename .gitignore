@@ -48,3 +48,6 @@ parity/video/
 # (title/meta/canonical/JSON-LD) that the migration must preserve, so they belong in
 # code review.
 parity/baseline/**/*.png
+
+# Agent worktrees (scratch, per-agent isolation)
+.claude/worktrees/
