@@ -1,6 +1,5 @@
-export const route = '/use-cases/ai-voice-agent-payment-reminders';
+'use client';
 import { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
@@ -274,20 +273,7 @@ export default function PaymentReminders() {
 
   return (
     <div className="min-h-screen" style={{ fontFamily: "'Saans','Inter',sans-serif", background: '#010C20', color: '#fff' }}>
-      <Helmet>
-        <title>AI Voice Agent for Payment Reminders | DROS</title>
-        <meta name="description" content="DROS AI voice agents automate payment reminder calls at scale - pre-due nudges, past-due outreach, PTP follow-ups. Compliant with FDCPA, TCPA & Reg F. Used by first-party collections, BNPL, healthcare, auto finance & utilities teams." />
-        <link rel="canonical" href="https://dros.ai/use-cases/ai-voice-agent-payment-reminders" />
-        <meta property="og:title" content="AI Voice Agent for Payment Reminders | DROS" />
-        <meta property="og:description" content="Automate payment reminder calls at scale - pre-due nudges, past-due outreach, and PTP follow-ups. Compliant, consistent, 24/7." />
-        <meta property="og:url" content="https://dros.ai/use-cases/ai-voice-agent-payment-reminders" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="DROS" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="AI Voice Agent for Payment Reminders | DROS" />
-        <meta name="twitter:description" content="Automate payment reminder calls at scale - pre-due nudges, past-due outreach, and PTP follow-ups. FDCPA, TCPA & Reg F compliant." />
-        <meta name="robots" content="index, follow" />
-        <script type="application/ld+json">{JSON.stringify({
+      <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@graph": [
             { "@type": "WebPage", "url": "https://dros.ai/use-cases/ai-voice-agent-payment-reminders", "name": "AI Voice Agent for Payment Reminders | DROS", "description": "Use DROS AI voice agents to automate high-volume payment reminder calls - pre-due, past-due, and promise-to-pay follow-ups. FDCPA, TCPA, and Reg F compliant." },
@@ -299,7 +285,6 @@ export default function PaymentReminders() {
             ] }
           ]
         })}</script>
-      </Helmet>
 
       <Navbar />
 

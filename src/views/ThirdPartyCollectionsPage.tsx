@@ -1,7 +1,6 @@
-export const route = '/collections/third-party';
+'use client';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Link from 'next/link';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -104,20 +103,7 @@ export default function ThirdPartyCollectionsPage() {
 
   return (
     <PageFade className="min-h-screen bg-base text-ink">
-      <Helmet>
-        <title>AI-Powered Third-Party Collections Software for Agencies | DROS</title>
-        <meta name="description" content="DROS coordinates AI voice agents, human agents, and your existing dialers across every client portfolio - with FDCPA, Reg F, and TCPA compliance enforced before the first dial." />
-        <meta name="keywords" content="third-party collections software, debt collection agency software, collections agency platform, AI voice agents debt collection, FDCPA compliant collections software, Reg F 7-in-7 compliance, TCPA consent management, multi-portfolio collections management, collections dialer compliance, third party debt collection technology, collections engagement platform" />
-        <link rel="canonical" href="https://dros.ai/collections/third-party" />
-        <meta property="og:title" content="AI-Powered Third-Party Collections Software for Agencies | DROS" />
-        <meta property="og:description" content="DROS coordinates AI voice agents, human agents, and your existing dialers across every client portfolio. FDCPA, Reg F, and TCPA compliance enforced before the first dial." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/collections/third-party" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-      </Helmet>
+      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
 
       <Navbar transparent />
 
@@ -633,7 +619,7 @@ export default function ThirdPartyCollectionsPage() {
                 </Heading>
                 <p className="mt-4 text-sm leading-relaxed text-ink-grey">
                   Can't find your answer?{' '}
-                  <Link to="/contact" className="text-accent underline underline-offset-2 hover:opacity-80">
+                  <Link href="/contact" className="text-accent underline underline-offset-2 hover:opacity-80">
                     Reach out to our team
                   </Link>
                   .

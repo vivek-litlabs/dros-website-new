@@ -1,7 +1,6 @@
-export const route = '/collections/debt-buyer';
+'use client';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Link from 'next/link';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -119,21 +118,8 @@ export default function DebtBuyerCollectionsPage() {
 
   return (
     <PageFade className="min-h-screen bg-base text-ink">
-      <Helmet>
-        <title>AI Agents for Debt Buyer Collections | DROS</title>
-        <meta name="description" content="DROS helps debt buyers who self-collect run AI agents and human collectors on purchased portfolios - with per-acquisition workspaces, Reg F guardrails, and full engagement history in one platform. Built for charged-off portfolio recovery teams." />
-        <meta name="keywords" content="debt buyer collections software, AI agents for debt collection, charged off portfolio collections, purchased portfolio collections platform, debt buyer collections platform, AI debt collection software, self-collect debt buyer, collections software charged off accounts, Reg F debt buyer, debt recovery AI agents" />
-        <link rel="canonical" href="https://dros.ai/collections/debt-buyer" />
-        <meta property="og:title" content="AI Agents for Debt Buyer Collections | DROS" />
-        <meta property="og:description" content="DROS helps debt buyers who self-collect run AI agents and human collectors on purchased portfolios - with per-acquisition workspaces, Reg F guardrails, and full engagement history in one platform." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/collections/debt-buyer" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <script type="application/ld+json">{JSON.stringify(softwareSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-      </Helmet>
+      <script type="application/ld+json">{JSON.stringify(softwareSchema)}</script>
+      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
 
       <Navbar transparent />
 
@@ -674,7 +660,7 @@ export default function DebtBuyerCollectionsPage() {
                 </Heading>
                 <p className="mt-4 text-sm leading-relaxed text-ink-grey">
                   Can't find your answer?{' '}
-                  <Link to="/contact" className="text-accent underline underline-offset-2 hover:opacity-80">
+                  <Link href="/contact" className="text-accent underline underline-offset-2 hover:opacity-80">
                     Reach out to our team
                   </Link>
                   .
