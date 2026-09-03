@@ -51,3 +51,7 @@ parity/baseline/**/*.png
 
 # Agent worktrees (scratch, per-agent isolation)
 .claude/worktrees/
+
+# Next build output
+.next/
+next-env.d.ts

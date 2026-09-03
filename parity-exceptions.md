@@ -65,3 +65,25 @@ ONLY on `/resources/videos` and `/collections-ai-workshop`. The same message on 
 route still fails the gate, which an unscoped pattern would have silently excused. Verified
 by unit test: embed messages blocked on `/pricing`, and a genuine React key warning blocked
 even on an embed route.
+
+### robots.txt — merged two conflicting sources (intentional deviation)
+**Cause:** Two sources competed and neither shipped what its author intended.
+`public/robots.txt` was hand-authored with explicit `Allow` entries for GPTBot, ClaudeBot,
+PerplexityBot, OAI-SearchBot and Google-Extended, but carried no `Sitemap:` directive.
+Under Vite, `vite-plugin-sitemap` **overwrote that file at build time** — `dist/robots.txt`
+shipped with only a `*` rule plus the Sitemap line, so the AI-crawler entries never reached
+production. Under Next the precedence flips: a static `public/robots.txt` shadows
+`app/robots.ts`, which would have served the AI entries while silently dropping the Sitemap
+directive.
+**Resolution:** `public/robots.txt` deleted; `app/robots.ts` is now the single source and
+emits the union — all five AI-crawler rules, the `*` rule, and the Sitemap directive.
+Verified served output contains all six rules and the Sitemap line.
+**Deviation from strict parity:** yes. Today's production robots.txt does NOT contain the
+AI-crawler entries. Serving them is a change, deliberately chosen because the entries were
+written on purpose, they are aligned with this project's entire objective (AI-crawler
+visibility), and they are redundant-but-harmless under strict robots semantics. The
+alternative — reproducing today's output exactly — would knowingly discard a file someone
+authored and would leave the silent-overwrite bug in place.
+**Visual impact:** None.
+**Signed off:** Controller, 2026-09-03. Flagged to the user; revert to the `*`-only rule set
+if strict parity is preferred over shipping the authored intent.
