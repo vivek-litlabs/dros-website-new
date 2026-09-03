@@ -1197,6 +1197,41 @@ git commit -m "feat(next): migrate pilot blog route; CP2 green at zero diff with
 - Consumes: the Port Recipe (Task 6).
 - Produces: confidence that Navbar, Footer, `Reveal`, `PageFade` and the `ui` primitives are correct before bulk migration.
 
+- [ ] **Step 0: Port the third-party head scripts that `app/layout.tsx` currently drops**
+
+`index.html` carries four third-party loaders the Task 5 layout does not reproduce. Dropping
+them loses analytics, visitor identification, and the **Crisp chat widget, which is visible
+UI**. No gate in this plan would catch it: the harness fulfils third-party requests with an
+empty 204, so Crisp renders in neither build during capture. Verified present in
+`index.html`: `googletagmanager.com`, `clarity.ms`, `reb2b`, `crisp.chat`.
+
+Port each with `next/script` in `app/layout.tsx`, preserving the exact identifiers:
+
+| Loader | Identifier | Strategy |
+|---|---|---|
+| GA4 `gtag.js` | `G-TT8WJVR53D` | `afterInteractive` |
+| Microsoft Clarity | `uqmzb4i25n` | `afterInteractive` |
+| reb2b | `G4N210H0DK6Z` | `afterInteractive` |
+| Crisp chat | `09fd1c51-2e69-4224-876c-5913f498b5da` | `lazyOnload` |
+
+Copy each inline snippet verbatim from `index.html` — do not rewrite them, and do not
+"modernise" the loader code. Keep the two deferred stylesheet + `<noscript>` pairs already in
+the layout untouched.
+
+**Do NOT resolve the duplicate GA4 here.** `gtag.js` in `index.html` and `react-ga4` in
+`src/main.tsx` both initialise `G-TT8WJVR53D`, which likely double-counts pageviews today.
+Reproduce the existing behaviour exactly; changing analytics continuity is the user's
+decision, and it is flagged separately for them.
+
+Verification: the scripts are blocked during capture, so the pixel gate cannot confirm them.
+Instead assert they are present in the served HTML:
+
+```bash
+curl -s http://localhost:3000/ | grep -cE "googletagmanager|clarity|reb2b|crisp"
+```
+
+Expected: at least 4.
+
 - [ ] **Step 1: Port three structurally different routes using the Port Recipe**
 
 Apply Task 6's seven-step recipe to:
@@ -1346,6 +1381,27 @@ module.exports = {
 
 `permanent: false` (307) matches today's behaviour, which asserts nothing permanent.
 
+**Also reproduce the one `vercel.json` header that Next does not provide natively.** Of the
+four entries in `vercel.json`, the SPA rewrite and the `/index.html` header become obsolete,
+and `/assets/` caching is covered by Next's immutable `_next/static` headers. But `/fonts/`
+is not: Saans is self-hosted from `public/fonts/`, and Vercel does not automatically apply
+long-lived caching to arbitrary `public/` files. Losing this is invisible to every gate in
+this plan and costs real font-caching performance, so add it to the same `next.config.js`:
+
+```js
+  async headers() {
+    return [
+      {
+        source: '/fonts/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+    ];
+  },
+```
+
+Verify: `curl -sI http://localhost:3000/fonts/saans/saans-variable.woff2 | grep -i cache-control`
+should report `public, max-age=31536000, immutable`.
+
 Delete both `.tsx` files. They are already absent from `parity/routes.json` (removed in Task 1,
 Step 2b) and already recorded in `parity-exceptions.md`, so no manifest change is needed here.
 
@@ -1469,7 +1525,13 @@ Create `app/sitemap.ts` and `app/robots.ts` reading from `parity/routes.json`, r
 curl -s http://localhost:3000/sitemap.xml | grep -c "<loc>"
 ```
 
-Expected: `41`. Compare the URL set against `dist/sitemap.xml` from the Vite build and confirm only `/api-docs` and `/release-notes` are absent.
+Expected: `41`.
+
+The Vite build's `dist/sitemap.xml` contains **44** `<loc>` entries: the 43 declared routes
+plus the throwaway `/probe`. The Next sitemap should contain 41 — three fewer than the 44,
+after removing `/probe` (deleted in this task) and the two client-side redirects, which are
+not pages and do not belong in a sitemap. Compare the URL sets and confirm those three are
+the only differences.
 
 - [ ] **Step 6: Motion and scroll review (spec §5.3)**
 
