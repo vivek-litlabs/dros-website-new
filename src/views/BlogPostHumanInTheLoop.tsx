@@ -1,6 +1,5 @@
-export const route = '/blogs/human-in-the-loop-collections';
-export const tags = ['Collections Strategy & Performance', 'AI Voice Agents', 'Compliance & Operations'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Collections Strategy & Performance', 'AI Voice Agents', 'Compliance & Operations'];
 import BlogLayout, { P, H2, H3, Ul, DarkCard, StepCard, BlogCTA, BlogFAQ } from './BlogLayout';
 
 const faqItems = [
@@ -44,25 +43,13 @@ const TOC = [
 
 export default function BlogPostHumanInTheLoop() {
   return (
-    <>
-      <Helmet>
-        <title>Human-in-the-Loop Debt Collection: When AI Should Hand Off to Agents</title>
-        <meta name="description" content="Learn when AI agents should escalate to human collectors, how to design clean handoffs, and how DROS keeps AI and human workflows coordinated in debt collection." />
-        <meta property="og:title" content="Human-in-the-Loop Debt Collection: When AI Should Hand Off to Agents" />
-        <meta property="og:description" content="Learn when AI agents should escalate to human collectors, how to design clean handoffs, and how DROS keeps AI and human workflows coordinated in debt collection." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blogs/human-in-the-loop-collections" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <BlogLayout
         image="/blog/venn-overlap.avif"
         title="Human-in-the-Loop Debt Collection: When AI Should Hand Off to Agents (and How to Do It Well)"
         readTime="14 min"
         tags={['Collections Strategy & Performance', 'Compliance & Operations']}
         tocSections={TOC}
-        canonicalPath={route}
+        canonicalPath="/blogs/human-in-the-loop-collections"
         datePublished="2026-06-12"
         category="Collections Strategy & Performance"
         faq={faqItems}
@@ -404,6 +391,5 @@ export default function BlogPostHumanInTheLoop() {
         <H2 id="faq">FAQ</H2>
         <BlogFAQ items={faqItems} />
       </BlogLayout>
-    </>
   );
 }

@@ -1,6 +1,5 @@
-export const route = '/blogs/digital-first-collections-small-agencies-2026';
-export const tags = ['Collections Strategy & Performance', 'Digital-First', 'AI Agents', 'Field Insights'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Collections Strategy & Performance', 'Digital-First', 'AI Agents', 'Field Insights'];
 import BlogLayout, { P, H2, H3, Ul, DarkCard, BlogCTA } from './BlogLayout';
 
 const TOC = [
@@ -19,18 +18,6 @@ const TOC = [
 
 export default function BlogPostDigitalFirst() {
   return (
-    <>
-      <Helmet>
-        <title>Digital-First Debt Collection for Small Agencies in 2026</title>
-        <meta name="description" content="Digital-first collections are reshaping small agencies. See what's changing in 2026 and how to adapt without adding complexity." />
-        <meta property="og:title" content="Digital-First Debt Collection for Small Agencies in 2026" />
-        <meta property="og:description" content="Digital-first collections are reshaping small agencies. See what's changing in 2026 and how to adapt without adding complexity." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blogs/digital-first-collections-small-agencies-2026" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <BlogLayout
       image="/features/payments.jpg"
       title={
@@ -42,7 +29,7 @@ export default function BlogPostDigitalFirst() {
       readTime="12 min"
       tags={tags}
       tocSections={TOC}
-      canonicalPath={route}
+      canonicalPath="/blogs/digital-first-collections-small-agencies-2026"
       datePublished="2026-02-01"
       category="Collections Strategy"
       cta={
@@ -195,6 +182,5 @@ export default function BlogPostDigitalFirst() {
         Whether you work with DROS or another vendor, the important thing is to <strong>start small, measure honestly, and keep moving</strong>.
       </P>
     </BlogLayout>
-    </>
   );
 }

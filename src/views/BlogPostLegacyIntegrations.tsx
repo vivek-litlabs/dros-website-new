@@ -1,6 +1,5 @@
-export const route = '/blogs/collections-integrations-legacy-systems';
-export const tags = ['Technology & Integrations', 'Legacy Systems', 'Collections Strategy & Performance'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Technology & Integrations', 'Legacy Systems', 'Collections Strategy & Performance'];
 import BlogLayout, { P, H2, Ul, DarkCard, StepCard, BlogCTA } from './BlogLayout';
 
 const TOC = [
@@ -17,25 +16,13 @@ const TOC = [
 
 export default function BlogPostLegacyIntegrations() {
   return (
-    <>
-      <Helmet>
-        <title>Why Collections Integrations Fail in Legacy Systems</title>
-        <meta name="description" content="Legacy systems break collections workflows. Learn why integrations fail, how tool sprawl impacts recovery, and what to fix before introducing AI." />
-        <meta property="og:title" content="Why Collections Integrations Fail in Legacy Systems" />
-        <meta property="og:description" content="Legacy systems break collections workflows. Learn why integrations fail, how tool sprawl impacts recovery, and what to fix before introducing AI." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blogs/collections-integrations-legacy-systems" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <BlogLayout
       image="/features/workflows.jpg"
       title="Why Collections Integrations Break Down With Legacy Systems  - and What to Fix First"
       readTime="14 min"
       tags={['Technology & Integrations']}
       tocSections={TOC}
-      canonicalPath={route}
+      canonicalPath="/blogs/collections-integrations-legacy-systems"
       datePublished="2026-01-01"
       category="Technology & Integrations"
       cta={
@@ -297,6 +284,5 @@ export default function BlogPostLegacyIntegrations() {
         'and fix the plumbing before you turn up the pressure.',
       ]} />
     </BlogLayout>
-    </>
   );
 }

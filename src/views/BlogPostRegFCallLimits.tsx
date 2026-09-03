@@ -1,6 +1,5 @@
-export const route = '/blog/reg-f-call-limits-ai-debt-collection';
-export const tags = ['Compliance & Operations', 'Reg F', 'AI Voice Agents', 'FDCPA'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Compliance & Operations', 'Reg F', 'AI Voice Agents', 'FDCPA'];
 import BlogLayout, {
   P, H2, H3, Ul, DarkCard, BlogCTA, BlogFAQ,
   type FaqItem,
@@ -114,25 +113,13 @@ function SideCards({ left, right }: { left: { title: string; items: string[] }; 
 
 export default function BlogPostRegFCallLimits() {
   return (
-    <>
-      <Helmet>
-        <title>How Reg F Call Limits and Call Hours Work in AI Debt Collection</title>
-        <meta name="description" content="Understand FDCPA call-hour rules, Reg F's 7-in-7 limit, and how AI collections software can apply them consistently with built-in settings." />
-        <meta property="og:title" content="How Reg F Call Limits and Call Hours Work in AI Debt Collection" />
-        <meta property="og:description" content="Understand FDCPA call-hour rules, Reg F's 7-in-7 limit, and how AI collections software can apply them consistently with built-in settings." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blog/reg-f-call-limits-ai-debt-collection" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <BlogLayout
         image="/blog/podium-steps.avif"
         title="How Reg F Call Limits and Call Hours Work in AI Debt Collection"
         readTime="10 min"
         tags={tags}
         tocSections={TOC}
-        canonicalPath={route}
+        canonicalPath="/blog/reg-f-call-limits-ai-debt-collection"
         datePublished="2026-05-14"
         category="Compliance"
         faq={FAQ}
@@ -276,6 +263,5 @@ export default function BlogPostRegFCallLimits() {
         <H2 id="faq">FAQ</H2>
         <BlogFAQ items={FAQ} />
       </BlogLayout>
-    </>
   );
 }

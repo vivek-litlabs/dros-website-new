@@ -1,9 +1,9 @@
-export const route = '/blogs';
+'use client';
 import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import Footer from './Footer';
 import { ArrowRight, ExternalLink, Search, X } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 import Reveal, { RevealItem } from '../components/Reveal';
 import { BlogCtaBand, BlogPostCard } from './BlogShared';
@@ -197,7 +197,7 @@ const categories: Category[] = [
 ];
 
 export default function BlogsPage() {
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -271,17 +271,6 @@ export default function BlogsPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Helmet>
-        <title>DROS Blog | AI, Collections, and Context Orchestration</title>
-        <meta name="description" content="Insights on modern debt collection, AI voice agents, compliance, and context orchestration for collections teams." />
-        <meta property="og:title" content="DROS Blog | AI, Collections, and Context Orchestration" />
-        <meta property="og:description" content="Insights on modern debt collection, AI voice agents, compliance, and context orchestration for collections teams." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blogs" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <Navbar />
 
       <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-32 sm:px-10 md:pt-36 lg:px-[60px]">
@@ -300,7 +289,7 @@ export default function BlogsPage() {
                 <FeaturedBody post={featuredPost} external />
               </a>
             ) : (
-              <Link to={featuredPost.slug!} className="group flex flex-col gap-6 md:flex-row md:gap-10">
+              <Link href={featuredPost.slug!} prefetch={false} className="group flex flex-col gap-6 md:flex-row md:gap-10">
                 <FeaturedMedia post={featuredPost} />
                 <FeaturedBody post={featuredPost} />
               </Link>
@@ -358,7 +347,7 @@ export default function BlogsPage() {
                     </div>
                   );
                   return post.slug ? (
-                    <Link key={i} to={post.slug}>{inner}</Link>
+                    <Link key={i} href={post.slug!} prefetch={false}>{inner}</Link>
                   ) : (
                     <a key={i} href={post.externalUrl!} target="_blank" rel="noopener noreferrer">{inner}</a>
                   );
