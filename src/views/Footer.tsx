@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+'use client';
+import Link from 'next/link';
 import { Youtube, Linkedin, Mail, Phone, Calendar, ShieldCheck } from 'lucide-react';
 
 const COMPLIANCE = ['SOC 2 Type II', 'FDCPA', 'TCPA', 'Reg F'];
@@ -42,7 +43,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-[1.8fr_1fr_1fr_1fr] md:gap-12">
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="inline-flex">
+            <Link prefetch={false} href="/" className="inline-flex">
               <img loading="lazy" decoding="async" src="/DROS_horizontal_dark_bg_1.svg" alt="DROS" className="h-8 w-auto" />
             </Link>
             <p className="mt-5 max-w-[280px] text-sm leading-relaxed text-ink/55">
@@ -60,7 +61,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <Link to="/book-meeting" className="flex items-center gap-2.5 text-sm text-ink/55 transition-colors hover:text-ink">
+                <Link prefetch={false} href="/book-meeting" className="flex items-center gap-2.5 text-sm text-ink/55 transition-colors hover:text-ink">
                   <Calendar className="h-3.5 w-3.5 shrink-0" /> Book a Meeting
                 </Link>
               </li>
@@ -73,7 +74,7 @@ export default function Footer() {
               <ul className="space-y-3">
                 {col.links.map(([label, href]) => (
                   <li key={label}>
-                    <Link to={href} className="text-sm text-ink/55 transition-colors hover:text-ink">
+                    <Link prefetch={false} href={href} className="text-sm text-ink/55 transition-colors hover:text-ink">
                       {label}
                     </Link>
                   </li>
@@ -110,8 +111,8 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-4">
             <div className="flex gap-4 text-sm text-ink/45">
-              <Link to="/contact" className="transition-colors hover:text-ink">Privacy</Link>
-              <Link to="/contact" className="transition-colors hover:text-ink">Terms</Link>
+              <Link prefetch={false} href="/contact" className="transition-colors hover:text-ink">Privacy</Link>
+              <Link prefetch={false} href="/contact" className="transition-colors hover:text-ink">Terms</Link>
             </div>
             <a href="https://www.youtube.com/@drosdotai" target="_blank" rel="noopener noreferrer" className="text-ink/50 transition-colors hover:text-ink" aria-label="YouTube">
               <Youtube className="h-4 w-4" />

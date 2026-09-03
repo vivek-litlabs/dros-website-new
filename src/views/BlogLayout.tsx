@@ -1,6 +1,6 @@
+'use client';
 import { useState, useCallback, type ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Link from 'next/link';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { trackCta } from '../lib/analytics';
 import Navbar from './Navbar';
@@ -110,12 +110,9 @@ export default function BlogLayout({ title, subtitle, tags, children, cta, image
 
   return (
     <div className="min-h-screen bg-white">
-      <Helmet>
-        {canonicalPath && <link rel="canonical" href={postUrl} />}
-        <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
-        {faqSchema && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}
-      </Helmet>
+      <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
+      <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+      {faqSchema && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}
       <Navbar />
 
       <div className="mx-auto w-full max-w-[1440px] px-6 pt-32 sm:px-10 md:pt-36 lg:px-[60px]">
@@ -144,7 +141,7 @@ export default function BlogLayout({ title, subtitle, tags, children, cta, image
           {children}
           {cta && <div className="mt-16">{cta}</div>}
           <div className="mt-14 pt-8 border-t border-[#E6E3E3]">
-            <Link to="/blogs" className="inline-flex items-center gap-2 font-medium text-black transition-opacity hover:opacity-70">
+            <Link prefetch={false} href="/blogs" className="inline-flex items-center gap-2 font-medium text-black transition-opacity hover:opacity-70">
               ← Back to all blogs
             </Link>
           </div>

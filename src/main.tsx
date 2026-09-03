@@ -81,7 +81,7 @@ const ACAOrlandoEvent = lazyWithRetry(() => import('./views/ACAOrlandoEvent.tsx'
 const VideosPage = lazyWithRetry(() => import('./views/VideosPage.tsx'));
 const WebinarsPage = lazyWithRetry(() => import('./views/WebinarsPage.tsx'));
 const BlogsPage = lazyWithRetry(() => import('./views/BlogsPage.tsx'));
-const BlogPost = lazyWithRetry(() => import('./views/BlogPost.tsx'));
+const BlogPost = lazyWithRetry(() => import('./views/BlogPostContextView.tsx'));
 const BlogPostDigitalFirst = lazyWithRetry(() => import('./views/BlogPostDigitalFirst.tsx'));
 const BlogPostRPC = lazyWithRetry(() => import('./views/BlogPostRPC.tsx'));
 const ContactUs = lazyWithRetry(() => import('./views/ContactUs.tsx'));

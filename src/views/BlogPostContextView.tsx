@@ -1,7 +1,7 @@
-export const route = '/blogs/why-context-not-more-tools-is-the-future-of-debt-collection';
-export const tags = ['Context & Omnichannel', 'Collections Strategy & Performance', 'Technology & Integrations'];
-import { Helmet } from 'react-helmet-async';
-import BlogLayout, { P, H2, Ul, CalloutPill } from './BlogLayout';
+'use client';
+import BlogLayout, { P, H2, Ul, CalloutPill } from '../views/BlogLayout';
+
+const tags = ['Context & Omnichannel', 'Collections Strategy & Performance', 'Technology & Integrations'];
 
 const TOC = [
   { id: 'mindset-shift',         label: 'From More Tools to Simplicity' },
@@ -12,21 +12,9 @@ const TOC = [
   { id: 'future-simple',         label: 'The Future Is Simple, Context-Driven' },
 ];
 
-export default function BlogPost() {
+export default function BlogPostContextView() {
   return (
-    <>
-      <Helmet>
-        <title>Why Debt Collection Needs Fewer Systems (Context Orchestration)</title>
-        <meta name="description" content="Too many tools slow collections teams down. Learn how context orchestration reduces system sprawl, improves visibility, and simplifies recovery workflows." />
-        <meta property="og:title" content="Why Debt Collection Needs Fewer Systems (Context Orchestration)" />
-        <meta property="og:description" content="Too many tools slow collections teams down. Learn how context orchestration reduces system sprawl, improves visibility, and simplifies recovery workflows." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blogs/why-context-not-more-tools-is-the-future-of-debt-collection" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
-      <BlogLayout
+    <BlogLayout
       image="/blog/pastel-orb.avif"
       title={
         <>
@@ -37,7 +25,7 @@ export default function BlogPost() {
       readTime="8 min"
       tags={tags}
       tocSections={TOC}
-      canonicalPath={route}
+      canonicalPath="/blogs/why-context-not-more-tools-is-the-future-of-debt-collection"
       datePublished="2025-11-01"
       category="Technology & Integrations"
     >
@@ -118,6 +106,5 @@ export default function BlogPost() {
         <p className="text-black/70 mt-2">Less tools. More signal. Better outcomes.</p>
       </CalloutPill>
     </BlogLayout>
-    </>
   );
 }

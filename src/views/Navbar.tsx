@@ -1,6 +1,8 @@
+'use client';
 import { useState, useEffect, useRef } from 'react';
 import type { CSSProperties } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 import { ChevronDown, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { Variants, TargetAndTransition } from 'framer-motion';
@@ -99,8 +101,8 @@ export default function Navbar({ transparent = false }: NavbarProps) {
   const [isMobileWhoWeServeOpen, setIsMobileWhoWeServeOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
   const reduce = useReducedMotion();
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -149,15 +151,16 @@ export default function Navbar({ transparent = false }: NavbarProps) {
 
   function handleAnchorClick(id: string) {
     setIsMenuOpen(false);
-    if (location.pathname === '/') {
+    if (pathname === '/') {
       scrollToId(id);
     } else {
-      navigate('/', { state: { scrollTo: id } });
+      try { sessionStorage.setItem('pending-scroll-id', id); } catch {}
+      router.push('/');
     }
   }
 
   const solid = !transparent || scrolled;
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => pathname === path;
 
   const primaryLinks: { label: string; anchor: string }[] = [
     { label: 'How It Works', anchor: 'how-it-works' },
@@ -208,7 +211,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="flex items-center justify-between"
           >
-            <Link to="/" className="group flex items-center" aria-label="DROS home">
+            <Link prefetch={false} href="/" className="group flex items-center" aria-label="DROS home">
               <motion.img
                 src="/DROS_horizontal_dark_bg_1.svg"
                 alt="DROS"
@@ -263,8 +266,8 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                               <div className="flex w-[190px] flex-col gap-3">
                                 {column.map(({ label, href, description }) => (
                                   <motion.div key={label} variants={dropdownItem}>
-                                    <Link
-                                      to={href}
+                                    <Link prefetch={false}
+                                      href={href}
                                       className="group flex flex-col gap-1 rounded-lg px-3 py-2 transition-colors hover:bg-white/[0.05]"
                                     >
                                       <span className="flex items-center text-[15px] font-medium leading-[1.2] text-ink/90 transition-colors group-hover:text-ink">
@@ -299,9 +302,9 @@ export default function Navbar({ transparent = false }: NavbarProps) {
               ))}
 
               {routeLinks.map(({ label, to }) => (
-                <Link
+                <Link prefetch={false}
                   key={to}
-                  to={to}
+                  href={to}
                   onMouseEnter={() => setHovered(to)}
                   className={`${itemClass} ${isActive(to) ? 'text-ink' : 'text-ink/65 hover:text-ink'}`}
                 >
@@ -365,8 +368,8 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                                         </span>
                                       </a>
                                     ) : (
-                                      <Link
-                                        to={href}
+                                      <Link prefetch={false}
+                                        href={href}
                                         className="group flex flex-col gap-1 rounded-lg px-3 py-2 transition-colors hover:bg-white/[0.05]"
                                       >
                                         <span className="flex items-center text-[15px] font-medium leading-[1.2] text-ink/90 transition-colors group-hover:text-ink">
@@ -473,8 +476,8 @@ export default function Navbar({ transparent = false }: NavbarProps) {
 
               {routeLinks.map(({ label, to }) => (
                 <motion.div key={to} variants={dropdownItem}>
-                  <Link
-                    to={to}
+                  <Link prefetch={false}
+                    href={to}
                     className="block py-2.5 text-ink/75 transition-colors hover:text-ink"
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -503,9 +506,9 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                       className="ml-3 overflow-hidden border-l border-hair pl-3"
                     >
                       {WHO_WE_SERVE_ITEMS.map(({ label, href, description }) => (
-                        <Link
+                        <Link prefetch={false}
                           key={label}
-                          to={href}
+                          href={href}
                           className="block py-2 transition-colors hover:text-ink"
                           onClick={() => setIsMenuOpen(false)}
                         >
@@ -554,9 +557,9 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                             <span className="block text-xs text-ink/40">{description}</span>
                           </a>
                         ) : (
-                          <Link
+                          <Link prefetch={false}
                             key={label}
-                            to={href}
+                            href={href}
                             className="block py-2 transition-colors hover:text-ink"
                             onClick={() => setIsMenuOpen(false)}
                           >

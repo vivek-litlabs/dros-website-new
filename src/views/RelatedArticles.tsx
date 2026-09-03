@@ -1,3 +1,4 @@
+'use client';
 import { blogPosts } from './BlogsPage';
 import { BlogPostCard } from './BlogShared';
 

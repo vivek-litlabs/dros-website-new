@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+'use client';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Section, Container, Heading, Button } from '../components/ui';
 import { SpinButton } from '../components/home/PostCTA';
@@ -90,7 +91,7 @@ export function BlogPostCard({ post }: { post: BlogCardData }) {
     );
   }
   return (
-    <Link to={post.slug!} className="group flex flex-col">
+    <Link prefetch={false} href={post.slug!} className="group flex flex-col">
       {inner}
     </Link>
   );

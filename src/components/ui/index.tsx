@@ -1,5 +1,6 @@
+'use client';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import type { ReactNode, ElementType } from 'react';
 import Counter from '../Counter';
 
@@ -211,7 +212,7 @@ export function Button({
 
   if (to) {
     return (
-      <MotionLink to={to} className={classes} onClick={onClick} aria-label={ariaLabel} {...motionProps}>
+      <MotionLink prefetch={false} href={to} className={classes} onClick={onClick} aria-label={ariaLabel} {...motionProps}>
         {children}
       </MotionLink>
     );
