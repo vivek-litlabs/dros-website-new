@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import '../src/index.css';
-import Providers from './providers';
+import ScrollRestoration from './scroll-restoration';
+import SiteAnalytics from './site-analytics';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://dros.ai'),
@@ -58,7 +60,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </noscript>
       </head>
       <body>
-        <Providers>{children}</Providers>
+        <ScrollRestoration />
+        <Suspense fallback={null}>
+          <SiteAnalytics />
+        </Suspense>
+        {children}
       </body>
     </html>
   );

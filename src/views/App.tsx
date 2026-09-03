@@ -2,7 +2,6 @@ export const route = '/';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import type Lenis from 'lenis';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Hero from '../components/home/Hero';
@@ -27,13 +26,8 @@ export default function App() {
     const attempt = (retries: number) => {
       const el = document.getElementById(scrollTo);
       if (el) {
-        const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
-        if (lenis) {
-          lenis.scrollTo(el, { offset: -navHeight });
-        } else {
-          const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
-          window.scrollTo({ top, behavior: 'smooth' });
-        }
+        const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+        window.scrollTo({ top, behavior: 'smooth' });
       } else if (retries > 0) {
         setTimeout(() => attempt(retries - 1), 100);
       }

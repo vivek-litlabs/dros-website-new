@@ -4,7 +4,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ChevronDown, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { Variants, TargetAndTransition } from 'framer-motion';
-import type Lenis from 'lenis';
 import { springSnappy, springStd } from '../lib/motion';
 
 interface NavbarProps {
@@ -15,13 +14,8 @@ function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
   const navHeight = 80;
-  const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
-  if (lenis) {
-    lenis.scrollTo(el, { offset: -navHeight });
-  } else {
-    const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
-    window.scrollTo({ top, behavior: 'smooth' });
-  }
+  const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+  window.scrollTo({ top, behavior: 'smooth' });
 }
 
 interface ResourceItem {
