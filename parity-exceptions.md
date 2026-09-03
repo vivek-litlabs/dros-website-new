@@ -100,3 +100,24 @@ ignore metadata failures.
 `width=1024` all still FAIL the gate. Only the one known-equivalent pair is normalised.
 **Visual impact:** None (0px on all three viewports).
 **Signed off:** Controller, 2026-09-03.
+
+### HeroBg: SSR-cached image never fades in (migration-induced regression, FIXED)
+**Not an exception — a genuine defect the migration introduces, recorded here because it is
+the most important finding of the porting phase.**
+**Cause:** `src/components/HeroBg.tsx` fades its background image in via `onLoad`. Under Vite
+the image loads after hydration, so `onLoad` fires reliably. Under Next the `<img>` is in the
+server-rendered HTML and can finish loading BEFORE React attaches the handler, so `onLoad`
+never fires, `loaded` stays false, and the hero stays permanently at `opacity-0`.
+**Evidence:** with the fix reverted, `/events` failed at 1,202,105 / 3,120,458 / 5,123,095
+pixels (mobile/tablet/desktop), identically across two runs. With the fix, 0/0/0.
+**Fix:** a `useEffect` checking `imgRef.current?.complete` on mount, preserving the original
+fade for the uncached case.
+**Blast radius:** `HeroBg` is rendered by 8 views via `ResourceHero` — the five
+`/collections/*` pages, `/adoption-gap-report-state-of-collections-2026`, `/trust-center`,
+and `/pricing`. `src/views/PricingPage.tsx` carries its own separate copy of the same
+`onLoad` pattern and needs the same treatment when it is ported.
+**Why this matters beyond one component:** this is the class of bug a pixel gate exists to
+catch. It is invisible to a build, to type-checking, and to any metadata assertion — the page
+renders, returns 200, and serves correct HTML, while a full-bleed hero image is simply
+missing. Only a screenshot comparison against the pre-migration build finds it.
+**Signed off:** Controller, 2026-09-04.
