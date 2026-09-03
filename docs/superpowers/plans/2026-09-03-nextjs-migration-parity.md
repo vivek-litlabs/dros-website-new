@@ -58,7 +58,7 @@
 | `app/sitemap.ts`, `app/robots.ts` | Replace `vite-plugin-sitemap`. |
 | `next.config.js` | Redirects for `/api-docs` and `/release-notes`. |
 
-**Deleted at the end:** `src/main.tsx`, `vite.config.ts`, `index.html`, `vercel.json`, `scripts/sync-routes.js`, `src/pages/` (after all moves), `react-helmet-async` + `lenis` + `vite*` deps.
+**Deleted at the end:** `src/main.tsx`, `vite.config.ts`, `index.html`, `vercel.json`, `scripts/sync-routes.js`, `react-helmet-async` + `lenis` + `vite*` deps. (`src/pages/` no longer exists — Task 5 Step 0 renames it to `src/views/`, because Next treats a `src/pages/` directory as a Pages Router.)
 
 ---
 
@@ -759,6 +759,38 @@ git commit -m "test(parity): capture 43-route baseline; CP0 green on two consecu
 - Consumes: `src/index.css` (unchanged), `tailwind.config.js`.
 - Produces: a bootable Next app at `localhost:3000` serving `/probe`; root layout with verbatim font links.
 
+- [ ] **Step 0: Rename `src/pages/` to `src/views/` — do this BEFORE any `next build`**
+
+Next.js auto-detects `src/pages/` as the **Pages Router** directory. There is no config flag
+to disable that detection. With ~50 Vite page components sitting there, Next tries to compile
+every one as a real Next page and fails during "Collecting page data" on
+`src/components/Recaptcha.tsx`'s `import.meta.env` — Vite-only syntax Next cannot compile.
+Finding `src/pages` also makes Next classify the project as src-based, so its typegen starts
+resolving `app/` as `src/app/`.
+
+Renaming is the fix, and `src/views/` is where the plan was moving these files anyway — doing
+it wholesale up front is strictly simpler than per-route during Tasks 6-12.
+
+```bash
+git mv src/pages src/views
+# main.tsx is the only file importing from './pages/'.
+sed -i "s|'\./pages/|'./views/|g" src/main.tsx
+# Repoint the route scanner at the new directory.
+sed -i "s|'src', 'pages'|'src', 'views'|" scripts/sync-routes.js
+sed -i "s|src/pages/\*\.tsx|src/views/*.tsx|" scripts/sync-routes.js
+```
+
+Sibling imports inside the directory (`'./BlogLayout'`) and upward imports
+(`'../components/...'`) are unaffected by the rename. Verify the Vite build still works
+before continuing — it is the reference build:
+
+```bash
+node scripts/sync-routes.js && npm run build
+```
+
+Expected: build succeeds. Note that `parity/routes.json` is already generated and committed,
+so it needs no regeneration; only the scanner's path changes.
+
 - [ ] **Step 1: Install Next**
 
 ```bash
@@ -1008,7 +1040,7 @@ Migrating `/blogs/why-context-not-more-tools-is-the-future-of-debt-collection` (
 
 **Files:**
 - Create: `app/blogs/why-context-not-more-tools-is-the-future-of-debt-collection/page.tsx`, `src/views/BlogPostContextView.tsx`
-- Modify: `src/pages/BlogLayout.tsx`, `src/pages/Navbar.tsx`, `src/pages/Footer.tsx`, `src/pages/RelatedArticles.tsx`, `src/pages/BlogShared.tsx`, `src/components/Reveal.tsx`, `src/components/PageFade.tsx`, `src/components/ui/*`
+- Modify: `src/views/BlogLayout.tsx`, `src/views/Navbar.tsx`, `src/views/Footer.tsx`, `src/views/RelatedArticles.tsx`, `src/views/BlogShared.tsx`, `src/components/Reveal.tsx`, `src/components/PageFade.tsx`, `src/components/ui/*`
 
 **Interfaces:**
 - Consumes: `app/layout.tsx`, `app/providers.tsx` (Task 5).
@@ -1022,7 +1054,7 @@ Apply these seven transforms to every page. They are mechanical.
 2. `import { Link } from 'react-router-dom'` → `import Link from 'next/link'`; `<Link to={x}>` → `<Link href={x}>`.
 3. `useLocation()` → `usePathname()` from `next/navigation`; `useSearchParams` from `react-router-dom` → the `next/navigation` version (note: returns a read-only `URLSearchParams`, and `setSearchParams` becomes `router.replace`); `useNavigate()` → `useRouter()` from `next/navigation` with `navigate(x)` → `router.push(x)`.
 4. Delete the `export const route = '...'` line — App Router file location replaces it.
-5. Move the whole component file from `src/pages/X.tsx` to `src/views/X.tsx` (keeping its name), leaving `src/pages/` to be deleted wholesale later.
+5. The file already lives in `src/views/` — Task 5, Step 0 renamed the directory wholesale to stop Next treating `src/pages/` as a Pages Router. Nothing to move; just edit it in place. Rename the file only where the plan names a specific new filename (for example the pilot's `BlogPostContextView.tsx`).
 6. Delete the `<Helmet>` block and every tag inside it. Translate it into a `metadata` export in the new `app/**/page.tsx`.
 7. `<script type="application/ld+json">` blocks stay in the component (they render fine server-side), **except** `<link rel="canonical">`, which is deleted and replaced by `metadata.alternates.canonical`.
 
@@ -1031,8 +1063,8 @@ Apply these seven transforms to every page. They are mechanical.
 Add `'use client';` as the first line of each of these, which all use hooks, framer-motion, or events:
 
 ```bash
-for f in src/pages/BlogLayout.tsx src/pages/Navbar.tsx src/pages/Footer.tsx \
-         src/pages/RelatedArticles.tsx src/pages/BlogShared.tsx \
+for f in src/views/BlogLayout.tsx src/views/Navbar.tsx src/views/Footer.tsx \
+         src/views/RelatedArticles.tsx src/views/BlogShared.tsx \
          src/components/Reveal.tsx src/components/PageFade.tsx; do
   grep -q "^'use client'" "$f" || sed -i "1i 'use client';" "$f"
 done
@@ -1046,7 +1078,7 @@ Delete line 114 — `{canonicalPath && <link rel="canonical" href={postUrl} />}`
 - [ ] **Step 3: Port the page body**
 
 ```bash
-git mv src/pages/BlogPost.tsx src/views/BlogPostContextView.tsx
+git mv src/views/BlogPost.tsx src/views/BlogPostContextView.tsx
 ```
 
 Then edit `src/views/BlogPostContextView.tsx`:
@@ -1054,7 +1086,7 @@ Then edit `src/views/BlogPostContextView.tsx`:
 - Delete the `export const route = ...` and `export const tags = ...` lines, moving `tags` to a plain `const tags = [...]` (the page file does not need it).
 - Delete the `import { Helmet } from 'react-helmet-async';` line and the entire `<Helmet>…</Helmet>` block, along with the now-redundant `<>…</>` wrapper.
 - Rename the default export to `BlogPostContextView`.
-- Change `import BlogLayout, { P, H2, Ul, CalloutPill } from './BlogLayout';` to `from '../pages/BlogLayout'`.
+- Change `import BlogLayout, { P, H2, Ul, CalloutPill } from './BlogLayout';` to `from '../views/BlogLayout'`.
 
 - [ ] **Step 4: Create the route's server component**
 
@@ -1497,7 +1529,7 @@ npm uninstall vite @vitejs/plugin-react vite-plugin-sitemap react-helmet-async r
 
 - [ ] **Step 2: Move remaining shared components out of `src/pages/`**
 
-`BlogLayout.tsx`, `Navbar.tsx`, `Footer.tsx`, `BlogShared.tsx`, `RelatedArticles.tsx` and `VideoModal.tsx` are components, not pages. `git mv` them to `src/components/` and update every import. Then confirm `src/pages/` is empty and remove it.
+`BlogLayout.tsx`, `Navbar.tsx`, `Footer.tsx`, `BlogShared.tsx`, `RelatedArticles.tsx` and `VideoModal.tsx` are components, not pages. `git mv` them from `src/views/` to `src/components/` and update every import. `src/views/` should then contain only ported page bodies.
 
 - [ ] **Step 3: Replace the `scripts` block in `package.json`**
 
