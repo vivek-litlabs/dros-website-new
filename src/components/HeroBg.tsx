@@ -1,4 +1,5 @@
-import { useState } from 'react';
+'use client';
+import { useEffect, useRef, useState } from 'react';
 
 /*
  * Shared full-bleed hero background image + darkening gradient, used by
@@ -9,10 +10,20 @@ import { useState } from 'react';
  */
 export default function HeroBg({ image }: { image: string }) {
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // Under SSR/hydration, a cached image can finish loading (and fire its
+  // native `load` event) before React attaches the `onLoad` handler below,
+  // which would leave `loaded` stuck at false forever. Check `complete` once
+  // mounted as a fallback for that race.
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
 
   return (
     <div aria-hidden="true" className="absolute inset-0 z-0">
       <img
+        ref={imgRef}
         src={image}
         alt=""
         fetchPriority="high"

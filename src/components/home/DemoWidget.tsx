@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, User } from 'lucide-react';
 import { Section, Container, Heading, Eyebrow } from '../ui';
@@ -18,7 +18,15 @@ export default function DemoWidget({
   subtext = "Enter your number and we will call you in 30 seconds.",
 }: DemoWidgetProps = {}) {
   const [name, setName] = useState('');
-  const [country, setCountry] = useState(defaultCountryIso);
+  // Seed with the SSR-safe fallback ('US') rather than calling defaultCountryIso()
+  // as a lazy initializer: that reads navigator.language, which is undefined on
+  // the server and can differ from the client's locale, producing a hydration
+  // mismatch on the rendered "+{dial}" text. Apply the real locale-based default
+  // once mounted instead.
+  const [country, setCountry] = useState('US');
+  useEffect(() => {
+    setCountry(defaultCountryIso());
+  }, []);
   const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
