@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import Footer from './Footer';
@@ -196,19 +196,31 @@ const categories: Category[] = [
   'Field Insights'
 ];
 
-export default function BlogsPage() {
+// Reads the ?category= query param and reports it up to the parent. Isolated
+// in its own component (and its own Suspense boundary) because any component
+// calling useSearchParams must sit inside Suspense in the App Router — keeping
+// that boundary small means only this no-op-rendering piece falls back to the
+// Suspense fallback during static generation, and everything else in
+// BlogsPage still prerenders into the static HTML.
+function CategoryFromSearchParams({ onCategory }: { onCategory: (category: Category) => void }) {
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const param = searchParams.get('category');
+    if (!param) { onCategory('All'); return; }
+    const match = categories.find(c => c.toLowerCase() === param.toLowerCase());
+    onCategory((match as Category) ?? 'All');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  return null;
+}
+
+export default function BlogsPage() {
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
-
-  useEffect(() => {
-    const param = searchParams.get('category');
-    if (!param) { setSelectedCategory('All'); return; }
-    const match = categories.find(c => c.toLowerCase() === param.toLowerCase());
-    setSelectedCategory((match as Category) ?? 'All');
-  }, [searchParams]);
 
   const matchesSearch = (post: BlogPost, query: string) => {
     const q = query.toLowerCase();
@@ -271,6 +283,9 @@ export default function BlogsPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Suspense fallback={null}>
+        <CategoryFromSearchParams onCategory={setSelectedCategory} />
+      </Suspense>
       <Navbar />
 
       <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-32 sm:px-10 md:pt-36 lg:px-[60px]">

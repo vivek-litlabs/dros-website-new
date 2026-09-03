@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 import BlogsPage from '../../src/views/BlogsPage';
 
 const title = 'DROS Blog | AI, Collections, and Context Orchestration';
@@ -35,9 +34,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-base" />}>
-      <BlogsPage />
-    </Suspense>
-  );
+  return <BlogsPage />;
 }
