@@ -1,9 +1,8 @@
-export const route = '/newsroom';
+'use client';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 import Footer from './Footer';
-import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 import Reveal, { RevealItem } from '../components/Reveal';
 import ResourceHero from '../components/ResourceHero';
@@ -79,17 +78,6 @@ export default function NewsroomPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Helmet>
-        <title>Newsroom | DROS Press Releases and Coverage</title>
-        <meta name="description" content="Press releases, external coverage, and official announcements around DROS." />
-        <meta property="og:title" content="Newsroom | DROS Press Releases and Coverage" />
-        <meta property="og:description" content="Press releases, external coverage, and official announcements around DROS." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/newsroom" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <Navbar transparent />
 
       <ResourceHero
@@ -183,7 +171,7 @@ function NewsCard({ item }: { item: NewsItem }) {
     );
   }
   return (
-    <Link to={item.url} className="block h-full">
+    <Link href={item.url} prefetch={false} className="block h-full">
       {content}
     </Link>
   );

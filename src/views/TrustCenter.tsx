@@ -1,7 +1,6 @@
-export const route = '/trust-center';
+'use client';
 import { useState } from 'react';
 import type { ComponentType } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   ShieldCheck,
@@ -348,29 +347,7 @@ export default function TrustCenter() {
 
   return (
     <PageFade className="min-h-screen bg-base text-ink">
-      <Helmet>
-        <title>Trust Center | Security, Compliance &amp; Privacy at DROS AI</title>
-        <meta
-          name="description"
-          content="DROS AI is ISO 27001, SOC 2 Type II, ISO 42001 and HIPAA certified. Review our security practices, subprocessors and compliance documentation, or request a certificate under NDA."
-        />
-        <meta
-          name="keywords"
-          content="DROS trust center, ISO 27001 certified collections software, SOC 2 Type II debt collection, ISO 42001 AI management system, HIPAA compliant collections platform, subprocessors, data encryption, AI governance, security practices, request SOC 2 report"
-        />
-        <link rel="canonical" href="https://dros.ai/trust-center" />
-        <meta property="og:title" content="Trust Center | Security, Compliance & Privacy at DROS AI" />
-        <meta
-          property="og:description"
-          content="ISO 27001, SOC 2 Type II, ISO 42001 and HIPAA. Security practices, subprocessors and compliance documentation."
-        />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/trust-center" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <script type="application/ld+json">{JSON.stringify(SCHEMA)}</script>
-      </Helmet>
+      <script type="application/ld+json">{JSON.stringify(SCHEMA)}</script>
 
       <Navbar transparent />
 

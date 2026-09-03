@@ -1,7 +1,6 @@
-export const route = '/customer-stories/greystone-associates';
-import { Link } from 'react-router-dom';
+'use client';
+import Link from 'next/link';
 import { ArrowRight, Building2, MapPin, Layers, Briefcase, Cpu } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
 import { trackCta } from '../lib/analytics';
 import Navbar from './Navbar';
 
@@ -103,17 +102,6 @@ function Quote({ children }: { children: React.ReactNode }) {
 export default function GreystoneStory() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
-      <Helmet>
-        <title>Greystone &amp; Associates Case Study | DROS</title>
-        <meta name="description" content="How Greystone &amp; Associates simplified daily collections with faster onboarding, real-time visibility, and streamlined workflows using DROS." />
-        <meta property="og:title" content="Greystone &amp; Associates Case Study | DROS" />
-        <meta property="og:description" content="How Greystone &amp; Associates simplified daily collections with faster onboarding, real-time visibility, and streamlined workflows using DROS." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/customer-stories/greystone-associates" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <Navbar />
 
       {/* Dark Hero */}
@@ -125,7 +113,8 @@ export default function GreystoneStory() {
         </div>
         <div className="relative max-w-4xl mx-auto px-6 lg:px-8">
           <Link
-            to="/customer-stories"
+            href="/customer-stories"
+            prefetch={false}
             className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-medium mb-8 group"
           >
             <span className="group-hover:-translate-x-0.5 transition-transform">←</span>
@@ -256,7 +245,8 @@ export default function GreystoneStory() {
 
               <div className="mt-14 pt-8 border-t border-slate-200">
                 <Link
-                  to="/customer-stories"
+                  href="/customer-stories"
+                  prefetch={false}
                   className="inline-flex items-center gap-2 text-cyan-600 hover:text-cyan-500 transition-colors font-medium"
                 >
                   ← Back to Customer Stories
@@ -314,24 +304,24 @@ export default function GreystoneStory() {
               <h4 className="font-semibold mb-4 text-white">Product</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
                 <li><a href="/#features" className="hover:text-white transition-colors">Features</a></li>
-                <li><Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
+                <li><Link href="/pricing" prefetch={false} className="hover:text-white transition-colors">Pricing</Link></li>
                 <li><a href="/#security" className="hover:text-white transition-colors">Security</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4 text-white">Company</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
-                <li><Link to="/blogs" className="hover:text-white transition-colors">Blog</Link></li>
-                <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+                <li><Link href="/about" prefetch={false} className="hover:text-white transition-colors">About</Link></li>
+                <li><Link href="/blogs" prefetch={false} className="hover:text-white transition-colors">Blog</Link></li>
+                <li><Link href="/contact" prefetch={false} className="hover:text-white transition-colors">Contact</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4 text-white">Resources</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li><Link to="/customer-stories" className="hover:text-white transition-colors">Customer Stories</Link></li>
-                <li><Link to="/events" className="hover:text-white transition-colors">Events</Link></li>
-                <li><Link to="/resources/videos" className="hover:text-white transition-colors">Videos</Link></li>
+                <li><Link href="/customer-stories" prefetch={false} className="hover:text-white transition-colors">Customer Stories</Link></li>
+                <li><Link href="/events" prefetch={false} className="hover:text-white transition-colors">Events</Link></li>
+                <li><Link href="/resources/videos" prefetch={false} className="hover:text-white transition-colors">Videos</Link></li>
                 <li><a href="https://app.dros.ai/api-docs" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">API Docs</a></li>
               </ul>
             </div>

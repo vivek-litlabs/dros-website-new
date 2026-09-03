@@ -1,9 +1,7 @@
-export const route = '/resources/videos';
+'use client';
 import { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
 import Footer from './Footer';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 import Reveal, { RevealItem } from '../components/Reveal';
 import ResourceHero from '../components/ResourceHero';
@@ -122,12 +120,11 @@ function VideosPage() {
   const [activeTab, setActiveTab] = useState<FilterTab>('all');
   const [page, setPage] = useState(1);
   const [highlightedId, setHighlightedId] = useState<string | null>(null);
-  const location = useLocation();
   const tabsRef = useRef<HTMLDivElement>(null);
   const highlightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (location.hash === '#customer-stories') {
+    if (window.location.hash === '#customer-stories') {
       setActiveTab('customer-story');
       setPage(1);
       setHighlightedId(HIGHLIGHT_VIDEO_ID);
@@ -143,7 +140,8 @@ function VideosPage() {
         setTimeout(() => setHighlightedId(null), 2800);
       }, 100);
     }
-  }, [location.hash]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const sorted = [...videos].sort((a, b) => b.addedAt.localeCompare(a.addedAt));
   const filtered = activeTab === 'all' ? sorted : sorted.filter(v => v.category === activeTab);
@@ -157,10 +155,6 @@ function VideosPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Helmet>
-        <title>Video Resources | DROS Collections Insights</title>
-        <meta name="description" content="Tutorials, customer stories, and conversations to help you get the most out of DROS." />
-      </Helmet>
       <Navbar transparent />
 
       <ResourceHero

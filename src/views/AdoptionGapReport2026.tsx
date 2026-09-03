@@ -1,6 +1,5 @@
-export const route = '/adoption-gap-report-state-of-collections-2026';
+'use client';
 import { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -204,26 +203,7 @@ function ReportEmailForm({ variant }: { variant: 'hero' | 'cta' }) {
 export default function AdoptionGapReport2026() {
   return (
     <PageFade className="min-h-screen bg-base text-ink">
-      <Helmet>
-        <title>The Adoption Gap: The State of AI in Collections 2026 | DROS</title>
-        <meta name="description" content={DESCRIPTION} />
-        <meta
-          name="keywords"
-          content="state of AI in debt collections, AI adoption collections report, AI voice agents collections, debt collection AI research, ARM industry AI report 2026"
-        />
-        <link rel="canonical" href={CANONICAL} />
-        <meta
-          property="og:title"
-          content="The Adoption Gap: The State of AI in Collections 2026 | DROS"
-        />
-        <meta property="og:description" content={DESCRIPTION} />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content={CANONICAL} />
-        <meta property="og:type" content="article" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <script type="application/ld+json">{JSON.stringify(reportSchema)}</script>
-      </Helmet>
+      <script type="application/ld+json">{JSON.stringify(reportSchema)}</script>
 
       <Navbar transparent />
 

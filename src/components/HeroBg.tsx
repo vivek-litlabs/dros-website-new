@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /*
  * Shared full-bleed hero background image + darkening gradient, used by
@@ -9,10 +9,20 @@ import { useState } from 'react';
  */
 export default function HeroBg({ image }: { image: string }) {
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  // With server-rendered <img src>, the browser can finish fetching the
+  // image before hydration attaches the onLoad listener below, so the
+  // 'load' event fires and is missed — leaving the image stuck at
+  // opacity-0 forever. Catch that already-complete case on mount.
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
 
   return (
     <div aria-hidden="true" className="absolute inset-0 z-0">
       <img
+        ref={imgRef}
         src={image}
         alt=""
         fetchPriority="high"

@@ -1,6 +1,5 @@
-export const route = '/collections-ai-workshop';
+'use client';
 import { useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { trackCta } from '../lib/analytics';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -25,16 +24,6 @@ export default function CollectionsAIWorkshop() {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans">
-      <Helmet>
-        <title>The Collections AI Workshop - Improve RPC, PTP and Recovery | DROS</title>
-        <meta name="description" content="A free 2-hour live workshop for collection agency owners and ops leaders. Map your agency's AI gaps and leave with a 90-day plan - June 4, 2026." />
-        <link rel="canonical" href="https://dros.ai/collections-ai-workshop" />
-        <meta property="og:title" content="The Collections AI Workshop - Improve RPC, PTP and Recovery | DROS" />
-        <meta property="og:description" content="A free 2-hour live workshop for collection agency owners and ops leaders. Map your AI gaps and leave with a 90-day plan." />
-        <meta property="og:url" content="https://dros.ai/collections-ai-workshop" />
-        <meta property="og:type" content="website" />
-      </Helmet>
-
       <Navbar />
 
       {/* ── HERO ── */}

@@ -1,5 +1,6 @@
+'use client';
 import { ArrowRight, Check } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import AcaContainer from './AcaContainer';
 
@@ -29,7 +30,8 @@ export default function ExclusiveOffer() {
               ACA attendees only.
             </p>
             <Link
-              to="/book-meeting"
+              href="/book-meeting"
+              prefetch={false}
               className="mt-8 inline-flex items-center gap-1.5 font-inter text-[0.95rem] font-medium text-white underline decoration-white/40 underline-offset-4 transition-colors hover:decoration-white"
             >
               Terms &amp; conditions apply

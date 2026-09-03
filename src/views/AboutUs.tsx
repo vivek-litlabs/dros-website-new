@@ -1,23 +1,11 @@
-export const route = '/about';
+'use client';
 import { ArrowRight, Linkedin } from 'lucide-react';
 import Footer from './Footer';
-import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 
 export default function AboutUs() {
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      <Helmet>
-        <title>About DROS | AI-Native Engagement OS for Collections</title>
-        <meta name="description" content="Learn how DROS is building an AI-native engagement operating system for collections teams, debt buyers, and first-party recovery operations." />
-        <meta property="og:title" content="About DROS | AI-Native Engagement OS for Collections" />
-        <meta property="og:description" content="Learn how DROS is building an AI-native engagement operating system for collections teams, debt buyers, and first-party recovery operations." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/about" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <Navbar />
 
       {/* Hero */}

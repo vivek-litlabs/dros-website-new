@@ -1,8 +1,7 @@
-export const route = '/customer-stories';
-import { Link } from 'react-router-dom';
+'use client';
+import Link from 'next/link';
 import { ArrowRight, MapPin, Building2 } from 'lucide-react';
 import Footer from './Footer';
-import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 import Reveal, { RevealItem } from '../components/Reveal';
 import ResourceHero from '../components/ResourceHero';
@@ -29,17 +28,6 @@ const stories: CustomerStory[] = [
 export default function CustomerStoriesPage() {
   return (
     <div className="min-h-screen bg-white">
-      <Helmet>
-        <title>Customer Stories | DROS in Collections Operations</title>
-        <meta name="description" content="See how collection teams use DROS to simplify operations, improve visibility, and modernize recovery workflows." />
-        <meta property="og:title" content="Customer Stories | DROS in Collections Operations" />
-        <meta property="og:description" content="See how collection teams use DROS to simplify operations, improve visibility, and modernize recovery workflows." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/customer-stories" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <Navbar transparent />
 
       <ResourceHero
@@ -54,7 +42,7 @@ export default function CustomerStoriesPage() {
         <Reveal stagger={0.06} className="grid grid-cols-1 gap-x-[60px] gap-y-[50px] md:grid-cols-2">
           {stories.map((story) => (
             <RevealItem key={story.slug}>
-              <Link to={story.slug} className="group flex h-full flex-col gap-4 border-t border-[#EDEDED] pt-6">
+              <Link href={story.slug} prefetch={false} className="group flex h-full flex-col gap-4 border-t border-[#EDEDED] pt-6">
                 <h2 className="line-clamp-3 font-saans text-xl font-light leading-[1.15] tracking-[-0.03em] text-black md:text-[22px]">
                   {story.title}
                 </h2>

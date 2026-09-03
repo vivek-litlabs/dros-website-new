@@ -1,6 +1,5 @@
-export const route = '/book-meeting';
+'use client';
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 
 export default function BookMeeting() {
@@ -18,10 +17,6 @@ export default function BookMeeting() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      <Helmet>
-        <title>Book a Demo | DROS AI for Collections</title>
-        <meta name="description" content="Book a meeting with DROS to see how AI agents, account context, and workflow orchestration support collections and recovery teams." />
-      </Helmet>
       <Navbar />
 
       <div className="container mx-auto px-4 py-16 pt-32">

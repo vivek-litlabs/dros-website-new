@@ -1,7 +1,6 @@
-export const route = '/contact';
+'use client';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import Footer from './Footer';
-import { Helmet } from 'react-helmet-async';
 import Navbar from './Navbar';
 import ResourceHero from '../components/ResourceHero';
 import { Section, Container, Button } from '../components/ui';
@@ -10,17 +9,6 @@ import Reveal, { RevealItem } from '../components/Reveal';
 export default function ContactUs() {
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      <Helmet>
-        <title>Contact DROS | Get in Touch</title>
-        <meta name="description" content="Have questions about DROS? Contact our team to learn more about AI-native collections workflows, product fit, and next steps." />
-        <meta property="og:title" content="Contact DROS | Get in Touch" />
-        <meta property="og:description" content="Have questions about DROS? Contact our team to learn more about AI-native collections workflows, product fit, and next steps." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/contact" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <Navbar transparent />
 
       <ResourceHero

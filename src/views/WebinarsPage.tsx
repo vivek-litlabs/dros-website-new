@@ -1,7 +1,6 @@
-export const route = '/webinars';
+'use client';
 import { ArrowRight, Calendar, Clock, Monitor } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { trackCta } from '../lib/analytics';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -55,7 +54,8 @@ function WebinarCard({ w }: { w: typeof PAST_WEBINARS[0] }) {
         </div>
       </div>
       <Link
-        to={w.detailsHref}
+        href={w.detailsHref}
+        prefetch={false}
         onClick={() => trackCta('webinars_view_details')}
         className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-black"
       >
@@ -69,16 +69,6 @@ function WebinarCard({ w }: { w: typeof PAST_WEBINARS[0] }) {
 export default function WebinarsPage() {
   return (
     <div className="min-h-screen bg-white">
-      <Helmet>
-        <title>Webinars | DROS</title>
-        <meta name="description" content="Live sessions on AI technology, collections strategy, and what's actually working in the field." />
-        <link rel="canonical" href="https://dros.ai/webinars" />
-        <meta property="og:title" content="Webinars | DROS" />
-        <meta property="og:description" content="Live sessions on AI technology, collections strategy, and what's actually working in the field." />
-        <meta property="og:url" content="https://dros.ai/webinars" />
-        <meta property="og:type" content="website" />
-      </Helmet>
-
       <Navbar transparent />
 
       <ResourceHero

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Phone } from 'lucide-react';
 import AcaContainer from './AcaContainer';
 import { composePhone, demoCallErrorMessage, isAllowedPhone, triggerDemoCall } from '../../../lib/api';
@@ -10,7 +10,14 @@ import VoiceCallModal from '../VoiceCallModal';
 
 export default function PickUseCase() {
   const [name, setName] = useState('');
-  const [country, setCountry] = useState(defaultCountryIso);
+  // Initialize to 'US' so server and client render the same markup on first
+  // paint (defaultCountryIso() reads navigator, which doesn't exist during
+  // SSR and would otherwise cause a hydration mismatch), then correct it
+  // client-side once mounted.
+  const [country, setCountry] = useState('US');
+  useEffect(() => {
+    setCountry(defaultCountryIso());
+  }, []);
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
