@@ -807,8 +807,10 @@ Add `'./app/**/*.{js,ts,jsx,tsx}'` to the `content` array, keeping every existin
 
 ```tsx
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import '../src/index.css';
-import Providers from './providers';
+import ScrollRestoration from './scroll-restoration';
+import SiteAnalytics from './site-analytics';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://dros.ai'),
@@ -866,14 +868,60 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </noscript>
       </head>
       <body>
-        <Providers>{children}</Providers>
+        {/*
+          children render DIRECTLY, not wrapped by a provider.
+
+          SiteAnalytics calls useSearchParams(), which Next requires inside a <Suspense>
+          boundary. If a component calling it wrapped {children}, every page's content would
+          sit behind that boundary and be ABSENT from the static HTML — which would defeat
+          CP6 and the entire migration. Keeping the side-effect components as siblings that
+          render null means the boundary contains nothing visible.
+        */}
+        <ScrollRestoration />
+        <Suspense fallback={null}>
+          <SiteAnalytics />
+        </Suspense>
+        {children}
       </body>
     </html>
   );
 }
 ```
 
-- [ ] **Step 4: Write `app/providers.tsx`**
+- [ ] **Step 4: Write the two side-effect components**
+
+`src/main.tsx` did three things around every route: manual scroll restoration, scroll-to-top
+on navigation, and a GA pageview including the query string. Only the last needs
+`useSearchParams`, and that is the one Next requires inside `<Suspense>`. Splitting them keeps
+the boundary around a component that renders nothing, so no page content is affected.
+
+`app/scroll-restoration.tsx` — uses `usePathname` only, which needs no boundary:
+
+```tsx
+'use client';
+
+import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+
+/** Replaces the ScrollToTop component from src/main.tsx. Renders nothing. */
+export default function ScrollRestoration() {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0; // Safari fix
+  }, [pathname]);
+
+  return null;
+}
+```
+
+`app/site-analytics.tsx` — the only component touching `useSearchParams`:
 
 ```tsx
 'use client';
@@ -884,26 +932,48 @@ import ReactGA from 'react-ga4';
 
 ReactGA.initialize('G-TT8WJVR53D');
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+/**
+ * Replaces the Analytics component from src/main.tsx. Renders nothing, so the <Suspense>
+ * boundary it must sit inside contains no visible content and cannot keep page markup out
+ * of the static HTML.
+ */
+export default function SiteAnalytics() {
   const pathname = usePathname();
   const search = useSearchParams();
 
   useEffect(() => {
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  }, []);
-
-  // Replaces ScrollToTop + Analytics from src/main.tsx.
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0; // Safari fix
     const qs = search.toString();
     ReactGA.send({ hitType: 'pageview', page: pathname + (qs ? `?${qs}` : '') });
   }, [pathname, search]);
 
-  return <>{children}</>;
+  return null;
 }
 ```
+
+Do NOT create `app/providers.tsx`, and do NOT wrap `{children}` in any component that calls
+`useSearchParams`.
+
+- [ ] **Step 4b: Remove the dead `lenis` imports left by uninstalling the package**
+
+Four files import the `Lenis` type only to read `window.__lenis`, which is never assigned
+anywhere (spec Finding 1). With the package uninstalled those imports fail type-checking.
+Delete the import and the dead `window.__lenis` branch in each, keeping the native
+`window.scrollTo` fallback that already runs today:
+
+```bash
+grep -rln "lenis" src/ | cat
+```
+
+Expected files: `src/views/Navbar.tsx`, `src/views/App.tsx`, `src/views/Aca.tsx`,
+`src/components/home/aca/HeroAca.tsx`.
+
+In each, remove `import type Lenis from 'lenis';` and collapse the
+`const lenis = (window as ...).__lenis; if (lenis) { lenis.scrollTo(...) } else { <native> }`
+pattern down to just the native branch. Behaviour is unchanged — the `if` was always false.
+
+**Do not narrow `tsconfig.json`'s `include` to `app/**` to make these errors disappear.**
+That would hide every type error under `src/` for the rest of the migration, which is exactly
+where the porting work happens. Keep `src/` in the type-check and fix the imports.
 
 - [ ] **Step 5: Write the typography probe body as a shared module**
 
