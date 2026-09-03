@@ -7,6 +7,22 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+
+  async redirects() {
+    return [
+      { source: '/api-docs', destination: 'https://app.dros.ai/api-docs', permanent: false },
+      { source: '/release-notes', destination: 'https://app.dros.ai/release-notes', permanent: false },
+    ];
+  },
+
+  async headers() {
+    return [
+      {
+        source: '/fonts/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
