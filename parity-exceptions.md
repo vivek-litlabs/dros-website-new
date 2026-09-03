@@ -6,11 +6,15 @@ is literally 100%.
 
 ## Pre-approved deviations
 
-### Duplicate canonical tag removal (all blog routes)
-**Cause:** The Vite build emits `<link rel="canonical">` twice on blog posts — once
-from `CanonicalTag` in `src/main.tsx` and once from `BlogLayout.tsx`. `react-helmet-async`
-deduplicates at runtime, so only one survives in the live DOM; server-rendering would
-emit both into the raw HTML. This is a defect, not behaviour worth preserving.
+### Duplicate canonical tag removal (26 of 41 routes)
+**Cause:** The Vite build emits `<link rel="canonical">` more than once on 26 routes — the
+global `CanonicalTag` in `src/main.tsx` fires for every route, all 14 blog posts add their
+own via `BlogLayout.tsx`, and 12 non-blog pages declare a page-level canonical as well.
+`/blogs/ai-agents-debt-collection-deployment` has three sources. `react-helmet-async`
+deduplicates at runtime, so only one survives in the live DOM; server-rendering would emit
+all of them into the raw HTML. This is a defect, not behaviour worth preserving.
+**Scope note:** originally recorded as affecting only blog posts; corrected to 26 routes
+after a full per-route metadata audit.
 **Resolution:** Canonical has exactly one source in Next — `metadata.alternates.canonical`.
 **Visual impact:** None (canonical tags do not render).
 **Signed off:** Approved in the design review, 2026-09-02.

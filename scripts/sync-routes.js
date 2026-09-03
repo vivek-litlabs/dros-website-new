@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Scans src/pages/*.tsx for files that export `export const route = '...'`
+// Scans src/views/*.tsx for files that export `export const route = '...'`
 // and ensures each one has a matching lazy import + <Route> in src/main.tsx.
 // Safe to run multiple times.
 
@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const pagesDir = join(__dirname, '..', 'src', 'pages');
+const pagesDir = join(__dirname, '..', 'src', 'views');
 const mainPath = join(__dirname, '..', 'src', 'main.tsx');
 
 const SKIP = new Set(['main.tsx', 'Navbar.tsx', 'Footer.tsx', 'BlogLayout.tsx', 'AnnouncementBanner.tsx']);
@@ -41,7 +41,7 @@ for (const file of files) {
 let main = readFileSync(mainPath, 'utf8');
 let changed = false;
 
-// Every route is code-split via lazyWithRetry(() => import('./pages/X.tsx')),
+// Every route is code-split via lazyWithRetry(() => import('./views/X.tsx')),
 // declared just above this call. New lazy consts are inserted right before it.
 const renderAnchor = `createRoot(document.getElementById('root')!).render(`;
 
@@ -49,10 +49,10 @@ const renderAnchor = `createRoot(document.getElementById('root')!).render(`;
 // showing up anywhere in main.tsx, since the homepage import is a plain
 // `import` while every other route uses the lazyWithRetry(...) form.
 for (const { route, component, moduleName } of pages) {
-  const modulePathRe = new RegExp(`\\./pages/${moduleName}\\.tsx`);
+  const modulePathRe = new RegExp(`\\./views/${moduleName}\\.tsx`);
 
   if (!modulePathRe.test(main)) {
-    const importLine = `const ${component} = lazyWithRetry(() => import('./pages/${moduleName}.tsx'));\n`;
+    const importLine = `const ${component} = lazyWithRetry(() => import('./views/${moduleName}.tsx'));\n`;
     main = main.replace(renderAnchor, `${importLine}${renderAnchor}`);
     console.log(`+ import ${component}`);
     changed = true;

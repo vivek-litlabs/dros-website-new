@@ -1055,7 +1055,7 @@ Apply these seven transforms to every page. They are mechanical.
 3. `useLocation()` → `usePathname()` from `next/navigation`; `useSearchParams` from `react-router-dom` → the `next/navigation` version (note: returns a read-only `URLSearchParams`, and `setSearchParams` becomes `router.replace`); `useNavigate()` → `useRouter()` from `next/navigation` with `navigate(x)` → `router.push(x)`.
 4. Delete the `export const route = '...'` line — App Router file location replaces it.
 5. The file already lives in `src/views/` — Task 5, Step 0 renamed the directory wholesale to stop Next treating `src/pages/` as a Pages Router. Nothing to move; just edit it in place. Rename the file only where the plan names a specific new filename (for example the pilot's `BlogPostContextView.tsx`).
-6. Delete the `<Helmet>` block and every tag inside it. Translate it into a `metadata` export in the new `app/**/page.tsx`.
+6. Delete the `<Helmet>` block and every tag inside it. Translate it into a `metadata` export in the new `app/**/page.tsx`. Transcribe strings **character for character** — punctuation, capitalisation, trailing periods. **Do not normalise HTML entities:** four pages differ in whether their source uses `&amp;` or `&`, and changing one alters the rendered text and fails the metadata comparison. **Reproduce gaps rather than filling them:** 7 routes have no `og:*`/`twitter:*` tags at all and 5 lack `og:image`; a page with no `og:image` gets no `openGraph.images`. Filling a gap is an unrequested content change and breaks the baseline comparison. Note that blog posts get their meta tags from their OWN `<Helmet>`, not from `BlogLayout` — `BlogLayout` only emits canonical and JSON-LD.
 7. `<script type="application/ld+json">` blocks stay in the component (they render fine server-side), **except** `<link rel="canonical">`, which is deleted and replaced by `metadata.alternates.canonical`.
 
 - [ ] **Step 1: Add `'use client'` to the shared component layer**
@@ -1175,7 +1175,9 @@ grep -c 'rel="canonical"' /tmp/pilot.html
 grep -c "context orchestration layer" /tmp/pilot.html
 ```
 
-Expected: each count `>= 1`, and the canonical count is **exactly 1**. The last grep proves body copy — not just metadata — is in the raw HTML.
+Expected: each count `>= 1`, and the canonical count is **exactly 1**. This route is one of
+the 26 that emit multiple canonicals in the Vite build, so exactly-1 here is the fix landing,
+not a coincidence. The last grep proves body copy — not just metadata — is in the raw HTML.
 
 **This is CP2.** Do not proceed until all of Steps 6 and 7 pass.
 
@@ -1231,6 +1233,37 @@ curl -s http://localhost:3000/ | grep -cE "googletagmanager|clarity|reb2b|crisp"
 ```
 
 Expected: at least 4.
+
+- [ ] **Step 0b: Rename the reCAPTCHA env var now — it is a hard build-breaker**
+
+`src/components/Recaptcha.tsx:10` reads `import.meta.env.VITE_RECAPTCHA_SITE_KEY` at **module
+scope**. `import.meta.env` is Vite-only syntax that Next cannot compile at all, so this is a
+build failure rather than a runtime one, and it fires the moment any built route imports the
+file.
+
+Its real importers are **`src/components/home/Hero.tsx`, `src/components/home/DemoWidget.tsx`
+and `src/components/home/aca/PickUseCase.tsx`** — the homepage and `/aca`. (An earlier draft
+of this plan attributed the rename to `/contact` and `/book-meeting`; neither imports
+Recaptcha. Verified by import search.) Left until Wave 4, the build would break partway
+through a wave; doing it here is a one-line change that unblocks everything after it.
+
+```bash
+sed -i "s|import\.meta\.env\.VITE_RECAPTCHA_SITE_KEY|process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY|" src/components/Recaptcha.tsx
+```
+
+Add `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` to `.env.local`, and add it to the Vercel project's
+environment variables before CP7.
+
+**This intentionally breaks the Vite build on this branch.** That is acceptable and expected:
+Vite is deleted in Task 14, and the screenshot baseline has already been captured. If the
+baseline ever needs regenerating, do it from `main` — which still has the untouched Vite app —
+in a separate worktree, rather than trying to keep both build systems alive on this branch:
+
+```bash
+git worktree add ../dros-baseline main
+cd ../dros-baseline && npm ci && npm run build && npx serve dist -l 3000 -s
+# then run the harness against it from the migration branch checkout
+```
 
 - [ ] **Step 1: Port three structurally different routes using the Port Recipe**
 
@@ -1415,7 +1448,11 @@ curl -s -o /dev/null -w '%{http_code} %{redirect_url}\n' http://localhost:3000/r
 
 Expected: `307 https://app.dros.ai/api-docs` and `307 https://app.dros.ai/release-notes`.
 
-**Extra step:** `/contact` and `/book-meeting` carry the reCAPTCHA and HubSpot integrations. Rename `VITE_RECAPTCHA_SITE_KEY` to `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` in `src/components/Recaptcha.tsx` (`import.meta.env.VITE_RECAPTCHA_SITE_KEY` → `process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY`), add it to `.env.local`, and add it to the Vercel project's environment variables before CP7.
+**Extra step:** `/contact` and `/book-meeting` carry the HubSpot form integration — verify the
+form renders and submits as part of this wave's checks. The reCAPTCHA env rename is already
+done (Task 7, Step 0b); these two routes do not import `Recaptcha.tsx`, so nothing further is
+needed here. Confirm `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` is set in `.env.local` and in the Vercel
+project before CP7.
 
 ### Task 12 — Wave 5: home and pricing (2 routes)
 
@@ -1489,8 +1526,11 @@ export async function assertSsr(baseUrl: string): Promise<number> {
       .trim();
     if (text.length < 500) problems.push(`only ${text.length} chars of body text in raw HTML`);
 
-    if (route.includes('/blog')) {
-      if (!/"@type"\s*:\s*"(Article|BlogPosting)"/.test(html)) problems.push('no Article JSON-LD');
+    if (route.includes('/blog') && route !== '/blogs') {
+      // BlogLayout emits BlogPosting + BreadcrumbList always, FAQPage conditionally.
+      // There is no `Article` type in this codebase.
+      if (!/"@type"\s*:\s*"BlogPosting"/.test(html)) problems.push('no BlogPosting JSON-LD');
+      if (!/"@type"\s*:\s*"BreadcrumbList"/.test(html)) problems.push('no BreadcrumbList JSON-LD');
     }
 
     if (problems.length) {

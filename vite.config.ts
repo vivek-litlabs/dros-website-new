@@ -35,7 +35,7 @@ function skipLockedPublicFiles(): Plugin {
 // To add a new page to the sitemap, just add `export const route = '/your-path';`
 // at the top of its file in src/pages/.
 function scanPageRoutes(): string[] {
-  const pagesDir = path.resolve(__dirname, 'src/pages');
+  const pagesDir = path.resolve(__dirname, 'src/views');
   const routes: string[] = [];
 
   function scan(dir: string) {

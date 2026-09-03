@@ -15,8 +15,13 @@ routes declared across `src/pages/**`, including 14 hand-written blog posts.
 
 `vercel.json` rewrites every path to `/index.html`. There is no SSR and no prerender
 step. All per-page SEO — `<title>`, meta description, `og:*`, `twitter:*`, canonical,
-and the Article / FAQPage JSON-LD emitted by `src/pages/BlogLayout.tsx` — is injected
-**client-side** by `react-helmet-async`.
+and the JSON-LD emitted by `BlogLayout.tsx` — is injected **client-side** by
+`react-helmet-async`.
+
+*Verified during implementation:* `BlogLayout` emits only `<link rel="canonical">` plus
+JSON-LD; each post's title/description/`og:*`/`twitter:*` come from that post's own
+`<Helmet>`. The JSON-LD types are `BlogPosting`, `BreadcrumbList` and (conditionally)
+`FAQPage` — there is no `Article` type in this codebase.
 
 Consequence: the initial HTML response for every route is the generic homepage shell
 (`<title>AI Agents for Collections | DROS AI</title>` and an empty `<div id="root">`).
@@ -103,8 +108,8 @@ Every `<Helmet>` block becomes an exported `metadata` object (or `generateMetada
 where values are computed). `react-helmet-async` is removed entirely.
 
 JSON-LD stays a `<script type="application/ld+json">` element inside the component
-tree, but now renders server-side. `BlogLayout` keeps emitting Article schema, and
-FAQPage schema when `faq` is provided.
+tree, but now renders server-side. `BlogLayout` keeps emitting `BlogPosting` and
+`BreadcrumbList` schema, plus `FAQPage` when `faq` is provided.
 
 **This is the change that achieves the project's objective.** Per-page SEO moves from
 "after JS executes" to "in the HTML response".
@@ -175,12 +180,16 @@ Font metrics are then byte-identical by construction, and the CP1 probe verifies
 than discovers. Adopting `next/font` would inject a different loading strategy and
 override the `ascent-override`, which is precisely the drift we are trying to avoid.
 
-**Finding 3 — Canonical tags are currently emitted twice on blog posts. This is a
-defect to fix, not behaviour to preserve.**
+**Finding 3 — Canonical tags are currently emitted more than once on 26 of 41 routes. This
+is a defect to fix, not behaviour to preserve.**
 `CanonicalTag` in `src/main.tsx` emits `<link rel="canonical">` for *every* route, and
 `BlogLayout.tsx:114` emits its own when `canonicalPath` is set. Today `react-helmet-async`
-deduplicates at runtime so only one survives. Server-rendered, **both would appear in the
-raw HTML** — a genuine SEO defect that CP6 would otherwise ship.
+deduplicates at runtime so only one survives. Server-rendered, **all of them would appear in
+the raw HTML** — a genuine SEO defect that CP6 would otherwise ship.
+
+*Scope corrected during implementation:* this affects **26 routes**, not just the 14 blog
+posts — 12 non-blog pages also declare their own page-level canonical alongside the global
+one, and `/blogs/ai-agents-debt-collection-deployment` has **three** canonical sources.
 *Consequence:* canonical gets exactly one source of truth — `metadata.alternates.canonical`
 per route. `CanonicalTag` is deleted and `BlogLayout` stops emitting the tag. CP6 asserts
 **exactly one** canonical element per route. This is an intentional, recorded deviation
