@@ -1,7 +1,6 @@
-export const route = '/features/context-aware-voice-ai-agents-for-debt-collection';
+'use client';
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Link from 'next/link';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
@@ -66,7 +65,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: 'Can DROS AI voice agents work in first-party and third-party collections programs?',
-    a: <>Yes. DROS supports <Link to="/collections/first-party" className="underline underline-offset-2 hover:opacity-80 transition-opacity" style={{ color: '#1A237E' }}>first-party in-house collection teams</Link>, <Link to="/collections/third-party" className="underline underline-offset-2 hover:opacity-80 transition-opacity" style={{ color: '#1A237E' }}>third-party collection agencies</Link>, and <Link to="/collections/debt-buyer" className="underline underline-offset-2 hover:opacity-80 transition-opacity" style={{ color: '#1A237E' }}>debt buyers</Link> on the same platform. Compliance rule sets, scripts, and guardrails are configurable per portfolio or program.</>,
+    a: <>Yes. DROS supports <Link href="/collections/first-party" className="underline underline-offset-2 hover:opacity-80 transition-opacity" style={{ color: '#1A237E' }}>first-party in-house collection teams</Link>, <Link href="/collections/third-party" className="underline underline-offset-2 hover:opacity-80 transition-opacity" style={{ color: '#1A237E' }}>third-party collection agencies</Link>, and <Link href="/collections/debt-buyer" className="underline underline-offset-2 hover:opacity-80 transition-opacity" style={{ color: '#1A237E' }}>debt buyers</Link> on the same platform. Compliance rule sets, scripts, and guardrails are configurable per portfolio or program.</>,
   },
   {
     q: 'How do AI voice agents work alongside SMS and email in a collections strategy?',
@@ -99,15 +98,7 @@ export default function VoiceAgentsPage() {
         .va-pill-l { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; border-radius: 40px; padding: 7px 18px; margin-bottom: 24px; color: #0A1225; border: 1.5px solid rgba(10,18,37,0.28); }
       `}</style>
 
-      <Helmet>
-        <title>AI Voice Agents for Debt Collection &amp; Recovery — DROS</title>
-        <meta name="description" content="Context-aware AI voice agents for debt collection. Every call starts with full account history, FDCPA compliance guardrails, and automatic human handoff. Inbound and outbound." />
-        <link rel="canonical" href="https://dros.ai/features/context-aware-voice-ai-agents-for-debt-collection" />
-        <meta property="og:title" content="AI Voice Agents for Debt Collection &amp; Recovery — DROS" />
-        <meta property="og:description" content="Every call starts with account history, compliance guardrails, and human handoff logic built in. Inbound and outbound AI voice agents for collections." />
-        <meta property="og:url" content="https://dros.ai/features/context-aware-voice-ai-agents-for-debt-collection" />
-        <meta property="og:type" content="website" />
-        <script type="application/ld+json">{JSON.stringify({
+      <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
           "name": "DROS AI Voice Agents",
@@ -146,7 +137,6 @@ export default function VoiceAgentsPage() {
             { "@type": "ListItem", "position": 3, "name": "AI Voice Agents", "item": "https://dros.ai/features/context-aware-voice-ai-agents-for-debt-collection" }
           ]
         })}</script>
-      </Helmet>
 
       <Navbar />
 
@@ -165,7 +155,7 @@ export default function VoiceAgentsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-11">
               <Link
-                to="/book-meeting"
+                href="/book-meeting"
                 onClick={() => trackCta('voice_agents_hero_demo')}
                 className="inline-flex items-center justify-center gap-2 font-semibold text-base px-7 sm:px-9 py-4 rounded-xl transition-all hover:-translate-y-0.5 w-full sm:w-auto"
                 style={{ background: '#03D2FC', color: '#010C20' }}
@@ -900,7 +890,7 @@ export default function VoiceAgentsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Link
-                to="/book-meeting"
+                href="/book-meeting"
                 onClick={() => trackCta('voice_agents_cta_demo')}
                 className="inline-flex items-center justify-center gap-2 font-semibold text-base px-7 sm:px-9 py-4 rounded-xl transition-all hover:-translate-y-0.5 w-full sm:w-auto"
                 style={{ background: '#03D2FC', color: '#010C20' }}
@@ -908,7 +898,7 @@ export default function VoiceAgentsPage() {
                 Book a demo <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                to="/"
+                href="/"
                 className="inline-flex items-center justify-center gap-2 font-semibold text-base px-7 sm:px-9 py-4 rounded-xl transition-all w-full sm:w-auto"
                 style={{ color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)')}

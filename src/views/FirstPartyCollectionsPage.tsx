@@ -1,7 +1,6 @@
-export const route = '/collections/first-party';
+'use client';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Link from 'next/link';
 import { ArrowRight, ChevronDown, TrendingUp, AlertTriangle, Layers } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -234,19 +233,7 @@ export default function FirstPartyCollectionsPage() {
 
   return (
     <PageFade className="min-h-screen bg-base text-ink">
-      <Helmet>
-        <title>AI-Powered First-Party Collections Platform | DROS</title>
-        <meta name="description" content="DROS is the AI-powered engagement OS for first-party and in-house collections teams. Orchestrate AI voice agents, human agents, and omnichannel workflows — with Reg F compliance, brand rules, and CX guardrails enforced at the platform layer." />
-        <link rel="canonical" href="https://dros.ai/collections/first-party" />
-        <meta property="og:title" content="AI-Powered First-Party Collections Platform | DROS" />
-        <meta property="og:description" content="DROS is the AI-powered engagement OS for first-party and in-house collections teams. Orchestrate AI voice agents, human agents, and omnichannel workflows — with Reg F compliance, brand rules, and CX guardrails enforced at the platform layer." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/collections/first-party" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
-      </Helmet>
+      <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
 
       <Navbar transparent />
 
@@ -900,7 +887,7 @@ export default function FirstPartyCollectionsPage() {
                 </Heading>
                 <p className="mt-4 text-sm leading-relaxed text-ink/50">
                   Can't find your answer?{' '}
-                  <Link to="/contact" className="text-accent underline underline-offset-2 hover:opacity-80">
+                  <Link href="/contact" className="text-accent underline underline-offset-2 hover:opacity-80">
                     Reach out to our team
                   </Link>
                   .

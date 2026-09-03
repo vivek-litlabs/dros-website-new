@@ -1,7 +1,6 @@
-export const route = '/collections/consumer-lending';
+'use client';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Link from 'next/link';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -58,20 +57,7 @@ export default function ConsumerLendingCollectionsPage() {
 
   return (
     <PageFade className="min-h-screen bg-base text-ink">
-      <Helmet>
-        <title>AI Collections Software for Consumer Lenders | DROS</title>
-        <meta name="description" content="DROS works your entire delinquent loan book from day 1 past due - every account, every channel, every day. Accounts cured in the first bucket never roll, never age, never charge off." />
-        <meta name="keywords" content="consumer lending collections software, roll rate reduction, early-stage delinquency, DPD bucket strategy, first-party loan servicing, auto finance collections, personal loan collections software" />
-        <link rel="canonical" href="https://dros.ai/collections/consumer-lending" />
-        <meta property="og:title" content="AI Collections Software for Consumer Lenders | DROS" />
-        <meta property="og:description" content="DROS works your entire delinquent loan book from day 1 past due - every account, every channel, every day. Accounts cured in the first bucket never charge off." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/collections/consumer-lending" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-      </Helmet>
+      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
 
       <Navbar transparent />
 
@@ -373,7 +359,7 @@ export default function ConsumerLendingCollectionsPage() {
                 </p>
                 <cite className="mt-5 block text-sm not-italic text-white/55">
                   Darryl Brown - Principal,{' '}
-                  <Link to="/customer-stories" className="text-accent underline underline-offset-2 hover:opacity-80">
+                  <Link href="/customer-stories" className="text-accent underline underline-offset-2 hover:opacity-80">
                     Greystone &amp; Associates
                   </Link>
                 </cite>
@@ -393,7 +379,7 @@ export default function ConsumerLendingCollectionsPage() {
                 </Heading>
                 <p className="mt-4 text-sm leading-relaxed text-ink/50">
                   Can't find your answer?{' '}
-                  <Link to="/contact" className="text-accent underline underline-offset-2 hover:opacity-80">
+                  <Link href="/contact" className="text-accent underline underline-offset-2 hover:opacity-80">
                     Reach out to our team
                   </Link>
                   .

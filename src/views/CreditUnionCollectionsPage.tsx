@@ -1,7 +1,6 @@
-export const route = '/collections/credit-unions';
+'use client';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Link from 'next/link';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -66,20 +65,7 @@ export default function CreditUnionCollectionsPage() {
 
   return (
     <PageFade className="min-h-screen bg-base text-ink">
-      <Helmet>
-        <title>AI Collections Software for Credit Unions | DROS</title>
-        <meta name="description" content="DROS works your delinquent member accounts from day 1 - every call, text, and email compliant, logged, and audit-ready for your next NCUA exam." />
-        <meta name="keywords" content="credit union collections software, member collections, NCUA exam ready, Reg F credit union, share overdraft recovery, credit union delinquency management, AI voice agents credit union" />
-        <link rel="canonical" href="https://dros.ai/collections/credit-unions" />
-        <meta property="og:title" content="AI Collections Software for Credit Unions | DROS" />
-        <meta property="og:description" content="DROS works your delinquent member accounts from day 1 - every call, text, and email compliant, logged, and audit-ready for your next NCUA exam." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/collections/credit-unions" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-      </Helmet>
+      <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
 
       <Navbar transparent />
 
@@ -370,7 +356,7 @@ export default function CreditUnionCollectionsPage() {
               </p>
               <cite className="mt-4 block text-sm not-italic text-ink/55">
                 Darryl Brown - Principal,{' '}
-                <Link to="/customer-stories" className="text-accent underline underline-offset-2 hover:opacity-80">
+                <Link href="/customer-stories" className="text-accent underline underline-offset-2 hover:opacity-80">
                   Greystone &amp; Associates
                 </Link>
               </cite>
@@ -389,7 +375,7 @@ export default function CreditUnionCollectionsPage() {
                 </Heading>
                 <p className="mt-4 text-sm leading-relaxed text-ink-grey">
                   Can't find your answer?{' '}
-                  <Link to="/contact" className="text-accent underline underline-offset-2 hover:opacity-80">
+                  <Link href="/contact" className="text-accent underline underline-offset-2 hover:opacity-80">
                     Reach out to our team
                   </Link>
                   .
