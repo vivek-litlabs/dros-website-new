@@ -19,9 +19,11 @@ const outDir = mode === 'capture' ? BASELINE_DIR : CURRENT_DIR;
 
 // Preflight. Without this, an unreachable server produces a full run of
 // "failures" that read exactly like parity regressions.
+// Any HTTP response proves the server is listening, INCLUDING a 404: mid-migration the
+// root route may legitimately not exist yet. Only a connection-level failure means the
+// server is actually down. Requiring 200 here made this preflight block a valid run.
 try {
-  const res = await fetch(baseUrl, { method: 'HEAD' });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  await fetch(baseUrl, { method: 'HEAD' });
 } catch (err) {
   console.error(
     `Cannot reach ${baseUrl} (${err instanceof Error ? err.message : String(err)}).\n` +
