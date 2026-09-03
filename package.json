@@ -13,7 +13,8 @@
     "postinstall": "node scripts/sync-routes.js",
     "parity:capture": "tsx parity/run.ts capture",
     "parity:compare": "tsx parity/run.ts compare",
-    "parity": "npm run parity:compare"
+    "parity": "npm run parity:compare",
+    "parity:ssr": "tsx parity/assert-ssr.ts"
   },
   "dependencies": {
     "framer-motion": "^12.42.1",
