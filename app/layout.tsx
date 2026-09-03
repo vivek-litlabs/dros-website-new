@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Suspense } from 'react';
 import '../src/index.css';
 import ScrollRestoration from './scroll-restoration';
@@ -58,6 +59,73 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             rel="stylesheet"
           />
         </noscript>
+
+        {/*
+          Google tag (gtag.js). NOTE: react-ga4 in app/site-analytics.tsx also
+          initializes measurement ID G-TT8WJVR53D. This duplicates index.html's
+          pre-existing behavior (both gtag.js here and react-ga4 fire for the
+          same ID, likely double-counting pageviews). That duplication is
+          reproduced deliberately as part of this port, not introduced by it —
+          resolving it is a product/analytics decision, not a migration side effect.
+        */}
+        <Script
+          id="ga-gtag-src"
+          src="https://www.googletagmanager.com/gtag/js?id=G-TT8WJVR53D"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="ga-gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-TT8WJVR53D');`,
+          }}
+        />
+
+        {/* Microsoft Clarity */}
+        <Script
+          id="clarity-loader"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+      (function (c, l, a, r, i, t, y) {
+        t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "uqmzb4i25n");`,
+          }}
+        />
+
+        {/* reb2b */}
+        <Script
+          id="reb2b-loader"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function (key) {
+        if (window.reb2b && window.reb2b.loaded) return;
+        window.reb2b = { loaded: true };
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = "https://b2bjsstore.s3.us-west-2.amazonaws.com/b/" + key + "/" + key + ".js.gz";
+        document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]);
+      })("G4N210H0DK6Z");`,
+          }}
+        />
+
+        {/* Crisp chat widget */}
+        <Script
+          id="crisp-loader"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `window.$crisp = window.$crisp || [];
+      window.CRISP_WEBSITE_ID = "09fd1c51-2e69-4224-876c-5913f498b5da";
+      var d = document, s = d.createElement("script");
+      s.src = "https://client.crisp.chat/l.js"; s.async = 1;
+      d.getElementsByTagName("head")[0].appendChild(s);`,
+          }}
+        />
       </head>
       <body>
         <ScrollRestoration />
