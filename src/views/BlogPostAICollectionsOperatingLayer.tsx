@@ -1,6 +1,5 @@
-export const route = '/blogs/ai-collections-operating-layer';
-export const tags = ['Technology & Integrations', 'Collections Strategy & Performance', 'Compliance & Operations'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Technology & Integrations', 'Collections Strategy & Performance', 'Compliance & Operations'];
 import BlogLayout, { P, H2, H3, Ul, DarkCard, StepCard, BlogCTA, BlogFAQ } from './BlogLayout';
 
 const faqItems = [
@@ -42,25 +41,13 @@ const TOC = [
 
 export default function BlogPostAICollectionsOperatingLayer() {
   return (
-    <>
-      <Helmet>
-        <title>Choosing an AI Collections Operating Layer: What to Look For</title>
-        <meta name="description" content="Learn how to evaluate an AI collections operating layer that orchestrates voice bots, agents, channels, and compliance rules across your entire portfolio." />
-        <meta property="og:title" content="Choosing an AI Collections Operating Layer: What to Look For" />
-        <meta property="og:description" content="Learn how to evaluate an AI collections operating layer that orchestrates voice bots, agents, channels, and compliance rules across your entire portfolio." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blogs/ai-collections-operating-layer" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <BlogLayout
         image="/blog/code-pattern.avif"
         title="Choosing an AI Collections Operating Layer: What to Look For (and Why It Matters More Than Any Bot)"
         readTime="14 min"
         tags={['Technology & Integrations']}
         tocSections={TOC}
-        canonicalPath={route}
+        canonicalPath="/blogs/ai-collections-operating-layer"
         datePublished="2026-06-12"
         category="Technology & Integrations"
         faq={faqItems}
@@ -350,6 +337,5 @@ export default function BlogPostAICollectionsOperatingLayer() {
         <H2 id="faq">FAQ</H2>
         <BlogFAQ items={faqItems} />
       </BlogLayout>
-    </>
   );
 }

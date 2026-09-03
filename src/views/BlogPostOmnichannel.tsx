@@ -1,6 +1,5 @@
-export const route = '/blogs/omnichannel-ai-debt-collection';
-export const tags = ['Context & Omnichannel', 'Collections Strategy & Performance', 'Compliance & Operations', 'AI Voice Agents'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Context & Omnichannel', 'Collections Strategy & Performance', 'Compliance & Operations', 'AI Voice Agents'];
 import BlogLayout, { P, H2, H3, Ul, DarkCard, BlogCTA, BlogFAQ } from './BlogLayout';
 
 const faqItems = [
@@ -46,25 +45,13 @@ const TOC = [
 
 export default function BlogPostOmnichannel() {
   return (
-    <>
-      <Helmet>
-        <title>Omnichannel AI in Debt Collection: Voice, SMS, Email, and Self-Service</title>
-        <meta name="description" content="Learn how to design and orchestrate omnichannel AI in debt collection across voice, SMS, email, and self-service - with compliance and DROS built in." />
-        <meta property="og:title" content="Omnichannel AI in Debt Collection: Voice, SMS, Email, and Self-Service" />
-        <meta property="og:description" content="Learn how to design and orchestrate omnichannel AI in debt collection across voice, SMS, email, and self-service - with compliance and DROS built in." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blogs/omnichannel-ai-debt-collection" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <BlogLayout
         image="/features/omnichannel.jpg"
         title="Omnichannel AI in Debt Collection: Orchestrating Voice, SMS, Email, and Self-Service"
         readTime="14 min"
         tags={['Context & Omnichannel', 'Collections Strategy & Performance']}
         tocSections={TOC}
-        canonicalPath={route}
+        canonicalPath="/blogs/omnichannel-ai-debt-collection"
         datePublished="2026-06-10"
         category="Context & Omnichannel"
         faq={faqItems}
@@ -392,6 +379,5 @@ export default function BlogPostOmnichannel() {
           This article is for informational purposes only and does not constitute legal advice. Always consult qualified counsel when designing or modifying collections workflows.
         </p>
       </BlogLayout>
-    </>
   );
 }

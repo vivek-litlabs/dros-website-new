@@ -1,6 +1,5 @@
-export const route = '/blogs/ai-readiness-checklist-collection-agencies';
-export const tags = ['Collections Strategy & Performance', 'Compliance & Operations', 'Technology & Integrations'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Collections Strategy & Performance', 'Compliance & Operations', 'Technology & Integrations'];
 import BlogLayout, { P, H2, Ul, DarkCard, StepCard, BlogCTA, BlogFAQ } from './BlogLayout';
 import AIReadinessChecklist from '../components/AIReadinessChecklist';
 
@@ -33,31 +32,13 @@ const faqItems = [
 
 export default function BlogPostAIReadinessChecklist() {
   return (
-    <>
-      <Helmet>
-        <title>Voice AI Readiness Checklist for Debt Collection Teams</title>
-        <meta
-          name="description"
-          content="Twelve questions that decide whether your voice AI evaluation reaches procurement, and the three that are non-negotiable. Interactive, scored, no email required."
-        />
-        <meta property="og:title" content="Voice AI Readiness Checklist for Debt Collection Teams" />
-        <meta
-          property="og:description"
-          content="Twelve questions that decide whether your voice AI evaluation reaches procurement, and the three that are non-negotiable. Interactive, scored, no email required."
-        />
-        <meta property="og:image" content="https://dros.ai/blog/ai-readiness-checklist.jpg" />
-        <meta property="og:url" content="https://dros.ai/blogs/ai-readiness-checklist-collection-agencies" />
-        <meta property="og:type" content="article" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/blog/ai-readiness-checklist.jpg" />
-      </Helmet>
       <BlogLayout
         image="/blog/ai-readiness-checklist.avif"
         title="Voice AI Readiness Checklist for Debt Collection Teams"
         subtitle="Interactive and scored. Your answers stay in your browser, and there is no form at the end."
         readTime="9 min"
         tags={tags}
-        canonicalPath={route}
+        canonicalPath="/blogs/ai-readiness-checklist-collection-agencies"
         datePublished="2026-08-24"
         category="Collections Strategy & Performance"
         faq={faqItems}
@@ -142,6 +123,5 @@ export default function BlogPostAIReadinessChecklist() {
         <H2 id="faq">FAQ</H2>
         <BlogFAQ items={faqItems} />
       </BlogLayout>
-    </>
   );
 }

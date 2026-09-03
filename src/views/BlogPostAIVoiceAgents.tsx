@@ -1,6 +1,5 @@
-export const route = '/blogs/ai-voice-agents-debt-disputes-compliance';
-export const tags = ['Compliance & Operations', 'AI Voice Agents', 'FDCPA', 'Disputes'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Compliance & Operations', 'AI Voice Agents', 'FDCPA', 'Disputes'];
 import BlogLayout, { P, H2, H3, Ul, DarkCard, StepCard, BlogCTA, BlogFAQ } from './BlogLayout';
 
 const faqItems = [
@@ -40,25 +39,13 @@ const TOC = [
 
 export default function BlogPostAIVoiceAgents() {
   return (
-    <>
-      <Helmet>
-        <title>How AI Voice Agents Handle Debt Disputes Without Creating Compliance Risk</title>
-        <meta name="description" content="Learn how AI voice agents should handle debt disputes, when to escalate to a human, and how DROS supports compliant dispute workflows end to end." />
-        <meta property="og:title" content="How AI Voice Agents Handle Debt Disputes Without Creating Compliance Risk" />
-        <meta property="og:description" content="Learn how AI voice agents should handle debt disputes, when to escalate to a human, and how DROS supports compliant dispute workflows end to end." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blogs/ai-voice-agents-debt-disputes-compliance" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <BlogLayout
         image="/blog/blocked-icon.avif"
         title="How AI Voice Agents Handle Debt Disputes Without Creating Compliance Risk"
         readTime="12 min"
         tags={['Compliance & Operations']}
         tocSections={TOC}
-        canonicalPath={route}
+        canonicalPath="/blogs/ai-voice-agents-debt-disputes-compliance"
         datePublished="2026-05-19"
         category="Compliance & Operations"
         faq={faqItems}
@@ -284,6 +271,5 @@ export default function BlogPostAIVoiceAgents() {
         <H2 id="faq">FAQ</H2>
         <BlogFAQ items={faqItems} />
       </BlogLayout>
-    </>
   );
 }

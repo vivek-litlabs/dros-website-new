@@ -1,6 +1,5 @@
-export const route = '/blogs/ai-agents-debt-collection-deployment';
-export const tags = ['Collections Strategy & Performance', 'AI Voice Agents', 'Compliance & Operations', 'First-Party', 'Third-Party'];
-import { Helmet } from 'react-helmet-async';
+'use client';
+const tags = ['Collections Strategy & Performance', 'AI Voice Agents', 'Compliance & Operations', 'First-Party', 'Third-Party'];
 import BlogLayout, { P, H2, H3, Ul, DarkCard, StepCard, BlogCTA, BlogFAQ } from './BlogLayout';
 
 const faqItems = [
@@ -50,26 +49,13 @@ const TOC = [
 
 export default function BlogPostAIAgentsDeployment() {
   return (
-    <>
-      <Helmet>
-        <title>How to Deploy AI Agents Across the Debt Collection Lifecycle</title>
-        <meta name="description" content="Learn how to deploy AI agents across the debt collection lifecycle - voice, SMS, and self-service - while staying compliant with Reg F, FDCPA, and client mandates." />
-        <link rel="canonical" href="https://dros.ai/blogs/ai-agents-debt-collection-deployment" />
-        <meta property="og:title" content="How to Deploy AI Agents Across the Debt Collection Lifecycle" />
-        <meta property="og:description" content="Learn how to deploy AI agents across the debt collection lifecycle - voice, SMS, and self-service - while staying compliant with Reg F, FDCPA, and client mandates." />
-        <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-        <meta property="og:url" content="https://dros.ai/blogs/ai-agents-debt-collection-deployment" />
-        <meta property="og:type" content="article" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-      </Helmet>
       <BlogLayout
         image="/features/dashboard.jpg"
         title="How to Deploy AI Agents Across the Debt Collection Lifecycle"
         readTime="18 min"
         tags={['Collections Strategy & Performance']}
         tocSections={TOC}
-        canonicalPath={route}
+        canonicalPath="/blogs/ai-agents-debt-collection-deployment"
         datePublished="2026-06-08"
         category="Collections Strategy & Performance"
         faq={faqItems}
@@ -475,6 +461,5 @@ export default function BlogPostAIAgentsDeployment() {
         <H2 id="faq">FAQ</H2>
         <BlogFAQ items={faqItems} />
       </BlogLayout>
-    </>
   );
 }
