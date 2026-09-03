@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ShieldCheck, PhoneCall, BadgeCheck, Scale, MapPin } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Section, Container, Eyebrow, Button } from '../ui';
@@ -52,7 +52,7 @@ export default function Compliance() {
             <div className="mt-2 flex flex-wrap items-center justify-center gap-4 md:justify-start">
               <Button variant="onLight" to="/book-meeting">Talk to Our AI Agent</Button>
               <Link
-                to="/trust-center"
+                href="/trust-center"
                 className="text-sm font-medium text-ink-dark underline underline-offset-2 hover:opacity-70"
               >
                 Visit the Trust Center

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowRight, Play, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Container } from '../ui';
@@ -159,7 +159,7 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
           </form>
         </div>
         <Link
-          to="/book-meeting"
+          href="/book-meeting"
           onClick={() => trackCta('hero_book_a_demo')}
           className="group relative isolate inline-flex h-[50px] shrink-0 overflow-hidden rounded-full p-px transition-transform active:scale-95"
         >
