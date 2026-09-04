@@ -42,24 +42,49 @@ from `main` and the harness from this branch, which no single checkout has.
 # 1. Vite app in an isolated worktree
 git worktree add ../parity-baseline main
 cd ../parity-baseline
-npm install
+npm install                    # main's own deps; `npm run build` here is Vite
 
-# 2. Bring the harness across (it does not exist on main)
-git checkout next-migration -- parity/ package.json
-npm install            # harness deps: playwright, pngjs, tsx
+# 2. Bring the harness across - the FILES ONLY.
+#    Do not take package.json too: that would replace main's Vite build with
+#    `next build` and break the very build you are trying to photograph.
+git checkout next-migration -- parity/
+
+# 3. The harness's own dependencies, which main does not have
+npm install -D @playwright/test pixelmatch pngjs @types/pngjs tsx
 npx playwright install chromium
 
-# 3. Build and serve the Vite app, then capture
-npm run build          # on main this is Vite -> dist/
-npx serve dist -l 3000 -s
+# 4. Build and serve the Vite app (port 3001 keeps it clear of a running Next server)
+npm run build                  # Vite -> dist/
+npx serve dist -l 3001 -s
 
-# in another shell, from ../parity-baseline
-npm run parity:capture
+# 5. Capture, from another shell in ../parity-baseline.
+#    Call tsx directly: the parity:* npm scripts live in the Next package.json,
+#    which you deliberately did not copy over.
+npx tsx parity/run.ts capture http://localhost:3001
 
-# 4. Copy the PNGs back and confirm they match the committed manifest
+# 6. Copy the PNGs back and confirm they match the committed manifest
 cp -r parity/baseline/. <this-repo>/parity/baseline/
 cd <this-repo> && npm run parity:verify-baseline
+
+# 7. Clean up
+git worktree remove ../parity-baseline
 ```
+
+Every step above was rehearsed end to end, and the result matters: the regenerated
+baseline was **bit-for-bit identical** to the original - all 123 SHA-256 hashes matched
+the committed manifest. Capture is deterministic, so these 461MB are reproducible rather
+than irreplaceable, and losing them costs an hour rather than the ability to verify
+anything ever again.
+
+That was confirmed on the same machine, so it holds the OS, Chromium build and installed
+fonts constant. A different machine may well produce different bytes - font rasterisation
+especially - in which case regenerate the baseline there and re-run the whole gate to
+establish a new reference, rather than assuming the manifest should still match.
+
+Two things above look like details and are not: taking `package.json` in step 2 replaces
+the Vite build with `next build` and breaks the build you are photographing, and omitting
+`pixelmatch` in step 3 fails at import before a single screenshot is taken. Both were
+found by rehearsing, not by reading.
 
 Capture rejects any screenshot that never reached visual stability rather than writing a
 mid-animation frame, so a baseline that completes is internally consistent - but only the

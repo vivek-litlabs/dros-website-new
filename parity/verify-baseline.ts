@@ -18,12 +18,17 @@ if (!existsSync(MANIFEST)) {
   process.exit(2);
 }
 
+// Trim each line rather than only splitting on \n: git may check this file out with
+// CRLF endings, and a trailing \r silently becomes part of the filename. Every path
+// then reports MISSING while sitting right there on disk. .gitattributes marks the
+// manifest binary to prevent the conversion; this makes the reader robust anyway.
 const entries = readFileSync(MANIFEST, 'utf8')
-  .split('\n')
+  .split(/\r?\n/)
+  .map((line) => line.trim())
   .filter(Boolean)
   .map((line) => {
     const [hash, ...rest] = line.split(/\s+/);
-    return { hash, rel: rest.join(' ') };
+    return { hash, rel: rest.join(' ').trim() };
   });
 
 let missing = 0;
