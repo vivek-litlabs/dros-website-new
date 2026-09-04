@@ -1,5 +1,4 @@
 'use client';
-const tags = ['Compliance & Operations', 'AI Voice Agents', 'DNC', 'Technology & Integrations'];
 import { ArrowRight } from 'lucide-react';
 import BlogLayout, { P, H2, Ul, DarkCard, StepCard, Screenshot, BlogCTA, BlogFAQ } from './BlogLayout';
 

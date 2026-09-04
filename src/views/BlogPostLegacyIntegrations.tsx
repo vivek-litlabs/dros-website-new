@@ -1,5 +1,4 @@
 'use client';
-const tags = ['Technology & Integrations', 'Legacy Systems', 'Collections Strategy & Performance'];
 import BlogLayout, { P, H2, Ul, DarkCard, StepCard, BlogCTA } from './BlogLayout';
 
 const TOC = [

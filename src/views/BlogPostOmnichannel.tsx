@@ -1,5 +1,4 @@
 'use client';
-const tags = ['Context & Omnichannel', 'Collections Strategy & Performance', 'Compliance & Operations', 'AI Voice Agents'];
 import BlogLayout, { P, H2, H3, Ul, DarkCard, BlogCTA, BlogFAQ } from './BlogLayout';
 
 const faqItems = [

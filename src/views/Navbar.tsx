@@ -154,7 +154,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
     if (pathname === '/') {
       scrollToId(id);
     } else {
-      try { sessionStorage.setItem('pending-scroll-id', id); } catch {}
+      try { sessionStorage.setItem('pending-scroll-id', id); } catch { /* sessionStorage unavailable (private mode); scroll target is a nicety, not required */ }
       router.push('/');
     }
   }

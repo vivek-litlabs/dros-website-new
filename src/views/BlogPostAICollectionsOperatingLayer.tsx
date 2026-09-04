@@ -1,5 +1,4 @@
 'use client';
-const tags = ['Technology & Integrations', 'Collections Strategy & Performance', 'Compliance & Operations'];
 import BlogLayout, { P, H2, H3, Ul, DarkCard, StepCard, BlogCTA, BlogFAQ } from './BlogLayout';
 
 const faqItems = [

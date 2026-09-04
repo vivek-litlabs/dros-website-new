@@ -21,7 +21,7 @@ export default function App() {
     try {
       scrollTo = sessionStorage.getItem('pending-scroll-id');
       if (scrollTo) sessionStorage.removeItem('pending-scroll-id');
-    } catch {}
+    } catch { /* sessionStorage unavailable (private mode); no pending scroll to honour */ }
     if (!scrollTo) return;
     const navHeight = 80;
     const attempt = (retries: number) => {

@@ -46,14 +46,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap"
           rel="stylesheet"
           media="print"
-          // eslint-disable-next-line react/no-unknown-property
-          onLoad={undefined}
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@1&family=Space+Grotesk:wght@400;500;600;700&display=swap"
           rel="stylesheet"
           media="print"
-          onLoad={undefined}
         />
         {/* The media="print" -> "all" swap must run without React, matching index.html. */}
         <script

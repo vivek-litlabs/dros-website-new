@@ -1,5 +1,4 @@
 'use client';
-const tags = ['Compliance & Operations', 'AI Voice Agents', 'FDCPA', 'Disputes'];
 import BlogLayout, { P, H2, H3, Ul, DarkCard, StepCard, BlogCTA, BlogFAQ } from './BlogLayout';
 
 const faqItems = [

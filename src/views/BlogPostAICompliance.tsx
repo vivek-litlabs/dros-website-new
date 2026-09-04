@@ -1,5 +1,4 @@
 'use client';
-const tags = ['Collections Strategy & Performance', 'Compliance & Operations', 'Technology & Integrations', 'AI Agents'];
 import BlogLayout, { P, H2, H3, Ul, DarkCard, StepCard, Blockquote, CalloutPill, BlogCTA } from './BlogLayout';
 
 const TOC = [
