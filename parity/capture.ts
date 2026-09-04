@@ -136,6 +136,23 @@ export async function captureRoute(
         await new Promise((r) => requestAnimationFrame(() => r(null)));
       }
       window.scrollTo(0, 0);
+      // Wait for the scroll-to-top to actually land AND for React to re-render off it.
+      //
+      // Navbar keeps a `scrolled` state driven by a scroll listener, and renders solid
+      // instead of transparent while it is set. Scrolling the page to trigger lazy content
+      // sets it; if we shoot before the final scroll event has fired and re-rendered, the
+      // navbar is captured solid. That state is WRONG but perfectly stable - no further
+      // scroll events arrive to correct it - so the two-identical-screenshots check below
+      // certifies it happily. It produced intermittent ~5500px diffs on whichever routes
+      // happened to lose the race, with identical pixel counts across different routes
+      // because the navbar is the same on all of them.
+      // NB: no named function expressions inside page.evaluate - esbuild's keepNames
+      // wraps them in a __name() helper that does not exist in the browser context.
+      const settleStart = Date.now();
+      while (Date.now() - settleStart < 2000) {
+        if (window.scrollY === 0 && Date.now() - settleStart > 100) break;
+        await new Promise((r) => requestAnimationFrame(() => r(null)));
+      }
     });
     // Decode every image — including ones scrolling just triggered to lazy-load —
     // so nothing pops in mid-screenshot.

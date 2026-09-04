@@ -36,6 +36,7 @@ const browser = await chromium.launch();
 const context = await browser.newContext({ deviceScaleFactor: DEVICE_SCALE_FACTOR });
 const results: RouteResult[] = [];
 let unstableCount = 0;
+let flakyCount = 0;
 let hardFailureCount = 0;
 
 /**
@@ -141,7 +142,41 @@ for (const route of ROUTES) {
       const dPath = join(REPORT_DIR, 'diff', vp.name, `${slug}.png`);
       // An unstable current capture had its PNG deleted above (see the stability check) —
       // there is nothing left to diff, so skip pixelmatch rather than reading a missing file.
-      const pixels = stable && existsSync(basePng) ? diffPng(basePng, png, dPath) : -1;
+      let pixels = stable && existsSync(basePng) ? diffPng(basePng, png, dPath) : -1;
+
+      // Re-capture once on a nonzero diff before calling it a failure.
+      //
+      // This does NOT relax the gate: PIXEL_TOLERANCE stays zero and a real regression
+      // fails both attempts, because it is deterministic. What it separates out is a rare
+      // capture-side race (roughly one run in three, 1-6 checks, a different route each
+      // time, always clean when that route is re-shot) that would otherwise show up as a
+      // phantom regression and send someone hunting a rendering bug that does not exist.
+      //
+      // A route that passes only on the retry is reported as FLAKY and counted, so the
+      // problem stays visible instead of being silently absorbed - a gate that quietly
+      // retries until green is not a gate.
+      if (pixels > 0) {
+        const retryPage = await context.newPage();
+        try {
+          const retry = await captureRoute(retryPage, baseUrl, route, vp, outDir);
+          if (retry.stable) {
+            const retryPixels = diffPng(basePng, retry.png, dPath);
+            if (retryPixels === 0) {
+              console.warn(
+                `FLAKY     ${vp.name.padEnd(7)} ${route} - ${pixels}px on first capture, 0px on re-capture`
+              );
+              flakyCount++;
+              pixels = 0;
+            } else {
+              pixels = retryPixels;
+            }
+          }
+        } catch {
+          // Retry failed outright; keep the original diff and let it fail normally.
+        } finally {
+          await retryPage.close();
+        }
+      }
 
       let metaProblems: string[] = [];
       if (vp.name === 'desktop') {
@@ -172,8 +207,18 @@ if (mode === 'compare') {
   if (hardFailureCount > 0) {
     console.error(`${hardFailureCount} capture(s) failed outright (see CAPTURE-ERROR/FAILED lines above).`);
   }
+  if (flakyCount > 0) {
+    console.warn(
+      `${flakyCount} check(s) passed only on re-capture (FLAKY above). Not a regression, ` +
+      `but the harness has a capture race worth fixing.`
+    );
+  }
   if (!pass) { console.error(`${failures} check(s) failed.`); process.exit(1); }
-  console.log('All parity checks passed.');
+  console.log(
+    flakyCount > 0
+      ? `All parity checks passed (${flakyCount} needed a re-capture).`
+      : 'All parity checks passed.'
+  );
 } else if (unstableCount > 0 || hardFailureCount > 0) {
   if (unstableCount > 0) console.error(`\n${unstableCount} capture(s) never settled. Baseline rejected.`);
   if (hardFailureCount > 0) console.error(`${hardFailureCount} capture(s) failed outright after 2 attempts. Baseline rejected.`);
