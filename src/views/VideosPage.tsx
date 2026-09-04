@@ -140,7 +140,6 @@ function VideosPage() {
         setTimeout(() => setHighlightedId(null), 2800);
       }, 100);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sorted = [...videos].sort((a, b) => b.addedAt.localeCompare(a.addedAt));
