@@ -211,7 +211,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             className="flex items-center justify-between"
           >
-            <Link prefetch={false} href="/" className="group flex items-center" aria-label="DROS home">
+            <Link href="/" className="group flex items-center" aria-label="DROS home">
               <motion.img
                 src="/DROS_horizontal_dark_bg_1.svg"
                 alt="DROS"
@@ -266,7 +266,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                               <div className="flex w-[190px] flex-col gap-3">
                                 {column.map(({ label, href, description }) => (
                                   <motion.div key={label} variants={dropdownItem}>
-                                    <Link prefetch={false}
+                                    <Link
                                       href={href}
                                       className="group flex flex-col gap-1 rounded-lg px-3 py-2 transition-colors hover:bg-white/[0.05]"
                                     >
@@ -302,7 +302,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
               ))}
 
               {routeLinks.map(({ label, to }) => (
-                <Link prefetch={false}
+                <Link
                   key={to}
                   href={to}
                   onMouseEnter={() => setHovered(to)}
@@ -368,7 +368,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                                         </span>
                                       </a>
                                     ) : (
-                                      <Link prefetch={false}
+                                      <Link
                                         href={href}
                                         className="group flex flex-col gap-1 rounded-lg px-3 py-2 transition-colors hover:bg-white/[0.05]"
                                       >
@@ -476,7 +476,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
 
               {routeLinks.map(({ label, to }) => (
                 <motion.div key={to} variants={dropdownItem}>
-                  <Link prefetch={false}
+                  <Link
                     href={to}
                     className="block py-2.5 text-ink/75 transition-colors hover:text-ink"
                     onClick={() => setIsMenuOpen(false)}
@@ -506,7 +506,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                       className="ml-3 overflow-hidden border-l border-hair pl-3"
                     >
                       {WHO_WE_SERVE_ITEMS.map(({ label, href, description }) => (
-                        <Link prefetch={false}
+                        <Link
                           key={label}
                           href={href}
                           className="block py-2 transition-colors hover:text-ink"
@@ -557,7 +557,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                             <span className="block text-xs text-ink/40">{description}</span>
                           </a>
                         ) : (
-                          <Link prefetch={false}
+                          <Link
                             key={label}
                             href={href}
                             className="block py-2 transition-colors hover:text-ink"

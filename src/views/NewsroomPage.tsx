@@ -171,7 +171,7 @@ function NewsCard({ item }: { item: NewsItem }) {
     );
   }
   return (
-    <Link href={item.url} prefetch={false} className="block h-full">
+    <Link href={item.url} className="block h-full">
       {content}
     </Link>
   );

@@ -42,7 +42,7 @@ export default function CustomerStoriesPage() {
         <Reveal stagger={0.06} className="grid grid-cols-1 gap-x-[60px] gap-y-[50px] md:grid-cols-2">
           {stories.map((story) => (
             <RevealItem key={story.slug}>
-              <Link href={story.slug} prefetch={false} className="group flex h-full flex-col gap-4 border-t border-[#EDEDED] pt-6">
+              <Link href={story.slug} className="group flex h-full flex-col gap-4 border-t border-[#EDEDED] pt-6">
                 <h2 className="line-clamp-3 font-saans text-xl font-light leading-[1.15] tracking-[-0.03em] text-black md:text-[22px]">
                   {story.title}
                 </h2>

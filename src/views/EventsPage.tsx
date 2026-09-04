@@ -80,7 +80,7 @@ function EventsPage() {
           <div className="grid md:grid-cols-3 gap-6">
             <Link
               href="/"
-              prefetch={false}
+             
               className="bg-slate-950 border border-slate-800 rounded-2xl p-8 hover:border-cyan-500 transition-all group"
             >
               <BarChart3 className="w-12 h-12 text-cyan-400 mb-4 group-hover:scale-110 transition-transform" />
@@ -438,7 +438,7 @@ function EventsPage() {
             <div>
               <h4 className="font-semibold mb-4">Product</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li><Link href="/" prefetch={false} className="hover:text-white transition-colors">DROS Platform</Link></li>
+                <li><Link href="/" className="hover:text-white transition-colors">DROS Platform</Link></li>
                 <li><a href="https://vodex.ai" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Vodex Voice AI</a></li>
                 <li><a href="https://dros.ai/book-meeting" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Book Demo</a></li>
               </ul>
@@ -446,9 +446,9 @@ function EventsPage() {
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li><Link href="/about" prefetch={false} className="hover:text-white transition-colors">About</Link></li>
-                <li><Link href="/blogs" prefetch={false} className="hover:text-white transition-colors">Blog</Link></li>
-                <li><Link href="/contact" prefetch={false} className="hover:text-white transition-colors">Contact</Link></li>
+                <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
+                <li><Link href="/blogs" className="hover:text-white transition-colors">Blog</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
               </ul>
             </div>
             <div>

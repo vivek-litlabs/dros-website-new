@@ -212,7 +212,7 @@ export function Button({
 
   if (to) {
     return (
-      <MotionLink prefetch={false} href={to} className={classes} onClick={onClick} aria-label={ariaLabel} {...motionProps}>
+      <MotionLink href={to} className={classes} onClick={onClick} aria-label={ariaLabel} {...motionProps}>
         {children}
       </MotionLink>
     );

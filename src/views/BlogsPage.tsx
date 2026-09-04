@@ -304,7 +304,7 @@ export default function BlogsPage() {
                 <FeaturedBody post={featuredPost} external />
               </a>
             ) : (
-              <Link href={featuredPost.slug!} prefetch={false} className="group flex flex-col gap-6 md:flex-row md:gap-10">
+              <Link href={featuredPost.slug!} className="group flex flex-col gap-6 md:flex-row md:gap-10">
                 <FeaturedMedia post={featuredPost} />
                 <FeaturedBody post={featuredPost} />
               </Link>
@@ -362,7 +362,7 @@ export default function BlogsPage() {
                     </div>
                   );
                   return post.slug ? (
-                    <Link key={i} href={post.slug!} prefetch={false}>{inner}</Link>
+                    <Link key={i} href={post.slug!}>{inner}</Link>
                   ) : (
                     <a key={i} href={post.externalUrl!} target="_blank" rel="noopener noreferrer">{inner}</a>
                   );

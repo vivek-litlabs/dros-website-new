@@ -55,7 +55,7 @@ function WebinarCard({ w }: { w: typeof PAST_WEBINARS[0] }) {
       </div>
       <Link
         href={w.detailsHref}
-        prefetch={false}
+       
         onClick={() => trackCta('webinars_view_details')}
         className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-black"
       >

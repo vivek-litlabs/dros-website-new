@@ -88,7 +88,7 @@ export default function EventsListingPage() {
 
 function EventRow({ event, muted = false }: { event: Event; muted?: boolean }) {
   return (
-    <Link href={event.slug} prefetch={false} className="group flex flex-col gap-3 py-8">
+    <Link href={event.slug} className="group flex flex-col gap-3 py-8">
       <h3 className={`font-saans text-xl font-light leading-[1.15] tracking-[-0.03em] transition-colors md:text-[22px] ${muted ? 'text-black/70 group-hover:text-black' : 'text-black'}`}>
         {event.title}
       </h3>

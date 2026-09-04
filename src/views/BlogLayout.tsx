@@ -141,7 +141,7 @@ export default function BlogLayout({ title, subtitle, tags, children, cta, image
           {children}
           {cta && <div className="mt-16">{cta}</div>}
           <div className="mt-14 pt-8 border-t border-[#E6E3E3]">
-            <Link prefetch={false} href="/blogs" className="inline-flex items-center gap-2 font-medium text-black transition-opacity hover:opacity-70">
+            <Link href="/blogs" className="inline-flex items-center gap-2 font-medium text-black transition-opacity hover:opacity-70">
               ← Back to all blogs
             </Link>
           </div>

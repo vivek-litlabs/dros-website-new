@@ -91,7 +91,7 @@ export function BlogPostCard({ post }: { post: BlogCardData }) {
     );
   }
   return (
-    <Link prefetch={false} href={post.slug!} className="group flex flex-col">
+    <Link href={post.slug!} className="group flex flex-col">
       {inner}
     </Link>
   );

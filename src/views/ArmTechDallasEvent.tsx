@@ -261,7 +261,7 @@ export default function ArmTechDallasEvent() {
           <div className="mt-16 pt-8 border-t border-slate-800">
             <Link
               href="/events"
-              prefetch={false}
+             
               className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors inline-flex items-center gap-2"
             >
               ← Back to Events
@@ -284,23 +284,23 @@ export default function ArmTechDallasEvent() {
               <h4 className="font-semibold mb-4">Product</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
                 <li><a href="/#features" className="hover:text-white transition-colors">Features</a></li>
-                <li><Link href="/pricing" prefetch={false} className="hover:text-white transition-colors">Pricing</Link></li>
+                <li><Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
                 <li><a href="/#security" className="hover:text-white transition-colors">Security</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li><Link href="/about" prefetch={false} className="hover:text-white transition-colors">About</Link></li>
-                <li><Link href="/blogs" prefetch={false} className="hover:text-white transition-colors">Blog</Link></li>
-                <li><Link href="/contact" prefetch={false} className="hover:text-white transition-colors">Contact</Link></li>
+                <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
+                <li><Link href="/blogs" className="hover:text-white transition-colors">Blog</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Resources</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li><Link href="/events" prefetch={false} className="hover:text-white transition-colors">Events</Link></li>
-                <li><Link href="/resources/videos" prefetch={false} className="hover:text-white transition-colors">Videos</Link></li>
+                <li><Link href="/events" className="hover:text-white transition-colors">Events</Link></li>
+                <li><Link href="/resources/videos" className="hover:text-white transition-colors">Videos</Link></li>
                 <li><a href="https://app.dros.ai/api-docs" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">API Docs</a></li>
               </ul>
             </div>

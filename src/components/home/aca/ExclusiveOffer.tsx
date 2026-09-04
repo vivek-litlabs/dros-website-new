@@ -31,7 +31,7 @@ export default function ExclusiveOffer() {
             </p>
             <Link
               href="/book-meeting"
-              prefetch={false}
+             
               className="mt-8 inline-flex items-center gap-1.5 font-inter text-[0.95rem] font-medium text-white underline decoration-white/40 underline-offset-4 transition-colors hover:decoration-white"
             >
               Terms &amp; conditions apply

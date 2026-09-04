@@ -37,7 +37,7 @@ export function SpinButton({
   const reduce = useReducedMotion();
   return (
     <MotionLink
-      prefetch={false}
+     
       href={to}
       onClick={onClick}
       className="group relative isolate inline-flex overflow-hidden rounded-full p-px"

@@ -114,7 +114,7 @@ export default function Pricing() {
                   </motion.a>
                 ) : (
                   <MotionLink
-                    prefetch={false}
+                   
                     href={plan.ctaHref}
                     onClick={() => trackCta(HOME_CTA_KEYS[plan.key])}
                     whileHover={{ scale: 1.03, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
