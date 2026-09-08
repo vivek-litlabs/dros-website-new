@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Section, Container, Eyebrow } from '../ui';
 import Reveal, { RevealItem } from '../Reveal';
 import { trackCta } from '../../lib/analytics';
@@ -114,7 +114,8 @@ export default function Pricing() {
                   </motion.a>
                 ) : (
                   <MotionLink
-                    to={plan.ctaHref}
+                   
+                    href={plan.ctaHref}
                     onClick={() => trackCta(HOME_CTA_KEYS[plan.key])}
                     whileHover={{ scale: 1.03, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
                     whileTap={{ scale: 0.97 }}

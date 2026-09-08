@@ -1,0 +1,69 @@
+{
+  "title": "Digital-First Debt Collection for Small Agencies in 2026",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "Digital-first collections are reshaping small agencies. See what's changing in 2026 and how to adapt without adding complexity.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/blogs/digital-first-collections-small-agencies-2026",
+    "og:title": "Digital-First Debt Collection for Small Agencies in 2026",
+    "og:description": "Digital-first collections are reshaping small agencies. See what's changing in 2026 and how to adapt without adding complexity.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg"
+  },
+  "canonical": [
+    "https://dros.ai/blogs/digital-first-collections-small-agencies-2026"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "url": "https://dros.ai/blogs/digital-first-collections-small-agencies-2026",
+      "datePublished": "2026-02-01",
+      "author": {
+        "@id": "https://dros.ai"
+      },
+      "publisher": {
+        "@id": "https://dros.ai"
+      },
+      "articleSection": "Collections Strategy",
+      "dateModified": "2026-02-01",
+      "keywords": "Collections Strategy, Collections Strategy & Performance, Digital-First, AI Agents, Field Insights"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dros.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://dros.ai/blogs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Collections Strategy",
+          "item": "https://dros.ai/blogs?category=Collections%20Strategy"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Article",
+          "item": "https://dros.ai/blogs/digital-first-collections-small-agencies-2026"
+        }
+      ]
+    }
+  ]
+}

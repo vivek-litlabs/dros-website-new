@@ -1,0 +1,124 @@
+{
+  "title": "Omnichannel AI in Debt Collection: Voice, SMS, Email, and Self-Service",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "Learn how to design and orchestrate omnichannel AI in debt collection across voice, SMS, email, and self-service - with compliance and DROS built in.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/blogs/omnichannel-ai-debt-collection",
+    "og:title": "Omnichannel AI in Debt Collection: Voice, SMS, Email, and Self-Service",
+    "og:description": "Learn how to design and orchestrate omnichannel AI in debt collection across voice, SMS, email, and self-service - with compliance and DROS built in.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg"
+  },
+  "canonical": [
+    "https://dros.ai/blogs/omnichannel-ai-debt-collection"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Omnichannel AI in Debt Collection: Orchestrating Voice, SMS, Email, and Self-Service",
+      "url": "https://dros.ai/blogs/omnichannel-ai-debt-collection",
+      "datePublished": "2026-06-10",
+      "author": {
+        "@id": "https://dros.ai"
+      },
+      "publisher": {
+        "@id": "https://dros.ai"
+      },
+      "articleSection": "Context & Omnichannel",
+      "dateModified": "2026-06-10",
+      "keywords": "Context & Omnichannel, Collections Strategy & Performance"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dros.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://dros.ai/blogs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Context & Omnichannel",
+          "item": "https://dros.ai/blogs?category=Context%20%26%20Omnichannel"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Omnichannel AI in Debt Collection: Orchestrating Voice, SMS, Email, and Self-Service",
+          "item": "https://dros.ai/blogs/omnichannel-ai-debt-collection"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is omnichannel AI in debt collection?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Omnichannel AI in debt collection means using AI agents across multiple channels - voice, SMS, email, chat, and self-service portals - in a coordinated way, where all channels share context, follow the same contact rules, and work together as a single strategy rather than as separate tools."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between multichannel and omnichannel debt collection?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Multichannel means having multiple channels available but running them independently, often with separate systems and no shared account history. Omnichannel means all channels read from and write to the same unified timeline, so every contact decision is made with full context and borrowers never have to repeat themselves."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which channels work best for AI-led debt collection outreach?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SMS and email work well for AI-led reminders, payment nudges, and self-service prompts. Self-service portals are well-suited to AI-led plan setup and account management. Voice is more mixed - AI handles routine outbound calls well, but complex conversations and hardship situations typically need human agents, with AI in a supporting role."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you stay compliant with Reg F in an omnichannel collections program?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Compliance in omnichannel collections requires centralized contact rules that apply across every channel - not separate frequency counters per tool. Consent must be checked in real time before each outbound attempt. Combined contacts across channels should stay within Reg F-style limits even when each individual channel looks compliant on its own."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS support omnichannel AI in debt collection?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS acts as the orchestration layer for omnichannel programs - storing a unified account timeline across all channels, encoding contact rules and consent logic once and enforcing them everywhere, and deciding the next best action at each step based on full account history. Voice bots, SMS agents, email automation, and portals all operate as execution surfaces controlled by DROS rather than running independent strategies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should a borrower be routed from AI to a human agent in omnichannel collections?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The handoff from AI to human should happen when the conversation requires judgment, empathy, or falls outside defined guardrails - for example, when a borrower expresses financial hardship, disputes the debt, uses legal language, or shows signs of distress. The AI handles the structured portion of the interaction; the human takes over when the situation requires more than a script can offer."
+          }
+        }
+      ]
+    }
+  ]
+}

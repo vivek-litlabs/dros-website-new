@@ -1,6 +1,5 @@
 import { Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
-import type Lenis from 'lenis';
 
 /*
  * ACA Orlando landing hero. The full-bleed rainbow/aurora background
@@ -16,13 +15,8 @@ function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
   const navHeight = 80;
-  const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
-  if (lenis) {
-    lenis.scrollTo(el, { offset: -navHeight });
-  } else {
-    const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
-    window.scrollTo({ top, behavior: 'smooth' });
-  }
+  const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+  window.scrollTo({ top, behavior: 'smooth' });
 }
 
 /* 7x7 dot-matrix glyph shown to the right of the first headline line. */

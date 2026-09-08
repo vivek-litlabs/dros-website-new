@@ -1,0 +1,130 @@
+{
+  "title": "AI Voice Agents for Debt Collection & Recovery — DROS",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "Context-aware AI voice agents for debt collection. Every call starts with full account history, FDCPA compliance guardrails, and automatic human handoff. Inbound and outbound.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/features/context-aware-voice-ai-agents-for-debt-collection",
+    "og:title": "AI Voice Agents for Debt Collection & Recovery — DROS",
+    "og:description": "Every call starts with account history, compliance guardrails, and human handoff logic built in. Inbound and outbound AI voice agents for collections.",
+    "og:image": "https://dros.ai/untitled_logo_1_basic-file.png",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/untitled_logo_1_basic-file.png"
+  },
+  "canonical": [
+    "https://dros.ai/features/context-aware-voice-ai-agents-for-debt-collection"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "DROS AI Voice Agents",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Context-aware AI voice agents for debt collection and recovery. DROS AI voice agents load full account history, compliance rules, and call objectives before every call - inbound and outbound - with automatic escalation to human agents.",
+      "url": "https://dros.ai/features/context-aware-voice-ai-agents-for-debt-collection",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://dros.ai/book-meeting"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "DROS",
+        "url": "https://dros.ai"
+      },
+      "featureList": [
+        "Context-aware AI voice agents for debt collection",
+        "Inbound and outbound AI collections calls",
+        "FDCPA and Reg F compliant call guardrails",
+        "Automatic human agent handoff",
+        "Broken PTP follow-up automation",
+        "Real-time account context during calls",
+        "Configurable agent scripts and objectives",
+        "Multi-language voice support"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do you stop the AI voice agent from going off-script in debt collection calls?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every DROS AI voice agent runs against an approved script with modular blocks. Prohibited phrases are enforced at the platform layer - if a phrase is not in the approved set, it is never spoken. A confidence threshold also triggers automatic escalation to a human agent before the conversation can drift off-script."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What FDCPA disclosures can the AI voice agent deliver?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS AI voice agents support modular disclosure blocks including Mini-Miranda (FDCPA §807), call recording consent, and jurisdiction-specific statements. These are inserted at the correct point in the call flow and cannot be skipped by the agent or overridden at runtime."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When does the AI voice agent hand off to a human debt collector?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The agent escalates immediately when: a dispute or hardship is mentioned, the debtor explicitly requests a human agent, or the agent's confidence score drops below the configured threshold. The human collector receives a full call summary and key flags before they speak. Any promise to pay or commitment made during the AI call is already logged before the handover."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can DROS AI voice agents work in first-party and third-party collections programs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. DROS supports first-party in-house collection teams, third-party collection agencies, and debt buyers on the same platform. Compliance rule sets, scripts, and guardrails are configurable per portfolio or program."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do AI voice agents work alongside SMS and email in a collections strategy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI voice is part of DROS's omnichannel collections layer. The AI voice agent sees prior SMS and email engagement - including link clicks and page visits - before every call. Outcomes from AI voice calls automatically trigger follow-up steps across other channels."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can we test the AI voice agent before going live in production?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. DROS includes a test call sandbox where you can preview the agent's voice, listen to a simulated call with your actual script and account variables, and make adjustments before enabling the agent in production."
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "DROS",
+          "item": "https://dros.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Features",
+          "item": "https://dros.ai/features"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AI Voice Agents",
+          "item": "https://dros.ai/features/context-aware-voice-ai-agents-for-debt-collection"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "title": "AI Collections Software for Consumer Lenders | DROS",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "DROS works your entire delinquent loan book from day 1 past due - every account, every channel, every day. Accounts cured in the first bucket never roll, never age, never charge off.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/collections/consumer-lending",
+    "og:title": "AI Collections Software for Consumer Lenders | DROS",
+    "og:description": "DROS works your entire delinquent loan book from day 1 past due - every account, every channel, every day. Accounts cured in the first bucket never charge off.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "keywords": "consumer lending collections software, roll rate reduction, early-stage delinquency, DPD bucket strategy, first-party loan servicing, auto finance collections, personal loan collections software"
+  },
+  "canonical": [
+    "https://dros.ai/collections/consumer-lending"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does DROS integrate with our loan servicing platform?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. DROS syncs delinquent accounts via CSV or API - balances, DPD bucket, contact info, and payment history. There is no migration project and nothing changes in your system of record. Most lenders are live within days."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS decide the strategy for each bucket?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Each DPD bucket runs its own cadence, tone, and offer within rules you approve - friendly reminders early, escalated negotiation through the Promise-to-Pay Engine mid-cycle, and human handoff with full context once judgment is required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will borrowers know they are talking to AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS agents identify themselves per your disclosure requirements. Conversations are natural, patient, and scripted to your standards - borrowers can always request a person, and those conversations route to your team instantly with full context."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS handle Reg F, FDCPA, and state mini-FDCPA rules for first-party lending?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Contact frequency, timing, and disclosure rules are enforced at the system level before any attempt is made - including state-specific mini-FDCPA requirements. Every interaction is recorded, transcribed, and exportable on demand."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does it cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Plans start at a flat monthly rate with included call minutes - no per-seat pricing, no long implementation fees. See pricing, or talk to us about your portfolio size."
+          }
+        }
+      ]
+    }
+  ]
+}

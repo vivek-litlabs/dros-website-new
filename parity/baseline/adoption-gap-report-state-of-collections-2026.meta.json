@@ -1,0 +1,41 @@
+{
+  "title": "The Adoption Gap: The State of AI in Collections 2026 | DROS",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "A field report on why debt collection teams are ready for AI voice and what is actually standing between them and deployment. Eight findings from 25+ conversations with operators, and a read on where the market actually sits.",
+    "og:type": "article",
+    "og:url": "https://dros.ai/adoption-gap-report-state-of-collections-2026",
+    "og:title": "The Adoption Gap: The State of AI in Collections 2026 | DROS",
+    "og:description": "A field report on why debt collection teams are ready for AI voice and what is actually standing between them and deployment. Eight findings from 25+ conversations with operators, and a read on where the market actually sits.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "keywords": "state of AI in debt collections, AI adoption collections report, AI voice agents collections, debt collection AI research, ARM industry AI report 2026"
+  },
+  "canonical": [
+    "https://dros.ai/adoption-gap-report-state-of-collections-2026"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "Report",
+      "name": "The Adoption Gap: The State of AI in Collections 2026",
+      "description": "A field report on why debt collection teams are ready for AI voice and what is actually standing between them and deployment. Eight findings from 25+ conversations with operators, and a read on where the market actually sits.",
+      "datePublished": "2026-08",
+      "inLanguage": "en-US",
+      "url": "https://dros.ai/adoption-gap-report-state-of-collections-2026",
+      "about": "AI voice adoption in the US accounts receivable management industry",
+      "publisher": {
+        "@type": "Organization",
+        "name": "DROS",
+        "url": "https://dros.ai",
+        "logo": "https://dros.ai/dros-logo-horizontal.svg"
+      }
+    }
+  ]
+}
