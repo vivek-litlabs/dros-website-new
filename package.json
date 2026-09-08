@@ -13,7 +13,9 @@
     "parity:compare": "tsx parity/run.ts compare",
     "parity": "npm run parity:compare",
     "parity:ssr": "tsx parity/assert-ssr.ts",
-    "parity:verify-baseline": "tsx parity/verify-baseline.ts"
+    "parity:verify-baseline": "tsx parity/verify-baseline.ts",
+    "prebuild": "node scripts/blog-hero-sync.mjs",
+    "blog:heroes": "node scripts/blog-hero-attach.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.42.1",

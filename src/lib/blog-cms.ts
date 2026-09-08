@@ -15,6 +15,10 @@
 
 import { request } from 'node:https';
 import { legacyBlogSlugs } from './blog-legacy-routes';
+// Written by scripts/blog-hero-sync.mjs during prebuild: slug -> local copy of the
+// Airtable hero attachment. Attachment URLs expire within hours, so the built pages
+// must never point at them directly.
+import heroManifest from './blog-hero-manifest.json';
 
 export interface CmsFaqItem {
   q: string;
@@ -159,7 +163,10 @@ async function fetchAll(): Promise<CmsPost[]> {
           .filter(Boolean),
         readTime: str(r.fields['Read Time']),
         published: str(r.fields.Published),
-        heroImage: str(r.fields['Hero Image']),
+        // The attachment is the source of truth - editors change the image in Airtable.
+        // Fall back to the legacy path field for records that predate attachments.
+        heroImage:
+          (heroManifest as Record<string, string>)[slug] ?? str(r.fields['Hero Image']),
         url: str(r.fields.URL),
         faq: parseJsonField<CmsFaqItem[]>(str(r.fields.FAQ), 'FAQ', slug),
         cta: parseJsonField<CmsCta>(str(r.fields.CTA), 'CTA', slug),

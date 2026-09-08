@@ -62,3 +62,7 @@ next-env.d.ts
 
 # Extracted blog HTML - regenerate with scripts/blog-extract.mjs
 artifacts/
+
+# Hero images downloaded from Airtable by prebuild (scripts/blog-hero-sync.mjs).
+# Regenerated every build; the manifest beside it IS committed.
+public/blog/cms/
