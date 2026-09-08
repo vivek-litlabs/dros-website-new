@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import routes from '../parity/routes.json';
+import { getCmsOnlyPosts } from '../src/lib/blog-cms';
 
 const BASE_URL = 'https://dros.ai';
 
@@ -44,8 +45,13 @@ const PRIORITY: Record<string, number> = {
 // was dropped, the source list was already correct.
 const ROUTES: string[] = routes;
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return ROUTES.map((route) => {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // New Airtable-authored posts are not in routes.json - that file lists the routes the
+  // parity gate photographs, which is by definition the pre-existing set. Appending them
+  // keeps the sitemap complete while leaving all 41 original entries byte-identical.
+  const cmsRoutes = (await getCmsOnlyPosts()).map((p) => p.slug);
+
+  return [...ROUTES, ...cmsRoutes].map((route) => {
     // routes.json uses '/' for the homepage; the absolute URL for it must
     // have no trailing slash to match the previous Vite-generated output.
     const url = route === '/' ? BASE_URL : `${BASE_URL}${route}`;

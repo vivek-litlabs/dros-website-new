@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import BlogsPage from '../../src/views/BlogsPage';
+import { getCmsOnlyPosts } from '../../src/lib/blog-cms';
+import type { BlogPost } from '../../src/views/BlogsPage';
 
 const title = 'DROS Blog | AI, Collections, and Context Orchestration';
 const description =
@@ -33,6 +35,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
-  return <BlogsPage />;
+export default async function Page() {
+  // New Airtable-authored posts, shaped like the static registry entries so the listing
+  // renders them through exactly the same card component.
+  const cms = await getCmsOnlyPosts();
+  const cmsPosts: BlogPost[] = cms.map((p) => ({
+    title: p.title,
+    category: (p.category || 'Collections Strategy & Performance') as BlogPost['category'],
+    tags: p.tags,
+    summary: p.summary,
+    slug: p.slug,
+    readTime: p.readTime,
+    image: p.heroImage,
+    date: p.published,
+  }));
+
+  return <BlogsPage cmsPosts={cmsPosts} />;
 }

@@ -1,6 +1,5 @@
 'use client';
-import parse, { domToReact, type HTMLReactParserOptions, type DOMNode } from 'html-react-parser';
-import { Element } from 'html-react-parser';
+import parse, { Element, type HTMLReactParserOptions } from 'html-react-parser';
 import BlogLayout, { BlogCTA, BlogFAQ } from './BlogLayout';
 import AIReadinessChecklist from '../components/AIReadinessChecklist';
 import type { CmsPost } from '../lib/blog-cms';

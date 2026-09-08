@@ -13,6 +13,9 @@
  *   - a `data-component` slot -> the matching client component
  */
 
+import { request } from 'node:https';
+import { legacyBlogSlugs } from './blog-legacy-routes';
+
 export interface CmsFaqItem {
   q: string;
   a: string;
@@ -68,6 +71,45 @@ function parseJsonField<T>(raw: string, field: string, slug: string): T | null {
   }
 }
 
+
+/**
+ * Plain HTTPS request rather than fetch(), deliberately.
+ *
+ * Next patches global fetch with its Data Cache, and that cache persists in .next/cache
+ * between builds - Vercel restores it too. With `force-cache` an editor could change a
+ * post, rebuild, and still ship the previous content. The obvious fix, `no-store`, opts
+ * the calling route into dynamic rendering, which turned /blogs from a static page into
+ * a server-rendered one.
+ *
+ * A request Next does not intercept sidesteps both: fresh data every build, and every
+ * page stays statically prerendered.
+ */
+function airtableGet(path: string, token: string): Promise<{ records: AirtableRecord[]; offset?: string }> {
+  return new Promise((resolve, reject) => {
+    const req = request(
+      { hostname: 'api.airtable.com', path, method: 'GET', headers: { Authorization: `Bearer ${token}` } },
+      (res) => {
+        const chunks: Buffer[] = [];
+        res.on('data', (c: Buffer) => chunks.push(c));
+        res.on('end', () => {
+          const body = Buffer.concat(chunks).toString('utf8');
+          if ((res.statusCode ?? 0) >= 400) {
+            reject(new Error(`Blog CMS: Airtable ${res.statusCode} - ${body.slice(0, 200)}`));
+            return;
+          }
+          try {
+            resolve(JSON.parse(body));
+          } catch (err) {
+            reject(new Error(`Blog CMS: unparseable Airtable response - ${err instanceof Error ? err.message : String(err)}`));
+          }
+        });
+      }
+    );
+    req.on('error', reject);
+    req.end();
+  });
+}
+
 let cache: Promise<CmsPost[]> | null = null;
 
 async function fetchAll(): Promise<CmsPost[]> {
@@ -87,18 +129,10 @@ async function fetchAll(): Promise<CmsPost[]> {
   do {
     const q = new URLSearchParams({ pageSize: '100' });
     if (offset) q.set('offset', offset);
-    const res = await fetch(`https://api.airtable.com/v0/${base}/${encodeURIComponent(table)}?${q}`, {
-      headers: { Authorization: `Bearer ${token}` },
-      // no-store, NOT force-cache. Next's Data Cache persists in .next/cache between
-      // builds, so force-cache silently served the previous build's records: an editor
-      // could change a post in Airtable, rebuild, and still ship the old content. This
-      // runs once per build, so refetching costs a second and buys correctness.
-      cache: 'no-store',
-    });
-    if (!res.ok) {
-      throw new Error(`Blog CMS: Airtable ${res.status} - ${(await res.text()).slice(0, 200)}`);
-    }
-    const page = (await res.json()) as { records: AirtableRecord[]; offset?: string };
+    const page = await airtableGet(
+      `/v0/${base}/${encodeURIComponent(table)}?${q}`,
+      token
+    );
     records.push(...page.records);
     offset = page.offset;
   } while (offset);
@@ -144,4 +178,18 @@ export function getAllPosts(): Promise<CmsPost[]> {
 
 export async function getPostBySlug(slug: string): Promise<CmsPost | undefined> {
   return (await getAllPosts()).find((p) => p.slug === slug);
+}
+
+/**
+ * Posts the CMS actually renders: everything in Airtable that is NOT already a
+ * hand-written React route.
+ *
+ * The 14 migrated posts are in Airtable too - they were exported there - but they keep
+ * rendering from their React views, which are pixel-locked to the baseline. Filtering
+ * them out here keeps one post from appearing twice in the listing and stops the build
+ * generating a page that Next's routing would never serve anyway.
+ */
+export async function getCmsOnlyPosts(): Promise<CmsPost[]> {
+  const legacy = legacyBlogSlugs();
+  return (await getAllPosts()).filter((p) => !legacy.has(p.slug));
 }

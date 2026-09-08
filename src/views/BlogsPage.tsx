@@ -216,7 +216,18 @@ function CategoryFromSearchParams({ onCategory }: { onCategory: (category: Categ
   return null;
 }
 
-export default function BlogsPage() {
+/**
+ * `cmsPosts` are new posts authored in Airtable. They are passed in from the server
+ * component rather than imported, because this file is a client component and the CMS
+ * fetch is build-time only.
+ *
+ * They are prepended, not merged by date, so the existing order is byte-identical while
+ * the list is empty - which it is until the first Airtable-authored post ships. The
+ * listing page is pixel-locked, so "no new posts" has to mean "nothing changes".
+ */
+export default function BlogsPage({ cmsPosts = [] }: { cmsPosts?: BlogPost[] } = {}) {
+  const allPosts = cmsPosts.length ? [...cmsPosts, ...blogPosts] : blogPosts;
+
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -233,21 +244,21 @@ export default function BlogsPage() {
   };
 
   const suggestions = searchQuery.trim().length > 1
-    ? blogPosts.filter(p => matchesSearch(p, searchQuery.trim())).slice(0, 6)
+    ? allPosts.filter(p => matchesSearch(p, searchQuery.trim())).slice(0, 6)
     : [];
 
   const categoryFilteredPosts = selectedCategory === 'All'
-    ? blogPosts
-    : blogPosts.filter(post =>
+    ? allPosts
+    : allPosts.filter(post =>
         post.category === selectedCategory ||
         (post.categories && post.categories.includes(selectedCategory))
       );
 
   const filteredPosts = isSearchActive && searchQuery.trim()
-    ? blogPosts.filter(p => matchesSearch(p, searchQuery.trim()))
+    ? allPosts.filter(p => matchesSearch(p, searchQuery.trim()))
     : categoryFilteredPosts;
 
-  const featuredPost = blogPosts.find(post => post.badge === 'Featured');
+  const featuredPost = allPosts.find(post => post.badge === 'Featured');
   const shouldShowFeatured = !isSearchActive && selectedCategory === 'All' && !!featuredPost;
   const gridPosts = shouldShowFeatured
     ? filteredPosts.filter(post => post !== featuredPost)
