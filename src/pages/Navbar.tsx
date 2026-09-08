@@ -6,15 +6,18 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { Variants, TargetAndTransition } from 'framer-motion';
 import type Lenis from 'lenis';
 import { springSnappy, springStd } from '../lib/motion';
+import AnnouncementBanner, { BANNER_HEIGHT_CLASS, BANNER_STORAGE_KEY } from './AnnouncementBanner';
 
 interface NavbarProps {
   transparent?: boolean;
 }
 
-function scrollToId(id: string) {
+function scrollToId(id: string, bannerVisible: boolean) {
   const el = document.getElementById(id);
   if (!el) return;
-  const navHeight = 80;
+  // 80px for the nav itself, plus the announcement banner above it when it's
+  // still showing (64px covers both its wrapped-mobile and single-line heights).
+  const navHeight = bannerVisible ? 80 + 64 : 80;
   const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
   if (lenis) {
     lenis.scrollTo(el, { offset: -navHeight });
@@ -105,6 +108,13 @@ export default function Navbar({ transparent = false }: NavbarProps) {
   const [isMobileWhoWeServeOpen, setIsMobileWhoWeServeOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [bannerDismissed, setBannerDismissed] = useState(() => {
+    try {
+      return localStorage.getItem(BANNER_STORAGE_KEY) === '1';
+    } catch {
+      return false;
+    }
+  });
   const navigate = useNavigate();
   const location = useLocation();
   const reduce = useReducedMotion();
@@ -156,9 +166,18 @@ export default function Navbar({ transparent = false }: NavbarProps) {
   function handleAnchorClick(id: string) {
     setIsMenuOpen(false);
     if (location.pathname === '/') {
-      scrollToId(id);
+      scrollToId(id, !bannerDismissed);
     } else {
       navigate('/', { state: { scrollTo: id } });
+    }
+  }
+
+  function handleBannerClose() {
+    setBannerDismissed(true);
+    try {
+      localStorage.setItem(BANNER_STORAGE_KEY, '1');
+    } catch {
+      // localStorage unavailable (private mode, etc.) — dismissal just won't persist.
     }
   }
 
@@ -167,7 +186,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
 
   const primaryLinks: { label: string; anchor: string }[] = [
     { label: 'How It Works', anchor: 'how-it-works' },
-    { label: 'Use Cases', anchor: 'use-cases' },
+    { label: 'Features', anchor: 'features' },
   ];
 
   const routeLinks: { label: string; to: string }[] = [
@@ -190,12 +209,23 @@ export default function Navbar({ transparent = false }: NavbarProps) {
     ) : null;
 
   return (
-    <motion.nav
-      initial={reduce ? false : { y: -90, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ ...springStd, delay: 0.05 }}
-      className="fixed top-0 z-50 w-full"
-    >
+    <>
+      {!bannerDismissed && (
+        <>
+          <AnnouncementBanner onClose={handleBannerClose} />
+          {/* Reserves the banner's height in normal document flow so every
+              page's own content (including padding-based layouts and the
+              transparent homepage hero) shifts down to clear the now-fixed
+              banner sitting above the nav. */}
+          <div aria-hidden className={BANNER_HEIGHT_CLASS} />
+        </>
+      )}
+      <motion.nav
+        initial={reduce ? false : { y: -90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ ...springStd, delay: 0.05 }}
+        className={`fixed z-50 w-full ${bannerDismissed ? 'top-0' : 'top-[64px] sm:top-11'}`}
+      >
       <motion.div
         // WebkitBackdropFilter is kept for older Safari, which only honours the
         // prefixed property. It is not in framer-motion's target type, hence the cast.
@@ -597,6 +627,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+      </motion.nav>
+    </>
   );
 }
