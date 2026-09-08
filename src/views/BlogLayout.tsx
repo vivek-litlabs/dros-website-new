@@ -35,6 +35,14 @@ interface BlogLayoutProps {
   canonicalPath?: string;
   /** ISO 8601 publish date, e.g. "2025-10-01" */
   datePublished?: string;
+  /**
+   * Extra class on the <article> element. CMS-rendered posts pass "blog-content" so
+   * src/styles/blog-content.css can style their class-less semantic markup. It goes on
+   * the existing element rather than a wrapper div on purpose: an extra block box would
+   * change how margins collapse against the FAQ and CTA that follow, and this layout is
+   * held to a zero-pixel parity gate.
+   */
+  contentClass?: string;
   /** Primary category/tag for schema, e.g. "Collections Strategy" */
   category?: string;
   /** When provided, injects FAQPage JSON-LD schema in addition to article schema */
@@ -48,7 +56,7 @@ function formatDate(iso?: string) {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
-export default function BlogLayout({ title, subtitle, tags, children, cta, image, author = 'DROS Team', canonicalPath, datePublished, category, faq }: BlogLayoutProps) {
+export default function BlogLayout({ title, subtitle, tags, children, cta, image, author = 'DROS Team', canonicalPath, datePublished, category, faq, contentClass }: BlogLayoutProps) {
   const siteUrl = 'https://dros.ai';
   const postUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : siteUrl;
   const displayDate = formatDate(datePublished);
@@ -137,7 +145,7 @@ export default function BlogLayout({ title, subtitle, tags, children, cta, image
           />
         )}
 
-        <article className="mx-auto max-w-[700px] py-14 md:py-16" style={{ fontFamily: "'Saans', 'Inter', sans-serif" }}>
+        <article className={`mx-auto max-w-[700px] py-14 md:py-16${contentClass ? ` ${contentClass}` : ''}`} style={{ fontFamily: "'Saans', 'Inter', sans-serif" }}>
           {children}
           {cta && <div className="mt-16">{cta}</div>}
           <div className="mt-14 pt-8 border-t border-[#E6E3E3]">

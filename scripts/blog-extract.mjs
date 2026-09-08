@@ -232,6 +232,22 @@ for (const post of internal) {
         .replace(/\s{2,}/g, ' ')
         .trim();
 
+      // Header content that lives on BlogLayout's props rather than in the body.
+      // Missing these is invisible in the body diff but shortens the rendered header.
+      const subtitleEl = document.querySelector('header p.mt-4');
+      const subtitle = subtitleEl ? text(subtitleEl) : '';
+
+      // datePublished is an ISO date used for the byline and the Article schema. The
+      // human string ("Aug 24, 2026") is a different field and cannot substitute.
+      let datePublished = '';
+      for (const s of document.querySelectorAll('script[type="application/ld+json"]')) {
+        try {
+          const json = JSON.parse(s.textContent ?? 'null');
+          const node = Array.isArray(json) ? json.find((n) => n && n.datePublished) : json;
+          if (node && node.datePublished) { datePublished = node.datePublished; break; }
+        } catch { /* a malformed block is not fatal here */ }
+      }
+
       const h1 = document.querySelector('h1');
       const canonical = document.querySelector('link[rel="canonical"]');
       const desc = document.querySelector('meta[name="description"]');
@@ -242,6 +258,8 @@ for (const post of internal) {
         title: document.title,
         canonical: canonical ? canonical.getAttribute('href') : null,
         description: desc ? desc.getAttribute('content') : null,
+        subtitle,
+        datePublished,
         faq,
         cta,
         components,

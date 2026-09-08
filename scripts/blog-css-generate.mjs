@@ -13,20 +13,16 @@
  * Usage:  node scripts/blog-css-generate.mjs [baseUrl] [outFile]
  */
 import { chromium } from '@playwright/test';
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 
 const BASE_URL = process.argv[2] ?? 'http://localhost:3000';
 const OUT = process.argv[3] ?? 'src/styles/blog-content.css';
 // No single post contains every block type, so probe several and take the first
 // page where each selector actually appears.
-const SAMPLES = [
-  '/blogs/collections-integrations-legacy-systems',
-  '/blogs/ai-agents-debt-collection-deployment',
-  '/blogs/human-in-the-loop-collections',
-  '/blogs/omnichannel-ai-debt-collection',
-  '/blogs/right-party-contact-rpc-learnings-from-the-field',
-];
+// Every post, so no block type goes unstyled because it happened to be missing from a
+// hand-picked shortlist. The loop stops as soon as every selector has been found.
+const SAMPLES = JSON.parse(readFileSync('artifacts/blogs.json', 'utf8')).posts.map((p) => p.slug);
 
 // Sample AT Tailwind's breakpoints, not near them. Measuring at 768 and emitting the
 // result at 640 would apply the md: styles across 640-767px, where they do not belong.
@@ -40,18 +36,30 @@ const VIEWPORTS = [
 const BREAKPOINTS = { sm: 640, md: 768, lg: 1024, xl: 1280 };
 const ORDER = ['base', 'sm', 'md', 'lg', 'xl'];
 
-/** semantic selector  <-  the element to measure on the live page */
+/**
+ * semantic selector  <-  the element to measure on the live page
+ *
+ * Selectors use the child combinator on purpose. `.blog-content` lives on the <article>,
+ * which also contains BlogLayout's own chrome - the FAQ, the CTA, the back link - all of
+ * which style themselves. A loose `.blog-content a` would give the back link the CTA
+ * button's padding, so content rules must not reach past the body's own elements.
+ */
 const TARGETS = [
-  ['.blog-content p', 'article p.text-black\\/80'],
-  ['.blog-content h2', 'article h2'],
-  ['.blog-content h3', 'article h3'],
-  ['.blog-content ul', 'article ul.space-y-3'],
-  ['.blog-content li', 'article ul.space-y-3 > li'],
-  ['.blog-content a', 'article a[href]'],
-  ['.blog-content strong', 'article strong'],
-  ['.blog-content [data-block="card"]', 'article div.bg-\\[\\#FAFAFA\\]'],
-  ['.blog-content [data-block="callout"]', 'article div.border-l-4'],
-  ['.blog-content [data-block="quote"]', 'article blockquote'],
+  ['.blog-content > p', 'article p.text-black\\/80'],
+  ['.blog-content > h2', 'article h2'],
+  ['.blog-content > h3', 'article h3'],
+  ['.blog-content > ul', 'article ul.space-y-3'],
+  ['.blog-content > ul > li', 'article ul.space-y-3 > li'],
+  // Tailwind's space-y-* puts the gap on `> * + *`, so the FIRST child has no top
+  // margin and probing it alone loses every inter-item gap. Probe the second one.
+  ['.blog-content > ul > li + li', 'article ul.space-y-3 > li + li'],
+  // Inline prose links, NOT the CTA button, which is also an <a>.
+  ['.blog-content > p a', 'article p.text-black\\/80 a[href]'],
+  ['.blog-content > p strong, .blog-content > ul strong', 'article p.text-black\\/80 strong'],
+  ['.blog-content > [data-block="card"]', 'article div.bg-\\[\\#FAFAFA\\]'],
+  ['.blog-content > [data-block="card"][data-variant="info"]', 'article div.bg-\\[\\#F7FAFF\\]'],
+  ['.blog-content > [data-block="callout"]', 'article div.border-l-4'],
+  ['.blog-content > [data-block="quote"]', 'article blockquote'],
   ['.blog-content [data-block="pills"] li', 'article span.rounded-full'],
   ['.blog-content table', 'article table'],
   ['.blog-content th', 'article th'],

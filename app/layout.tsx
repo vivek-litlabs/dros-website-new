@@ -2,6 +2,9 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import { Suspense } from 'react';
 import '../src/index.css';
+// Styling for CMS-rendered blog bodies, whose markup is semantic and class-less.
+// Everything in it is scoped under .blog-content, so it is inert on every other page.
+import '../src/styles/blog-content.css';
 import ScrollRestoration from './scroll-restoration';
 import SiteAnalytics from './site-analytics';
 

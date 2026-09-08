@@ -66,6 +66,13 @@ const REQUIRED_FIELDS = [
   { name: 'Word Count', type: 'number', options: { precision: 0 } },
   // The interactive blocks are stored as data, not frozen markup: their behaviour is
   // code (an accordion, a tracked CTA), only their copy is content.
+  // The post's own <h1>. Distinct from Name, which is the listing-card title: they
+  // differ on 9 of the 14 posts, so collapsing them would rewrite headlines.
+  { name: 'Heading', type: 'singleLineText' },
+  { name: 'Subtitle', type: 'multilineText' },
+  // ISO date for the byline and Article schema. Distinct from the human "Published"
+  // string: BlogLayout formats this one, and cannot parse "Aug 24, 2026".
+  { name: 'Date Published', type: 'singleLineText' },
   { name: 'FAQ', type: 'multilineText' },
   { name: 'CTA', type: 'multilineText' },
 ];
@@ -129,6 +136,9 @@ const rows = posts.map((p) => {
       Published: p.date ?? '',
       'Hero Image': p.image ?? '',
       'Word Count': p.text ? p.text.trim().split(/\s+/).length : 0,
+      Heading: p.h1 ?? p.title,
+      Subtitle: p.subtitle ?? '',
+      'Date Published': p.datePublished ?? '',
       FAQ: p.faq ? JSON.stringify(p.faq, null, 2) : '',
       CTA: p.cta ? JSON.stringify(p.cta, null, 2) : '',
     },
