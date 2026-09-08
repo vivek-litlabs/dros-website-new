@@ -39,6 +39,8 @@ export interface CmsPost {
   subtitle: string;
   /** ISO date for the byline and Article schema, e.g. "2026-08-24". */
   datePublished: string;
+  /** Scheduled go-live date. A post stays invisible until this date arrives. */
+  publishDate: string;
   summary: string;
   html: string;
   category: string;
@@ -147,6 +149,7 @@ async function fetchAll(): Promise<CmsPost[]> {
         heading: str(r.fields.Heading) || str(r.fields.Name),
         subtitle: str(r.fields.Subtitle),
         datePublished: str(r.fields['Date Published']),
+        publishDate: str(r.fields['Publish Date']) || str(r.fields['Date Published']),
         summary: str(r.fields.Summary),
         html: str(r.fields['Content HTML']),
         category: str(r.fields.Category),
@@ -191,5 +194,37 @@ export async function getPostBySlug(slug: string): Promise<CmsPost | undefined> 
  */
 export async function getCmsOnlyPosts(): Promise<CmsPost[]> {
   const legacy = legacyBlogSlugs();
-  return (await getAllPosts()).filter((p) => !legacy.has(p.slug));
+  const today = todayIso();
+
+  return (await getAllPosts()).filter((p) => {
+    // Already served by a hand-written React view.
+    if (legacy.has(p.slug)) return false;
+
+    // The blog route only serves /blogs/. The tracker also holds /alternatives/,
+    // /compare/, /integrations/ and /resources/ entries, which are different page
+    // types and need their own routes rather than being smuggled in as blog posts.
+    if (!p.slug.startsWith('/blogs/')) return false;
+
+    // A dated row with nothing written is a plan, not a post.
+    if (!p.html.trim()) return false;
+
+    // Scheduled for a future day. Note this is evaluated at BUILD time: the site is
+    // statically generated, so a post going live on its date requires a build that
+    // day - see DEPLOYMENT.md for the daily deploy hook.
+    if (p.publishDate && p.publishDate > today) return false;
+
+    return true;
+  });
+}
+
+/**
+ * Today in UTC, as YYYY-MM-DD.
+ *
+ * UTC specifically, because Airtable's TODAY() - which drives the Status column editors
+ * read - is UTC. Using the build machine's local date instead made the site publish a
+ * post while Airtable still showed it as "Scheduled": the machine's clock was a day
+ * ahead of UTC. One clock, one answer.
+ */
+function todayIso(): string {
+  return new Date().toISOString().slice(0, 10);
 }

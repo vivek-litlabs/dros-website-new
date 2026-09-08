@@ -60,3 +60,50 @@ Also worth a manual look, since parity cannot check them:
 on a machine that already has those files. See `parity/README.md` - Git LFS or an object
 store are the two reasonable homes. Until that is decided, the baseline lives on one
 machine and cannot be regenerated from this branch alone.
+
+## Scheduled blog publishing
+
+New posts live in Airtable with a `Publish Date`. A post goes live when three things
+are true: it has content, its slug is under `/blogs/`, and its publish date has arrived
+(UTC, matching Airtable's `TODAY()` so the site and the Status column never disagree).
+
+**The site is statically generated, so a date arriving does not publish anything on its
+own — a build has to run that day.** Without a scheduled build, a post dated Tuesday
+simply stays invisible until the next deploy for any other reason.
+
+Set up a daily build in Vercel:
+
+1. Project Settings → Git → Deploy Hooks → create a hook (e.g. `daily-publish`, branch
+   `main`). Copy the URL.
+2. Schedule a daily `POST` to it. Either Vercel Cron, or any scheduler you already run:
+
+   ```
+   0 6 * * 1-5   curl -X POST https://api.vercel.com/v1/integrations/deploy/<hook>
+   ```
+
+   Weekdays at 06:00 UTC matches the Monday–Friday schedule the content tracker uses.
+   A daily build is harmless when nothing is due: the same pages are regenerated.
+
+Airtable's `Status` column shows where each row stands, and is a formula - nothing to
+maintain by hand:
+
+| Status | Meaning |
+| --- | --- |
+| `Needs content` | Dated, but `Content HTML` is empty. It will not publish. |
+| `Scheduled` | Has content, publish date is still in the future. |
+| `Published` | Has content and the date has arrived. Live after the next build. |
+
+### Publishing a post by hand
+
+Set `Content HTML`, make sure `Slug` starts with `/blogs/`, set `Publish Date` to today
+or earlier, and trigger a build. No code change.
+
+### What is not wired up
+
+- `/alternatives/`, `/compare/`, `/integrations/` and `/resources/` rows in the tracker
+  are not blog posts. The blog route only serves `/blogs/`, so those need their own
+  routes before they can publish.
+- Rows imported from the tracker carry a placeholder hero image
+  (`/blog/grid-perspective.avif`). Set a real one per post before it goes live.
+- New CMS posts do not appear in "Related Articles" on the 14 hand-written posts; that
+  component reads the static registry in `src/views/BlogsPage.tsx`.

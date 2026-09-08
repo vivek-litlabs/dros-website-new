@@ -45,6 +45,30 @@ const options: HTMLReactParserOptions = {
   },
 };
 
+
+/**
+ * Adapt stored markup to the layout WITHOUT editing the stored content.
+ *
+ * Bodies imported from the content tracker arrive wrapped in their own <article> and
+ * repeat the title as an <h1>. BlogLayout already supplies both, so rendering them as-is
+ * would nest one <article> inside another and put two <h1>s on the page - bad markup and
+ * bad SEO. The fix belongs here rather than in the CMS record: the stored HTML stays
+ * exactly as the author wrote it, and the renderer takes responsibility for fitting it
+ * into the page it is being rendered into.
+ */
+function unwrapForLayout(html: string): string {
+  let out = html.trim();
+
+  const article = out.match(/^<article[^>]*>([\s\S]*)<\/article>\s*$/i);
+  if (article) out = article[1].trim();
+
+  // Only a LEADING h1 is the duplicated title; one further down is the author's own
+  // sectioning and must survive.
+  out = out.replace(/^\s*<h1[^>]*>[\s\S]*?<\/h1>/i, '').trim();
+
+  return out;
+}
+
 export default function CmsBlogPost({ post }: { post: CmsPost }) {
   return (
     <BlogLayout
@@ -73,7 +97,7 @@ export default function CmsBlogPost({ post }: { post: CmsPost }) {
         ) : undefined
       }
     >
-      {parse(post.html, options)}
+      {parse(unwrapForLayout(post.html), options)}
       {post.faq && post.faq.length > 0 && <BlogFAQ items={post.faq} />}
     </BlogLayout>
   );
