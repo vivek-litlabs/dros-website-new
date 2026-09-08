@@ -64,6 +64,10 @@ const REQUIRED_FIELDS = [
   { name: 'Published', type: 'singleLineText' },
   { name: 'Hero Image', type: 'singleLineText' },
   { name: 'Word Count', type: 'number', options: { precision: 0 } },
+  // The interactive blocks are stored as data, not frozen markup: their behaviour is
+  // code (an accordion, a tracked CTA), only their copy is content.
+  { name: 'FAQ', type: 'multilineText' },
+  { name: 'CTA', type: 'multilineText' },
 ];
 
 const { posts } = JSON.parse(readFileSync(DATA, 'utf8'));
@@ -125,6 +129,8 @@ const rows = posts.map((p) => {
       Published: p.date ?? '',
       'Hero Image': p.image ?? '',
       'Word Count': p.text ? p.text.trim().split(/\s+/).length : 0,
+      FAQ: p.faq ? JSON.stringify(p.faq, null, 2) : '',
+      CTA: p.cta ? JSON.stringify(p.cta, null, 2) : '',
     },
   };
 });
