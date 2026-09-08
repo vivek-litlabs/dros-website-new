@@ -45,8 +45,8 @@ const api = async (url, init = {}) => {
 
 /** Exactly the fields src/lib/blog-cms.ts reads, plus editor-facing ones worth keeping. */
 const USED_BY_SITE = new Set([
-  'Slug', 'Name', 'Heading', 'Subtitle', 'Summary', 'Content HTML',
-  'Category', 'Tags', 'Read Time', 'Publish Date', 'Hero', 'FAQ', 'CTA',
+  'Slug', 'Name', 'Heading', 'Summary', 'Content HTML',
+  'Category', 'Tags', 'Read Time', 'Publish Date', 'Hero',
 ]);
 const KEPT_FOR_EDITORS = new Set([
   'Status',            // formula: Needs content / Scheduled / Published

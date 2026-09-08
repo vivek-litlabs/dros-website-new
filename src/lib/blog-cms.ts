@@ -6,7 +6,13 @@
  * mean a build needs AIRTABLE_* set - see DEPLOYMENT.md.
  *
  * The stored body is semantic HTML with no classes; styling lives in
- * src/styles/blog-content.css. The interactive pieces are stored as data, not markup,
+ * src/styles/blog-content.css.
+ *
+ * CMS posts carry no FAQ, CTA or subtitle. Those were dropped from this path on
+ * request: none of the 63 tracker rows used them, and an empty column per post is
+ * worse than no column. BlogLayout still supports all three - the hand-written posts
+ * pass them directly - so restoring the capability here is a small change if a future
+ * post needs it, and would mean re-adding the Airtable columns too. The interactive pieces are stored as data, not markup,
  * and are rendered by the real React components:
  *   - FAQ  -> BlogFAQ  (accordion)
  *   - CTA  -> BlogCTA  (fires click analytics)
@@ -20,27 +26,12 @@ import { legacyBlogSlugs } from './blog-legacy-routes';
 // must never point at them directly.
 import heroManifest from './blog-hero-manifest.json';
 
-export interface CmsFaqItem {
-  q: string;
-  a: string;
-}
-
-export interface CmsCta {
-  heading: string;
-  body: string;
-  primaryLabel: string;
-  primaryHref: string;
-  secondaryLabel?: string;
-  secondaryHref?: string;
-}
-
 export interface CmsPost {
   slug: string;
   /** Listing title, shown on the blogs index card. */
   title: string;
   /** The post's own <h1>, which differs from the listing title on 9 of 14 posts. */
   heading: string;
-  subtitle: string;
   /**
    * Go-live date, ISO. One field does both jobs: it gates publishing and supplies the
    * byline and Article schema date. Keeping a second human-readable copy in Airtable
@@ -53,8 +44,6 @@ export interface CmsPost {
   tags: string[];
   readTime: string;
   heroImage: string;
-  faq: CmsFaqItem[] | null;
-  cta: CmsCta | null;
 }
 
 interface AirtableRecord {
@@ -63,19 +52,6 @@ interface AirtableRecord {
 }
 
 const str = (v: unknown): string => (typeof v === 'string' ? v : '');
-
-/** Parse a JSON field, tolerating an empty cell. Bad JSON is a build error, not a silent null. */
-function parseJsonField<T>(raw: string, field: string, slug: string): T | null {
-  const trimmed = raw.trim();
-  if (!trimmed) return null;
-  try {
-    return JSON.parse(trimmed) as T;
-  } catch (err) {
-    throw new Error(
-      `Blog CMS: ${slug} has invalid JSON in "${field}": ${err instanceof Error ? err.message : String(err)}`
-    );
-  }
-}
 
 
 /**
@@ -151,7 +127,6 @@ async function fetchAll(): Promise<CmsPost[]> {
         slug,
         title: str(r.fields.Name),
         heading: str(r.fields.Heading) || str(r.fields.Name),
-        subtitle: str(r.fields.Subtitle),
         publishDate: str(r.fields['Publish Date']),
         summary: str(r.fields.Summary),
         html: str(r.fields['Content HTML']),
@@ -164,8 +139,6 @@ async function fetchAll(): Promise<CmsPost[]> {
         // The Airtable attachment, synced to a local copy at build time, is the only
         // source. The old path column is no longer read.
         heroImage: (heroManifest as Record<string, string>)[slug] ?? '',
-        faq: parseJsonField<CmsFaqItem[]>(str(r.fields.FAQ), 'FAQ', slug),
-        cta: parseJsonField<CmsCta>(str(r.fields.CTA), 'CTA', slug),
       };
     });
 

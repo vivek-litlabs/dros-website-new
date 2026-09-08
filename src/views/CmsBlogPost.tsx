@@ -1,6 +1,6 @@
 'use client';
 import parse, { Element, type HTMLReactParserOptions } from 'html-react-parser';
-import BlogLayout, { BlogCTA, BlogFAQ } from './BlogLayout';
+import BlogLayout from './BlogLayout';
 import AIReadinessChecklist from '../components/AIReadinessChecklist';
 import type { CmsPost } from '../lib/blog-cms';
 
@@ -73,32 +73,15 @@ export default function CmsBlogPost({ post }: { post: CmsPost }) {
   return (
     <BlogLayout
       title={post.heading}
-      subtitle={post.subtitle || undefined}
       datePublished={post.publishDate}
       readTime={post.readTime}
       tags={post.tags}
       image={post.heroImage}
       canonicalPath={post.slug}
       category={post.category}
-      faq={post.faq ?? undefined}
       contentClass="blog-content"
-      cta={
-        post.cta ? (
-          <BlogCTA
-            heading={post.cta.heading}
-            body={post.cta.body}
-            primaryLabel={post.cta.primaryLabel}
-            primaryHref={post.cta.primaryHref}
-            // BlogCTA always renders both buttons, so every stored CTA has a secondary
-            // pair; the fallbacks are here to satisfy the types, not to paper over a gap.
-            secondaryLabel={post.cta.secondaryLabel ?? ''}
-            secondaryHref={post.cta.secondaryHref ?? ''}
-          />
-        ) : undefined
-      }
     >
       {parse(unwrapForLayout(post.html), options)}
-      {post.faq && post.faq.length > 0 && <BlogFAQ items={post.faq} />}
     </BlogLayout>
   );
 }
