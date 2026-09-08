@@ -45,7 +45,7 @@ export async function generateMetadata({
       description: post.summary,
       url: post.slug,
       type: 'article',
-      publishedTime: post.datePublished || undefined,
+      publishedTime: post.publishDate || undefined,
       images: post.heroImage ? [`https://dros.ai${post.heroImage}`] : undefined,
     },
     twitter: {

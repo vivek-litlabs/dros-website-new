@@ -35,6 +35,17 @@ export const metadata: Metadata = {
   },
 };
 
+/** "2026-09-08" -> "Sep 8, 2026", matching how the static registry writes dates. */
+function humanDate(iso: string): string {
+  if (!iso) return '';
+  return new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
 export default async function Page() {
   // New Airtable-authored posts, shaped like the static registry entries so the listing
   // renders them through exactly the same card component.
@@ -47,7 +58,7 @@ export default async function Page() {
     slug: p.slug,
     readTime: p.readTime,
     image: p.heroImage,
-    date: p.published,
+    date: humanDate(p.publishDate),
   }));
 
   return <BlogsPage cmsPosts={cmsPosts} />;

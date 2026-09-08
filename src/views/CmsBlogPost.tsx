@@ -74,7 +74,7 @@ export default function CmsBlogPost({ post }: { post: CmsPost }) {
     <BlogLayout
       title={post.heading}
       subtitle={post.subtitle || undefined}
-      datePublished={post.datePublished}
+      datePublished={post.publishDate}
       readTime={post.readTime}
       tags={post.tags}
       image={post.heroImage}

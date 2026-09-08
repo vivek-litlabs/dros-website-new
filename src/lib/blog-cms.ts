@@ -41,18 +41,18 @@ export interface CmsPost {
   /** The post's own <h1>, which differs from the listing title on 9 of 14 posts. */
   heading: string;
   subtitle: string;
-  /** ISO date for the byline and Article schema, e.g. "2026-08-24". */
-  datePublished: string;
-  /** Scheduled go-live date. A post stays invisible until this date arrives. */
+  /**
+   * Go-live date, ISO. One field does both jobs: it gates publishing and supplies the
+   * byline and Article schema date. Keeping a second human-readable copy in Airtable
+   * only created a way for the two to disagree.
+   */
   publishDate: string;
   summary: string;
   html: string;
   category: string;
   tags: string[];
   readTime: string;
-  published: string;
   heroImage: string;
-  url: string;
   faq: CmsFaqItem[] | null;
   cta: CmsCta | null;
 }
@@ -152,8 +152,7 @@ async function fetchAll(): Promise<CmsPost[]> {
         title: str(r.fields.Name),
         heading: str(r.fields.Heading) || str(r.fields.Name),
         subtitle: str(r.fields.Subtitle),
-        datePublished: str(r.fields['Date Published']),
-        publishDate: str(r.fields['Publish Date']) || str(r.fields['Date Published']),
+        publishDate: str(r.fields['Publish Date']),
         summary: str(r.fields.Summary),
         html: str(r.fields['Content HTML']),
         category: str(r.fields.Category),
@@ -162,12 +161,9 @@ async function fetchAll(): Promise<CmsPost[]> {
           .map((t) => t.trim())
           .filter(Boolean),
         readTime: str(r.fields['Read Time']),
-        published: str(r.fields.Published),
-        // The attachment is the source of truth - editors change the image in Airtable.
-        // Fall back to the legacy path field for records that predate attachments.
-        heroImage:
-          (heroManifest as Record<string, string>)[slug] ?? str(r.fields['Hero Image']),
-        url: str(r.fields.URL),
+        // The Airtable attachment, synced to a local copy at build time, is the only
+        // source. The old path column is no longer read.
+        heroImage: (heroManifest as Record<string, string>)[slug] ?? '',
         faq: parseJsonField<CmsFaqItem[]>(str(r.fields.FAQ), 'FAQ', slug),
         cta: parseJsonField<CmsCta>(str(r.fields.CTA), 'CTA', slug),
       };
