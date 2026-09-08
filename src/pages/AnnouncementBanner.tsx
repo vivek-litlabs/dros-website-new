@@ -23,7 +23,7 @@ export default function AnnouncementBanner({ onClose }: AnnouncementBannerProps)
         <Sparkles className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
         <span>The State of AI in Collections 2026 is here.</span>
         <a
-          href="https://www.dros.ai/blogs/ai-readiness-checklist-collection-agencies"
+          href="https://www.dros.ai/adoption-gap-report-state-of-collections-2026"
           className="group inline-flex items-center gap-0.5 underline underline-offset-2"
         >
           Explore the Adoption Gap Report
