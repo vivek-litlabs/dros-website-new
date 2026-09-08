@@ -98,7 +98,7 @@ bundle - there is no server rendering at request time.
 `vercel.json` is gone. Its SPA rewrite (`/(.*)` to `/index.html`) would break
 file-based routing, and Next already serves hashed assets under `/_next/static/`
 as immutable. The one rule that still had to be carried over is the year-long
-cache on self-hosted fonts, now in `next.config.ts` under `headers()`.
+cache on self-hosted fonts, now in `next.config.js` under `headers()`.
 
 ## Contributing
 
