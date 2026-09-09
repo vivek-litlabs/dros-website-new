@@ -46,6 +46,10 @@ function humanDate(iso: string): string {
   });
 }
 
+// Matches the blog route's revalidation, so a post that publishes itself also appears
+// here within the hour instead of waiting for the next deploy.
+export const revalidate = 3600;
+
 export default async function Page() {
   // New Airtable-authored posts, shaped like the static registry entries so the listing
   // renders them through exactly the same card component.

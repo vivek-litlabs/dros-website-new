@@ -45,6 +45,10 @@ const PRIORITY: Record<string, number> = {
 // was dropped, the source list was already correct.
 const ROUTES: string[] = routes;
 
+// Matches the blog route's revalidation, so a post that publishes itself also appears
+// here within the hour instead of waiting for the next deploy.
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // New Airtable-authored posts are not in routes.json - that file lists the routes the
   // parity gate photographs, which is by definition the pre-existing set. Appending them

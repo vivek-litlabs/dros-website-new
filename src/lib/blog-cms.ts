@@ -168,29 +168,45 @@ export async function getPostBySlug(slug: string): Promise<CmsPost | undefined> 
  * them out here keeps one post from appearing twice in the listing and stops the build
  * generating a page that Next's routing would never serve anyway.
  */
-export async function getCmsOnlyPosts(): Promise<CmsPost[]> {
+/**
+ * Posts that get a ROUTE: everything in Airtable with content, under /blogs/, that is
+ * not already a hand-written React view. Deliberately NOT filtered by publish date.
+ *
+ * Every scheduled post is prerendered ahead of its date and answers 404 until that date
+ * arrives (see the route's own gate). That is what makes publishing automatic: the page
+ * already exists, so no build is needed on the day - the hourly revalidation simply
+ * stops hiding it. Filtering by date here instead meant a post could only appear if
+ * something happened to rebuild the site that day, which is precisely what did not
+ * happen.
+ */
+export async function getRoutableCmsPosts(): Promise<CmsPost[]> {
   const legacy = legacyBlogSlugs();
-  const today = todayIso();
 
   return (await getAllPosts()).filter((p) => {
     // Already served by a hand-written React view.
     if (legacy.has(p.slug)) return false;
 
-    // The blog route only serves /blogs/. The tracker also holds /alternatives/,
-    // /compare/, /integrations/ and /resources/ entries, which are different page
-    // types and need their own routes rather than being smuggled in as blog posts.
+    // The blog route only serves /blogs/.
     if (!p.slug.startsWith('/blogs/')) return false;
 
     // A dated row with nothing written is a plan, not a post.
     if (!p.html.trim()) return false;
 
-    // Scheduled for a future day. Note this is evaluated at BUILD time: the site is
-    // statically generated, so a post going live on its date requires a build that
-    // day - see DEPLOYMENT.md for the daily deploy hook.
-    if (p.publishDate && p.publishDate > today) return false;
-
     return true;
   });
+}
+
+/** True once a post's publish date has arrived (UTC, matching Airtable's TODAY()). */
+export function isPublished(post: CmsPost): boolean {
+  return !post.publishDate || post.publishDate <= todayIso();
+}
+
+/**
+ * Posts that are live right now: routable AND past their publish date. Used by the
+ * listing and the sitemap, so a scheduled post is not advertised before it exists.
+ */
+export async function getCmsOnlyPosts(): Promise<CmsPost[]> {
+  return (await getRoutableCmsPosts()).filter(isPublished);
 }
 
 /**
