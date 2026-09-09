@@ -283,13 +283,14 @@ export default function BlogsPage({ cmsPosts = [] }: { cmsPosts?: BlogPost[] } =
     ? allPosts.filter(p => matchesSearch(p, searchQuery.trim()))
     : categoryFilteredPosts;
 
-  // The featured slot leads the page, so it may only hold the newest post. Badging an
-  // older post as Featured used to hoist it above everything - which is how a June post
-  // ended up sitting above September ones. When the featured post is no longer the
-  // newest it keeps its badge and simply takes its place in the grid by date, rather
-  // than the whole list bending around it.
-  const badgedFeatured = allPosts.find(post => post.badge === 'Featured');
-  const featuredPost = badgedFeatured === allPosts[0] ? badgedFeatured : undefined;
+  // The featured slot always leads with the newest post.
+  //
+  // It used to be chosen by a hand-set `badge: 'Featured'`, which hoisted whichever post
+  // carried it above everything else - a June post sat above September ones. Gating that
+  // badge on being newest fixed the order but emptied the slot entirely, since the
+  // badged post was old. Taking the newest post keeps the slot filled and keeps the page
+  // in date order, and means nobody has to remember to move a badge when they publish.
+  const featuredPost = allPosts[0];
   const shouldShowFeatured = !isSearchActive && selectedCategory === 'All' && !!featuredPost;
   const gridPosts = shouldShowFeatured
     ? filteredPosts.filter(post => post !== featuredPost)
