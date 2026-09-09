@@ -225,8 +225,33 @@ function CategoryFromSearchParams({ onCategory }: { onCategory: (category: Categ
  * the list is empty - which it is until the first Airtable-authored post ships. The
  * listing page is pixel-locked, so "no new posts" has to mean "nothing changes".
  */
+
+/**
+ * Newest first.
+ *
+ * Two things made the order wrong. CMS posts arrive in Airtable's record order, which
+ * is not date order, so a post dated the 8th could sit ahead of one dated the 9th. And
+ * the hand-maintained registry was only roughly sorted - "Jun 8" was listed above
+ * "Jun 12" - because nothing enforced it.
+ *
+ * Sorting here rather than at either source means one rule covers both, and neither a
+ * new Airtable row nor a hand-added entry can reintroduce the problem by being written
+ * in the wrong place.
+ *
+ * Array.prototype.sort is stable, so posts sharing a date keep the order they were
+ * written in. An unparseable date sorts last rather than throwing the list into
+ * arbitrary order.
+ */
+function sortByDateDesc(posts: BlogPost[]): BlogPost[] {
+  const time = (p: BlogPost) => {
+    const t = new Date(p.date).getTime();
+    return Number.isNaN(t) ? -Infinity : t;
+  };
+  return [...posts].sort((a, b) => time(b) - time(a));
+}
+
 export default function BlogsPage({ cmsPosts = [] }: { cmsPosts?: BlogPost[] } = {}) {
-  const allPosts = cmsPosts.length ? [...cmsPosts, ...blogPosts] : blogPosts;
+  const allPosts = sortByDateDesc(cmsPosts.length ? [...cmsPosts, ...blogPosts] : blogPosts);
 
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
   const [searchQuery, setSearchQuery] = useState('');

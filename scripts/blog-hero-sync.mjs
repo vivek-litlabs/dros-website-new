@@ -83,12 +83,31 @@ for (const r of records) {
   const name = `${slug.split('/').filter(Boolean).join('-')}${ext}`;
   const dest = join(OUT_DIR, name);
 
-  const res = await fetch(attachment.url);
-  if (!res.ok) {
-    console.error(`blog-hero-sync: could not download hero for ${slug} (${res.status})`);
+  // Retry before giving up. A single transient blip reaching Airtable's attachment CDN
+  // would otherwise fail the whole deploy - this step already killed one build with a
+  // DNS ENOTFOUND. Three attempts with a short backoff covers the usual flake without
+  // hiding a genuinely missing image.
+  let bytes = null;
+  let lastError = '';
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const res = await fetch(attachment.url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      bytes = Buffer.from(await res.arrayBuffer());
+      break;
+    } catch (err) {
+      lastError = err instanceof Error ? err.message : String(err);
+      if (attempt < 3) {
+        console.warn(`blog-hero-sync: ${slug} attempt ${attempt} failed (${lastError}); retrying`);
+        await new Promise((r) => setTimeout(r, attempt * 1500));
+      }
+    }
+  }
+  if (!bytes) {
+    console.error(`blog-hero-sync: could not download hero for ${slug} after 3 attempts - ${lastError}`);
     process.exit(1);
   }
-  writeFileSync(dest, Buffer.from(await res.arrayBuffer()));
+  writeFileSync(dest, bytes);
   manifest[slug] = `/blog/cms/${name}`;
   written.add(name);
   downloaded++;
