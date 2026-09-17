@@ -27,6 +27,37 @@ interface BlogLayoutProps {
   cta?: ReactNode;
   /** Hero image shown below the title/byline, matching the post's listing thumbnail. */
   image?: string;
+  /**
+   * Describes the hero for screen readers and Google Images. Defaults to '' - the
+   * correct value for a decorative hero, and what every hand-written post relied on
+   * before this prop existed.
+   */
+  imageAlt?: string;
+  /**
+   * Intrinsic pixel size of `image`. Only affects the window before CSS applies - the
+   * aspect-ratio class already reserves the box - but it lets the browser size the
+   * placeholder from the very first byte of HTML.
+   */
+  imageWidth?: number;
+  imageHeight?: number;
+  /**
+   * Modern-format srcsets for `image`. When present the hero renders as a <picture>,
+   * so browsers take AVIF or WebP and everything else falls back to `image` itself.
+   * The rendered pixels are the same either way.
+   */
+  imageSources?: { avif?: string; webp?: string };
+  /**
+   * Absolute URL for the BlogPosting schema's `image`, which Google needs for article
+   * rich results and Google Discover.
+   *
+   * Opt-in rather than derived from `image`, deliberately. The parity harness compares
+   * each route's JSON-LD byte-for-byte against a baseline photographed from the
+   * pre-migration Vite build - a baseline that cannot be recaptured, since that build
+   * no longer exists on this branch. Adding this field automatically would fail the
+   * gate on all 14 hand-written posts at once. Passing it per-post keeps those routes
+   * byte-identical while new CMS posts get the field.
+   */
+  schemaImage?: string;
   /** Byline author name. Defaults to the DROS team. */
   author?: string;
   /** Unused now that the layout follows the single-column reference design; kept for backward compatibility. */
@@ -56,7 +87,7 @@ function formatDate(iso?: string) {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
-export default function BlogLayout({ title, subtitle, tags, children, cta, image, author = 'DROS Team', canonicalPath, datePublished, category, faq, contentClass }: BlogLayoutProps) {
+export default function BlogLayout({ title, subtitle, tags, children, cta, image, imageAlt = '', imageWidth, imageHeight, imageSources, schemaImage, author = 'DROS Team', canonicalPath, datePublished, category, faq, contentClass }: BlogLayoutProps) {
   const siteUrl = 'https://dros.ai';
   const postUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : siteUrl;
   const displayDate = formatDate(datePublished);
@@ -71,6 +102,7 @@ export default function BlogLayout({ title, subtitle, tags, children, cta, image
     '@type': 'BlogPosting',
     'headline': typeof title === 'string' ? title : undefined,
     'url': postUrl,
+    ...(schemaImage ? { 'image': schemaImage } : {}),
     'datePublished': datePublished,
     'author': { '@id': siteUrl },
     'publisher': { '@id': siteUrl },
@@ -137,13 +169,40 @@ export default function BlogLayout({ title, subtitle, tags, children, cta, image
           )}
         </header>
 
-        {image && (
-          <img
-            src={image}
-            alt=""
-            className="mx-auto mt-12 aspect-[696/421] w-full max-w-[1200px] rounded-lg object-cover md:mt-16"
-          />
-        )}
+        {image && (() => {
+          // The hero is the LCP element on every post, so it is fetched eagerly at high
+          // priority. The class list is identical on both branches below: <picture>
+          // only changes which bytes arrive, never how they are laid out or painted.
+          const img = (
+            <img
+              src={image}
+              alt={imageAlt}
+              width={imageWidth}
+              height={imageHeight}
+              sizes={imageSources ? '(min-width: 1200px) 1200px, 100vw' : undefined}
+              fetchPriority="high"
+              decoding="async"
+              className="mx-auto mt-12 aspect-[696/421] w-full max-w-[1200px] rounded-lg object-cover md:mt-16"
+            />
+          );
+
+          if (!imageSources?.avif && !imageSources?.webp) return img;
+
+          // `contents` makes <picture> generate no box of its own, so the <img> stays a
+          // direct participant in the parent's block layout and its mx-auto/w-full
+          // behave exactly as they did without the wrapper.
+          return (
+            <picture className="contents">
+              {imageSources.avif && (
+                <source type="image/avif" srcSet={imageSources.avif} sizes="(min-width: 1200px) 1200px, 100vw" />
+              )}
+              {imageSources.webp && (
+                <source type="image/webp" srcSet={imageSources.webp} sizes="(min-width: 1200px) 1200px, 100vw" />
+              )}
+              {img}
+            </picture>
+          );
+        })()}
 
         <article className={`mx-auto max-w-[700px] py-14 md:py-16${contentClass ? ` ${contentClass}` : ''}`} style={{ fontFamily: "'Saans', 'Inter', sans-serif" }}>
           {children}

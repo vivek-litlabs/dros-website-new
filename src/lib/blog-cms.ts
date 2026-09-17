@@ -43,7 +43,29 @@ export interface CmsPost {
   category: string;
   tags: string[];
   readTime: string;
+  /**
+   * Path to the post's hero, or '' when it has none. Kept as a bare string because it
+   * is what the metadata and listing paths want - a single URL to point at.
+   */
   heroImage: string;
+  /**
+   * The same hero with everything needed to render it well: intrinsic dimensions, the
+   * editor's alt text, and AVIF/WebP srcsets. Undefined when the post has no hero.
+   */
+  hero?: HeroImage;
+}
+
+/** One hero as blog-hero-sync.mjs records it. */
+export interface HeroImage {
+  /** Original download; the format every browser can read, and the <img> fallback. */
+  src: string;
+  /** Editor-supplied alt text. '' means the editor left it blank. */
+  alt: string;
+  width?: number;
+  height?: number;
+  /** Ready-made srcset strings, absent when sharp could not transcode the source. */
+  avif?: string;
+  webp?: string;
 }
 
 interface AirtableRecord {
@@ -123,6 +145,7 @@ async function fetchAll(): Promise<CmsPost[]> {
     .filter((r) => str(r.fields.Slug))
     .map((r): CmsPost => {
       const slug = str(r.fields.Slug);
+      const hero = (heroManifest as Record<string, HeroImage | undefined>)[slug];
       return {
         slug,
         title: str(r.fields.Name),
@@ -138,7 +161,8 @@ async function fetchAll(): Promise<CmsPost[]> {
         readTime: str(r.fields['Read Time']),
         // The Airtable attachment, synced to a local copy at build time, is the only
         // source. The old path column is no longer read.
-        heroImage: (heroManifest as Record<string, string>)[slug] ?? '',
+        heroImage: hero?.src ?? '',
+        hero,
       };
     });
 

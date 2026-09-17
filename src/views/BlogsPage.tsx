@@ -22,6 +22,15 @@ export interface BlogPost {
   badge?: 'Featured' | 'External' | 'New';
   externalSource?: string;
   image: string;
+  /**
+   * Optional presentation extras for `image`, supplied only by Airtable-authored posts
+   * (the hand-written entries below omit them and render exactly as they always have).
+   * They change which bytes the browser downloads, never the rendered result.
+   */
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageSources?: { avif?: string; webp?: string };
   date: string;
 }
 
@@ -487,12 +496,36 @@ export default function BlogsPage({ cmsPosts = [] }: { cmsPosts?: BlogPost[] } =
 function FeaturedMedia({ post }: { post: BlogPost }) {
   return (
     <div className="w-full shrink-0 md:w-[58%]">
-      <img
-        src={post.image}
-        alt=""
-        loading="eager"
-        className="aspect-[823/500] w-full rounded-lg object-cover"
-      />
+      {(() => {
+        // The featured thumbnail is this page's LCP element. Class list and layout are
+        // identical on both branches; <picture> only offers the browser lighter bytes.
+        const img = (
+          <img
+            src={post.image}
+            alt={post.imageAlt ?? ''}
+            width={post.imageWidth}
+            height={post.imageHeight}
+            sizes={post.imageSources ? '(min-width: 768px) 58vw, 100vw' : undefined}
+            loading="eager"
+            fetchPriority="high"
+            className="aspect-[823/500] w-full rounded-lg object-cover"
+          />
+        );
+
+        if (!post.imageSources?.avif && !post.imageSources?.webp) return img;
+
+        return (
+          <picture className="contents">
+            {post.imageSources.avif && (
+              <source type="image/avif" srcSet={post.imageSources.avif} sizes="(min-width: 768px) 58vw, 100vw" />
+            )}
+            {post.imageSources.webp && (
+              <source type="image/webp" srcSet={post.imageSources.webp} sizes="(min-width: 768px) 58vw, 100vw" />
+            )}
+            {img}
+          </picture>
+        );
+      })()}
     </div>
   );
 }

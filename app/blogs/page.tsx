@@ -62,6 +62,10 @@ export default async function Page() {
     slug: p.slug,
     readTime: p.readTime,
     image: p.heroImage,
+    imageAlt: p.hero?.alt || p.title,
+    imageWidth: p.hero?.width,
+    imageHeight: p.hero?.height,
+    imageSources: p.hero && { avif: p.hero.avif, webp: p.hero.webp },
     date: humanDate(p.publishDate),
   }));
 

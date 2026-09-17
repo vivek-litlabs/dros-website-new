@@ -1,7 +1,74 @@
 {
-  "/blogs/best-ai-collection-agents-agencies": "/blog/cms/blogs-best-ai-collection-agents-agencies.png",
-  "/blogs/best-ai-agents-third-party-collections": "/blog/cms/blogs-best-ai-agents-third-party-collections.png",
-  "/blogs/best-ai-agents-first-party-collections": "/blog/cms/blogs-best-ai-agents-first-party-collections.png",
-  "/blogs/best-ai-agents-debt-collection": "/blog/cms/blogs-best-ai-agents-debt-collection.png",
-  "/blogs/best-debt-collection-software": "/blog/cms/blogs-best-debt-collection-software.png"
+  "/blogs/best-ai-collection-agents-agencies": {
+    "src": "/blog/cms/blogs-best-ai-collection-agents-agencies.a8413a2b.png",
+    "alt": "",
+    "width": 1672,
+    "height": 941,
+    "avif": "/blog/cms/blogs-best-ai-collection-agents-agencies.a8413a2b.696.avif 696w, /blog/cms/blogs-best-ai-collection-agents-agencies.a8413a2b.1200.avif 1200w",
+    "webp": "/blog/cms/blogs-best-ai-collection-agents-agencies.a8413a2b.696.webp 696w, /blog/cms/blogs-best-ai-collection-agents-agencies.a8413a2b.1200.webp 1200w"
+  },
+  "/blogs/best-ai-debt-collection-tools-consumer-lenders": {
+    "src": "/blog/cms/blogs-best-ai-debt-collection-tools-consumer-lenders.19050f9b.webp",
+    "alt": "",
+    "width": 1536,
+    "height": 1024,
+    "avif": "/blog/cms/blogs-best-ai-debt-collection-tools-consumer-lenders.19050f9b.696.avif 696w, /blog/cms/blogs-best-ai-debt-collection-tools-consumer-lenders.19050f9b.1200.avif 1200w",
+    "webp": "/blog/cms/blogs-best-ai-debt-collection-tools-consumer-lenders.19050f9b.696.webp 696w, /blog/cms/blogs-best-ai-debt-collection-tools-consumer-lenders.19050f9b.1200.webp 1200w"
+  },
+  "/blogs/best-ai-agents-third-party-collections": {
+    "src": "/blog/cms/blogs-best-ai-agents-third-party-collections.0b51bfa7.png",
+    "alt": "",
+    "width": 1672,
+    "height": 941,
+    "avif": "/blog/cms/blogs-best-ai-agents-third-party-collections.0b51bfa7.696.avif 696w, /blog/cms/blogs-best-ai-agents-third-party-collections.0b51bfa7.1200.avif 1200w",
+    "webp": "/blog/cms/blogs-best-ai-agents-third-party-collections.0b51bfa7.696.webp 696w, /blog/cms/blogs-best-ai-agents-third-party-collections.0b51bfa7.1200.webp 1200w"
+  },
+  "/blogs/best-ai-agents-first-party-collections": {
+    "src": "/blog/cms/blogs-best-ai-agents-first-party-collections.a80e50b8.png",
+    "alt": "",
+    "width": 1672,
+    "height": 941,
+    "avif": "/blog/cms/blogs-best-ai-agents-first-party-collections.a80e50b8.696.avif 696w, /blog/cms/blogs-best-ai-agents-first-party-collections.a80e50b8.1200.avif 1200w",
+    "webp": "/blog/cms/blogs-best-ai-agents-first-party-collections.a80e50b8.696.webp 696w, /blog/cms/blogs-best-ai-agents-first-party-collections.a80e50b8.1200.webp 1200w"
+  },
+  "/blogs/best-collection-software-credit-unions": {
+    "src": "/blog/cms/blogs-best-collection-software-credit-unions.d3bc53fe.webp",
+    "alt": "",
+    "width": 1536,
+    "height": 1024,
+    "avif": "/blog/cms/blogs-best-collection-software-credit-unions.d3bc53fe.696.avif 696w, /blog/cms/blogs-best-collection-software-credit-unions.d3bc53fe.1200.avif 1200w",
+    "webp": "/blog/cms/blogs-best-collection-software-credit-unions.d3bc53fe.696.webp 696w, /blog/cms/blogs-best-collection-software-credit-unions.d3bc53fe.1200.webp 1200w"
+  },
+  "/blogs/best-ai-agents-debt-collection": {
+    "src": "/blog/cms/blogs-best-ai-agents-debt-collection.1d76f79b.png",
+    "alt": "",
+    "width": 1672,
+    "height": 941,
+    "avif": "/blog/cms/blogs-best-ai-agents-debt-collection.1d76f79b.696.avif 696w, /blog/cms/blogs-best-ai-agents-debt-collection.1d76f79b.1200.avif 1200w",
+    "webp": "/blog/cms/blogs-best-ai-agents-debt-collection.1d76f79b.696.webp 696w, /blog/cms/blogs-best-ai-agents-debt-collection.1d76f79b.1200.webp 1200w"
+  },
+  "/blogs/best-debt-collection-software": {
+    "src": "/blog/cms/blogs-best-debt-collection-software.fda26056.png",
+    "alt": "",
+    "width": 1672,
+    "height": 941,
+    "avif": "/blog/cms/blogs-best-debt-collection-software.fda26056.696.avif 696w, /blog/cms/blogs-best-debt-collection-software.fda26056.1200.avif 1200w",
+    "webp": "/blog/cms/blogs-best-debt-collection-software.fda26056.696.webp 696w, /blog/cms/blogs-best-debt-collection-software.fda26056.1200.webp 1200w"
+  },
+  "/blogs/best-ai-tools-in-house-collections": {
+    "src": "/blog/cms/blogs-best-ai-tools-in-house-collections.3dd74f9a.webp",
+    "alt": "",
+    "width": 1536,
+    "height": 1024,
+    "avif": "/blog/cms/blogs-best-ai-tools-in-house-collections.3dd74f9a.696.avif 696w, /blog/cms/blogs-best-ai-tools-in-house-collections.3dd74f9a.1200.avif 1200w",
+    "webp": "/blog/cms/blogs-best-ai-tools-in-house-collections.3dd74f9a.696.webp 696w, /blog/cms/blogs-best-ai-tools-in-house-collections.3dd74f9a.1200.webp 1200w"
+  },
+  "/blogs/best-debt-buyer-software": {
+    "src": "/blog/cms/blogs-best-debt-buyer-software.0079f994.webp",
+    "alt": "",
+    "width": 1536,
+    "height": 1024,
+    "avif": "/blog/cms/blogs-best-debt-buyer-software.0079f994.696.avif 696w, /blog/cms/blogs-best-debt-buyer-software.0079f994.1200.avif 1200w",
+    "webp": "/blog/cms/blogs-best-debt-buyer-software.0079f994.696.webp 696w, /blog/cms/blogs-best-debt-buyer-software.0079f994.1200.webp 1200w"
+  }
 }

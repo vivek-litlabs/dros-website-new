@@ -3,6 +3,7 @@ import parse, { Element, type HTMLReactParserOptions } from 'html-react-parser';
 import BlogLayout from './BlogLayout';
 import AIReadinessChecklist from '../components/AIReadinessChecklist';
 import type { CmsPost } from '../lib/blog-cms';
+import { SITE_URL } from '../lib/site';
 
 /**
  * Render a post whose body comes from the CMS.
@@ -77,6 +78,14 @@ export default function CmsBlogPost({ post }: { post: CmsPost }) {
       readTime={post.readTime}
       tags={post.tags}
       image={post.heroImage}
+      // An editor who leaves Hero Alt blank gets the heading as a description of the
+      // image, which is nearly always what the hero depicts, and keeps the post out of
+      // the bucket of images Google cannot interpret at all.
+      imageAlt={post.hero?.alt || post.heading}
+      imageWidth={post.hero?.width}
+      imageHeight={post.hero?.height}
+      imageSources={post.hero && { avif: post.hero.avif, webp: post.hero.webp }}
+      schemaImage={post.heroImage ? `${SITE_URL}${post.heroImage}` : undefined}
       canonicalPath={post.slug}
       category={post.category}
       contentClass="blog-content"

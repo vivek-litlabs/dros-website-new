@@ -10,6 +10,7 @@
  */
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { absoluteUrl, DEFAULT_OG_IMAGE } from '../../../src/lib/site';
 import { getRoutableCmsPosts, isPublished } from '../../../src/lib/blog-cms';
 import CmsBlogPost from '../../../src/views/CmsBlogPost';
 
@@ -50,6 +51,10 @@ export async function generateMetadata({
   // Not yet published: emit nothing rather than metadata for a page that 404s.
   if (!post || !isPublished(post)) return {};
 
+  // A post with no hero still gets a card image. Without this the share preview
+  // collapses to a bare text link, which measurably costs clicks on LinkedIn.
+  const ogImage = post.heroImage ? absoluteUrl(post.heroImage) : DEFAULT_OG_IMAGE;
+
   return {
     title: post.title,
     description: post.summary,
@@ -60,13 +65,13 @@ export async function generateMetadata({
       url: post.slug,
       type: 'article',
       publishedTime: post.publishDate || undefined,
-      images: post.heroImage ? [`https://dros.ai${post.heroImage}`] : undefined,
+      images: [ogImage],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.summary,
-      images: post.heroImage ? [`https://dros.ai${post.heroImage}`] : undefined,
+      images: [ogImage],
     },
   };
 }
