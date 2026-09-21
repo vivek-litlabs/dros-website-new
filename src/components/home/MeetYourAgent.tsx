@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Sparkles } from 'lucide-react';
 import { Section, Container, Eyebrow, Heading } from '../ui';
 import Reveal, { RevealItem } from '../Reveal';
@@ -10,10 +10,6 @@ import Reveal, { RevealItem } from '../Reveal';
    ────────────────────────────────────────────────────────── */
 
 const ROTATE_MS = 8500;
-
-function prefersReducedMotion() {
-  return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
 
 interface AgentFeature {
   id: string;
@@ -271,7 +267,17 @@ const PANELS = [PromptPanel, AnalyticsPanel, BrandVoicePanel];
 
 export default function MeetYourAgent() {
   const [active, setActive] = useState(0);
-  const [reduced] = useState(prefersReducedMotion);
+  // Seed `false` (matching SSR, which has no window) rather than reading
+  // useReducedMotion()'s value directly: that hook resolves synchronously on
+  // the client from window.matchMedia, which can disagree with the server on
+  // the very first client render and produce a hydration mismatch, since
+  // `reduced` drives several of this component's conditional branches below.
+  // Apply the real value only after mount.
+  const reducedMotion = useReducedMotion();
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    setReduced(!!reducedMotion);
+  }, [reducedMotion]);
   const ActivePanel = PANELS[active];
 
   useEffect(() => {

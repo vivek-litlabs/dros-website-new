@@ -1,0 +1,124 @@
+{
+  "title": "Human-in-the-Loop Debt Collection: When AI Should Hand Off to Agents",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "Learn when AI agents should escalate to human collectors, how to design clean handoffs, and how DROS keeps AI and human workflows coordinated in debt collection.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/blogs/human-in-the-loop-collections",
+    "og:title": "Human-in-the-Loop Debt Collection: When AI Should Hand Off to Agents",
+    "og:description": "Learn when AI agents should escalate to human collectors, how to design clean handoffs, and how DROS keeps AI and human workflows coordinated in debt collection.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg"
+  },
+  "canonical": [
+    "https://dros.ai/blogs/human-in-the-loop-collections"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Human-in-the-Loop Debt Collection: When AI Should Hand Off to Agents (and How to Do It Well)",
+      "url": "https://dros.ai/blogs/human-in-the-loop-collections",
+      "datePublished": "2026-06-12",
+      "author": {
+        "@id": "https://dros.ai"
+      },
+      "publisher": {
+        "@id": "https://dros.ai"
+      },
+      "articleSection": "Collections Strategy & Performance",
+      "dateModified": "2026-06-12",
+      "keywords": "Collections Strategy & Performance, Compliance & Operations"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dros.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://dros.ai/blogs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Collections Strategy & Performance",
+          "item": "https://dros.ai/blogs?category=Collections%20Strategy%20%26%20Performance"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Human-in-the-Loop Debt Collection: When AI Should Hand Off to Agents (and How to Do It Well)",
+          "item": "https://dros.ai/blogs/human-in-the-loop-collections"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is human-in-the-loop debt collection?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Human-in-the-loop debt collection means AI agents handle defined, routine tasks - reminders, right-party contact, simple plan discussions - while humans are explicitly responsible for reviewing certain decisions, taking over conversations that meet escalation criteria, and handling categories of work that are never delegated to AI. It is a deliberate design, not a fallback."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should an AI debt collection agent escalate to a human?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The main escalation triggers are: risk and compliance signals (disputes, legal language, consent issues), complexity dead ends (AI looping or requests outside standard workflows), and emotional or value signals (distress, anger, vulnerability, or high-value accounts). Each of these categories warrants a different escalation route and a different response from the human agent."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What information should be passed to a human agent during a handoff?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "At minimum: who the borrower is, what the AI said and did, what the borrower said, why the escalation fired, and a recommended next action. The handoff context should be compact and actionable - not a raw transcript dump - so the agent can pick up the conversation within seconds."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you measure whether AI escalations are working?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Key metrics include containment rate (how many cases AI resolves alone vs with human involvement), right-party escalation rate (whether escalations meet intended criteria), time-to-first-response after escalation, resolution rates on escalated journeys, and downstream signals like complaint rates and recovery outcomes on escalated accounts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does human-in-the-loop design slow down AI collections programmes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No - it makes them more sustainable. Programmes without clear escalation design tend to over-automate early, generate complaints or compliance issues, and then pull back. A well-designed human-in-the-loop system lets you expand AI coverage confidently because you know humans are in the right places at the right times."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS support human-in-the-loop collections?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS centralizes escalation triggers, routing rules, and account timelines across all channels - voice, SMS, email, chat, and portals. Escalation logic is defined once and applied consistently everywhere. Agents receive full account context at the moment of handoff. And outcome data feeds back into strategy and playbooks in one place, so the system improves over time."
+          }
+        }
+      ]
+    }
+  ]
+}

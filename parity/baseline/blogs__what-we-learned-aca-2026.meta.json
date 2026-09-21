@@ -1,0 +1,70 @@
+{
+  "title": "What We Learned at ACA International Convention 2026",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "DROS spent three days at Booth #403 at ACA International Convention 2026 in Orlando. Here is what collections leaders told us about inbound demand, compliance, and the digital shift in debt collection.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/blogs/what-we-learned-aca-2026",
+    "og:title": "What We Learned at ACA International Convention 2026",
+    "og:description": "Field notes from three days at Booth #403: inbound demand, compliance as the first question, and why consumers may prefer talking to AI about debt.",
+    "og:image": "https://dros.ai/blog/aca-2026-conference-session.jpg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/blog/aca-2026-conference-session.jpg"
+  },
+  "canonical": [
+    "https://dros.ai/blogs/what-we-learned-aca-2026"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "What We Learned at ACA International Convention 2026",
+      "url": "https://dros.ai/blogs/what-we-learned-aca-2026",
+      "datePublished": "2026-08-07",
+      "author": {
+        "@id": "https://dros.ai"
+      },
+      "publisher": {
+        "@id": "https://dros.ai"
+      },
+      "articleSection": "Field Insights",
+      "dateModified": "2026-08-07",
+      "keywords": "Field Insights, Compliance & Operations, Collections Strategy & Performance"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dros.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://dros.ai/blogs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Field Insights",
+          "item": "https://dros.ai/blogs?category=Field%20Insights"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "What We Learned at ACA International Convention 2026",
+          "item": "https://dros.ai/blogs/what-we-learned-aca-2026"
+        }
+      ]
+    }
+  ]
+}

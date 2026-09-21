@@ -1,0 +1,124 @@
+{
+  "title": "Voice AI Readiness Checklist for Debt Collection Teams",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "Twelve questions that decide whether your voice AI evaluation reaches procurement, and the three that are non-negotiable. Interactive, scored, no email required.",
+    "og:type": "article",
+    "og:url": "https://dros.ai/blogs/ai-readiness-checklist-collection-agencies",
+    "og:title": "Voice AI Readiness Checklist for Debt Collection Teams",
+    "og:description": "Twelve questions that decide whether your voice AI evaluation reaches procurement, and the three that are non-negotiable. Interactive, scored, no email required.",
+    "og:image": "https://dros.ai/blog/ai-readiness-checklist.jpg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/blog/ai-readiness-checklist.jpg"
+  },
+  "canonical": [
+    "https://dros.ai/blogs/ai-readiness-checklist-collection-agencies"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Voice AI Readiness Checklist for Debt Collection Teams",
+      "url": "https://dros.ai/blogs/ai-readiness-checklist-collection-agencies",
+      "datePublished": "2026-08-24",
+      "author": {
+        "@id": "https://dros.ai"
+      },
+      "publisher": {
+        "@id": "https://dros.ai"
+      },
+      "articleSection": "Collections Strategy & Performance",
+      "dateModified": "2026-08-24",
+      "keywords": "Collections Strategy & Performance, Compliance & Operations, Technology & Integrations"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dros.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://dros.ai/blogs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Collections Strategy & Performance",
+          "item": "https://dros.ai/blogs?category=Collections%20Strategy%20%26%20Performance"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Voice AI Readiness Checklist for Debt Collection Teams",
+          "item": "https://dros.ai/blogs/ai-readiness-checklist-collection-agencies"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a voice AI readiness checklist for a debt collection team?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A structured set of conditions a debt collection team should be able to satisfy before running a vendor evaluation for voice AI. A useful one covers more than compliance. It should test whether the shop has settled the collector question, whether the business case is sized on the right basis, whether the collection platform can absorb the output, and whether client or seller agreements permit the change."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What makes a voice AI evaluation in collections stall rather than fail?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A stalled evaluation produces no decision at all. It usually happens when the process runs into an internal question a vendor cannot answer, most often around collector compensation, client permission, or platform integration. Because none of these are product questions, more vendor diligence does not resolve them, and the evaluation loses momentum without anyone concluding anything."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are only three of the twelve items treated as blockers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because those three stop a deployment on their own regardless of how strong everything else is. If collectors lose commissionable volume at go-live, if the collection platform cannot take dispositions back through an API, or if client or seller agreements do not permit the change, the deployment fails after signature rather than before it. The other nine cause delays. These three cause failures."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this checklist apply to first-party and debt buyers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, with four questions rewritten. Third-party agencies answer a placement agreement question, first-party shops answer an internal legal and brand approval question, and debt buyers answer a purchase and forward-flow question. The coverage question also changes to match how each holds inventory. Use the selector above the checklist to switch."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should the business case be built on cost savings or recovery?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Recovery, in most cases. The binding constraint in a collections operation is usually contact coverage rather than collector productivity, so a case written as headcount reduction caps itself at the size of the payroll line and puts you in conflict with the floor. A coverage case sizes on accounts that get no meaningful contact effort today, which is additive."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What compliance controls should a voice AI vendor demonstrate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Four. Right party contact verification, with no account detail released until identity is confirmed to your standard. Disclosure placement, with the Mini Miranda and state-specific disclosures delivered verbatim at the defined point. Authorization limits, meaning a hard refusal to offer terms outside a configured envelope. Cease and desist handling, with reliable handoff or termination on dispute, cease communication, or attorney representation. Each should be visible as configured system behavior with an audit trail."
+          }
+        }
+      ]
+    }
+  ]
+}

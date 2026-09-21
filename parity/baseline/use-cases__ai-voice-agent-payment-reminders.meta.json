@@ -1,0 +1,89 @@
+{
+  "title": "AI Voice Agent for Payment Reminders | DROS",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "DROS AI voice agents automate payment reminder calls at scale - pre-due nudges, past-due outreach, PTP follow-ups. Compliant with FDCPA, TCPA & Reg F. Used by first-party collections, BNPL, healthcare, auto finance & utilities teams.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/use-cases/ai-voice-agent-payment-reminders",
+    "og:title": "AI Voice Agent for Payment Reminders | DROS",
+    "og:description": "Automate payment reminder calls at scale - pre-due nudges, past-due outreach, and PTP follow-ups. Compliant, consistent, 24/7.",
+    "og:image": "https://dros.ai/untitled_logo_1_basic-file.png",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Voice Agent for Payment Reminders | DROS",
+    "twitter:description": "Automate payment reminder calls at scale - pre-due nudges, past-due outreach, and PTP follow-ups. FDCPA, TCPA & Reg F compliant.",
+    "twitter:image": "https://dros.ai/untitled_logo_1_basic-file.png",
+    "og:site_name": "DROS",
+    "robots": "index, follow"
+  },
+  "canonical": [
+    "https://dros.ai/use-cases/ai-voice-agent-payment-reminders"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "url": "https://dros.ai/use-cases/ai-voice-agent-payment-reminders",
+          "name": "AI Voice Agent for Payment Reminders | DROS",
+          "description": "Use DROS AI voice agents to automate high-volume payment reminder calls - pre-due, past-due, and promise-to-pay follow-ups. FDCPA, TCPA, and Reg F compliant."
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://dros.ai"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Use Cases",
+              "item": "https://dros.ai/use-cases"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "AI Voice Agent for Payment Reminders",
+              "item": "https://dros.ai/use-cases/ai-voice-agent-payment-reminders"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is this just a robocall? How is it different?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "DROS conducts a real two-way conversation - not a one-way recorded message. The AI listens, understands what the debtor says, responds naturally, handles objections, negotiates payment amounts, and captures arrangements."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does DROS handle compliance - TCPA, FDCPA, Reg F?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Compliance is enforced at the infrastructure level. DROS automatically checks consent status before every dial, enforces state-specific call-time windows, delivers required disclosures, scrubs against DNC lists, and respects Reg F attempt limits."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What happens when the debtor wants to speak to a human?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "DROS warm-transfers to a live agent with full call context passed through - the agent sees the account, conversation summary, and any payment intent captured before they pick up."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

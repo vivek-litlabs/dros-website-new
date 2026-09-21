@@ -1,0 +1,71 @@
+{
+  "title": "AI Collections Software for Credit Unions | DROS",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "DROS works your delinquent member accounts from day 1 - every call, text, and email compliant, logged, and audit-ready for your next NCUA exam.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/collections/credit-unions",
+    "og:title": "AI Collections Software for Credit Unions | DROS",
+    "og:description": "DROS works your delinquent member accounts from day 1 - every call, text, and email compliant, logged, and audit-ready for your next NCUA exam.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "keywords": "credit union collections software, member collections, NCUA exam ready, Reg F credit union, share overdraft recovery, credit union delinquency management, AI voice agents credit union"
+  },
+  "canonical": [
+    "https://dros.ai/collections/credit-unions"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does DROS integrate with our core?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. DROS syncs delinquent accounts via CSV or API - balances, contact info, and payment history. There is no core migration and nothing changes in your system of record. Most credit unions are live within days."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will members know they are talking to AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS agents identify themselves per your disclosure requirements. Conversations are natural, patient, and scripted to your standards - members can always request a person, and those conversations route to your team instantly with full context."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does this hold up in an NCUA exam?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every interaction is recorded, transcribed, and logged with timestamps, consent status, and disclosures. Your audit trail is a report you export, not a file you assemble."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens to our existing collections team?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "They stop dialing and start resolving. DROS handles the volume - first contacts, reminders, promise follow-ups - while your people take the hardship cases, disputes, and conversations that need judgment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does DROS cost for a credit union?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Plans start at a flat monthly rate with included call minutes - no per-seat pricing, no long implementation fees. See pricing, or talk to us about your portfolio size."
+          }
+        }
+      ]
+    }
+  ]
+}

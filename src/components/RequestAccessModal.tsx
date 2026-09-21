@@ -50,6 +50,16 @@ export default function RequestAccessModal({ request, onClose }: RequestAccessMo
     if (request) setCurrent(request);
   }, [request]);
 
+  // The portal target (document.body) doesn't exist during SSR. Rendering
+  // null until mounted keeps the first client render identical to the
+  // server-rendered markup, avoiding a hydration mismatch (a server/client
+  // branch on `typeof document` would otherwise differ on the very first
+  // paint, before this effect has a chance to run).
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -134,6 +144,8 @@ export default function RequestAccessModal({ request, onClose }: RequestAccessMo
       opener?.focus();
     };
   }, [open, onClose]);
+
+  if (!mounted) return null;
 
   return createPortal(
     <div

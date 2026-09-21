@@ -1,0 +1,23 @@
+{
+  "title": "Webinars | DROS",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "Live sessions on AI technology, collections strategy, and what's actually working in the field.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/webinars",
+    "og:title": "Webinars | DROS",
+    "og:description": "Live sessions on AI technology, collections strategy, and what's actually working in the field.",
+    "og:image": "https://dros.ai/untitled_logo_1_basic-file.png",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/untitled_logo_1_basic-file.png"
+  },
+  "canonical": [
+    "https://dros.ai/webinars"
+  ],
+  "jsonLd": []
+}

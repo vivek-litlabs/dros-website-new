@@ -1,0 +1,116 @@
+{
+  "title": "How AI Voice Agents Handle Debt Disputes Without Creating Compliance Risk",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "Learn how AI voice agents should handle debt disputes, when to escalate to a human, and how DROS supports compliant dispute workflows end to end.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/blogs/ai-voice-agents-debt-disputes-compliance",
+    "og:title": "How AI Voice Agents Handle Debt Disputes Without Creating Compliance Risk",
+    "og:description": "Learn how AI voice agents should handle debt disputes, when to escalate to a human, and how DROS supports compliant dispute workflows end to end.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg"
+  },
+  "canonical": [
+    "https://dros.ai/blogs/ai-voice-agents-debt-disputes-compliance"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "How AI Voice Agents Handle Debt Disputes Without Creating Compliance Risk",
+      "url": "https://dros.ai/blogs/ai-voice-agents-debt-disputes-compliance",
+      "datePublished": "2026-05-19",
+      "author": {
+        "@id": "https://dros.ai"
+      },
+      "publisher": {
+        "@id": "https://dros.ai"
+      },
+      "articleSection": "Compliance & Operations",
+      "dateModified": "2026-05-19",
+      "keywords": "Compliance & Operations"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dros.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://dros.ai/blogs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Compliance & Operations",
+          "item": "https://dros.ai/blogs?category=Compliance%20%26%20Operations"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "How AI Voice Agents Handle Debt Disputes Without Creating Compliance Risk",
+          "item": "https://dros.ai/blogs/ai-voice-agents-debt-disputes-compliance"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What happens when a consumer disputes a debt with an AI agent?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The agent acknowledges the dispute, stops pushing for payment, collects minimal clarification, and sends a MARK_DISPUTED event so DROS can pause collection on that account and route it to a dispute or compliance queue in line with FDCPA expectations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can AI collections software stop calling after a dispute?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, if it is connected to a platform that enforces workflow rules. When DROS receives a MARK_DISPUTED event it immediately pauses outbound calls, texts, and emails on that account until a human reviews the case and determines what is allowed next."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should an AI voice agent transfer a disputed call to a human?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The agent should offer a transfer when the consumer repeats the dispute with increasing frustration, uses legal or regulatory language, shows high emotional distress, or raises a complex hardship situation alongside the dispute."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS handle debt dispute workflows?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When a dispute intent fires during an AI call, DROS converts it into a structured MARK_DISPUTED event, pauses the account's normal collection workflow, and routes it to the appropriate queue - Disputes, Complaints, or a specialized support team - with the transcript and tags already attached."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should an AI agent say when someone says \"I don't owe this\"?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The agent should acknowledge calmly, avoid arguing, and confirm next steps: \"I'm sorry for the confusion. I'll mark this account as disputed so our team can review it.\" It should then ask one or two clarifying questions and close the collection portion of the call."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "title": "AI Agents for Collections | DROS AI",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "DROS is an AI-native engagement OS for collections that helps teams recover more with context-aware AI, compliant workflows, and less manual follow-up.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/",
+    "og:title": "AI Agents for Collections | DROS AI",
+    "og:description": "DROS is an AI-native engagement OS for collections that helps teams recover more with context-aware AI, compliant workflows, and less manual follow-up.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg"
+  },
+  "canonical": [
+    "https://dros.ai"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://dros.ai",
+          "name": "Dros AI",
+          "url": "https://dros.ai",
+          "logo": "https://dros.ai/dros_logo_square.png",
+          "sameAs": [
+            "https://www.linkedin.com/company/dros",
+            "https://www.youtube.com/@drosdotai"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Dros AI Engagement OS",
+          "operatingSystem": "Web",
+          "applicationCategory": "BusinessApplication",
+          "description": "AI-native engagement OS for debt collections. Automate outreach, improve recovery rates, and manage compliance with intelligent AI agents.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "author": {
+            "@id": "https://dros.ai"
+          }
+        }
+      ]
+    }
+  ]
+}

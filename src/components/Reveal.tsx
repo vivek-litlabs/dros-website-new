@@ -1,3 +1,4 @@
+'use client';
 import { motion } from 'framer-motion';
 import type { ReactNode, ElementType } from 'react';
 import { fadeUp, fadeUpLg, viewportOnce, springStd } from '../lib/motion';

@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { Section, Container, Heading, Button } from '../ui';
 import { springStd } from '../../lib/motion';
@@ -37,7 +37,8 @@ export function SpinButton({
   const reduce = useReducedMotion();
   return (
     <MotionLink
-      to={to}
+     
+      href={to}
       onClick={onClick}
       className="group relative isolate inline-flex overflow-hidden rounded-full p-px"
       whileHover={reduce ? undefined : { scale: 1.02 }}

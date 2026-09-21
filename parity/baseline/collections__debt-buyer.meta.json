@@ -1,0 +1,89 @@
+{
+  "title": "AI Agents for Debt Buyer Collections | DROS",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "DROS helps debt buyers who self-collect run AI agents and human collectors on purchased portfolios - with per-acquisition workspaces, Reg F guardrails, and full engagement history in one platform. Built for charged-off portfolio recovery teams.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/collections/debt-buyer",
+    "og:title": "AI Agents for Debt Buyer Collections | DROS",
+    "og:description": "DROS helps debt buyers who self-collect run AI agents and human collectors on purchased portfolios - with per-acquisition workspaces, Reg F guardrails, and full engagement history in one platform.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "keywords": "debt buyer collections software, AI agents for debt collection, charged off portfolio collections, purchased portfolio collections platform, debt buyer collections platform, AI debt collection software, self-collect debt buyer, collections software charged off accounts, Reg F debt buyer, debt recovery AI agents"
+  },
+  "canonical": [
+    "https://dros.ai/collections/debt-buyer"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "DROS",
+      "applicationCategory": "BusinessApplication",
+      "description": "DROS is a collections engagement OS for debt buyers who self-collect on purchased portfolios. Run AI agents, human collectors, and compliance guardrails per acquisition in one platform.",
+      "url": "https://dros.ai",
+      "featureList": [
+        "Portfolio workspaces per acquisition",
+        "AI voice and digital agents for debt buyer collections",
+        "Human collector queues with full account context",
+        "DNC and consent management",
+        "Reg F and UDAAP guardrails",
+        "Call-rule enforcement",
+        "Escalation routing from AI to human",
+        "Full engagement transcript per account"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I keep a separate workspace for each portfolio I acquire?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes - that's exactly how DROS is designed to be used for debt buyers. Each acquisition gets its own workspace with its own account list, queues, agent assignments, and engagement history. Portfolios don't bleed into each other. You can run multiple acquisitions in parallel and manage them independently from the same DROS account."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does DROS replace my existing dialer or CRM?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No - DROS sits above your existing dialer and CRM as an engagement OS. Your current tools stay in place and connect to DROS as execution endpoints. The engagement logic, routing rules, and compliance guardrails live in DROS - so if you swap a dialer later, the rules don't need to be rebuilt. They live in the OS layer, not inside any individual tool."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What compliance rules does DROS handle out of the box for debt buyers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS enforces DNC and consent management centrally - revocations are honored in real time across every channel. It applies Reg F call frequency limits, time-of-day windows, and configurable channel restrictions before any attempt is made. AI agents use your approved scripts and required disclosures on every interaction, with a full audit trail per account. You can layer in additional internal policies on top of these defaults."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS handle the handoff between AI and my human collectors?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You define the escalation rules - dispute language, hardship signals, balance thresholds, or any other trigger you set. When AI detects one of those signals, it stops and routes to the right human queue immediately. Your collector sees the full account timeline - every prior attempt, what the AI said, what the consumer said, and what flags were raised - before they pick up the phone. No briefing required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "We're a small team. Is DROS too complex for us?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS is built to scale down as well as up. A lean team running one or two portfolios can use DROS to punch above their weight - AI handles volume outreach while your collectors focus on the accounts that actually need a human conversation. You don't need a large ops team to configure it; we'll walk through your setup in the first session and get you to a working state before you go live."
+          }
+        }
+      ]
+    }
+  ]
+}

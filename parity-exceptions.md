@@ -1,0 +1,123 @@
+# Parity exceptions
+
+Every route that cannot reach a zero-pixel diff is recorded here with its cause,
+a link to the diff image, and explicit sign-off. An empty list below means parity
+is literally 100%.
+
+## Pre-approved deviations
+
+### Duplicate canonical tag removal (26 of 41 routes)
+**Cause:** The Vite build emits `<link rel="canonical">` more than once on 26 routes — the
+global `CanonicalTag` in `src/main.tsx` fires for every route, all 14 blog posts add their
+own via `BlogLayout.tsx`, and 12 non-blog pages declare a page-level canonical as well.
+`/blogs/ai-agents-debt-collection-deployment` has three sources. `react-helmet-async`
+deduplicates at runtime, so only one survives in the live DOM; server-rendering would emit
+all of them into the raw HTML. This is a defect, not behaviour worth preserving.
+**Scope note:** originally recorded as affecting only blog posts; corrected to 26 routes
+after a full per-route metadata audit.
+**Resolution:** Canonical has exactly one source in Next — `metadata.alternates.canonical`.
+**Visual impact:** None (canonical tags do not render).
+**Signed off:** Approved in the design review, 2026-09-02.
+
+### `/api-docs` and `/release-notes` excluded from screenshot parity
+**Cause:** Both routes are pure client-side redirects — their entire implementation is
+`window.location.href = 'https://app.dros.ai/...'` fired from a `useEffect`, and they
+render no content (`return null`). A route whose only behaviour is to navigate away can
+never reach visual stability: the harness's stability poll races an in-flight top-level
+navigation, so the capture is non-deterministic by construction in both the current Vite
+build and the future Next.js build. This is not tolerance-fixable — no CSS mask or
+extended settle wait fixes a page that is actively leaving.
+**Resolution:** Removed from `parity/routes.json` (`node -e ... drop=['/api-docs','/release-notes']`),
+so they are not screenshot-diffed. They are NOT going unverified: the migration task
+suite asserts each route returns a 307 redirect to the correct external destination,
+which is the correct check for a redirect (status code + Location header), not a pixel
+comparison of a blank page mid-navigation.
+**Visual impact:** None (no content is ever rendered on these routes).
+**Signed off:** Ruled on by the coordinator, 2026-09-03.
+
+## Discovered exceptions
+
+_(none yet)_
+
+### Chromium console noise from third-party video embeds
+**Routes:** `/resources/videos`, `/collections-ai-workshop` (all three viewports)
+**Cause:** Both pages embed third-party video `iframe`s. Chromium emits three messages
+that originate in the browser, not in this site's code: `Unrecognized feature:
+'web-share'` (the embed's `allow` attribute names a permission this build does not
+recognise), `powerPreference option is currently ignored` (Chromium-on-Windows WebGPU
+warning when the player requests an adapter), and `No available adapters` (headless
+Chromium exposes no WebGPU adapter).
+**Why allowlisting is safe:** the pixel diff on all six failing checks was exactly `0px`
+— the rendering is identical, only the console differed. These messages are not app
+behaviour the migration can alter. If a migration dropped an embed, the messages would
+disappear, but so would the rendered player, which the pixel gate would catch.
+**Visual impact:** None.
+**Alternative rejected:** suppressing console capture on these routes, which would have
+hidden genuine errors too.
+**Signed off:** Controller, 2026-09-03, after inspecting the report notes.
+
+**Update, same day:** a fourth message from the same family appeared on a later run
+(`Permissions policy violation: compute-pressure is not allowed in this document.`,
+tablet only — the embedded player probes features differently per viewport). Rather than
+keep adding global patterns reactively, the allowlist became **route-scoped**: each rule
+carries the routes it applies to and a `why`. All four embed diagnostics are now tolerated
+ONLY on `/resources/videos` and `/collections-ai-workshop`. The same message on any other
+route still fails the gate, which an unscoped pattern would have silently excused. Verified
+by unit test: embed messages blocked on `/pricing`, and a genuine React key warning blocked
+even on an embed route.
+
+### robots.txt — merged two conflicting sources (intentional deviation)
+**Cause:** Two sources competed and neither shipped what its author intended.
+`public/robots.txt` was hand-authored with explicit `Allow` entries for GPTBot, ClaudeBot,
+PerplexityBot, OAI-SearchBot and Google-Extended, but carried no `Sitemap:` directive.
+Under Vite, `vite-plugin-sitemap` **overwrote that file at build time** — `dist/robots.txt`
+shipped with only a `*` rule plus the Sitemap line, so the AI-crawler entries never reached
+production. Under Next the precedence flips: a static `public/robots.txt` shadows
+`app/robots.ts`, which would have served the AI entries while silently dropping the Sitemap
+directive.
+**Resolution:** `public/robots.txt` deleted; `app/robots.ts` is now the single source and
+emits the union — all five AI-crawler rules, the `*` rule, and the Sitemap directive.
+Verified served output contains all six rules and the Sitemap line.
+**Deviation from strict parity:** yes. Today's production robots.txt does NOT contain the
+AI-crawler entries. Serving them is a change, deliberately chosen because the entries were
+written on purpose, they are aligned with this project's entire objective (AI-crawler
+visibility), and they are redundant-but-harmless under strict robots semantics. The
+alternative — reproducing today's output exactly — would knowingly discard a file someone
+authored and would leave the silent-overwrite bug in place.
+**Visual impact:** None.
+**Signed off:** Controller, 2026-09-03. Flagged to the user; revert to the `*`-only rule set
+if strict parity is preferred over shipping the authored intent.
+
+### viewport meta: `initial-scale=1.0` vs `initial-scale=1` (normalised, not excepted)
+**Cause:** `index.html` declared `initial-scale=1.0`. Next's `Viewport` type takes a number,
+and JS serialises `1.0` as `"1"`, so an exact-string match is impossible through the
+framework. The values are identical to every browser and produce a 0px pixel diff.
+**Resolution:** a single targeted rewrite in `parity/assert-meta.ts` treats those two exact
+values as equivalent. Chosen over excepting the `viewport` field wholesale, which would have
+made all 41 routes report a failure on a semantically-null difference and trained readers to
+ignore metadata failures.
+**Scope proven by negative test:** `initial-scale=2`, an added `maximum-scale=1`, and
+`width=1024` all still FAIL the gate. Only the one known-equivalent pair is normalised.
+**Visual impact:** None (0px on all three viewports).
+**Signed off:** Controller, 2026-09-03.
+
+### HeroBg: SSR-cached image never fades in (migration-induced regression, FIXED)
+**Not an exception — a genuine defect the migration introduces, recorded here because it is
+the most important finding of the porting phase.**
+**Cause:** `src/components/HeroBg.tsx` fades its background image in via `onLoad`. Under Vite
+the image loads after hydration, so `onLoad` fires reliably. Under Next the `<img>` is in the
+server-rendered HTML and can finish loading BEFORE React attaches the handler, so `onLoad`
+never fires, `loaded` stays false, and the hero stays permanently at `opacity-0`.
+**Evidence:** with the fix reverted, `/events` failed at 1,202,105 / 3,120,458 / 5,123,095
+pixels (mobile/tablet/desktop), identically across two runs. With the fix, 0/0/0.
+**Fix:** a `useEffect` checking `imgRef.current?.complete` on mount, preserving the original
+fade for the uncached case.
+**Blast radius:** `HeroBg` is rendered by 8 views via `ResourceHero` — the five
+`/collections/*` pages, `/adoption-gap-report-state-of-collections-2026`, `/trust-center`,
+and `/pricing`. `src/views/PricingPage.tsx` carries its own separate copy of the same
+`onLoad` pattern and needs the same treatment when it is ported.
+**Why this matters beyond one component:** this is the class of bug a pixel gate exists to
+catch. It is invisible to a build, to type-checking, and to any metadata assertion — the page
+renders, returns 200, and serves correct HTML, while a full-bleed hero image is simply
+missing. Only a screenshot comparison against the pre-migration build finds it.
+**Signed off:** Controller, 2026-09-04.

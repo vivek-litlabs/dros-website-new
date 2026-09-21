@@ -1,0 +1,131 @@
+{
+  "title": "AI Voice Agents & DNC Compliance in Debt Collection",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "How AI voice agents handle do-not-call requests, disputes, and compliance scenarios in modern debt collection workflows.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/blogs/ai-voice-agents-dnc-disputes-compliance-2026",
+    "og:title": "AI Voice Agents & DNC Compliance in Debt Collection",
+    "og:description": "How AI voice agents handle do-not-call requests, disputes, and compliance scenarios in modern debt collection workflows.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg"
+  },
+  "canonical": [
+    "https://dros.ai/blogs/ai-voice-agents-dnc-disputes-compliance-2026"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "url": "https://dros.ai/blogs/ai-voice-agents-dnc-disputes-compliance-2026",
+      "datePublished": "2026-01-15",
+      "author": {
+        "@id": "https://dros.ai"
+      },
+      "publisher": {
+        "@id": "https://dros.ai"
+      },
+      "articleSection": "Compliance & Operations",
+      "dateModified": "2026-01-15",
+      "keywords": "Compliance & Operations"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dros.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://dros.ai/blogs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Compliance & Operations",
+          "item": "https://dros.ai/blogs?category=Compliance%20%26%20Operations"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Article",
+          "item": "https://dros.ai/blogs/ai-voice-agents-dnc-disputes-compliance-2026"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does an AI debt collection agent handle \"don't call me again\"?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A well-configured AI agent is trained to recognize phrases like \"don't call me again\", \"stop calling\", or \"take me off your list\" as a Do Not Call (DNC) request, confirm it verbally, and trigger an event that adds the number to your internal DNC list and blocks future calls in your campaigns."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can AI collectors comply with FDCPA, TCPA, and Regulation F?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, if they run inside a platform that enforces call-frequency rules, call-hour windows, consent tracking, and dispute workflows. The model alone cannot guarantee compliance, but an operating layer like DROS can hard-code these constraints into every AI and human campaign."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS update the Do Not Call list when a customer opts out during an AI call?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When the AI detects a DNC request it sends a structured event to DROS, which immediately flags the number as Do Not Call, logs a timestamped note on the account, and prevents any future campaigns from dialing that number, regardless of channel or agent."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if a consumer disputes a debt with the AI agent?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The agent acknowledges the dispute, collects minimal clarification, and sends a MARK_DISPUTED event so DROS can pause collection on that account and route it to a dispute or compliance queue in line with FDCPA expectations about disputed debts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can the AI transfer a call to a human collector if the conversation gets complex or emotional?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Your context window can define clear escalation rules  - legal threats, repeated disputes, or high emotional distress  - where the agent offers a warm transfer to a human collector or supervisor and passes along the transcript and tags."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS enforce call-hour and call-frequency rules for AI campaigns?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS lets you set allowed call hours, local timezone behavior, and call-frequency policies at the campaign level. AI agents can only make outbound calls inside those parameters, which helps you stay within Reg F's 7-in-7 limits and avoid calling at inconvenient times."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does using AI increase compliance risk for collection agencies?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI increases risk only if it runs as a loose, standalone tool. When it is integrated into a system that centralizes DNC, consent, disputes, call-hours, and audit logs, it often reduces risk by enforcing your policies the same way on every single call."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "title": "Why Collections Integrations Fail in Legacy Systems",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "Legacy systems break collections workflows. Learn why integrations fail, how tool sprawl impacts recovery, and what to fix before introducing AI.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/blogs/collections-integrations-legacy-systems",
+    "og:title": "Why Collections Integrations Fail in Legacy Systems",
+    "og:description": "Legacy systems break collections workflows. Learn why integrations fail, how tool sprawl impacts recovery, and what to fix before introducing AI.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg"
+  },
+  "canonical": [
+    "https://dros.ai/blogs/collections-integrations-legacy-systems"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Why Collections Integrations Break Down With Legacy Systems  - and What to Fix First",
+      "url": "https://dros.ai/blogs/collections-integrations-legacy-systems",
+      "datePublished": "2026-01-01",
+      "author": {
+        "@id": "https://dros.ai"
+      },
+      "publisher": {
+        "@id": "https://dros.ai"
+      },
+      "articleSection": "Technology & Integrations",
+      "dateModified": "2026-01-01",
+      "keywords": "Technology & Integrations"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dros.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://dros.ai/blogs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Technology & Integrations",
+          "item": "https://dros.ai/blogs?category=Technology%20%26%20Integrations"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Why Collections Integrations Break Down With Legacy Systems  - and What to Fix First",
+          "item": "https://dros.ai/blogs/collections-integrations-legacy-systems"
+        }
+      ]
+    }
+  ]
+}

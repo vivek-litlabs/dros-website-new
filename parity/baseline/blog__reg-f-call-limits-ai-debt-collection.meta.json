@@ -1,0 +1,116 @@
+{
+  "title": "How Reg F Call Limits and Call Hours Work in AI Debt Collection",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "Understand FDCPA call-hour rules, Reg F's 7-in-7 limit, and how AI collections software can apply them consistently with built-in settings.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/blog/reg-f-call-limits-ai-debt-collection",
+    "og:title": "How Reg F Call Limits and Call Hours Work in AI Debt Collection",
+    "og:description": "Understand FDCPA call-hour rules, Reg F's 7-in-7 limit, and how AI collections software can apply them consistently with built-in settings.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg"
+  },
+  "canonical": [
+    "https://dros.ai/blog/reg-f-call-limits-ai-debt-collection"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "How Reg F Call Limits and Call Hours Work in AI Debt Collection",
+      "url": "https://dros.ai/blog/reg-f-call-limits-ai-debt-collection",
+      "datePublished": "2026-05-14",
+      "author": {
+        "@id": "https://dros.ai"
+      },
+      "publisher": {
+        "@id": "https://dros.ai"
+      },
+      "articleSection": "Compliance",
+      "dateModified": "2026-05-14",
+      "keywords": "Compliance, Compliance & Operations, Reg F, AI Voice Agents, FDCPA"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://dros.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://dros.ai/blogs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Compliance",
+          "item": "https://dros.ai/blogs?category=Compliance"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "How Reg F Call Limits and Call Hours Work in AI Debt Collection",
+          "item": "https://dros.ai/blog/reg-f-call-limits-ai-debt-collection"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What time can debt collectors call under FDCPA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "FDCPA generally presumes that calls before 8 a.m. or after 9 p.m. in the consumer's local time are inconvenient and therefore problematic, unless the consumer has indicated otherwise. Even within allowed hours, collectors should avoid times they know are inconvenient for a particular consumer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Reg F 7-in-7 rule?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Regulation F introduced a rebuttable presumption of violation if a collector places more than seven calls to a consumer about a particular debt within seven consecutive days, or places any call within seven days after having a live conversation with that consumer about that debt."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do call limits apply to AI and human collectors equally?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Reg F and FDCPA apply to the contact itself, not the channel. Whether the call comes from an AI agent or a human collector, it counts toward the same frequency limits and must respect the same call-hour rules."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does AI collections software enforce call hours and timezones?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A well-designed platform like DROS lets you define allowed call hours per campaign and apply them in each consumer's local timezone. The system then blocks outbound calls - from both AI and human campaigns - that fall outside those windows."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does DROS handle call hours and Reg F compliance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DROS centralizes call-hour windows, timezone rules, and per-debt frequency tracking at the campaign and workflow level. Once configured, these rules apply automatically to every AI and human call, so no campaign can accidentally schedule contacts outside your compliance parameters."
+          }
+        }
+      ]
+    }
+  ]
+}

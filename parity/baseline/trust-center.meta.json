@@ -1,0 +1,124 @@
+{
+  "title": "Trust Center | Security, Compliance & Privacy at DROS AI",
+  "metas": {
+    "google-site-verification": "fW9HheaqVWqVxl5hb4v_W-QhSPVt1BYPUQJQ33qHQTw",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "title": "AI Agents for Collections | DROS AI",
+    "description": "DROS AI is ISO 27001, SOC 2 Type II, ISO 42001 and HIPAA certified. Review our security practices, subprocessors and compliance documentation, or request a certificate under NDA.",
+    "og:type": "website",
+    "og:url": "https://dros.ai/trust-center",
+    "og:title": "Trust Center | Security, Compliance & Privacy at DROS AI",
+    "og:description": "ISO 27001, SOC 2 Type II, ISO 42001 and HIPAA. Security practices, subprocessors and compliance documentation.",
+    "og:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "twitter:card": "summary_large_image",
+    "twitter:url": "https://dros.ai/",
+    "twitter:title": "AI Agents for Collections | DROS AI",
+    "twitter:description": "AI-native engagement OS for collections. Automate outreach, improve recovery rates, and manage first- and third-party collections with intelligent AI agents.",
+    "twitter:image": "https://dros.ai/dros-logo-horizontal.svg",
+    "keywords": "DROS trust center, ISO 27001 certified collections software, SOC 2 Type II debt collection, ISO 42001 AI management system, HIPAA compliant collections platform, subprocessors, data encryption, AI governance, security practices, request SOC 2 report"
+  },
+  "canonical": [
+    "https://dros.ai/trust-center"
+  ],
+  "jsonLd": [
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://dros.ai/trust-center#webpage",
+          "name": "Trust Center | Security, Compliance & Privacy at DROS AI",
+          "description": "DROS AI is ISO 27001, SOC 2 Type II, ISO 42001 and HIPAA certified. Review our security practices, subprocessors and compliance documentation.",
+          "url": "https://dros.ai/trust-center",
+          "dateModified": "2026-08-05",
+          "about": {
+            "@id": "https://dros.ai/#organization"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://dros.ai/#organization",
+          "name": "DROS AI",
+          "url": "https://dros.ai",
+          "logo": "https://dros.ai/dros-logo-horizontal.svg",
+          "email": "contact@dros.ai",
+          "hasCertification": [
+            {
+              "@type": "Certification",
+              "name": "ISO/IEC 27001:2022",
+              "issuedBy": {
+                "@type": "Organization",
+                "name": "KVQA"
+              },
+              "certificationStatus": "CertificationActive"
+            },
+            {
+              "@type": "Certification",
+              "name": "SOC 2 Type II",
+              "issuedBy": {
+                "@type": "Organization",
+                "name": "Independent CPA firm"
+              },
+              "certificationStatus": "CertificationActive"
+            },
+            {
+              "@type": "Certification",
+              "name": "ISO/IEC 42001:2023",
+              "issuedBy": {
+                "@type": "Organization",
+                "name": "UKAF"
+              },
+              "certificationStatus": "CertificationActive"
+            },
+            {
+              "@type": "Certification",
+              "name": "HIPAA",
+              "issuedBy": {
+                "@type": "Organization",
+                "name": "UKASCERT"
+              },
+              "certificationStatus": "CertificationActive"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do I get a copy of your SOC 2 report or ISO certificate?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Use the request buttons in the Overview tab above or email us. SOC 2 reports are shared under NDA; ISO certificates can be shared directly."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where is my data stored?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Customer data is stored in our primary cloud region. Regional hosting options are available on enterprise plans - contact us for details."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you sign Data Processing Agreements (DPAs)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Our standard DPA incorporates the EU Standard Contractual Clauses and is available to all customers on request."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I report a security vulnerability?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Email our security team at the address below. We acknowledge reports within 2 business days and keep you informed through remediation."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

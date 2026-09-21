@@ -7,7 +7,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 // the domains registered in the reCAPTCHA admin console. The matching secret
 // key is never used here: it belongs to whatever verifies the token
 // server-side, before the call is placed.
-const SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 declare global {
   interface Window {
@@ -90,7 +90,7 @@ const Recaptcha = forwardRef<RecaptchaHandle, RecaptchaProps>(function Recaptcha
   useEffect(() => {
     if (!SITE_KEY) {
       console.warn(
-        'VITE_RECAPTCHA_SITE_KEY is not set - the reCAPTCHA checkbox will not render and the call button stays disabled.',
+        'NEXT_PUBLIC_RECAPTCHA_SITE_KEY is not set - the reCAPTCHA checkbox will not render and the call button stays disabled.',
       );
       return;
     }

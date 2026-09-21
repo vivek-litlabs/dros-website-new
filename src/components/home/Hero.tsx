@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { ArrowRight, Play, User } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Container } from '../ui';
 import { RevealItem } from '../Reveal';
 import { staggerContainer } from '../../lib/motion';
@@ -20,13 +20,18 @@ import VoiceCallModal from './VoiceCallModal';
  * DROS content is preserved; only the visual design follows Vapi.
  */
 
-function prefersReducedMotion() {
-  return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
 /* ── Background video ── */
 function HeroVideo() {
-  const [reduced] = useState(prefersReducedMotion);
+  // Seed `false` (matching SSR, which has no window) rather than reading
+  // useReducedMotion()'s value directly: that hook resolves synchronously on
+  // the client from window.matchMedia, which can disagree with the server on
+  // the very first client render and produce a hydration mismatch on the
+  // video/poster branch below. Apply the real value only after mount.
+  const reducedMotion = useReducedMotion();
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    setReduced(!!reducedMotion);
+  }, [reducedMotion]);
 
   return (
     <div aria-hidden="true" className="absolute inset-0 z-0">
@@ -62,7 +67,15 @@ function HeroVideo() {
 /* ── Idle "Initiate Call" widget (Vapi frosted pill, adapted to name + phone inputs) ── */
 function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
   const [name, setName] = useState('');
-  const [country, setCountry] = useState(defaultCountryIso);
+  // Seed with the SSR-safe fallback ('US') rather than calling defaultCountryIso()
+  // as a lazy initializer: that reads navigator.language, which is undefined on
+  // the server and can differ from the client's locale, producing a hydration
+  // mismatch on the rendered "+{dial}" text. Apply the real locale-based default
+  // once mounted instead.
+  const [country, setCountry] = useState('US');
+  useEffect(() => {
+    setCountry(defaultCountryIso());
+  }, []);
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -159,7 +172,7 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
           </form>
         </div>
         <Link
-          to="/book-meeting"
+          href="/book-meeting"
           onClick={() => trackCta('hero_book_a_demo')}
           className="group relative isolate inline-flex h-[50px] shrink-0 overflow-hidden rounded-full p-px transition-transform active:scale-95"
         >
