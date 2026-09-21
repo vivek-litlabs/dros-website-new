@@ -1,11 +1,17 @@
-/* Height of the page's own fixed nav bar. */
-export const NAV_HEIGHT = 68;
-/* Height the shared AnnouncementBanner occupies above it while undismissed. */
-export const BANNER_HEIGHT = 64;
+/* Fallback nav height, used before the shared Navbar has mounted. */
+export const NAV_HEIGHT = 64;
 
-/** Total height permanently covered by the fixed banner + nav. */
-export function topOffset(bannerVisible: boolean) {
-  return NAV_HEIGHT + (bannerVisible ? BANNER_HEIGHT : 0);
+/**
+ * Height currently covered by the site's fixed chrome (announcement banner +
+ * shared Navbar). Measured off the nav rather than hardcoded: the banner can be
+ * dismissed from the Navbar at any moment, and the nav's own height animates
+ * between its transparent (76px) and solid (64px) states.
+ */
+export function topOffset() {
+  if (typeof document === 'undefined') return NAV_HEIGHT;
+  const nav = document.querySelector('nav');
+  const bottom = nav ? nav.getBoundingClientRect().bottom : 0;
+  return bottom > 0 ? bottom : NAV_HEIGHT;
 }
 
 /**

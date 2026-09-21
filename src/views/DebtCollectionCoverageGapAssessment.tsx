@@ -7,20 +7,18 @@ import { Section, Container, Eyebrow, Heading, Button } from '../components/ui';
 import Reveal, { RevealItem } from '../components/Reveal';
 import PageFade from '../components/PageFade';
 import HeroBg from '../components/HeroBg';
-import CoverageNav from '../components/coverage-gap/CoverageNav';
-import CoverageFooter from '../components/coverage-gap/CoverageFooter';
+import Navbar from './Navbar';
+import Footer from './Footer';
 import WarmupCard from '../components/coverage-gap/WarmupCard';
 import Assessment from '../components/coverage-gap/Assessment';
-import useBannerDismissed from '../components/coverage-gap/useBannerDismissed';
 import { INITIAL_STATE } from '../components/coverage-gap/assessmentLogic';
 import type { AssessmentState } from '../components/coverage-gap/assessmentLogic';
 import { trackCta } from '../lib/analytics';
 
 /*
  * Coverage Gap Assessment landing page (campaign page). Rebuilt from the
- * standalone landing HTML on the site's design system. It deliberately uses
- * its own banner/nav and footer (CoverageNav / CoverageFooter) rather than the
- * shared Navbar/Footer.
+ * standalone landing HTML on the site's design system, using the shared
+ * Navbar and Footer so it matches every other page on the site.
  */
 
 const HERO_CHECKS: ReactNode[] = [
@@ -212,17 +210,10 @@ export default function DebtCollectionCoverageGapAssessment() {
   const [open, setOpen] = useState(false);
   const [state, setState] = useState<AssessmentState>(INITIAL_STATE);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  // Owned here because the banner's height also shifts the hero and the
-  // anchor-scroll offset, not just the nav.
-  const { dismissed: bannerDismissed, dismiss: dismissBanner } = useBannerDismissed();
-
-  // The banner and nav are both fixed, so a hash landing (/...#faq, scrolled
-  // natively by the browser) has to clear their combined height, and the hero
-  // fills what is left of the viewport.
-  const anchorClass = bannerDismissed ? 'scroll-mt-[68px]' : 'scroll-mt-[132px]';
-  const heroClass = bannerDismissed
-    ? 'lg:min-h-[calc(100vh-68px)]'
-    : 'lg:min-h-[calc(100vh-112px)]';
+  // The announcement banner and the nav are both fixed, so a hash landing
+  // (/...#faq, scrolled natively by the browser) has to clear their combined
+  // height. Sized for the banner being visible, which is the common case.
+  const anchorClass = 'scroll-mt-[128px] sm:scroll-mt-[108px]';
 
   const update = useCallback(
     (patch: Partial<AssessmentState>) => setState((s) => ({ ...s, ...patch })),
@@ -239,18 +230,14 @@ export default function DebtCollectionCoverageGapAssessment() {
       <PageFade className="min-h-screen bg-base text-ink">
         <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
 
-        <CoverageNav
-          onStart={start}
-          bannerDismissed={bannerDismissed}
-          onDismissBanner={dismissBanner}
-        />
+        <Navbar transparent />
 
         <main>
           {/* ── HERO ── */}
           <header
             id="top"
             data-nav-theme="dark"
-            className={`relative flex w-full items-center overflow-hidden bg-base text-white ${heroClass}`}
+            className={`relative flex w-full items-center overflow-hidden bg-base text-white min-h-[640px] lg:min-h-[calc(100vh-64px)]`}
           >
             <HeroBg image="/adoption-gap-report-hero.jpg" />
 
@@ -574,7 +561,7 @@ export default function DebtCollectionCoverageGapAssessment() {
           </Section>
         </main>
 
-        <CoverageFooter />
+        <Footer />
       </PageFade>
 
       <Assessment
@@ -582,7 +569,6 @@ export default function DebtCollectionCoverageGapAssessment() {
         state={state}
         onChange={update}
         onClose={close}
-        bannerVisible={!bannerDismissed}
       />
     </MotionConfig>
   );

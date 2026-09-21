@@ -517,12 +517,10 @@ function AssessmentDialog({
   state,
   update,
   onClose,
-  bannerVisible,
 }: {
   state: AssessmentState;
   update: (patch: Partial<AssessmentState>) => void;
   onClose: () => void;
-  bannerVisible: boolean;
 }) {
   const [step, setStep] = useState(1);
   const [dir, setDir] = useState(1);
@@ -714,7 +712,7 @@ function AssessmentDialog({
             state={state}
             onClose={() => {
               onClose();
-              window.setTimeout(() => scrollToSection('how', false, topOffset(bannerVisible)), 120);
+              window.setTimeout(() => scrollToSection('how', false, topOffset()), 120);
             }}
           />
         );
@@ -786,13 +784,11 @@ export default function Assessment({
   state,
   onChange,
   onClose,
-  bannerVisible,
 }: {
   open: boolean;
   state: AssessmentState;
   onChange: (patch: Partial<AssessmentState>) => void;
   onClose: () => void;
-  bannerVisible: boolean;
 }) {
   return (
     <AnimatePresence>
@@ -802,7 +798,6 @@ export default function Assessment({
           state={state}
           update={onChange}
           onClose={onClose}
-          bannerVisible={bannerVisible}
         />
       )}
     </AnimatePresence>
