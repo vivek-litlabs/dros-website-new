@@ -8,7 +8,7 @@ Marketing site for DROS (https://dros.ai). React + TypeScript on Next.js
 - Node.js 18 or newer
 - npm
 
-## Getting Started
+## Getting Started ##
 
 ```bash
 npm install
