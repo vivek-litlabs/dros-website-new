@@ -32,6 +32,7 @@ const PRIORITY: Record<string, number> = {
   '/events/2026/rmai-las-vegas': 0.5,
   '/resources/videos': 0.6,
   '/adoption-gap-report-state-of-collections-2026': 0.8,
+  '/debt-collection-coverage-gap-assessment': 0.8,
 };
 
 // parity/routes.json is the authoritative, already-generated list of 41
@@ -45,6 +46,13 @@ const PRIORITY: Record<string, number> = {
 // was dropped, the source list was already correct.
 const ROUTES: string[] = routes;
 
+// Routes added after the Next migration. They are deliberately not in
+// parity/routes.json — that file is the frozen set the screenshot gate
+// photographs, and a route added there would have no baseline to compare
+// against. Listing them here keeps the sitemap complete without touching
+// the gate, the same way cmsRoutes below does for Airtable-authored posts.
+const POST_MIGRATION_ROUTES: string[] = ['/debt-collection-coverage-gap-assessment'];
+
 // Matches the blog route's revalidation, so a post that publishes itself also appears
 // here within the hour instead of waiting for the next deploy.
 export const revalidate = 3600;
@@ -55,7 +63,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // keeps the sitemap complete while leaving all 41 original entries byte-identical.
   const cmsRoutes = (await getCmsOnlyPosts()).map((p) => p.slug);
 
-  return [...ROUTES, ...cmsRoutes].map((route) => {
+  return [...ROUTES, ...POST_MIGRATION_ROUTES, ...cmsRoutes].map((route) => {
     // routes.json uses '/' for the homepage; the absolute URL for it must
     // have no trailing slash to match the previous Vite-generated output.
     const url = route === '/' ? BASE_URL : `${BASE_URL}${route}`;

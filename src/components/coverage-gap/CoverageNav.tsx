@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '../ui';
 import { springStd } from '../../lib/motion';
 import { NAV_HEIGHT, scrollToSection, topOffset } from './scroll';
-import AnnouncementBanner, { BANNER_HEIGHT_CLASS } from '../../pages/AnnouncementBanner';
+import AnnouncementBanner, { BANNER_HEIGHT_CLASS } from '../../views/AnnouncementBanner';
 
 /*
  * Page-specific nav for the Coverage Gap Assessment landing page, taken from
@@ -128,7 +128,7 @@ export default function CoverageNav({
 
           <div className="flex items-center gap-4">
             <Link
-              to="/"
+              href="/"
               className="hidden text-sm text-ink/70 transition-colors hover:text-ink lg:inline"
             >
               dros.ai

@@ -1,7 +1,6 @@
-export const route = '/debt-collection-coverage-gap-assessment';
+'use client';
 import { useCallback, useState } from 'react';
 import type { ReactNode } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { Section, Container, Eyebrow, Heading, Button } from '../components/ui';
@@ -23,11 +22,6 @@ import { trackCta } from '../lib/analytics';
  * its own banner/nav and footer (CoverageNav / CoverageFooter) rather than the
  * shared Navbar/Footer.
  */
-
-const CANONICAL = 'https://dros.ai/debt-collection-coverage-gap-assessment';
-const TITLE = 'The Coverage Gap Assessment for Collection Teams | DROS';
-const DESCRIPTION =
-  "Take the 2-minute Coverage Gap Assessment: find out how much of your paper never gets a compliant right-party contact, what it's costing you, and the one fix that closes it.";
 
 const HERO_CHECKS: ReactNode[] = [
   <>
@@ -243,19 +237,7 @@ export default function DebtCollectionCoverageGapAssessment() {
   return (
     <MotionConfig reducedMotion="user">
       <PageFade className="min-h-screen bg-base text-ink">
-        <Helmet>
-          <title>{TITLE}</title>
-          <meta name="description" content={DESCRIPTION} />
-          <link rel="canonical" href={CANONICAL} />
-          <meta property="og:title" content="How much of your paper never hears from you? - DROS Coverage Gap Assessment" />
-          <meta property="og:description" content="7 quick questions. See the accounts your collectors never reach, the dollars sitting in them, and where the leak is." />
-          <meta property="og:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-          <meta property="og:url" content={CANONICAL} />
-          <meta property="og:type" content="website" />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:image" content="https://dros.ai/dros-logo-horizontal.svg" />
-          <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
-        </Helmet>
+        <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
 
         <CoverageNav
           onStart={start}

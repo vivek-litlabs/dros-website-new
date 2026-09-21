@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BANNER_STORAGE_KEY } from '../../pages/AnnouncementBanner';
+import { BANNER_STORAGE_KEY } from '../../views/AnnouncementBanner';
 
 /*
  * Sitewide announcement-banner dismissal, read from the same localStorage key

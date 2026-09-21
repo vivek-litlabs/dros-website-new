@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+'use client';
+import Link from 'next/link';
 
 /*
  * Page-specific footer for the Coverage Gap Assessment landing page, taken
@@ -19,7 +20,7 @@ export default function CoverageFooter() {
           </a>
         </div>
         <div className="flex flex-wrap items-center gap-x-2">
-          <Link to="/" className={linkClass}>
+          <Link href="/" className={linkClass}>
             dros.ai
           </Link>
           <span aria-hidden="true">·</span>
