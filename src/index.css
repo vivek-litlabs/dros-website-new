@@ -246,6 +246,72 @@ input[type="range"].slider::-moz-range-track {
   border-radius: 6px;
 }
 
+/* Coverage Gap Assessment range slider: cyan fill up to --p, glowing thumb.
+   Separate from .slider above, which is the amber pricing-calculator style. */
+input[type="range"].cg-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"].cg-range:focus-visible {
+  outline: none;
+}
+input[type="range"].cg-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #03D2FC var(--p, 0%), rgba(255, 255, 255, 0.14) var(--p, 0%));
+}
+input[type="range"].cg-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: #03D2FC;
+  border: 3px solid #04070F;
+  box-shadow: 0 0 0 2px #03D2FC, 0 0 20px rgba(3, 210, 252, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+input[type="range"].cg-range:hover::-webkit-slider-thumb {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px #03D2FC, 0 0 26px rgba(3, 210, 252, 0.55);
+}
+input[type="range"].cg-range:active::-webkit-slider-thumb {
+  transform: scale(0.94);
+}
+input[type="range"].cg-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px #03D2FC, 0 0 0 7px rgba(3, 210, 252, 0.25);
+}
+input[type="range"].cg-range::-moz-range-track {
+  height: 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.14);
+}
+input[type="range"].cg-range::-moz-range-progress {
+  height: 6px;
+  border-radius: 6px;
+  background: #03D2FC;
+}
+input[type="range"].cg-range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #03D2FC;
+  border: 3px solid #04070F;
+  box-shadow: 0 0 0 2px #03D2FC, 0 0 20px rgba(3, 210, 252, 0.35);
+  transition: transform 0.15s ease;
+}
+input[type="range"].cg-range:hover::-moz-range-thumb {
+  transform: scale(1.1);
+}
+
 /* Respect reduced-motion: neutralize transforms/animations globally */
 @media (prefers-reduced-motion: reduce) {
   *,
