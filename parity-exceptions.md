@@ -37,7 +37,33 @@ comparison of a blank page mid-navigation.
 
 ## Discovered exceptions
 
-_(none yet)_
+### Navbar-wide: "About" link added, CTA relabelled and re-targeted (intentional deviation)
+**Routes:** all 41 routes in `parity/routes.json` (`Navbar` is rendered on every page).
+**Cause:** Requested content changes, not a migration defect. `src/views/Navbar.tsx`'s
+`routeLinks` array gained a top-level `About` entry (`/about`), and the primary CTA —
+previously "Talk to Our AI Agent" scrolling to the homepage `#demo` widget — now reads
+"Book a demo" and links to `/book-meeting`, on both the desktop bar and the mobile sheet.
+**Resolution:** none needed; this is the intended new state. The baseline was captured
+before these changes and was deliberately left untouched, so `npm run parity` will keep
+reporting a diff in the header strip on every route until the baseline is recaptured.
+**Visual impact:** Confined to the fixed header (nav item count/spacing, CTA label). No
+change below the header on any route.
+**Signed off:** Requested by the user, 2026-09-22.
+
+### `/about` — full redesign, no longer a pixel match to the pre-migration baseline
+**Cause:** `src/views/AboutUs.tsx` was ported from its original bespoke
+slate-950/cyan-gradient look (a holdover from before the design-system pass) onto the
+shared primitives already used by `FirstPartyCollectionsPage`, `NewsroomPage`, etc. —
+`Section`/`Container`/`Heading`/`Card`/`Button`, the `ink`/`accent`/`paper` token palette,
+Saans display type, `Reveal` scroll animation, a full-bleed `ResourceHero` in place of the
+old inline gradient hero, and the shared `BlogCtaBand` in place of the bespoke closing CTA.
+Every section and its copy is preserved; only the visual layer changed. The Leadership
+section also gained a second card (Virat, Co-Founder & COO) alongside the existing one.
+**Resolution:** none — this is an intentional, requested redesign, not a regression.
+`/about` is expected to fail `npm run parity` indefinitely until the baseline is
+recaptured for this route specifically.
+**Visual impact:** Total, and intended, on `/about` only. No other route's content changed.
+**Signed off:** Requested by the user, 2026-09-22.
 
 ### Chromium console noise from third-party video embeds
 **Routes:** `/resources/videos`, `/collections-ai-workshop` (all three viewports)

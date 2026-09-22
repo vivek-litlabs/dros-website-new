@@ -59,6 +59,24 @@ const newsItems: NewsItem[] = [
     date: 'May 2026',
     url: 'https://briefglance.com/articles/ai-overhauls-debt-collection-turning-days-of-work-into-minutes',
   },
+  {
+    id: 'voice-only-outreach-gen-z-millennial',
+    category: 'Press Releases',
+    title: "Voice-Only Outreach 'Structurally Misses' Gen Z and Millennial Debt Holders, Says Vodex AI CEO Ahead of ACA International Convention 2026",
+    excerpt: 'Vodex AI CEO Anshul Shrivastava argues that voice-only outreach cannot address modern collections on its own, pointing to DROS.ai as the AI-native operating layer combining voice, SMS, email, and account intelligence to reach younger debt holders who prefer text-based channels.',
+    source: 'PR Newswire',
+    date: 'July 20, 2026',
+    url: 'https://www.prnewswire.com/news-releases/voice-only-outreach-structurally-misses-gen-z-and-millennial-debt-holders-says-vodex-ai-ceo-ahead-of-aca-international-convention-2026-302829358.html',
+  },
+  {
+    id: 'workforce-concerns-ai-adoption-field-report',
+    category: 'Press Releases',
+    title: 'Workforce Concerns Are Emerging as a Barrier to AI Adoption in Collections, DROS Field Report Finds',
+    excerpt: "A DROS field report from conversations at ACA International's 2026 Annual Convention finds that workforce concerns, not regulatory issues, are the primary internal barrier to AI voice adoption in collections, with the stronger opportunity lying in reaching accounts current staff cannot meaningfully contact.",
+    source: 'PR Newswire',
+    date: 'September 10, 2026',
+    url: 'https://www.prnewswire.com/news-releases/workforce-concerns-are-emerging-as-a-barrier-to-ai-adoption-in-collections-dros-field-report-finds-302872470.html',
+  },
 ];
 
 const categories: Category[] = ['All', 'Press Releases', 'Featured In'];

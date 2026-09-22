@@ -13,6 +13,10 @@ interface NavbarProps {
   transparent?: boolean;
 }
 
+// Hoisted so the motion-wrapped Link isn't recreated on every render -
+// same pattern as the shared Button primitive in components/ui.
+const MotionLink = motion(Link);
+
 function scrollToId(id: string, bannerVisible: boolean) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -196,6 +200,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
   ];
 
   const routeLinks: { label: string; to: string }[] = [
+    { label: 'About', to: '/about' },
     { label: 'Pricing', to: '/pricing' },
     { label: 'Compliance', to: '/trust-center' },
   ];
@@ -442,8 +447,8 @@ export default function Navbar({ transparent = false }: NavbarProps) {
               >
                 Login
               </a>
-              <motion.button
-                onClick={() => handleAnchorClick('demo')}
+              <MotionLink
+                href="/book-meeting"
                 whileHover={reduce ? undefined : { scale: 1.03 }}
                 whileTap={reduce ? undefined : { scale: 0.97 }}
                 transition={springSnappy}
@@ -451,9 +456,9 @@ export default function Navbar({ transparent = false }: NavbarProps) {
               >
                 {/* Sheen sweep on hover */}
                 <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/5 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                Talk to Our AI Agent
+                Book a demo
                 <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </motion.button>
+              </MotionLink>
             </div>
 
             {/* Mobile hamburger */}
@@ -621,13 +626,14 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                 >
                   Login
                 </a>
-                <button
-                  onClick={() => handleAnchorClick('demo')}
+                <Link
+                  href="/book-meeting"
+                  onClick={() => setIsMenuOpen(false)}
                   className="flex w-full items-center justify-center gap-1.5 rounded-full bg-white px-6 py-3 text-center font-medium text-[#0C1E45]"
                 >
-                  Talk to Our AI Agent
+                  Book a demo
                   <ArrowRight className="h-4 w-4" />
-                </button>
+                </Link>
               </motion.div>
             </motion.div>
           </motion.div>
