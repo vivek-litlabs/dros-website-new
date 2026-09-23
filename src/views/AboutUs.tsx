@@ -38,12 +38,11 @@ const LEADERSHIP: LeadershipMember[] = [
     bio: 'Anshul has worked closely with collections operations through the evolution of AI-led engagement systems, helping shape products built around both communication and operational workflow challenges.',
   },
   {
-    // TODO(user): confirm Virat's full name, LinkedIn URL, and swap in his
-    // real bio - both are placeholders until supplied.
-    name: 'Virat',
+    name: 'Virat Joshi',
     title: 'Co-Founder & COO',
-    image: '/team/virat.png',
-    bio: 'Virat leads operations at DROS, bringing a focus on execution and scale to how the platform is built and delivered for collections teams.',
+    image: '/team/virat.jpg',
+    linkedin: 'https://www.linkedin.com/in/virat-joshi-02a7b096',
+    bio: 'Virat leads operations and global GTM at DROS, focusing on execution and scale for how the platform is built, marketed, and delivered to debt collections teams. His deep understanding of debt collections, both pre- and post-delinquency, helps him deliver outcomes for customers.',
   },
 ];
 
