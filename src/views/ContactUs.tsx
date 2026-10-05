@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import ResourceHero from '../components/ResourceHero';
 import { Section, Container, Button } from '../components/ui';
 import Reveal, { RevealItem } from '../components/Reveal';
+import LeaveMessage from '../components/LeaveMessage';
 
 export default function ContactUs() {
   return (
@@ -117,6 +118,8 @@ export default function ContactUs() {
           </div>
         </Container>
       </Section>
+
+      <LeaveMessage tone="light" source="contact" />
 
       <Footer />
     </div>

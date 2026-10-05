@@ -12,6 +12,7 @@ import SocialProof from '../components/home/SocialProof';
 import Pricing from '../components/home/Pricing';
 import DemoWidget from '../components/home/DemoWidget';
 import PostCTA from '../components/home/PostCTA';
+import LeaveMessage from '../components/LeaveMessage';
 
 export default function App() {
   // Cross-page navigation can arrive with a section to scroll to, written by
@@ -76,6 +77,7 @@ export default function App() {
         <SocialProof />
         <Pricing />
         <DemoWidget />
+        <LeaveMessage tone="panel" source="home" />
         <PostCTA />
       </main>
 
