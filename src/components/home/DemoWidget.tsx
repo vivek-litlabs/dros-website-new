@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, User } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Mail, User } from 'lucide-react';
 import { Section, Container, Heading, Eyebrow } from '../ui';
 import { fadeUp } from '../../lib/motion';
 import { trackCta } from '../../lib/analytics';
+import { submitDemoCallLead } from '../../lib/hubspot';
 import { composePhone, demoCallErrorMessage, isAllowedPhone, triggerDemoCall } from '../../lib/api';
 import { COUNTRIES, defaultCountryIso } from '../../lib/countries';
 import CountryCodeSelect from '../CountryCodeSelect';
@@ -28,6 +29,7 @@ export default function DemoWidget({
     setCountry(defaultCountryIso());
   }, []);
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -37,7 +39,7 @@ export default function DemoWidget({
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim() || !token || loading) return;
+    if (!name.trim() || !phone.trim() || !email.trim() || !token || loading) return;
     trackCta('demo_widget_call_me_now');
     setError(null);
     setLoading(true);
@@ -50,6 +52,7 @@ export default function DemoWidget({
       setLoading(false);
       return;
     }
+    void submitDemoCallLead({ name: name.trim(), email: email.trim(), phone: fullPhone }, 'Demo Widget - Call me now');
     const result = await triggerDemoCall(name.trim(), fullPhone, token);
     setLoading(false);
     // reCAPTCHA tokens are single-use and expire in ~2 min - reset after every
@@ -103,7 +106,21 @@ export default function DemoWidget({
                     className="h-[52px] w-full rounded-btn border border-line-dark bg-white pl-11 pr-4 text-ink-dark placeholder:text-ink-grey/50 focus:border-accent/60 focus:outline-none focus:ring-2 focus:ring-accent/30"
                   />
                 </div>
-                <div className="flex h-[52px] items-center gap-2.5 rounded-btn border border-line-dark bg-white pl-3 pr-4 focus-within:border-accent/60 focus-within:ring-2 focus-within:ring-accent/30">
+                <div className="relative">
+                  <Mail className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-grey/60" />
+                  <input
+                    type="email"
+                    id="demo-widget-email"
+                    name="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Work email"
+                    aria-label="Work email"
+                    className="h-[52px] w-full rounded-btn border border-line-dark bg-white pl-11 pr-4 text-ink-dark placeholder:text-ink-grey/50 focus:border-accent/60 focus:outline-none focus:ring-2 focus:ring-accent/30"
+                  />
+                </div>
+                <div className="flex h-[52px] sm:col-span-2 items-center gap-2.5 rounded-btn border border-line-dark bg-white pl-3 pr-4 focus-within:border-accent/60 focus-within:ring-2 focus-within:ring-accent/30">
                   <CountryCodeSelect
                     id="demo-widget-country"
                     tone="light"

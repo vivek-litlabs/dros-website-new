@@ -4,6 +4,7 @@ import AcaContainer from './AcaContainer';
 import { composePhone, demoCallErrorMessage, isAllowedPhone, triggerDemoCall } from '../../../lib/api';
 import { COUNTRIES, defaultCountryIso } from '../../../lib/countries';
 import { trackCta } from '../../../lib/analytics';
+import { submitDemoCallLead } from '../../../lib/hubspot';
 import CountryCodeSelect from '../../CountryCodeSelect';
 import Recaptcha, { type RecaptchaHandle } from '../../Recaptcha';
 import VoiceCallModal from '../VoiceCallModal';
@@ -28,7 +29,7 @@ export default function PickUseCase() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim() || !token || loading) return;
+    if (!name.trim() || !phone.trim() || !email.trim() || !token || loading) return;
     trackCta('pick_use_case_call_me_now');
     setError(null);
     setLoading(true);
@@ -41,6 +42,7 @@ export default function PickUseCase() {
       setLoading(false);
       return;
     }
+    void submitDemoCallLead({ name: name.trim(), email: email.trim(), phone: fullPhone }, 'ACA - Live Demo');
     const result = await triggerDemoCall(name.trim(), fullPhone, token);
     setLoading(false);
     // reCAPTCHA tokens are single-use and expire in ~2 min - reset after every
@@ -128,6 +130,7 @@ export default function PickUseCase() {
                 <input
                   id="uc-email"
                   type="email"
+                  required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Yourcompany@.com"

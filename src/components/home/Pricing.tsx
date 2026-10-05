@@ -43,10 +43,8 @@ export default function Pricing() {
             <RevealItem key={plan.key}>
               <motion.div
                 whileHover={{ y: -8, scale: 1.015, transition: { type: 'spring', stiffness: 280, damping: 22 } }}
-                onHoverStart={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.22)'; }}
-                onHoverEnd={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)'; }}
-                className="relative flex h-full flex-col overflow-hidden"
-                style={{ background: '#111', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 18, padding: 28, cursor: 'default', transition: 'border-color 0.22s ease' }}
+                className="relative flex h-full flex-col overflow-hidden border border-white/10 hover:border-white/[0.22]"
+                style={{ background: '#111', borderRadius: 18, padding: 28, cursor: 'default', transition: 'border-color 0.22s ease' }}
               >
                 {plan.badge && (
                   <div style={{ position: 'absolute', inset: 0, borderRadius: 18, pointerEvents: 'none', background: 'radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255,255,255,0.04) 0%, transparent 70%)' }} />

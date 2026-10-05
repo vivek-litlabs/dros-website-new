@@ -87,14 +87,15 @@ export default function ContactUs() {
                     <p className="mb-1 text-xs font-medium uppercase tracking-wide text-accent">US Offices</p>
                     <p className="text-[15px] text-ink-dark/80">1592 Union St #473</p>
                     <p className="text-[15px] text-ink-dark/80">San Francisco, CA 94123</p>
+                    <p className="mt-2 text-[15px] text-ink-dark/80">Vodex AI Inc, 8 The Green</p>
+                    <p className="text-[15px] text-ink-dark/80">Dover, DE 19901</p>
                   </div>
-                  <p className="text-[15px] text-ink-dark/80">Delaware</p>
                   <div>
                     <p className="mb-1 text-xs font-medium uppercase tracking-wide text-accent">Dev Center</p>
-                    <p className="text-[15px] text-ink-dark/80">Bengaluru, India</p>
+                    <p className="text-[15px] text-ink-dark/80">WeWork, Salarpuria Symbiosis</p>
+                    <p className="text-[15px] text-ink-dark/80">Arakere Bannerghatta Rd, Bengaluru, India</p>
                   </div>
                 </div>
-                <p className="mt-3 text-sm text-ink-grey">Serving agencies nationwide</p>
               </div>
             </RevealItem>
           </Reveal>

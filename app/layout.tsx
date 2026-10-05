@@ -45,15 +45,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="font/woff2"
           crossOrigin=""
         />
+        {/* suppressHydrationWarning: the script below flips media to "all" once the
+            sheet loads, usually before hydration, so React sees "all" where it rendered
+            "print". That difference is intended. */}
         <link
           href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap"
           rel="stylesheet"
           media="print"
+          suppressHydrationWarning
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@1&family=Space+Grotesk:wght@400;500;600;700&display=swap"
           rel="stylesheet"
           media="print"
+          suppressHydrationWarning
         />
         {/* The media="print" -> "all" swap must run without React, matching index.html. */}
         <script

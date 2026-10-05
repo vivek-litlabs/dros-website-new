@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Play, User } from 'lucide-react';
+import { ArrowRight, Mail, Play, User } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Container } from '../ui';
 import { RevealItem } from '../Reveal';
 import { staggerContainer } from '../../lib/motion';
 import { trackCta } from '../../lib/analytics';
+import { submitDemoCallLead } from '../../lib/hubspot';
 import { composePhone, demoCallErrorMessage, isAllowedPhone, triggerDemoCall } from '../../lib/api';
 import { COUNTRIES, defaultCountryIso } from '../../lib/countries';
 import CountryCodeSelect from '../CountryCodeSelect';
@@ -77,6 +78,7 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
     setCountry(defaultCountryIso());
   }, []);
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [token, setToken] = useState<string | null>(null);
@@ -84,7 +86,7 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !phone.trim() || !token || loading) return;
+    if (!name.trim() || !phone.trim() || !email.trim() || !token || loading) return;
     trackCta('hero_initiate_call');
     setError(null);
     setLoading(true);
@@ -97,6 +99,7 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
       setLoading(false);
       return;
     }
+    void submitDemoCallLead({ name: name.trim(), email: email.trim(), phone: fullPhone }, 'Hero - Initiate Call');
     const result = await triggerDemoCall(name.trim(), fullPhone, token);
     setLoading(false);
     // reCAPTCHA tokens are single-use and expire in ~2 min - reset after every
@@ -133,7 +136,21 @@ function CallWidget({ onStart }: { onStart: (phone: string) => void }) {
                   className="autofill-transparent h-full min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
                 />
               </div>
-              <div className="autofill-wrap flex h-[50px] items-center gap-2.5 rounded-xl bg-white/[0.05] pl-3 pr-3 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50">
+              <div className="autofill-wrap flex h-[50px] items-center gap-2.5 rounded-xl bg-white/[0.05] pl-4 pr-3 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50">
+                <Mail className="h-4 w-4 shrink-0 text-white/50" />
+                <input
+                  type="email"
+                  id="hero-call-email"
+                  name="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Work email"
+                  aria-label="Work email"
+                  className="autofill-transparent h-full min-w-0 flex-1 bg-transparent text-sm text-white placeholder:text-white/40 focus:outline-none"
+                />
+              </div>
+              <div className="autofill-wrap flex h-[50px] items-center gap-2.5 rounded-xl bg-white/[0.05] pl-3 pr-3 sm:col-span-2 ring-1 ring-white/10 transition-colors focus-within:ring-accent/50">
                 <CountryCodeSelect
                   id="hero-call-country"
                   tone="dark"

@@ -127,6 +127,14 @@ export default function Navbar({ transparent = false }: NavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const reduce = useReducedMotion();
+  // Gestures read reduced motion only after mount: framer-motion adds tabindex="0"
+  // to elements with whileTap, and the server (no window) always renders them, so
+  // keying whileTap on `reduce` directly would hydrate mismatched for reduced-motion
+  // visitors.
+  const [reduceGestures, setReduceGestures] = useState(false);
+  useEffect(() => {
+    setReduceGestures(!!reduce);
+  }, [reduce]);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -232,9 +240,11 @@ export default function Navbar({ transparent = false }: NavbarProps) {
         </>
       )}
       <motion.nav
-        initial={reduce ? false : { y: -90, opacity: 0 }}
+        // Always start from the SSR-rendered state (the server can't know about reduced
+        // motion); reduced-motion visitors get an instant transition instead of the slide.
+        initial={{ y: -90, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ ...springStd, delay: 0.05 }}
+        transition={reduce ? { duration: 0 } : { ...springStd, delay: 0.05 }}
         className={`fixed z-50 w-full ${bannerDismissed ? 'top-0' : 'top-[64px] sm:top-11'}`}
       >
       <motion.div
@@ -260,8 +270,8 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                 src="/DROS_horizontal_dark_bg_1.svg"
                 alt="DROS"
                 className="h-8 w-auto"
-                whileHover={reduce ? undefined : { scale: 1.03 }}
-                whileTap={reduce ? undefined : { scale: 0.97 }}
+                whileHover={reduceGestures ? undefined : { scale: 1.03 }}
+                whileTap={reduceGestures ? undefined : { scale: 0.97 }}
                 transition={springSnappy}
               />
             </Link>
@@ -449,8 +459,8 @@ export default function Navbar({ transparent = false }: NavbarProps) {
               </a>
               <MotionLink
                 href="/book-meeting"
-                whileHover={reduce ? undefined : { scale: 1.03 }}
-                whileTap={reduce ? undefined : { scale: 0.97 }}
+                whileHover={reduceGestures ? undefined : { scale: 1.03 }}
+                whileTap={reduceGestures ? undefined : { scale: 0.97 }}
                 transition={springSnappy}
                 className="group relative inline-flex items-center gap-1.5 overflow-hidden rounded-full bg-white px-5 py-2.5 text-sm font-medium text-[#0C1E45]"
               >
