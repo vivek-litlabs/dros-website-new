@@ -1,7 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import type { ReactNode, ElementType } from 'react';
-import { fadeUp, fadeUpLg, viewportOnce, springStd } from '../lib/motion';
+import { fadeUp, fadeUpLg, viewportOnce, viewportContainer, springStd } from '../lib/motion';
 
 interface RevealProps {
   children: ReactNode;
@@ -39,7 +39,9 @@ export default function Reveal({
         className={className}
         initial="hidden"
         whileInView="show"
-        viewport={viewportOnce}
+        // A stagger parent is as tall as its child count makes it, so it needs the
+        // height-proof threshold - see viewportContainer.
+        viewport={viewportContainer}
         variants={{
           hidden: {},
           show: { transition: { staggerChildren: stagger, delayChildren: delay } },
