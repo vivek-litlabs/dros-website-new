@@ -71,9 +71,7 @@ export default function AsHeardOn() {
             </div>
           </div>
 
-          <p className="mt-10 text-center text-base text-ink-grey sm:text-lg">
-            Find us at <span className="text-ink-dark">{EVENTS}</span>, and more.
-          </p>
+          
         </Reveal>
       </Container>
 
