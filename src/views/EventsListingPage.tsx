@@ -15,15 +15,7 @@ interface Event {
   description: string;
 }
 
-const upcomingEvents: Event[] = [
-  {
-    title: 'ACA Annual Convention 2026',
-    location: 'Orlando, FL',
-    date: 'Jul 22 - 24, 2026',
-    slug: '/events/2026/aca-orlando',
-    description: 'Join us at the ACA Annual Convention in Orlando to explore how DROS and Vodex are revolutionizing debt collection with cutting-edge AI technology and compliant voice automation.'
-  }
-];
+const upcomingEvents: Event[] = [];
 
 const pastEvents: Event[] = [
   {
@@ -39,6 +31,13 @@ const pastEvents: Event[] = [
     date: 'Feb 9 - 12, 2026',
     slug: '/events/2026/rmai-las-vegas',
     description: 'Meet the DROS team at RMAI Las Vegas. Learn about our AI-native collections CRM and compliant Voice AI solutions for modern agencies.'
+  },
+  {
+    title: 'ACA Annual Convention 2026',
+    location: 'Orlando, FL',
+    date: 'Jul 22 - 24, 2026',
+    slug: '/events/2026/aca-orlando',
+    description: 'Join us at the ACA Annual Convention in Orlando to explore how DROS and Vodex are revolutionizing debt collection with cutting-edge AI technology and compliant voice automation.'
   }
 ];
 
@@ -56,16 +55,18 @@ export default function EventsListingPage() {
 
       <div className="mx-auto w-full max-w-[1440px] px-6 pb-16 pt-16 sm:px-10 lg:px-[60px]">
 
-        <div className="mb-16">
-          <h2 className="mb-6 font-saans text-xl font-light tracking-[-0.03em] text-black">Upcoming Events</h2>
-          <Reveal stagger={0.06} className="flex flex-col divide-y divide-[#EDEDED]">
-            {upcomingEvents.map((event) => (
-              <RevealItem key={event.slug}>
-                <EventRow event={event} />
-              </RevealItem>
-            ))}
-          </Reveal>
-        </div>
+        {upcomingEvents.length > 0 && (
+          <div className="mb-16">
+            <h2 className="mb-6 font-saans text-xl font-light tracking-[-0.03em] text-black">Upcoming Events</h2>
+            <Reveal stagger={0.06} className="flex flex-col divide-y divide-[#EDEDED]">
+              {upcomingEvents.map((event) => (
+                <RevealItem key={event.slug}>
+                  <EventRow event={event} />
+                </RevealItem>
+              ))}
+            </Reveal>
+          </div>
+        )}
 
         <div>
           <h2 className="mb-6 font-saans text-xl font-light tracking-[-0.03em] text-black">Past Events</h2>

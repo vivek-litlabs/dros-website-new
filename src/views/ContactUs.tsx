@@ -92,9 +92,12 @@ export default function ContactUs() {
                     <p className="text-[15px] text-ink-dark/80">Dover, DE 19901</p>
                   </div>
                   <div>
-                    <p className="mb-1 text-xs font-medium uppercase tracking-wide text-accent">Dev Center</p>
+                    <p className="mb-1 text-xs font-medium uppercase tracking-wide text-accent">India</p>
                     <p className="text-[15px] text-ink-dark/80">WeWork, Salarpuria Symbiosis</p>
-                    <p className="text-[15px] text-ink-dark/80">Arakere Bannerghatta Rd, Bengaluru, India</p>
+                    <p className="text-[15px] text-ink-dark/80">Arakere Bannerghatta Rd, Bengaluru</p>
+                    <p className="mt-2 text-[15px] text-ink-dark/80">Aurum Q Parć, Thane - Belapur Rd</p>
+                    <p className="text-[15px] text-ink-dark/80">Reliance Corporate Park, MIDC Industrial Area</p>
+                    <p className="text-[15px] text-ink-dark/80">Ghansoli, Navi Mumbai, Maharashtra 400710</p>
                   </div>
                 </div>
               </div>

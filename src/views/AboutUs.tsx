@@ -110,13 +110,31 @@ const LOCATIONS = [
   {
     kicker: 'US Offices',
     name: 'United States',
-    lines: ['1592 Union St #473', 'San Francisco, CA 94123'],
+    offices: [
+      {
+        city: 'San Francisco',
+        lines: ['1592 Union St #473', 'San Francisco, CA 94123'],
+      },
+    ],
     footnote: 'Delaware',
   },
   {
-    kicker: 'Dev Center',
+    kicker: 'India Offices',
     name: 'India',
-    lines: ['Bengaluru'],
+    offices: [
+      {
+        city: 'Bengaluru',
+        lines: ['WeWork, Salarpuria Symbiosis', 'Arakere Bannerghatta Rd'],
+      },
+      {
+        city: 'Mumbai',
+        lines: [
+          'Aurum Q Parć, Thane - Belapur Rd',
+          'Reliance Corporate Park, MIDC Industrial Area',
+          'Ghansoli, Navi Mumbai, Maharashtra 400710',
+        ],
+      },
+    ],
   },
 ];
 
@@ -368,10 +386,15 @@ export default function AboutUs() {
                     </div>
                     <p className="text-xs uppercase tracking-[.12em] text-ink-grey">{loc.kicker}</p>
                     <h3 className="mt-2 text-2xl font-semibold text-ink-dark">{loc.name}</h3>
-                    {loc.lines.map((line) => (
-                      <p key={line} className="mt-1 text-[1rem] font-semibold text-accent">{line}</p>
+                    {loc.offices.map((office) => (
+                      <div key={office.city} className="mt-4">
+                        <p className="text-[1rem] font-semibold text-accent">{office.city}</p>
+                        {office.lines.map((line) => (
+                          <p key={line} className="mt-0.5 text-sm leading-relaxed text-ink-grey">{line}</p>
+                        ))}
+                      </div>
                     ))}
-                    {loc.footnote && <p className="mt-2 text-sm text-ink-grey">{loc.footnote}</p>}
+                    {loc.footnote && <p className="mt-4 text-sm text-ink-grey">{loc.footnote}</p>}
                   </div>
                 </RevealItem>
               ))}
