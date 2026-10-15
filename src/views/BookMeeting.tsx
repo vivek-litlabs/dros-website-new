@@ -24,7 +24,7 @@ export default function BookMeeting() {
           <h1 className="text-4xl font-bold text-center mb-8">Book a Meeting</h1>
           <div
             className="meetings-iframe-container"
-            data-src="https://meetings-na2.hubspot.com/anshul20/dros?embed=true"
+            data-src="https://meetings-na2.hubspot.com/anshul20/meet-the-dros-team?embed=true"
           />
         </div>
       </div>
