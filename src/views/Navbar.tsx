@@ -38,17 +38,27 @@ interface ResourceItem {
   external?: boolean;
 }
 
-const WHO_WE_SERVE_ITEMS: ResourceItem[] = [
-  { label: 'First-Party Collections', href: '/collections/first-party', description: 'AI-orchestrated engagement for in-house collections teams' },
-  { label: 'Third-Party Collections', href: '/collections/third-party', description: 'AI-powered engagement for agencies running client portfolios' },
-  { label: 'Debt Buyer Collections', href: '/collections/debt-buyer', description: 'The engagement OS for debt buyers who self-collect' },
-  { label: 'Credit Unions', href: '/collections/credit-unions', description: 'Compliant, on-brand member outreach from first notice to resolution' },
-  { label: 'Consumer Lending', href: '/collections/consumer-lending', description: 'Cure accounts in the first bucket before they ever roll' },
-];
-
-const WHO_WE_SERVE_COLUMNS: ResourceItem[][] = [
-  WHO_WE_SERVE_ITEMS.slice(0, 3),
-  WHO_WE_SERVE_ITEMS.slice(3),
+// Who We Serve is split into two labelled columns: 'By collection model' and
+// 'By industry'. Credit Unions and Consumer Lending sit under By industry.
+// Card issuers and BNPL will be added to By industry once those pages exist.
+const WHO_WE_SERVE_COLUMNS: { title: string; items: ResourceItem[] }[] = [
+  {
+    title: 'By collection model',
+    items: [
+      { label: 'First-Party Collections', href: '/collections/first-party', description: 'AI-orchestrated engagement for in-house collections teams' },
+      { label: 'Third-Party Collections', href: '/collections/third-party', description: 'AI-powered engagement for agencies running client portfolios' },
+      { label: 'Debt Buyers', href: '/collections/debt-buyer', description: 'The engagement OS for debt buyers who self-collect' },
+    ],
+  },
+  {
+    title: 'By industry',
+    items: [
+      { label: 'Auto Finance', href: '/industry/auto-finance', description: 'AI agents for auto loan collections across the delinquent book' },
+      { label: 'Mortgage Servicers', href: '/industry/mortgage', description: 'AI agents for mortgage default servicing contact and follow-up' },
+      { label: 'Consumer Lending', href: '/collections/consumer-lending', description: 'Cure accounts in the first bucket before they ever roll' },
+      { label: 'Credit Unions', href: '/collections/credit-unions', description: 'Compliant, on-brand member outreach from first notice to resolution' },
+    ],
+  },
 ];
 
 const RESOURCE_COLUMNS: ResourceItem[][] = [
@@ -311,14 +321,15 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                         animate="show"
                         exit="exit"
                         style={{ transformOrigin: 'top left', ...panelSurface, boxShadow: panelShadow }}
-                        className="w-[420px] rounded-3xl p-4"
+                        className="w-[440px] rounded-3xl p-4"
                       >
                         <div className="flex gap-4">
                           {WHO_WE_SERVE_COLUMNS.map((column, columnIndex) => (
-                            <div key={columnIndex} className="contents">
+                            <div key={column.title} className="contents">
                               {columnIndex === 1 && <div className="w-px shrink-0 self-stretch bg-hair" />}
-                              <div className="flex w-[190px] flex-col gap-3">
-                                {column.map(({ label, href, description }) => (
+                              <div className="flex w-[196px] flex-col gap-1">
+                                <div className="px-3 pb-1 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-ink/40">{column.title}</div>
+                                {column.items.map(({ label, href, description }) => (
                                   <motion.div key={label} variants={dropdownItem}>
                                     <Link
                                       href={href}
@@ -449,14 +460,6 @@ export default function Navbar({ transparent = false }: NavbarProps) {
 
             {/* Desktop CTAs */}
             <div className="hidden items-center gap-2 lg:flex">
-              <a
-                href="https://app.dros.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full px-3.5 py-2 text-sm text-ink/65 transition-colors hover:text-ink"
-              >
-                Login
-              </a>
               <MotionLink
                 href="/book-meeting"
                 whileHover={reduceGestures ? undefined : { scale: 1.03 }}
@@ -559,16 +562,21 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                       transition={{ duration: 0.24, ease: [0.44, 0, 0.11, 1] }}
                       className="ml-3 overflow-hidden border-l border-hair pl-3"
                     >
-                      {WHO_WE_SERVE_ITEMS.map(({ label, href, description }) => (
-                        <Link
-                          key={label}
-                          href={href}
-                          className="block py-2 transition-colors hover:text-ink"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          <span className="flex items-center text-sm text-ink/70">{label}</span>
-                          <span className="block text-xs text-ink/40">{description}</span>
-                        </Link>
+                      {WHO_WE_SERVE_COLUMNS.map((column) => (
+                        <div key={column.title} className="pt-1">
+                          <div className="pb-1 pt-2 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-ink/40">{column.title}</div>
+                          {column.items.map(({ label, href, description }) => (
+                            <Link
+                              key={label}
+                              href={href}
+                              className="block py-2 transition-colors hover:text-ink"
+                              onClick={() => setIsMenuOpen(false)}
+                            >
+                              <span className="flex items-center text-sm text-ink/70">{label}</span>
+                              <span className="block text-xs text-ink/40">{description}</span>
+                            </Link>
+                          ))}
+                        </div>
                       ))}
                     </motion.div>
                   )}
@@ -628,14 +636,6 @@ export default function Navbar({ transparent = false }: NavbarProps) {
               </motion.div>
 
               <motion.div variants={dropdownItem} className="space-y-3 pt-4">
-                <a
-                  href="https://app.dros.ai"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full rounded-full border border-line px-6 py-2.5 text-center text-ink/80"
-                >
-                  Login
-                </a>
                 <Link
                   href="/book-meeting"
                   onClick={() => setIsMenuOpen(false)}
