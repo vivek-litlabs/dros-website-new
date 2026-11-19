@@ -4,7 +4,6 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import Hero from '../components/home/Hero';
 import AsHeardOn from '../components/home/AsHeardOn';
-import MeetYourAgent from '../components/home/MeetYourAgent';
 import WhoIsItFor from '../components/home/WhoIsItFor';
 import HowItWorks from '../components/home/HowItWorks';
 import Features from '../components/home/Features';
@@ -72,7 +71,6 @@ export default function App() {
         <Hero />
         <AsHeardOn />
         <WhoIsItFor />
-        <MeetYourAgent />
         <HowItWorks />
         <Features />
         <Compliance />

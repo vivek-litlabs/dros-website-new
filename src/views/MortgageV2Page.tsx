@@ -849,7 +849,7 @@ export default function MortgageV2Page() {
                       onClick={() => setWho(i)}
                       className={`group flex shrink-0 items-baseline gap-3 whitespace-nowrap border-b-2 px-2 py-3.5 text-left transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 lg:-ml-px lg:shrink lg:whitespace-normal lg:border-b-0 lg:border-l-2 lg:px-5 lg:py-4 ${on ? 'border-accent' : 'border-transparent'}`}
                     >
-                      <span className={`font-mono text-[12px] tabular-nums transition-colors ${on ? 'text-accent' : 'text-ink/30 group-hover:text-ink/55'}`}>{String(i + 1).padStart(2, '0')}</span>
+                      <span className={`whitespace-nowrap font-mono text-[12px] tabular-nums transition-colors ${on ? 'text-accent' : 'text-ink/30 group-hover:text-ink/55'}`}>{String(i + 1).padStart(2, '0')}</span>
                       <span className={`font-display text-[16px] leading-tight tracking-[-0.01em] transition-colors lg:text-[18px] ${on ? 'text-ink' : 'text-ink/55 group-hover:text-ink/85'}`}>{a.h}</span>
                     </button>
                   );
@@ -857,8 +857,7 @@ export default function MortgageV2Page() {
               </div>
 
               <div role="tabpanel" id="mv2-who-panel" aria-labelledby={`mv2-who-tab-${who}`} key={who} className="animate-[fadeSlideUp_0.32s_ease] motion-reduce:animate-none">
-                <div className="font-mono text-[11px] uppercase tracking-[0.12em] text-accent/70">{String(who + 1).padStart(2, '0')}</div>
-                <h3 className="mt-3 font-display text-[26px] leading-tight tracking-[-0.02em] text-ink sm:text-[30px]">{AUDIENCES[who].h}</h3>
+                <h3 className="font-display text-[26px] leading-tight tracking-[-0.02em] text-ink sm:text-[30px]">{AUDIENCES[who].h}</h3>
                 <ul className="mt-7 divide-y divide-hair border-t border-hair">
                   {AUDIENCES[who].items.map((it, i) => (
                     <li key={it} className="flex gap-5 py-4">
